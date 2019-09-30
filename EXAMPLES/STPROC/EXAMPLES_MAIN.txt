@@ -2,6 +2,7 @@ function examples_Main( object, method, param1, param2, param3, param4, param5, 
 /*
 
 Some comment
+more comments in master
 
    Author  : Captain C
    Date    : August 2002
