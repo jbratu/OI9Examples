@@ -1,0 +1,15 @@
+{
+    "record1": {
+        "<1>": "MVBFS",
+        "<2>": "These are volume definitions for the MVBFS connector",
+        "<3>": {
+            "<3,1>": "ACCESS",
+            "<3,2>": "DESTROY",
+            "<3,3>": "WRITE"
+        },
+        "<4>": "",
+        "<5>": "1",
+        "<6>": "GENERAL",
+        "<7>": "DB"
+    }
+}

@@ -1,0 +1,6 @@
+compile insert URLBFS_COMMON
+// Named common for URL BFS support
+// (c) 2008 Revelation Software, Inc.  All Rights Reserved
+
+common /URLBFS/ URL_WRITE_RESPONSE@
+

@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "declare subroutine Send_Event\r\n*---\r\n* some fields are required, but we'll let the user tab by them and just check for \r\n* required fields on the Write Event.\r\n* the IOOPTIONS property handles that for us.\r\n*---\r\n\r\noptions = @@Window->iooptions\r\n\r\noptions<10> = 1\r\n\r\n@@Window->iooptions = options\r\n\r\n*---\r\n* if this window is created from the dialog_box function from the CUST_ENTRY screen it will pass in a key \r\n* for a specific record to be displayed\r\n*---\r\n\r\nif len(CreateParam) then\r\n\t.id->defprop = CreateParam\r\n\tSend_Event(@window,\"READ\")\r\nend\r\n\r\nRETURN 1"
+    }
+}

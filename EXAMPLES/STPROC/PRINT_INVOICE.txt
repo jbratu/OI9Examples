@@ -1,0 +1,215 @@
+subroutine print_invoice(parent,invoice)
+
+********************************
+* Use OIPI to print an Invoice *
+********************************
+
+**********************************************
+* Declare functions, subroutines and inserts *
+**********************************************
+declare function unassigned,Set_Printer, Get_Printer, RGB, Msg, OConv
+declare subroutine Msg, Set_Printer, OConv
+$insert OIPRINT_EQUATES
+
+*********************
+* Declare variables *
+*********************
+
+if unassigned(parent) then parent = ''
+if unassigned(invoice) then invoice = ''
+
+if invoice = '' then
+	Msg(parent,'Could not process invoice missing Customer or Invoice #')
+	return
+end
+
+*****************************
+* Open the INVOICES table   *
+*****************************
+
+open 'INVOICES' to f_invoices then
+	Open 'DICT.INVOICES' to @DICT else
+		Msg(parent,'Could not open Invoices dictionary')
+		return
+	end
+end else
+	Msg(parent,'Could not open Invoices file')
+	return
+end
+
+****************************
+* Read the invoice number  *
+****************************
+
+@ID = invoice
+
+read @RECORD from f_invoices, @ID else
+	Msg(parent,'Could not read Invoice number:':@ID)
+	return
+end
+
+**************************************************************************
+* Initialize the printing session with a name, dialog title, and margins *
+**************************************************************************
+
+name = "Invoice"
+title = ""
+title<1> = "Printing Invoice..."
+title<2> = "Example Print Preview"
+margin = 1:@FM:1.75:@FM:1:@FM:1
+
+**************************************************************************
+* Display report with Print Preview Window at the last size and position *
+**************************************************************************
+
+x = Set_Printer("INIT", name, title, margin, "", 4)
+if x < 0 then
+  x = msg("", "INIT ERROR = ":x)
+end
+
+************************************************
+* Set the text font and the Header/Footer font *
+************************************************
+
+x = Set_Printer("FONTHEADFOOT", "Times New Roman":@FM:12)
+font = "Arial":@FM:12:@FM:"L"
+fontBold = "Arial":@FM:12:@FM:"L":@FM:1
+x = Set_Printer("FONT", font)
+if x < 0 then
+  x = msg("", "FONTHEADFOOT Error")
+end
+
+**********************************************************************************************
+* Set the header with the text "Sample Invoice" centered , and "Page #" aligned to the right *
+* margin on the first line.  The text "for the OIPI 2.0" is centered on the second line.     *
+**********************************************************************************************
+
+x = Set_Printer("HEADER", @vm:"OIPI Examples Application":@vm:"Page 'P'":@FM:@vm:"Invoice":@FM)
+if x < 0 then
+  x = msg("", "HEADER Error")
+end
+
+**********************************************************************************************
+* Print a bitmap at 1 inch from the top and 1 inch from the left side of the page.
+* The left and top values are calculated from the margins.  The width and height of the
+* bitmap will be 0.5 by 0.5 inches, and the bitmap will print on every page.
+**********************************************************************************************
+
+x = Set_Printer("BMP", "PRINTER.BMP", 0:@FM:-0.75:@FM:0.5:@FM:0.5, 0, 1)
+if x < 0 then
+  x = msg("", "BMP Error")
+end
+
+**********************************************************************************************
+* Set the text font to bold Arial to print the title of the Date/Invoice table.  Then
+* print the date and invoice number with no bold.  The first column of the table is blank
+* to place the date and invoice number in the correct location on the page.  The date and
+* invoice number are centered and there is no border around this table.  These tables have
+* no column headers.
+**********************************************************************************************
+
+x = Set_Printer("FONT", fontBold)
+table1 = ",Date,Invoice No."
+convert "," to @vm in table1
+
+x = Set_Printer("ADDTABLE", ">5040":@VM:"^2160":@VM:"^2160":@FM, "", table1, "", "", "", TB_NONE)
+
+x = Set_Printer("FONT", font)
+invoiceDate = OConv({INVOICE_DATE},'D4/')
+table1 = @vm:invoiceDate:@VM:@ID
+x = Set_Printer("ADDTABLE", ">5040":@VM:"^2160":@VM:"^2160":@FM, "", table1, "", "", "", TB_NONE)
+
+*************************************************************************************************
+* Print a blank line and then print the Invoice Due Date                                        *
+* After the blank line is printed use the POS Get_Printer message to determine the Y position   *
+* of the current line.  We will then print the Due Date: literal in bold using the TEXT message *
+* and the DUE_DATE data value using the TEXTXY position and in regular font type.               *
+*************************************************************************************************
+
+x = Set_Printer("FONT", fontBold)
+x = Set_Printer("TEXT")
+pos = Get_Printer("POS")
+thisLine = "Due Date"
+x = Set_Printer("TEXT",thisLine)
+dueDate = OConv({DUE_DATE},'D4/')
+newPos = 1:@fm:pos<2> 
+x = Set_Printer("TEXTXY",dueDate,newPos,font,0)
+
+**********************************************************************************************
+* Print a blank line then print the Bill To/From table.  These tables have no column
+* headers.  These tables have no borders and have left justified columns.
+**********************************************************************************************
+
+x = Set_Printer("TEXT")
+x = Set_Printer("FONT", fontBold)
+table2 = "Bill To:"
+
+x = Set_Printer("ADDTABLE", "3600":@VM:"1440":@VM:"3600":@FM, "", table2, "", "", "", TB_NONE)
+x = Set_Printer("FONT", font)
+
+address1 = XLate('CUSTOMERS',{CUST_NO},"ADDRESS1",'X')
+address2 = XLate('CUSTOMERS',{CUST_NO},"ADDRESS2",'X')
+city     = XLate('CUSTOMERS',{CUST_NO},"CITY",'X')
+state    = XLate('CUSTOMERS',{CUST_NO},"STATE",'X')
+zip      = XLate('CUSTOMERS',{CUST_NO},"ZIP",'X')
+
+table2 = ""
+table2<1> = {CUST_NAME}
+
+table2<-1> = address1
+if len(address2) then
+	table2<-1> = address2
+end
+table2<-1> = city:@vm:state:@vm:zip
+
+x = Set_Printer("ADDTABLE", "3600":@VM:"1440":@VM:"3600":@FM, "", table2, "", "", "", TB_NONE)
+
+**********************************************************************************************
+* The position is set to 0 inches from the left margin, and 3 inches from the top margin.  This
+* will guarentee the table will always start to print from the same location.
+**********************************************************************************************
+
+x = Set_Printer("POS", 0:@FM:2.0)
+
+**********************************************************************************************
+* Create the dummy data for the main table.  This table has column headers, because the column
+* headers need to be printed at the top of each page if the main invoice table requies more
+* than one page.  The rows will have borders.
+**********************************************************************************************
+
+tableHead = "Item":@vm:"Description":@vm:"Quantity":@vm:"Unit Price":@vm:"Line Total"
+
+table = ""
+
+items = {ITEMS}
+descs = {DESCS}
+qtys = {QTYS}
+prices = {PRICES}
+extCost = {EXT_COSTS}
+
+numItems = count(items, @vm) + (items # '')
+
+for i = 1 to numItems
+	table<-1> = items<1,i>:@vm:descs<1,i>:@vm:qtys<1,i>:@vm:OConv(prices<1,i>,"MD2,"):@vm:OConv(extCost<1,i>,"MD2,"):@vm
+next i
+
+x = Set_Printer("ADDTABLE", "<2160":@VM:"<3600":@VM:">1440":@VM:">1440":@vm:">1440":@FM, tableHead, table, RGB(192, 192, 192), "", "", TB_BOX_ROWS)
+
+***************************
+* Print the Invoice total *
+***************************
+
+total = @fm:@vm:"Total":@vm:@vm:@vm:Oconv({AMOUNT},"MD2,")
+tableHead = ''
+x = Set_Printer("ADDTABLE", "<2160":@VM:"<3600":@VM:">1440":@VM:">1440":@vm:">1440":@FM, tableHead, total, RGB(192, 192, 192), "", "", TB_NONE)
+
+
+
+*******************************
+* Finish this prining session *
+*******************************
+
+x = Set_Printer("TERM", 1)
+return
+
+

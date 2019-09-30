@@ -1,0 +1,2159 @@
+{
+    "style-sheet-id": "",
+    "name": "EVENTDESIGNER",
+    "icon-name": "POPUP",
+    "title": "Event Designer",
+    "size": {
+        "x": 4,
+        "y": 72,
+        "y-ext": null,
+        "width": 494,
+        "height": 254
+    },
+    "style": [
+        "WS_POPUP",
+        "WS_CLIPCHILDREN",
+        "WS_BORDER",
+        "WS_DLGFRAME"
+    ],
+    "style-ex": [],
+    "ps-style": [
+        "PSS_WIN_HASMENU",
+        "PSS_DIALOGBOX"
+    ],
+    "background": "#00FFFFFF",
+    "script-events": [],
+    "quick-events": [
+        {
+            "name": "CLOSE",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**EVENTDESIGNER",
+            "parameters": [
+                "2"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "CREATE",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**EVENTDESIGNER",
+            "parameters": [
+                "1"
+            ],
+            "return-id": "",
+            "return-property": ""
+        }
+    ],
+    "tables": [],
+    "io-options": {
+        "optimistic-locking": false,
+        "locking-behavior": "Exclusive",
+        "coordinate-with-file-locks": false,
+        "ignore-self-locks": false,
+        "ignore-subrow-locks": false,
+        "no-clear-on-write": false,
+        "commit-after-data-set": null,
+        "rollback-if-commit-fails": null,
+        "auto-rollback-on-clear": null,
+        "enforce-required-fields-before-save": null
+    },
+    "joined-tables": {
+        "primary": null,
+        "joined": null
+    },
+    "form-designer-flags": [
+        "0x7FFFE",
+        "0xF001E988"
+    ],
+    "background-image": "",
+    "icon": "SYSPROG*IMAGE*ICO*POPUP",
+    "page-count": 1,
+    "controls": [
+        {
+            "name": "GRP_BUTTONS",
+            "icon-literal": "",
+            "type": "GROUPBOX",
+            "parent": "EVENTDESIGNER",
+            "size": {
+                "x": 4,
+                "y": 4,
+                "y-ext": null,
+                "width": 64,
+                "height": 217
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_GROUPBOX"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 0,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "Small Fonts",
+                "height": -3,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016c08"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "RB_WINDOW",
+            "icon-literal": "",
+            "type": "CHECKBMP",
+            "parent": "EVENTDESIGNER",
+            "size": {
+                "x": 7,
+                "y": 9,
+                "y-ext": null,
+                "width": 29,
+                "height": 26
+            },
+            "text": " Window | Window ",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_INITIALFOCUS",
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 1,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**EVENTDESIGNER",
+                    "parameters": [
+                        "4",
+                        "@self"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7ffec",
+                "0xf0016000"
+            ],
+            "bitmap-id": "*IMAGE*BMP*PAL_WIN",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": true,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 2,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "RB_MENU",
+            "icon-literal": "",
+            "type": "CHECKBMP",
+            "parent": "EVENTDESIGNER",
+            "size": {
+                "x": 36,
+                "y": 9,
+                "y-ext": null,
+                "width": 29,
+                "height": 26
+            },
+            "text": " Menu | Menu ",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 2,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**EVENTDESIGNER",
+                    "parameters": [
+                        "4",
+                        "@self"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016000"
+            ],
+            "bitmap-id": "*IMAGE*BMP*PAL_MENU",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": false,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 2,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "RB_STATIC",
+            "icon-literal": "",
+            "type": "CHECKBMP",
+            "parent": "EVENTDESIGNER",
+            "size": {
+                "x": 7,
+                "y": 35,
+                "y-ext": null,
+                "width": 29,
+                "height": 26
+            },
+            "text": " Static | Static ",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 3,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**EVENTDESIGNER",
+                    "parameters": [
+                        "4",
+                        "@self"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016000"
+            ],
+            "bitmap-id": "*IMAGE*BMP*PAL_TEXT",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": false,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 2,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "RB_GROUPBOX",
+            "icon-literal": "",
+            "type": "CHECKBMP",
+            "parent": "EVENTDESIGNER",
+            "size": {
+                "x": 36,
+                "y": 35,
+                "y-ext": null,
+                "width": 29,
+                "height": 26
+            },
+            "text": " GroupBox | GroupBox ",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 4,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**EVENTDESIGNER",
+                    "parameters": [
+                        "4",
+                        "@self"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016000"
+            ],
+            "bitmap-id": "*IMAGE*BMP*PAL_GRP",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": false,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 2,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "RB_CHECKBOX",
+            "icon-literal": "",
+            "type": "CHECKBMP",
+            "parent": "EVENTDESIGNER",
+            "size": {
+                "x": 7,
+                "y": 61,
+                "y-ext": null,
+                "width": 29,
+                "height": 26
+            },
+            "text": " CheckBox | CheckBox ",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 5,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**EVENTDESIGNER",
+                    "parameters": [
+                        "4",
+                        "@self"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016000"
+            ],
+            "bitmap-id": "*IMAGE*BMP*PAL_CHK",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": false,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 2,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "RB_RADIOBUTTON",
+            "icon-literal": "",
+            "type": "CHECKBMP",
+            "parent": "EVENTDESIGNER",
+            "size": {
+                "x": 36,
+                "y": 61,
+                "y-ext": null,
+                "width": 29,
+                "height": 26
+            },
+            "text": " RadioButton | RadioButton ",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 6,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**EVENTDESIGNER",
+                    "parameters": [
+                        "4",
+                        "@self"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016000"
+            ],
+            "bitmap-id": "*IMAGE*BMP*PAL_RBTN",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": false,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 2,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "RB_PUSHBUTTON",
+            "icon-literal": "",
+            "type": "CHECKBMP",
+            "parent": "EVENTDESIGNER",
+            "size": {
+                "x": 7,
+                "y": 87,
+                "y-ext": null,
+                "width": 29,
+                "height": 26
+            },
+            "text": " PushButton | PushButton ",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 7,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**EVENTDESIGNER",
+                    "parameters": [
+                        "4",
+                        "@self"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016000"
+            ],
+            "bitmap-id": "*IMAGE*BMP*PAL_BTN",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": false,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 2,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "RB_EDITTABLE",
+            "icon-literal": "",
+            "type": "CHECKBMP",
+            "parent": "EVENTDESIGNER",
+            "size": {
+                "x": 36,
+                "y": 87,
+                "y-ext": null,
+                "width": 29,
+                "height": 26
+            },
+            "text": " EditTable | EditTable ",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 8,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**EVENTDESIGNER",
+                    "parameters": [
+                        "4",
+                        "@self"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016000"
+            ],
+            "bitmap-id": "*IMAGE*BMP*PAL_ETBL",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": false,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 2,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "RB_EDITFIELD",
+            "icon-literal": "",
+            "type": "CHECKBMP",
+            "parent": "EVENTDESIGNER",
+            "size": {
+                "x": 7,
+                "y": 113,
+                "y-ext": null,
+                "width": 29,
+                "height": 26
+            },
+            "text": " EditField | EditField ",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 9,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**EVENTDESIGNER",
+                    "parameters": [
+                        "4",
+                        "@self"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016000"
+            ],
+            "bitmap-id": "*IMAGE*BMP*PAL_EDIT",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": false,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 2,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "RB_EDITBOX",
+            "icon-literal": "",
+            "type": "CHECKBMP",
+            "parent": "EVENTDESIGNER",
+            "size": {
+                "x": 36,
+                "y": 113,
+                "y-ext": null,
+                "width": 29,
+                "height": 26
+            },
+            "text": " EditBox | EditBox ",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 10,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**EVENTDESIGNER",
+                    "parameters": [
+                        "4",
+                        "@self"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016000"
+            ],
+            "bitmap-id": "*IMAGE*BMP*PAL_EBOX",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": false,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 2,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "RB_LISTBOX",
+            "icon-literal": "",
+            "type": "CHECKBMP",
+            "parent": "EVENTDESIGNER",
+            "size": {
+                "x": 7,
+                "y": 139,
+                "y-ext": null,
+                "width": 29,
+                "height": 26
+            },
+            "text": " ListBox | ListBox ",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 11,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**EVENTDESIGNER",
+                    "parameters": [
+                        "4",
+                        "@self"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016000"
+            ],
+            "bitmap-id": "*IMAGE*BMP*PAL_LIST",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": false,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 2,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "RB_COMBOBOX",
+            "icon-literal": "",
+            "type": "CHECKBMP",
+            "parent": "EVENTDESIGNER",
+            "size": {
+                "x": 36,
+                "y": 139,
+                "y-ext": null,
+                "width": 29,
+                "height": 26
+            },
+            "text": " ComboBox | ComboBox ",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 12,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**EVENTDESIGNER",
+                    "parameters": [
+                        "4",
+                        "@self"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016000"
+            ],
+            "bitmap-id": "*IMAGE*BMP*PAL_DROP",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": false,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 2,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "RB_VSCROLL",
+            "icon-literal": "",
+            "type": "CHECKBMP",
+            "parent": "EVENTDESIGNER",
+            "size": {
+                "x": 7,
+                "y": 165,
+                "y-ext": null,
+                "width": 29,
+                "height": 26
+            },
+            "text": " VScroll | VScroll ",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 13,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**EVENTDESIGNER",
+                    "parameters": [
+                        "4",
+                        "@self"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016000"
+            ],
+            "bitmap-id": "*IMAGE*BMP*PAL_VSCR",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": false,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 2,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "RB_HSCROLL",
+            "icon-literal": "",
+            "type": "CHECKBMP",
+            "parent": "EVENTDESIGNER",
+            "size": {
+                "x": 36,
+                "y": 165,
+                "y-ext": null,
+                "width": 29,
+                "height": 26
+            },
+            "text": " HScroll | HScroll ",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 14,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**EVENTDESIGNER",
+                    "parameters": [
+                        "4",
+                        "@self"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016000"
+            ],
+            "bitmap-id": "*IMAGE*BMP*PAL_HSCR",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": false,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 2,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "RB_ICON",
+            "icon-literal": "",
+            "type": "CHECKBMP",
+            "parent": "EVENTDESIGNER",
+            "size": {
+                "x": 7,
+                "y": 191,
+                "y-ext": null,
+                "width": 29,
+                "height": 26
+            },
+            "text": " Icon | Icon ",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 15,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**EVENTDESIGNER",
+                    "parameters": [
+                        "4",
+                        "@self"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016000"
+            ],
+            "bitmap-id": "*IMAGE*BMP*PAL_ICON",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": false,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 2,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "RB_BITMAP",
+            "icon-literal": "",
+            "type": "CHECKBMP",
+            "parent": "EVENTDESIGNER",
+            "size": {
+                "x": 36,
+                "y": 191,
+                "y-ext": null,
+                "width": 29,
+                "height": 26
+            },
+            "text": " Bitmap | Bitmap ",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 16,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**EVENTDESIGNER",
+                    "parameters": [
+                        "4",
+                        "@self"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016000"
+            ],
+            "bitmap-id": "*IMAGE*BMP*PAL_BMP",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": false,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 2,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "ET_EVENTS",
+            "icon-literal": "",
+            "type": "EDITTABLE",
+            "parent": "EVENTDESIGNER",
+            "size": {
+                "x": 71,
+                "y": 5,
+                "y-ext": null,
+                "width": 323,
+                "height": 216
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_BORDER",
+                "WS_VSCROLL",
+                "DTS_OWNERDEF",
+                "DTS_HGRID",
+                "DTS_VGRID",
+                "DTS_ROWSELECT"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 17,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "",
+            "o-conv": "",
+            "default": "",
+            "form-designer-flags": [
+                "0x7e27e",
+                "0xc0016a08"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": 40,
+            "columns": [
+                {
+                    "data-width": 31,
+                    "width": 80,
+                    "label": "Event Name",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_RESIZE",
+                        "DTCS_EDIT",
+                        "DTCS_HIDDEN",
+                        "DTCS_CENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 255,
+                    "width": 172,
+                    "label": "Event Parameters",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_RESIZE",
+                        "DTCS_HIDDEN",
+                        "DTCS_CENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 31,
+                    "width": 54,
+                    "label": "Enforce",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "(B)",
+                    "o-conv": "B",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_RESIZE",
+                        "DTCS_EDIT",
+                        "DTCS_HIDDEN",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                }
+            ],
+            "image-count": null,
+            "row-limit": 0,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "CB_APPLY",
+            "icon-literal": "",
+            "type": "PUSHBUTTON",
+            "parent": "EVENTDESIGNER",
+            "size": {
+                "x": 401,
+                "y": 64,
+                "y-ext": null,
+                "width": 80,
+                "height": 25
+            },
+            "text": "&Save",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_PUSHBUTTON"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 18,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**EVENTDESIGNER",
+                    "parameters": [
+                        "3"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016588"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "CB_CLOSE",
+            "icon-literal": "",
+            "type": "PUSHBUTTON",
+            "parent": "EVENTDESIGNER",
+            "size": {
+                "x": 401,
+                "y": 94,
+                "y-ext": null,
+                "width": 80,
+                "height": 25
+            },
+            "text": "Cl&ose",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_PUSHBUTTON"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 19,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Event",
+                    "message": "CLOSE",
+                    "entity-id": "@WINDOW",
+                    "parameters": [],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016588"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "CB_HELP",
+            "icon-literal": "",
+            "type": "PUSHBUTTON",
+            "parent": "EVENTDESIGNER",
+            "size": {
+                "x": 401,
+                "y": 124,
+                "y-ext": null,
+                "width": 80,
+                "height": 25
+            },
+            "text": "&Help",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_PUSHBUTTON"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 20,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*APPNOTE**EVENTDESIGNER",
+                    "parameters": [],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016588"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "CB_ADD",
+            "icon-literal": "",
+            "type": "PUSHBUTTON",
+            "parent": "EVENTDESIGNER",
+            "size": {
+                "x": 401,
+                "y": 4,
+                "y-ext": null,
+                "width": 80,
+                "height": 25
+            },
+            "text": "&Add",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_PUSHBUTTON"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 21,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**EVENTDESIGNER",
+                    "parameters": [
+                        "5"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016588"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "CB_REMOVE",
+            "icon-literal": "",
+            "type": "PUSHBUTTON",
+            "parent": "EVENTDESIGNER",
+            "size": {
+                "x": 401,
+                "y": 34,
+                "y-ext": null,
+                "width": 80,
+                "height": 25
+            },
+            "text": "&Remove",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_PUSHBUTTON"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 22,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**EVENTDESIGNER",
+                    "parameters": [
+                        "6"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016588"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        }
+    ],
+    "menu": {
+        "type": "MENU",
+        "name": "",
+        "text": "",
+        "disabled": false,
+        "checked": false,
+        "hidden": false,
+        "accelerator": "None",
+        "tooltip": "",
+        "flags": [],
+        "sub-menus": [
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "hidden",
+                "disabled": false,
+                "checked": false,
+                "hidden": true,
+                "accelerator": "None",
+                "tooltip": "",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "options\tAlt+Down",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": true,
+                        "accelerator": "Alt+Down",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "help\tF1",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": true,
+                        "accelerator": "F1",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            }
+        ]
+    },
+    "menu-script-events": [],
+    "menu-quick-events": [
+        {
+            "name": "HIDDEN.OPTIONS",
+            "type": "Event",
+            "message": "OPTIONS",
+            "entity-id": "@FOCUS",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "HIDDEN.HELP",
+            "type": "Event",
+            "message": "CLICK",
+            "entity-id": "@WINDOW.CB_HELP",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        }
+    ]
+}

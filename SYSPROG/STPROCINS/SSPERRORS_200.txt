@@ -1,0 +1,77 @@
+/*-------------------------------------------------------------------------
+  This is the sperrors for DATABASE MANAGEMENT ACCESS SPs
+
+    DATE       IMPLEMENTOR     FUNCTION
+  --------     -----------     --------
+  MM-DD-YY     initials        Modification
+  09-17-91     Pat             First created
+---------------------------------------------------------------------------*/
+
+*--------------------------------------------------------------------------
+* 200 BLOCK FOR DELETE, CLEAR_TABLE SPS
+equ ssp_delete_sysfile_err$       to "SSP200"  ;* try to delete system file %1%
+equ ssp_clear_sysfile_err$        to "SSP205"  ;* try clear sys table %1% sys tablename.
+
+*--------------------------------------------------------------------------
+* 210 FOR COPY_TABLE SP
+equ ssp_invalid_drive_err$        to "SSP210"   ;* invalid drive for copy table %1% drive letter
+equ ssp_not_enough_space_err$     to "SSP211"   ;* space not enough for copy table
+equ ssp_copy_diff_file_sys_err$   to "SSP212"  ;* copy bet. different file sys %1%, %2% type file types.
+equ ssp_copy_same_file_name_err$  to "SSP213"  ;* source and dest table name same %1% table_name
+equ ssp_copy_over_exist_file_err$ to "SSP214"  ;* copy over exist file %1% table_name
+equ ssp_copy_non_exist_file_err$  to "SSP215"  ;* dest table non exist error
+equ ssp_copy_file_err$            to "SSP216"  ;* failed at copy time
+equ ssp_name_mismatching_err$     to "SSP217"  ;* for copy_table/rename_table inconsistency( e.g. !OLD_NAME AND NEW_NAME)
+
+
+*--------------------------------------------------------------------------
+* 220 BLOCK FOR RENAME_TABLE AND LHVERIFY_TABLE SPS
+equ ssp_rename_sysfile_err$       to "SSP220"  ;* try renaming system table %1% systable name.
+equ ssp_rename_alias_table_err$   to "SSP221"  ;* try renaming alias table %1% alias table_name
+
+equ ssp_lhverify_parm_err$        to "SSP225"  ;* param for table and volume inconsistent.
+equ ssp_revmedia_gfe_err$         to "SSP226"  ;* revmedia gfe error %1% vol name.
+
+
+*--------------------------------------------------------------------------
+* 230 Block for Bond Security related SSPs and attach-time issues.
+
+equ SSP_NO_SERVERNAME_ERR$   to "SSP230" ;* required server name not passed  
+equ SSP_NO_BOND_DATABASE_ERR$  to "SSP231" ;* required bond database name not passed
+equ SSP_NO_BOND_USERNAME_ERR$  to "SSP232" ;* required bond user name not passed
+equ SSP_INVALID_SERVERNAME_ERR$  to "SSP233" ;* Server name passed is not valid  ( Passed Server Name )
+equ SSP_INVALID_BOND_DATABASE_ERR$ to "SSP234" ;* Bond Database name passed is not valid ( Passed bond database name )
+equ SSP_INVALID_BOND_USERNAME_ERR$ to "SSP235" ;* Bond User name passed is not valid ( Passed bond user name )
+equ SSP_INVALID_BOND_PASSWORD_ERR$ to "SSP236" ;* Bond Password passed is not valud (Passed bond password )
+equ SSP_INVALID_TABLETYPE$          to "SSP237" ;*
+equ SSP_NOT_SERVER_TABLETYPE$       to "SSP238"
+
+
+*--------------------------------------------------------------------------
+* 240 BLOCK FOR ALIAS_TABLE SP
+equ ssp_alias_wrong_file_type$    to "SSP245"  ;* wrong bfs type for aliasing %1% BFS type.
+equ ssp_alias_sysfile_err$        to "SSP246"  ;* try alias system table %1% systable name.
+equ ssp_alias_mismatching_err$    to "SSP247"  ;* naming %1%, %2% mismatching error
+equ ssp_alias_table_rec_missing_err$    to "SSP248"  ;* the table record %1% is missing in revmedia
+
+*--------------------------------------------------------------------------
+* 270 BLOCK WILL BE FOR FIX_LH
+
+equ SSP_HDR_CORRUPTED_ERR$        to "SSP271"  ;* The header of table %1% is corrupted for fix.
+equ SSP_INVALID_FIX_TYPE_ERR$     to "SSP272"  ;* Invalid fix type passed in %1% type.
+equ SSP_ANOTHER_STATION_FIX$      to "SSP273"  ;* another is having %1% semaphore locked for fix tables .
+
+*--------------------------------------------------------------------------
+* 280 BLOCK WILL BE FOR MISC
+
+equ ssp_no_table_on_vol$          to "SSP280"  ;* Table %1% not found at %2%, filing system %3%
+equ ssp_invalid_tablename$        to "SSP281"  ;* Invalid table name %1%
+equ ssp_control_already_off_err$  to 'SSP282'  ;* table %1% already has contro off
+equ ssp_control_already_on_err$   to 'SSP283'  ;* table %1% already has control on
+equ ssp_generic_control_err$      to 'SSP284'  ;* generic control_on/off error
+equ SSP_DICT_MASTER_COLLIDE_ERR$  to 'SSP285'  ;* %1% is already a master definition for this column position
+equ SSP_DICT_MASTER_REQ_ERR$  	  to 'SSP286' ;* %1% must be a master column definition 
+equ SSP_APP_PTR_DNE$		  	  to 'SSP287' ;* Table is not used in application "%1%"
+equ	SSP_INHERIT_APP_DNE$			  to "SSP288" ;* Inherited Application %1% does not exist 
+
+* Source Date: 17:24:04  26 MAR 1993  Build ID: OI*1.0.106  Level: 2.0

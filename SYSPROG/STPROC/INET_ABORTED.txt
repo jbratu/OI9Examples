@@ -1,0 +1,38 @@
+function INET_Aborted(Request, ProcErr)
+
+***************************************************************************
+* Project    : OpenInsight for Internet
+*
+* Name       : INET_Aborted
+* Description: Called when an INET procedure has crashed and the Internet
+*              Gateway recovers.
+*
+* Warning!   : This procedure MUST NOT fail (i.e. go to the debugger) or
+*              the Internet Services Gateway will be halted or go into an
+*              infinite loop.  The Gateway has no way to auto-recover from
+*              a failure in this procedure!
+*
+* Returns    : An HTML error message.
+*
+***************************************************************************
+
+$insert Logical
+$insert Inet_Equates
+$insert Msg_Equates
+$Insert inet_headers
+
+declare function INET_Msg
+
+    if assigned(ProcErr) then
+        convert \00\:@fm:@vm:@svm to @tm:@tm:@tm:@tm in ProcErr
+    end else
+        ProcErr = ''
+    end
+	response = ''
+	response<MTEXT$>    = 'Fatal error while processing request':@tm:@tm:ProcErr
+	response<MCAPTION$> = 'OpenInsight -- Server Error'
+
+	outmsg = Inet_Msg('', response)
+	Call inetapi_setstatus("500")
+	Return outmsg
+

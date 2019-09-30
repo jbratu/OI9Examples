@@ -1,0 +1,24 @@
+compile insert XOArgs_Equates
+
+*****************************************************************************
+*
+* Name       :  XOArgs_Equates
+* Description:  Constants and declarations for the XOArgs() function
+*
+* History (Date, Initials, Notes)
+*   08/23/95  cp   Original programmer
+*   06/13/97  cp   Updating for new WorkSpace
+*
+*****************************************************************************
+
+declare function XOArgs     ;* Ret = XOArgs(Instruction, Parm)
+
+* instructions
+equ XOA_EXEC$        to 1   ;* execute window, returns TRUE=OK or FALSE=Cancel, Parm<1>=Props, Parm<2>=Values, Parm<3>=Labels (<3,1>=Title, <3,2>=Props, <3,3>=Values)
+equ XOA_CREATE$      to 2
+equ XOA_OK$          to 3
+equ XOA_CANCEL$      to 4
+
+* literals
+equ XOA_WINDOW$      to "XO_ARGS"
+

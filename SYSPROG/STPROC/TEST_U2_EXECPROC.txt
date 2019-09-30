@@ -1,0 +1,11 @@
+SUBROUTINE TEST_U2_EXECPROC(VOID)
+* Test U2_EXECPROC
+
+connection = 'RJC_20081105'
+cmd = "FOO"
+
+result = ''
+inputs = ''
+Call U2_ExecProc(connection, cmd, result, inputs)
+
+Return Len(result)

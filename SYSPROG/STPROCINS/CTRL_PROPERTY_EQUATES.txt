@@ -1,0 +1,249 @@
+compile insert Ctrl_Property_Equates
+/*
+   Amended  Date        Reason
+   =======  ====        ======
+   Mr C     10th Jan 06 Added ATRECORD
+   
+   Mr C     3rd Jan 06  Added RTFTEXT, RichEditBox DEFPROP
+   
+   Mr C     7th Oct 05  Added SCREENSIZE, HEADERHEIGHT, AUTOINDENT, ANCHORRIGHT, ANCHORBOTTOM
+                              AUTOSCROLL, AUTOSIZEHEIGHT, AUTOSIZEWIDTH, IMAGE, IMAGE_INFO
+                              IMAGETRANSPARENT, RESIZECOL, SEND_MESSAGE
+   Mr C     7th Sep 05  Added ROWLIMIT
+                        Added ROWSHADE, ODDROWCOLOR, EVENROWCOLOR
+                        Added DTCOLOR
+                        Added DEVMODE, SERVERNAME
+*/
+
+* OpenInsight Window / Control Properties
+equ ACCELERATOR$     to "ACCELERATOR"     ;* for menu items
+equ ACCESSDATA$      to "ACCESSDATA"
+equ ACCESSPOS$       to "ACCESSPOS"
+equ ANCHORBOTTOM$    to "ANCHORBOTTOM"
+equ ANCHORRIGHT$     to "ANCHORRIGHT"
+equ ARRAY$           to "ARRAY"
+equ ATRECORD$        to "ATRECORD"
+equ AUTOINDENT$      to "AUTOINDENT"
+equ AUTOSCROLL$      to "AUTOSCROLL"
+equ AUTOSIZEHEIGHT$  to "AUTOSIZEHEIGHT"
+equ AUTOSIZEWIDTH$   to "AUTOSIZEWIDTH"
+equ AUTOSIZECOL$     to "AUTOSIZECOL"
+equ BACKCOLOR$       to "BACKCOLOR"
+equ BITMAP$          to "BITMAP"
+equ BLOCK_EVENTS$    to "BLOCK_EVENTS"    ;* for "SYSTEM" object
+equ CANCEL$          to "CANCEL"
+equ CANUNDO$         to "CANUNDO"
+equ CARETPOS$        to "CARETPOS"
+equ CELLPOS$         to "CELLPOS"         ;* for accessing cell of edittable.
+equ CHECK$           to "CHECK"
+equ CLICKPOS$        to "CLICKPOS"
+equ CLIENTSIZE$      to "CLIENTSIZE"
+equ COLDATA$         to "COLDATA"
+equ COLUMN$          to "COLUMN"
+equ CONV$            to "CONV"
+equ COUNTER$         to "COUNTER"         ;* for "SYSTEM" object
+equ CTRLMAP$         to "CTRLMAP"         ;* Master list of all controls in the current window
+equ DATASOURCETYPE$  to "DATASOURCETYPE"
+equ DDECOMMAND$      to "DDECOMMAND"
+equ DDEDATA$         to "DDEDATA"
+equ DDEERROR$        to "DDEERROR"
+equ DDEITEM$         to "DDEITEM"
+equ DDELINK$         to "DDELINK"
+equ DDEMODE$         to "DDEMODE"
+equ DDESERVICE$      to "DDESERVICE"
+equ DDETOPIC$        to "DDETOPIC"
+equ DEFAULT$         to "DEFAULT"
+equ DEFPROP$         to "DEFPROP"         ;* Default Property for database sensitive controls
+equ DESTROY_FLAG$    to "DESTROY_FLAG"
+equ DEVMODE$         to "DEVMODE"
+equ DRAWTEXT$        to "DRAWTEXT"
+equ DROPDOWN$        to "DROPDOWN"
+equ DSOHANDLE$       to "DSOHANDLE"
+equ DTHANDLE$        to "DTHANDLE"
+equ DUMMYCAPTION$    to "DUMMYCAPTION"
+equ ECHO$            to "ECHO"
+equ ENABLED$         to "ENABLED"
+equ EVENROWCOLOR$    to "EVENROWCOLOR"
+equ EVENTQUALIFIER$  to "EVENTQUALIFIER"
+equ EXITCODE$        to "EXITCODE"
+equ FOCUS$           to "FOCUS"
+equ FONT$            to "FONT"
+equ FORECOLOR$       to "FORECOLOR"
+equ GOTFOCUS_VALUE$  to "GOTFOCUS_VALUE"
+equ HANDLE$          to "HANDLE"
+equ HEADERHEIGHT$    to "HEADERHEIGHT"
+equ HELPTEXT$        to "HELPTEXT"
+equ HOLD_EVENTS$     to "HOLD_EVENTS"     ;* for "SYSTEM" object
+equ HPOSITION$       to "HPOSITION"
+equ ICON$            to "ICON"
+equ ID$              to "ID"              ;* accessing @ID
+equ IDLEPROC$        to "IDLEPROC"        ;* for "SYSTEM" object
+equ IMAGE$           to "IMAGE"
+equ IMAGECLIP$       to "IMAGECLIP"
+equ IMAGECOUNT$      to "IMAGECOUNT"
+equ IMAGEINFO$       to "IMAGEINFO"
+equ IMAGENUMBER$     to "IMAGENUMBER"
+equ IMAGEOFFSET$     to "IMAGEOFFSET"
+equ IMAGEORIGIN$     to "IMAGEORIGIN"
+equ IMAGETRANSPARENT$ to "IMAGETRANSPARENT"
+equ INVALUE$         to "INVALUE"         ;* accessing internal value...
+equ IOOPTIONS$       to "IOOPTIONS"       ;* IO options to access LOCK MODE...
+equ ITEMSTYLE$       to "ITEMSTYLE"
+equ LABEL$           to "LABEL"
+equ LIMIT$           to "LIMIT"
+equ LIST$            to "LIST"
+equ LIST_EX$         to "LIST_EX"         ;* for hierarchical listboxes
+equ LOCKMODE$        to "LOCKMODE"        ;* accessing lock mode for a form
+equ MDIACTIVE$       to "MDIACTIVE"
+equ MDIFRAME$        to "MDIFRAME"
+equ MISC$            to "MISC"
+equ MODAL$           to "MODAL"           ;* for "SYSTEM" object
+equ MODIFIED$        to "MODIFIED"
+equ MV$              to "MV"
+equ NEXT$            to "NEXT"
+equ NOTIFYPOS$       to "NOTIFYPOS"
+equ ODDROWCOLOR$     to "ODDROWCOLOR"
+equ ORIG_BKCOLOR$    to "ORIG_BACKCOLOR"
+equ ORIG_ENABLED$    to "ORIG_ENABLED"
+equ ORIG_FORECOLOR$  to "ORIG_FORECOLOR"
+equ ORIG_HIGH$       to "ORIG_HIGH"
+equ ORIG_LABEL$      to "ORIG_LABEL"
+equ ORIG_LIST$       to "ORIG_LIST"
+equ ORIG_LOGFONT$    to "ORIG_FONT"
+equ ORIG_ROWVALUE$   to "ORIG_ROWVALUE"
+equ ORIG_SIZE$       to "ORIG_SIZE"
+equ ORIG_STRUCT$     to "ORIG_STRUCT"
+equ ORIG_TEXT$       to "ORIG_TEXT"
+equ ORIG_VALUE$      to "ORIG_VALUE"
+equ ORIG_VISIBLE$    to "ORIG_VISIBLE"
+equ ORIG_WIDE$       to "ORIG_WIDE"
+equ ORIG_X$          to "ORIG_X"
+equ ORIG_Y$          to "ORIG_Y"
+equ PAGELIST$        to "PAGELIST"
+equ PARENT$          to "PARENT"
+equ PART$            to "PART"            ;* if pos = 0, part = key part #
+equ POPUP$           to "POPUP"
+equ POPUP_LIMIT$     to "POPUP_LIMIT"
+equ POS$             to "POS"             ;* field position of the associated column in the table
+equ POSITION$        to "POSITION"
+equ PREVIOUS$        to "PREVIOUS"
+equ PREVSELPOS$      to "PREVSELPOS"
+equ QBFLIST$         to "QBFLIST"         ;* QBF browse id list
+equ QBFPOS$          to "QBFPOS"          ;* QBF position within QBF list
+equ QBFSTATUS$       to "QBFSTATUS"       ;* QBF status (see QBFSTAT_ equates)
+equ QUERYEND$        to "QUERYEND"
+equ RECEIVER$        to "RECEIVER"
+equ RECORD$          to "RECORD"          ;* accessing @RECORD
+equ REDRAW$          to "REDRAW"
+equ REPOS_TYPE$      to "REPOS_TYPE"
+equ REQUIRED$        to "REQUIRED"
+equ RESIZECOL$       to "RESIZECOL"
+equ ROWDATA$         to "ROWDATA"
+equ ROWLIMIT$        to "ROWLIMIT"
+equ ROWSHADE$        to "ROWSHADE"
+equ RTFTEXT$         to "RTFTEXT" 
+equ SAVEWARN$        to "SAVEWARN"        ;* accessing ControlSemantic@< 1, CS_GOTFOCUS_VALUE$>
+equ SCREENSIZE$      to "SCREENSIZE"    
+equ SELECTION$       to "SELECTION"
+equ SELPOS$          to "SELPOS"
+equ SELPOS_EX$       to "SELPOS_EX"       ;* for hierarchical listboxes
+equ SEND_MESSAGE$    to "SEND_MESSAGE"
+equ SERVERNAME$      to "SERVERNAME"
+equ SIZE$            to "SIZE"
+equ SORTEDCOL$       to "SORTEDCOL"
+equ STATUSLINE$      to "STATUSLINE"
+equ STYLE$           to "STYLE"
+equ STYLE_EX$        to "STYLE_EX"
+equ TABLE$           to "TABLE"
+equ TABOUTEXCEED$    to "TABOUTEXCEED"
+equ TABSTOPS$        to "TABSTOPS"
+equ TEXT$            to "TEXT"
+equ TEXTVAL$         to "TEXTVAL"         ;* TEXT with conversion
+equ THEMED$          to "THEMED"
+equ TIMER$           to "TIMER"
+equ TOPPOS$          to "TOPPOS"
+equ TYPE$            to "TYPE"
+equ VALID$           to "VALID"
+equ VALUE$           to "VALUE"
+equ VALUES$          to "VALUES"
+equ VERSION$         to "VERSION"         ;* for "SYSTEM" object
+equ VISIBLE$         to "VISIBLE"
+equ VPOSITION$       to "VPOSITION"
+equ XPOS$            to "XPOS"            ;* for accessing a column of an edittable
+equ YPOS$            to "YPOS"            ;* for accessing a row of an edittable
+
+
+* QBFSTATUS equates
+
+equ QBFSTAT_OFF$     to 0                 ;* QBF inactive
+equ QBFSTAT_INIT$    to 1                 ;* QBF initialization (null browse list)
+equ QBFSTAT_ACTIVE$  to 2                 ;* active browse list
+
+
+* LOTUSNOTES specific properties
+
+* ... per database
+equ NOTEPREFORMULA$  to "NOTEPREFORMULA"
+equ NOTEPOSTFORMULA$ to "NOTEPOSTFORMULA"
+equ NOTELIST$        to "NOTELIST"
+equ NOTEPOS$         to "NOTEPOS"
+equ NOTEDBLIST$      to "NOTEDBLIST"
+
+* ... per control
+equ NOTEDB$          to "NOTEDB"
+equ NOTEFIELD$       to "NOTEFIELD"
+
+
+* GET_CONTROL_TYPES equates
+
+equ SYSCOM_CTRL_TYPE_LIST$    to 1        ;* first field of syscommon
+equ SYSCOM_CTRL_DEFPROP$      to 2
+equ SYSCOM_CTRL_TYPE_DEF$     to 3        ;* ind. this is base or non-base control
+
+equ BASE_CTRL_TYPE$           to 0
+equ NON_BASE_CTRL_TYPE$       to 1
+
+equ CTRL_TYPE_SYSTEM$         to 0        ;* query base ctrl types
+equ CTRL_TYPE_NON_SYSTEM$     to 1        ;* query non-system ctrl types ( e.g. add-on ctrls..)
+equ CTRL_TYPE_ALL_TYPES$      to 2        ;* query all the ctrls
+
+
+* GET_CONTROL_METAINFO equates
+
+equ METAINFO_PROP_SUPPORTED$  to 0        ;* return properties supported
+equ METAINFO_DEFPROP$         to 1        ;* return default properties
+equ METAINFO_EVENT_SUPPORTED$ to 2        ;* events supported the the control
+
+equ METAINFO_SET_DISCRETE$    to 0        ;* return info discrete
+equ METAINFO_SET_JOIN$        to 1        ;* return intersection of sets
+equ METAINFO_SET_UNION$       to 2        ;* return union of sets
+
+
+* DEFPROP property for each control...
+
+equ WINDOW_DEFPROP$         to TEXT$
+equ EDITBOX_DEFPROP$        to TEXTVAL$
+equ EDITFIELD_DEFPROP$      to TEXT$
+equ EDITTABLE_DEFPROP$      to ""         ;* defprop is based on aux position (see help)
+equ CHECKBOX_DEFPROP$       to CHECK$
+equ COMBOBOX_DEFPROP$       to TEXT$
+equ LISTBOX_DEFPROP$        to TEXT$
+equ PUSHBUTTON_DEFPROP$     to TEXT$
+equ RADIOBUTTON_DEFPROP$    to VALUE$
+equ RADIOGROUP_DEFPROP$     to VALUE$
+equ HSCROLLBAR_DEFPROP$     to HPOSITION$
+equ VSCROLLBAR_DEFPROP$     to VPOSITION$
+equ ICON_DEFPROP$           to TEXT$
+equ MENU_DEFPROP$           to CHECK$
+equ BITMAP_DEFPROP$         to BITMAP$
+equ GROUPBOX_DEFPROP$       to TEXT$
+equ STATIC_DEFPROP$         to TEXT$
+equ PUSHBMP_DEFPROP$        to BITMAP$
+equ RADIOBMP_DEFPROP$       to CHECK$
+equ CHECKBMP_DEFPROP$       to CHECK$
+equ RTFBOX_DEFPROP$         to TEXT$
+* mtr 9-20-04
+equ HSPLITBAR_DEFPROP$		TO HPOSITION$
+equ VSPLITBAR_DEFPROP$		to VPOSITION$
+Equ TABCONTROL_DEFPROP$		TO VALUE$
+equ RICHEDITBOX_DEFPROP$    to RTFTEXT$ ;  // Mr C - 3rd Jan 06

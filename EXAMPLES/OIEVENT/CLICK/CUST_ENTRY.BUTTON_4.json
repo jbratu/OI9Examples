@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "\r\nDECLARE FUNCTION popup\r\n\r\nans = popup(@window, '', 'STATES_POPUP')\r\n\r\nif len(ans) then\r\n\t.state->defprop=ans\r\nend\r\n\r\nRETURN 0"
+    }
+}

@@ -1,0 +1,35 @@
+compile insert AppNote_Equates
+
+*****************************************************************************
+*
+* Name       :  AppNote_Equates
+* Description:  Constants and declarations for the AppNote() function
+*
+* History (Date, Initials, Notes)
+*   ??/??/??  ???  Original programmer
+*   10/15/97  cp   Updated for 3.5; added header
+*
+*****************************************************************************
+
+equ ACOL$                 to 1
+equ AROW$                 to 2
+equ AWIDTH$               to 3
+equ AHEIGHT$              to 4
+equ AREADONLY$            to 5
+equ AFONT$                to 6
+equ ABKCOLOR$             to 7
+equ AFGCOLOR$             to 8
+equ AJUST$                to 9
+equ ATITLE$               to 10
+equ ATEXT$                to 11
+equ ASCROLL$              to 12
+ 
+equ ANUMFIELDS$           to 12
+
+equ AMINWIDTH$            To 200
+equ AMINHEIGHT$           to 160
+
+equ HELPTOOLNAME$         to "QuickHelp"
+equ APPNOTETYPE$          to "APPNOTE"
+equ APPNOTECLASS$         to ""
+

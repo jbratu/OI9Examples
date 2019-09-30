@@ -1,0 +1,4 @@
+compile insert PS_OIPI_COMMON
+COMMON /OIPI_COMMON%/ hWnd%, shell%, oipi_started%, WM_OIPI_SET%, WM_OIPI_GET%, OIPI_TABLE%, OIPI32%,locale,parent%,cancelproc%,handle%,init%
+COMMON /%OIPI_VARIABLES%/ bPrinting,IntStartMode,bExporting,stroipi_charmap_display,stroipi_charmap_save,strPdfExportfile,IntRepeatCnt,Repeatgraphic,Twips_To_Units,bTerm,bPrintPages,bWMFFix   
+COMMON /%OIPI_PS/ Fonts%,Margins%,Lastx%,Lasty%,Pagesize%,Papersize%,Orientation%,TotalPageSize%,TableFonts%,TableHdr%,TableHdrFonts%

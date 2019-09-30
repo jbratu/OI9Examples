@@ -1,0 +1,37 @@
+compile Insert rti_formdes_cfg_equates
+
+Equ FD_SNAPGRID$ 		To 1  ;*
+Equ FD_SHOWGRID$ 		To 2  ;*
+Equ FD_HSPACE$ 			To 3  ;*
+Equ FD_VSPACE$ 			To 4  ;* NOT USED *****************************************************************
+Equ FD_CREATETEXT$ 		To 5  ;*toggle creating the text label for databound controls
+Equ FD_CREATETEXTLOC$ 	To 6  ;*defines where to place the text lable for databound controls 
+Equ FD_APPENDCOLON$ 	To 7  ;*append a colon at the end of a label controls
+Equ FD_TESTRUN_PROMPT$  To 8  ;*Prompt to Save before test run
+Equ FD_TESTRUN_SAVE$  	To 9  ;*Save always before test run
+Equ FD_MINWKSPACE$      To 10 ;* Whether to Minimize the WorkSpace
+Equ FD_QPALIGNMENT$     To 11 ;* whether to right align quick panel labels
+Equ FD_MDI_X$           To 12 // MDI Frame X Coord
+Equ FD_MDI_Y$           To 13 // MDI Frame Y Coord
+Equ FD_MDI_WIDE$        To 14 // MDI Frame Width
+Equ FD_MDI_HIGH$    	To 15 // MDI Frame Height
+Equ FD_SHOW_RIBBON$ 	To 16 ; * IS THIS USED?
+Equ FD_SHOW_PANEL$ 		To 17 ;* Show Tool Panel
+Equ FD_SHOW_STATUSBAR$	To 18 ;* Toggle Showing the Status Bar
+Equ FD_SHOW_INVIS$ 		To 19 ;*toggle showing invisible controls
+Equ FD_TOOLPANEL_FULL$  To 20 ;*toggle showing the full tool panel
+Equ FD_TOOLPANEL_X$     To 21 ;*default x position of the tool panel
+Equ FD_TOOLPANEL_Y$ 	To 22 ;*default y position of the tool panel
+Equ FD_DEFFONT$ 		To 23 ;*default font for ?
+Equ FD_DEFBACKCOLOR$	To 24 ;*default window backcolor
+Equ FD_CTRLTYPES$		To 25 ;*array that contains the types of controls
+Equ FD_CTRLPREFIXES$	To 26 ;*array that contains the prefixes for the control type array
+Equ FD_PROPPANEL_SHOW$	To 27 ;*toggle showing or hiding the property panel
+Equ FD_PROPPANEL_X$	    To 28 ;*default x position of the property panel
+Equ FD_PROPPANEL_Y$	    To 29 ;*default y position of the property panel
+Equ FD_PROPPANEL_WIDE$	To 30 ;*default width of the property panel
+Equ FD_PROPPANEL_HIGH$	To 31 ;*default height of the property panel
+Equ FD_MDI_MAXIMIZED$   To 32 ;*Is the MDI Frame Maximized On Close
+Equ FD_SHOW_INHERITED$  To 33 ;// new
+Equ FD_LOCK_CTRLS$      To 34 ;// new
+

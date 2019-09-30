@@ -1,0 +1,79 @@
+Compile Insert U2_Volume_Equates
+/*
+
+	Abstract:
+     	U2_Volume; Literal VOLUME
+				U2_BfsType;		 Literal U2_BFS (note this should be changed to U2)
+				U2_ControlLoc	 <1,1> = Servername	<1,2> = directory
+				U2_LoginScr		 Path for Media Files ( shadow dict location)
+				U2_VolumeId		 Same as the volume pntr id
+				U2_ConnectInfo	 MV list of				
+			  		  U2_Servername
+			  		  U2_LoginId
+			  		  U2_PassWord
+			  		  U2_Directory			  		
+			  		  U2_SubKey -- passed thru Ic_OpenSession for tiered server connection
+			  		  U2_SyncDictFlag - added, not used, idea is to set a master flag for replication of dicts to back end
+			  		  U2_LogonProc - added 01-23-07 Name of function to run at logon
+					   U2_AttachListOption - 01-02-08 ; Attach all server tables Or a specific list
+           U2_RefreshOption    - 01-02-08 Automatic (upon attach)  or manual (upon request) resync of tables.
+					   U2_ServerDictMode - Control update of server dict
+					   U2_ShadowDictMode - control update of shadow dict during synchronization
+			 U2_TableList  - tables which exist On server ; updated upon refresh; names In U2 format
+      U2_SpecificAttachList - specific tables To attach If U2_attachlistOption is set To specific
+      U2_MappedTableList$   - assocaited with U2_Tablelist, table names In oi format, e.g. dots To underscores
+      U2_RefreshTimeStamp$	  - datetime of last refresh server table list
+			  		
+			  		
+* rjc  11-22-06 for encrypt decrypt
+* rjc  01-12-07 Sync Flag in control info
+* rjc  02-05-0  8.04 changes - Specify changes, control dict replication, use U2_Shadow_Loc instead of U2_LoginScr
+			  		
+*/
+
+** Volume Fields
+Equ U2_Volume$ to 1
+Equ U2_BfsType$ to 2
+Equ U2_ControlLoc$ to 3
+Equ U2_LoginScr$ to 4
+Equ U2_Shadow_loc$ to 4
+Equ U2_VolumeId$ to 5
+Equ U2_ConnectInfo$ to 6
+Equ U2_TableList$ to 10
+Equ U2_SpecificAttachList$ to 11
+Equ U2_MappedTableList$ to 12
+Equ U2_RefreshTimeStamp$ to 13
+
+** Breakdown of the Control Information
+Equ U2_Servername$ to 1    ; * ipaddress or name of server
+Equ U2_LoginId$ to 2       ; * Username on U2 server, usually mydomain\myname, %username% will use current network login?
+Equ U2_Password$ to 3      ; * 
+Equ U2_Directory$ to 4
+Equ U2_SubKey$ to 5
+
+* rjc 01-15-07
+equ U2_SYNCDICTFLAG$ to 6 ; * Unused?
+
+* rjc 01-23-07 -- beware of similarly named U2_LoginScr.  That one is misnamed, is really the media location
+equ U2_LoginProcName$    to 7 ; * name of proc to run when volume is attached
+equ U2_AttachListOption$ to 8 ; * rjc 01-02-08 All or Specific Tables.  
+equ U2_RefreshOption$    to 9 ; * rjc 01-02-08 Automatic (upon attach)  or manual (upon request) resync of tables.
+
+
+* rjc  01-30-08
+* Dict Update Modes
+* Control whether the bond will automatically Write changes From Server dict To shadow dict Or vice versa
+* Notes: 
+* 1. Changes To symbolic columns In the shadow dict are never copied To the server
+* 2. When OI creates a new Shadow dict, it will always create columns regardless of settings
+* 3. CopyTable fs will copy colums To server regardless of settings
+* 
+equ U2_ServerDict_UpdateMode$ to 10 ; * Do we update the server dict when shadow dict changes?
+equ U2_ShadowDict_UpdateMode$ to 11 ; * Do we update the client dict when the server dict changes?
+Equ UpdateMode_InsertUpdate$ To 0 ; * New And changed columns replicated.  Overwrite existing columns
+Equ UpdateMode_InsertOnly$ To 1   ; * Only new columns replicated. Do not overwrite existing columns
+Equ UpdateMode_NoWrite$ To 2      ; * Do Not Write To foreign dict
+
+
+
+Equ U2_Password_key$ to "RTI112206IBMUVUD"

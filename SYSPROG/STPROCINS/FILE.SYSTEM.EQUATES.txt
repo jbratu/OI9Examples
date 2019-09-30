@@ -1,0 +1,55 @@
+*  Advanced Revelation filing system action codes.
+
+EQU READ.RECORD    TO 1
+EQU READO.RECORD   TO 2
+EQU WRITE.RECORD   TO 3
+EQU DELETE.RECORD  TO 4
+EQU LOCK.RECORD    TO 5
+EQU UNLOCK.RECORD  TO 6
+
+EQU SELECT         TO 7
+EQU READNEXT       TO 8
+EQU CLEARSELECT    TO 9
+
+EQU CLEARFILE      TO 10
+EQU OPEN.FILE      TO 11
+EQU CREATE.FILE    TO 12
+EQU RENAME.FILE    TO 13
+EQU MOVE.FILE      TO 14
+EQU DELETE.FILE    TO 15
+
+EQU OPEN.MEDIA     TO 16
+EQU CREATE.MEDIA   TO 17
+EQU READ.MEDIA     TO 18
+EQU WRITE.MEDIA    TO 19
+
+EQU UNLOCK.ALL     TO 20
+EQU FLUSH          TO 21
+EQU INSTALL        TO 22
+
+*EQU RESERVED      TO 23
+*EQU RESERVED      TO 24
+*EQU RESERVED      TO 25
+
+EQU OMNI.SCRIPT    TO 26
+    * Following OMNI.SCRIPT sub-codes are passed in the FMC
+    EQU OMNIBUS_LIST$         TO 'GROUP_NUMBER'
+    EQU OMNIBUS_CALL$         TO 0    ;* Required
+    EQU SMART_TEST$           TO 1    ;* Required - returns 0 in FLAG if
+                                       * bond is NOT smart.  Otherwise returns
+                                       * an intelligence factor in FLAG.
+    EQU SCRIPT_CALL$          TO 2    ;* Intelligent database language script
+                                       * for smart bonds only
+    EQU SCRIPT_OK_CALL$       TO 3    ;* For smart bonds only.  If true then
+                                       * asynchronous processesing is used.
+
+EQU CLOSE.MEDIA    TO 27
+EQU RECORD.COUNT   TO 28
+EQU REMAKE.FILE    TO 29
+
+EQU CREATE.INDEX   TO 30
+EQU DELETE.INDEX   TO 31
+EQU UPDATE.INDEX   TO 32
+EQU SELECT.INDEX   TO 33
+EQU READNEXT.INDEX TO 34
+* Source Date: 16:41:43  12 JAN 1993  Build ID: OI*1.0.10  Level: 2.0

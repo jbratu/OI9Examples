@@ -1,0 +1,3 @@
+Subroutine SEND_INFO_STOCK(m)
+* This is a palceholder which will be replaced with the stock SEND_INFO subr
+Return ''

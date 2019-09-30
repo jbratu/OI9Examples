@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "\r\n\r\ndeclare function Send_Message\r\nequ crlf$ to \\0D0A\\\r\n\r\n\r\nif Assigned(hWnd) then p1 = hWnd else P1 = ''\r\nif Assigned(Message) then p2 = Message else P2 = ''\r\nif Assigned(wParam) then p3 = wParam else P3 = ''\r\nif Assigned(lParam) then p4 = lParam else P4 = ''\r\n\r\n\r\n\r\nmtext = 'Wins:':Message\r\nmtext := ' hWnd=':P1\r\nmtext := ' wParam=':P3\r\nmtext := ' lParam=':P4\r\n\r\n\r\ncall Post_Event(@window:'.EVENTS', 'OMNIEVENT', mText)\r\n\r\nRETURN 0"
+    }
+}

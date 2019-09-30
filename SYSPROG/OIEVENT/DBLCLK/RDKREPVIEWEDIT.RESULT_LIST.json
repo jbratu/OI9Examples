@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "declare function restostring\r\n$insert rdkdeploy_equates\r\n\r\nEqu TRUE$\t\t\tto 1\r\nEqu FALSE$\t\t\tto 0\r\n\r\nDeclare function RdkGetTypeFromHierarchy, RdkGetClassFromHierarchy\r\nDeclare function Dialog_Box, Repos_Resolve_Entity\r\n\r\nSelItem = @CtrlEntId->SelPos_Ex\r\nExSelected = SelItem<1>\r\nMDIFrame\t= Get_Property( @window, 'MDIFRAME' )\r\nAllTypes\t= .Type_List->List\r\nIf SelItem<2> = 3 then\r\n\tEveryThing = @CtrlEntID->LIST_EX\r\n\r\n\treposType = RdkGetTypeFromHierarchy(Everything, ExSelected, AllTypes )\r\n\tIf reposType <> \"\" then\r\n\t\treposClass = RdkGetClassFromHierarchy(Everything, ExSelected)\r\n\t\tEntId = \"~*\" : reposType : \"*\" : reposClass : \"*\" : Everything<ExSelected>[5, 999]\r\n\t\tentBody = Repos_Resolve_Entity( entID )\r\n    \r\n\t\tif len( entBody ) then\r\n\t\t\tnotUsed = Dialog_Box(DLG_ENTPROPS$, MDIFrame, entId : @RM : entBody)\r\n\t\tend\r\n\tend\r\nend\r\n\r\nreturn 0\r\n\r\n"
+    }
+}

@@ -1,0 +1,3 @@
+Compile Insert SRPARRAY
+
+Declare function SRP_Array, SRP_Clean_Array, SRP_Join_Arrays, SRP_Reorder_Array, SRP_Rotate_Array, SRP_Sort_Array

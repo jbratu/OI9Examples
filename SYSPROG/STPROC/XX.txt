@@ -1,0 +1,23 @@
+Subroutine Xx(VOID)
+HDG = "THIS RPT"
+FTG = 'BOT'
+GRTOTAL = 20000
+x = 'LIST VOC BY @ID '
+
+*x := "BREAK-ON F1 " : Quote( "'VUL'") : "JUSTLEN 12"
+x := " BREAK-ON F1 " : Quote("'PUL'") : " JUSTLEN 12"
+x := " BREAK-ON F2 " : Quote("'VLU'" ) : " JUSTLEN 12"
+x := " BREAK-ON F3 " : Quote("'VLU'" )
+x := " F3 JUSTLEN 10"
+x := " F3 "
+x := " F3 "
+x := " F3 "
+x := " HEADING ":quote(Hdg)
+x := " FOOTING ":quote(Ftg)
+x := " ID-SUPP PORTRAIT"
+x := " GRAND-TOTAL ":quote(GrTotal)
+x := " HDRFONT 'ARIAL,B,8,0' COLHDRFONT 'ARIAL,B,8,0' FONT 'ARIAL,,8,0'"
+x := " COLHDRSHADE LGREY " 
+
+CALL run_report( '', x, 'PAPERSIZE 1 PORTRAIT' )
+

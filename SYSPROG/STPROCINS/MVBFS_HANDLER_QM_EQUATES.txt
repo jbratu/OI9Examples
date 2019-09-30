@@ -1,0 +1,17 @@
+Compile Insert MVBFS_HANDLER_QM_EQUATES
+* Equates specific to the QM mvbfs connector
+
+Equ HOSTNAME$    To "HOSTNAME"
+Equ SERVERPORT$  To "SERVERPORT"
+Equ APPLICATION$ To "APPLICATION"
+Equ CONNECTION_STRING_PARAMS$ To hostname$:@vm:SERVERPORT$:@vm:APPLICATION$
+Equ QM_COM_OBJECT$ To "OIBFSHELPER.OI4QM"
+
+
+* execute status
+equ SV_OK$       to  0    ;* Action successful
+equ SV_ON_ERROR$ To  1    ;* Action took ON ERROR clause
+equ SV_ELSE$     to  2    ;* Action took ELSE clause
+equ SV_ERROR$    to  3    ;* Action failed. Error text available
+equ SV_LOCKED$   to  4    ;* Action took LOCKED clause
+equ SV_PROMPT$   to  5    ;* Server requesting input

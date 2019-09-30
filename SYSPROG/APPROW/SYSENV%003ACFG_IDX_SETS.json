@@ -1,0 +1,9 @@
+{
+    "record1": {
+        "<1>": "IDX_SETS2",
+        "<2>": "",
+        "<3>": "",
+        "<4>": "If use of original IDX_SETS is desired, set field 2 to IDX_SETS1;",
+        "<5>": "otherwise, leave blank to use most recent version"
+    }
+}

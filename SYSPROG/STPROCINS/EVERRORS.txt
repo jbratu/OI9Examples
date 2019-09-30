@@ -1,0 +1,28 @@
+compile insert EVERRORS
+*----------------------------------------------------------------------------
+* 
+*
+* OpenInsight Event Error codes for Set_EventStatus and Get_EventStatus
+*
+* December 14, 1993
+*
+*
+* EventErrors format:
+*    <ErrorList>  =  <error1> : @fm : <error2> : @fm : ...   
+*    <error>      =  <code> : @vm : <arg1> : @vm : <arg2> : @vm : ...
+*
+*----------------------------------------------------------------------------
+EQU EV_CODE$                   TO 1
+EQU EV_ARGS$                   TO 2
+EQU EV_PREFIX$                 TO 'EV'
+ 
+EQU EV_UNKNOWNERR$            TO 'EV100'    ;* 
+EQU EV_REQUIREERR$            TO 'EV101'    ;* 
+EQU EV_VALIDERR$              TO 'EV102'    ;* 
+EQU EV_FORMREADERR$           TO 'EV103'    ;* 
+EQU EV_FORMREADSUBERR$        TO 'EV104'    ;* 
+EQU EV_NULLKEYERR$            TO 'EV105'    ;* 
+EQU EV_NOLOCKERR$             TO 'EV106'    ;* 
+EQU EV_USERCANCEL$            TO 'EV107'    ;* 
+
+

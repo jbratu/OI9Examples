@@ -1,0 +1,41 @@
+compile insert winres_equates
+
+******************************************************************************
+*
+* Product    :  OpenInsight
+* Client     :  RTI
+* Version    :  3.1
+*
+* Description:  Soft-coded messages for Form IO layer
+*               (see SYSENV/SYSTEM_RESOURCES)
+*
+* Example    :  msgLocked = ResToString(WINRES_LOCKED$, 'SYSTEM')
+*
+* History    :  (date, initials, notes)
+*   12/15/95  vg  Original programmer.
+******************************************************************************
+
+declare function ResToString
+
+EQU SYSRES_PREFIX_WIN$        TO 'WIN'
+EQU SYSRES_SYSTEM$            TO 'SYSTEM'
+EQU WINRES_SYSTEM$            TO 'SYSTEM'
+EQU WINRES_PSNOTRUNNING$      TO SYSRES_PREFIX_WIN$ : 100
+EQU WINRES_WINEXISTS$         TO SYSRES_PREFIX_WIN$ : 101
+EQU WINRES_COMPILEFAILED$     TO SYSRES_PREFIX_WIN$ : 102
+
+EQU WINRES_NEWENTRY$          TO SYSRES_PREFIX_WIN$ : 110
+EQU WINRES_QBFDEFINE$         TO SYSRES_PREFIX_WIN$ : 111
+EQU WINRES_QBFINPROGRESS$     TO SYSRES_PREFIX_WIN$ : 112
+EQU WINRES_QBFBROWSE$         TO SYSRES_PREFIX_WIN$ : 113
+EQU WINRES_LOCKED$            TO SYSRES_PREFIX_WIN$ : 114
+
+EQU WINRES_QBFQUERYCRITERIA$  TO SYSRES_PREFIX_WIN$ : 120
+EQU WINRES_APPNOTE$           TO SYSRES_PREFIX_WIN$ : 130
+EQU WINRES_UNKNOWNERR$        TO SYSRES_PREFIX_WIN$ : 131
+EQU WINRES_APPMANAGER$        TO SYSRES_PREFIX_WIN$ : 132
+EQU WINRES_INVALIDITEMTYPE$   TO SYSRES_PREFIX_WIN$ : 133
+EQU WINRES_STARTFORMERR$      TO SYSRES_PREFIX_WIN$ : 134
+EQU WINRES_HELPDNE$           TO SYSRES_PREFIX_WIN$ : 135
+EQU WINRES_OPTIONSDNE$        TO SYSRES_PREFIX_WIN$ : 136
+

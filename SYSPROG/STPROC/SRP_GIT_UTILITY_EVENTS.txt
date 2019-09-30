@@ -1,0 +1,427 @@
+Compile function SRP_GIT_UTILITY_EVENTS(Event, CtrlEntId, @PARAMS)
+/************************************************************************************************
+*
+* This program is proprietary and is not to be used by or disclosed to others, nor is it to
+* be copied without written permission from SRP Computer Solutions, Inc.
+*
+* Name       :  SRP_GIT_UTILITY_Events
+*
+* Description:  Event handling commuter module for the SRP_GIT_UTILITY form.
+*
+* User Defined Properties:
+*
+* Parameters:
+*	EventID		[in] -- Event ID
+*	CtrlEntId	[in] -- Control whose event is being handled
+*	Param1-13	[in] -- Event Parameters
+*
+* Returns:
+*	Event handling result, usually 1
+*
+* History (Date, Initials, Notes)
+*	04/05/19    DJS    Original programmer
+*	07/29/19    KRF    Updated with different controls and cleaned up the code
+*
+************************************************************************************************/
+#pragma precomp SRP_PreCompiler
+#window SRP_GIT_UTILITY
+
+$Insert APP_INSERTS
+$Insert MESSAGE_BOX_EQUATES
+
+Equ IMAGE_LOC$ to 'BMPS\SRPGit.zip#'
+
+Declare subroutine SRP_Show_Window, SRP_Set_Minmaxinfo, Set_Property, Message_Box
+Declare function   RGB, SRP_Git_Services, Git_Services, SRP_Array, Set_Property, Message_Box
+
+GoToEvent Event for CtrlEntId else
+    // Event not implemented
+end
+
+Return EventFlow or 1
+
+//-----------------------------------------------------------------------------
+// EVENT HANDLERS
+//-----------------------------------------------------------------------------
+
+
+Event WINDOW.CREATE(CreateParam)
+    
+    // Setup combo boxex
+    Set_Property(@Window:'.CMB_FILTER_APP', 'LIST', @FM:@APPID)
+    Set_Property(@Window:'.CMB_FILTER_WORK', 'LIST', @FM:SRP_Git_Services("GetSupportedEntityTypes"))
+    
+    GoSub Setup_OLE_Controls
+    
+    // Load the commit options
+    Commits = SRP_Git_Services("GetCommits")
+    CommitHashes = ""
+    CommitLabels = ""
+    LastCommit = Xlate("SYSENV", "SRP_GIT_LASTCOMMIT", "", "X")
+    If Len(LastCommit) then
+        CommitHashes<-1> = LastCommit<1>
+        CommitLabels<-1> = "Last Pull: ":LastCommit<2>
+    end
+    CurrCommitHash = SRP_Git_Services("GetCurrentCommit")<1>
+    For Each Commit in Commits
+        If Commit<1, 1> NE CurrCommitHash then
+            CommitHashes<-1> = Commit<1, 1>
+            CommitLabels<-1> = "Commit: ":Commit<1, 2>
+        end
+    Next Commit
+    Set_Property(@Window:".CMB_FILTER_COMMIT", "LIST", @FM:CommitLabels)
+    Set_Property(@Window:".CMB_FILTER_COMMIT", "@IDS", @FM:CommitHashes)
+    If Len(LastCommit) then Set_Property(@Window:".CMB_FILTER_COMMIT", "SELPOS", 2)
+    
+    // Default to pull
+    Send_Event(@Window:".PUB_PULL", "OLE", "OnClick", "0,0", "Left", 0, 0)
+    
+    // Center and show the window
+    SRP_Show_Window(@Window, '', 'C', 'C', 1, '', False$, False$)
+    
+End Event
+
+
+Event PUB_PULL.OnClick(Point, Button, Shift, Ctrl)
+    
+    Set_Property(@Window:".PUB_PULL", "OLE.State", 1)
+    Set_Property(@Window:".PUB_PULL", "OLE.FontBold", 1)
+    Set_Property(@Window:".PUB_PUSH", "OLE.State", 0)
+    Set_Property(@Window:".PUB_PUSH", "OLE.FontBold", 0)
+    Set_Property(@Window, "@OPERATION", "PULL")
+    
+    Set_Property(@Window:".STA_WORKING", "TEXT", "Git Repo Entities")
+    Set_Property(@Window:".STA_STAGE", "TEXT", "Entities to Pull into OpenInsight")
+    Set_Property(@Window:".STA_LAST_COMMIT_LABEL", "VISIBLE", Yes$)
+    Set_Property(@Window:".CMB_FILTER_COMMIT", "VISIBLE", Yes$)
+    Set_Property(@Window:".STA_CURR_COMMIT_LABEL", "VISIBLE", Yes$)
+    Set_Property(@Window:".EDL_CURR_COMMIT", "VISIBLE", Yes$)
+    Set_Property(@Window:".STA_SEARCH", "VISIBLE", No$)
+    Set_Property(@Window:".EDL_SEARCH", "VISIBLE", No$)
+    
+    CurrCommit = SRP_Git_Services("GetCurrentCommit")
+    Set_Property(@Window:".EDL_CURR_COMMIT", "@HASH", CurrCommit<1>)
+    Set_Property(@Window:".EDL_CURR_COMMIT", "TEXT", CurrCommit<2>)
+    
+    GoSub Populate
+    
+end event
+
+
+Event PUB_PUSH.OnClick(Point, Button, Shift, Ctrl)
+    
+    Set_Property(@Window:".PUB_PULL", "OLE.State", 0)
+    Set_Property(@Window:".PUB_PULL", "OLE.FontBold", 0)
+    Set_Property(@Window:".PUB_PUSH", "OLE.State", 1)
+    Set_Property(@Window:".PUB_PUSH", "OLE.FontBold", 1)
+    Set_Property(@Window, "@OPERATION", "PUSH")
+    
+    Set_Property(@Window:".STA_WORKING", "TEXT", "OpenInsight Entities")
+    Set_Property(@Window:".STA_STAGE", "TEXT", "Entities to Push into Git")
+    Set_Property(@Window:".STA_LAST_COMMIT_LABEL", "VISIBLE", No$)
+    Set_Property(@Window:".CMB_FILTER_COMMIT", "VISIBLE", No$)
+    Set_Property(@Window:".STA_CURR_COMMIT_LABEL", "VISIBLE", No$)
+    Set_Property(@Window:".EDL_CURR_COMMIT", "VISIBLE", No$)
+    Set_Property(@Window:".STA_SEARCH", "VISIBLE", Yes$)
+    Set_Property(@Window:".EDL_SEARCH", "VISIBLE", Yes$)
+    Set_Property(@Window:".EDL_SEARCH", "FOCUS", Yes$)
+    
+    GoSub Populate
+    
+end event
+
+
+Event CMB_FILTER_APP.CHANGED(NewData)
+    GoSub Populate
+end event
+
+
+Event CMB_FILTER_WORK.CHANGED(NewData)
+    GoSub Populate
+end event
+
+
+Event CMB_FILTER_COMMIT.CHANGED(NewData)    
+    GoSub Populate
+end event
+
+
+Event EDL_SEARCH.CHANGED(NewData)
+    Set_Property(@Window, "TIMER", 0:@FM:500) 	
+end event
+
+
+Event WINDOW.TIMER()
+    
+    Text = Get_Property(@Window:".EDL_SEARCH", "TEXT")
+    List = Get_Property(@Window:".OLE_RPT_WORK", "@ORIGLIST")
+    NewList = ""
+    If Len(Text) then
+        For Each Row in List
+            If IndexC(Row, Text, 1) GT 0 then
+                NewList := Row:@FM
+            end
+        Next Row
+        NewList[-1, 1] = ""
+    end else
+        Transfer List to NewList
+    end
+    Set_Property(@Window:".OLE_RPT_WORK", "OLE.List", NewList)
+    
+end event
+
+
+Event PUB_APPLY.CLICK()
+    
+    Set_Property('SYSTEM', 'CURSOR', 'H')
+    ErrorList   = ''
+    Operation   = Get_Property(@Window, '@OPERATION')
+    StageList   = Get_Property(@Window:'.OLE_RPT_STAGE', 'OLE.List')
+    RotatedList = SRP_Array('Rotate', StageList)
+    EntityList  = RotatedList<1>
+    StatusList  = RotatedList<6>
+    Convert @VM to @FM in EntityList
+    Convert @VM to @FM in StatusList
+    Begin Case
+        Case Operation EQ "PULL"
+            ErrorList = SRP_Git_Services('PullEntities', EntityList, StatusList, @Window:".OLE_STATUS") 
+        Case Operation EQ "PUSH"                
+            ErrorList = SRP_Git_Services('PushEntities', EntityList, @Window:".OLE_STATUS")
+    End Case
+    If ErrorList NE '' then
+        ErrorMsg = Operation:" operation failed."
+        For each Error in ErrorList using @FM setting fPos
+            ErrorMsg := MSG_NL$ : Error
+        Next Error
+        rv = Message_Box(@Window, ErrorMsg, "Error", MSG_BTN_OK$ + MSG_ICON_STOP$)  
+    end else
+        Set_Property(@Window:'.OLE_RPT_STAGE', 'OLE.List', '')
+        Set_Property(CtrlEntID, 'ENABLED', False$)
+        Message = Operation:' operation successful.'
+        rv = Message_Box(@Window, Message, "Success", MSG_BTN_OK$ + MSG_ICON_INFO$)
+    end
+    Set_Property(@Window:".OLE_STATUS", "OLE.PanePercent[1]", 0)
+    Open "SYSENV" to hSYSENV then
+        Rec = ""
+        Rec<-1> = Get_Property(@Window:".EDL_CURR_COMMIT", "@HASH")
+        Rec<-1> = Get_Property(@Window:".EDL_CURR_COMMIT", "TEXT")
+        Write Rec to hSYSENV, "SRP_GIT_LASTCOMMIT" then NULL
+    end
+    Set_Property('SYSTEM', 'CURSOR', 'A')
+
+end event
+
+
+Event PUB_CLOSE.CLICK()
+    
+    Post_Event(@Window, 'CLOSE')
+    
+end event
+
+
+Event OLE_ADD_ALL.OnClick(Point, Button, Shift, Ctrl)
+    
+    EntityList = Get_Property(@Window:'.OLE_RPT_WORK', 'OLE.List')
+    Set_Property(@Window:'.OLE_RPT_STAGE', 'OLE.List', EntityList)
+    GoSub EnableArrowButtons
+    GoSub EnableStagingCtrls
+    
+end event
+
+
+Event OLE_ADD_SELECTED.OnClick(Point, Button, Shift, Ctrl)
+    
+    EntitiesToAdd = Get_Property(@Window:'.OLE_RPT_WORK', 'OLE.SelList')
+    StageList = Get_Property(@Window:'.OLE_RPT_STAGE', 'OLE.List')
+    ResultList = SRP_Array('Join', StageList, EntitiesToAdd, 'OR', @FM)
+    Set_Property(@Window:'.OLE_RPT_STAGE', 'OLE.List', ResultList)
+    GoSub EnableArrowButtons
+    GoSub EnableStagingCtrls
+    
+end event
+
+
+Event OLE_REMOVE_ALL.OnClick(Point, Button, Shift, Ctrl)
+    
+    Set_Property(@Window:'.OLE_RPT_STAGE', 'OLE.List', '')
+    GoSub EnableArrowButtons
+    GoSub EnableStagingCtrls
+    
+end event
+
+
+Event OLE_REMOVE_SELECTED.OnClick(Point, Button, Shift, Ctrl)
+   
+    StageRptCtrl = @Window : '.OLE_RPT_STAGE'
+    SelList = Get_Property(StageRptCtrl, 'OLE.SelList')
+    EntityList = Get_Property(StageRptCtrl, 'OLE.List')
+    For each Row in SelList using @FM setting sPos
+        Locate Row in EntityList using @FM setting ePos then EntityList = Delete(EntityList, ePos, 0, 0)
+    Next Row
+    Set_Property(StageRptCtrl, 'OLE.List', EntityList)
+    GoSub EnableArrowButtons
+    GoSub EnableStagingCtrls
+    
+end event
+
+
+Event OLE_RPT_WORK.OnSelChange()
+    GoSub EnableArrowButtons
+end event
+
+
+Event OLE_RPT_WORK.OnItemDblClick(Row, Button, Col, Point)
+    Send_Event(@Window:".OLE_ADD_SELECTED", "OLE", "OnClick", "", "", "", "")
+end event
+
+
+Event OLE_RPT_STAGE.OnSelChange()
+    GoSub EnableArrowButtons
+end event
+
+
+Event OLE_RPT_STAGE.OnItemDblClick(Row, Button, Col, Point)
+    Send_Event(@Window:".OLE_REMOVE_SELECTED", "OLE", "OnClick", "", "", "", "")
+end event
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Internal GoSubs
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Setup_OLE_Controls:
+    
+    // Setup statusbar
+    Ctrl = @Window:".OLE_STATUS"
+    Set_Property(Ctrl, "OLE.Background", "White")
+    Set_Property(Ctrl, "OLE.PaneBorder[1]", "None")
+    Set_Property(Ctrl, "OLE.PaneColors[1]", "Black":@FM:"White":@FM:"Select":@FM:"SelectText")
+    Set_Property(Ctrl, "OLE.PaneType[1]", "PN")
+    Set_Property(Ctrl, "OLE.PanePercent[1]", 0)
+    Set_Property(Ctrl, "OLE.Resizable", No$)
+    
+    // Setup buttons
+    Background = ""
+    Background<1> = "Vertical(Gradient(White, White), Border(White))"
+    Background<2> = "Vertical(Gradient(White, White), Gradient(Select L=50, Select L=50, 4), Border(White))"
+    Background<3> = "Vertical(Gradient(White, White), Gradient(Select L=30, Select L=30, 4), Border(White))"
+    Foreground = ""
+    Foreground<1> = "Select L=50"
+    Foreground<2> = "Select L=50"
+    Foreground<3> = "Select L=30"
+    CtrlIds = "PUB_PULL,PUB_PUSH"
+    For i = 1 to 2
+        Ctrl = @Window:".":Field(CtrlIds, ",", i, 1)
+        Set_Property(Ctrl, "OLE.Background", Background)
+        Set_Property(Ctrl, "OLE.Forecolor", Foreground)
+        Send_Message(Ctrl, 'QUALIFY_EVENT', 'OLE.OnClick', Yes$)
+    Next i
+    
+    // Qualify OLE events that we want to intercept
+    Send_Message(@Window:'.OLE_ADD_ALL', 'QUALIFY_EVENT', 'OLE.OnClick', Yes$)
+    Send_Message(@Window:'.OLE_ADD_SELECTED', 'QUALIFY_EVENT', 'OLE.OnClick', Yes$)
+    Send_Message(@Window:'.OLE_REMOVE_ALL', 'QUALIFY_EVENT', 'OLE.OnClick', Yes$)
+    Send_Message(@Window:'.OLE_REMOVE_SELECTED', 'QUALIFY_EVENT', 'OLE.OnClick', Yes$)
+    
+    // Setup selection buttons
+    Style = 'TBNG'
+	Background = ''
+    Background<1> = 'None'
+    Background<2> = 'Vertical(Gradient(S L=90, S L=90), Border(S L=70))'
+    Background<3> = 'Vertical(Gradient(S L=80, S L=80), Border(S L=60))'
+    Background<4> = 'None'
+    Background<5> = 'Vertical(Gradient(S L=80, S L=80), Border(S L=60))'
+	Set_Property(@Window:'.OLE_ADD_ALL', 'OLE.Style', Style)
+	Set_Property(@Window:'.OLE_ADD_SELECTED', 'OLE.Style', Style)
+	Set_Property(@Window:'.OLE_REMOVE_SELECTED', 'OLE.Style', Style)
+	Set_Property(@Window:'.OLE_REMOVE_ALL', 'OLE.Style', Style)
+	Set_Property(@Window:'.OLE_ADD_ALL', 'OLE.Background', Background)
+	Set_Property(@Window:'.OLE_ADD_SELECTED', 'OLE.Background', Background)
+	Set_Property(@Window:'.OLE_REMOVE_SELECTED', 'OLE.Background', Background)
+	Set_Property(@Window:'.OLE_REMOVE_ALL', 'OLE.Background', Background)
+	Set_Property(@Window:'.OLE_ADD_ALL', 'OLE.Icon', IMAGE_LOC$:'ArrowDblRight.png')
+	Set_Property(@Window:'.OLE_ADD_SELECTED', 'OLE.Icon', IMAGE_LOC$:'ArrowRight.png')
+	Set_Property(@Window:'.OLE_REMOVE_SELECTED', 'OLE.Icon', IMAGE_LOC$:'ArrowLeft.png')
+	Set_Property(@Window:'.OLE_REMOVE_ALL', 'OLE.Icon', IMAGE_LOC$:'ArrowDblLeft.png')
+	
+	// Setup Working OLE Report Table
+	Ctrl = @Window:'.OLE_RPT_WORK' ; GoSub Setup_ReportTable
+	Ctrl = @Window:'.OLE_RPT_STAGE' ; GoSub Setup_ReportTable
+    
+return
+
+Setup_ReportTable:
+
+    ColumnList     = ''       
+    ColumnList<-1> = 'Id'     :@VM:'Text':@VM:100:@VM:0:@VM:@VM:@VM:1:@VM:0:@VM:50:@VM:'Left':@VM:@VM:@VM:@VM:'Segeo UI Semilight':@SVM:'10'
+    ColumnList<-1> = 'App'    :@VM:'Text':@VM:120:@VM:0:@VM:@VM:@VM:1:@VM:1:@VM:50:@VM:'Left':@VM:@VM:@VM:@VM:'Segoe UI Semilight':@SVM:'10'
+    ColumnList<-1> = 'Type'   :@VM:'Text':@VM:100:@VM:0:@VM:@VM:@VM:1:@VM:0:@VM:50:@VM:'Left':@VM:@VM:@VM:@VM:'Segoe UI Semilight':@SVM:'10'
+    ColumnList<-1> = 'Class'  :@VM:'Text':@VM:100:@VM:0:@VM:@VM:@VM:1:@VM:0:@VM:50:@VM:'Left':@VM:@VM:@VM:@VM:'Segoe UI Semilight':@SVM:'10'
+    ColumnList<-1> = 'Name'   :@VM:'Text':@VM:300:@VM:1:@VM:@VM:@VM:1:@VM:1:@VM:50:@VM:'Left':@VM:@VM:@VM:@VM:'Segoe UI Semilight':@SVM:'10'
+    ColumnList<-1> = 'Status' :@VM:'Text':@VM:80 :@VM:0:@VM:@VM:@VM:0:@VM:1:@VM:50:@VM:'Left':@VM:@VM:@VM:@VM:'Segoe UI Semilight':@SVM:'10'
+                        
+    Set_Property(Ctrl, 'OLE.ColumnList', ColumnList)
+    Set_Property(Ctrl, 'OLE.GroupOrder', 3)
+    Set_Property(Ctrl, 'OLE.SortOrder', 3:@FM:5)
+    Set_Property(Ctrl, 'OLE.MultiSelect', 1)
+    Set_Property(Ctrl, 'OLE.HorizontalGridStyle', 'None')
+    Set_Property(Ctrl, "OLE.AlwaysShowSelection", Yes$)
+    Send_Message(Ctrl, 'QUALIFY_EVENT', 'OLE.OnSelChange', Yes$)
+    Send_Message(Ctrl, 'QUALIFY_EVENT', 'OLE.OnItemDblClick', Yes$)
+    
+return
+
+   
+EnableArrowButtons:
+
+    Set_Property(@Window:'.OLE_ADD_ALL', 'ENABLED', Get_Property(@Window:'.OLE_RPT_WORK', 'OLE.RowCount') GT 0)
+	Set_Property(@Window:'.OLE_ADD_SELECTED', 'ENABLED', Get_Property(@Window:'.OLE_RPT_WORK', 'OLE.SelList') NE "")
+	Set_Property(@Window:'.OLE_REMOVE_SELECTED', 'ENABLED', Get_Property(@Window:'.OLE_RPT_STAGE', 'OLE.SelList') NE "")
+    Set_Property(@Window:'.OLE_REMOVE_ALL', 'ENABLED', Get_Property(@Window:'.OLE_RPT_STAGE', 'OLE.RowCount') GT 0)
+	
+return
+
+
+EnableStagingCtrls:
+    
+    StagingList = Get_Property(@Window:'.OLE_RPT_STAGE', 'OLE.List')
+    If StagingList NE '' then
+        Set_Property(@Window:'.PUB_APPLY', 'ENABLED', Yes$)
+    end else
+        Set_Property(@Window:'.PUB_APPLY', 'ENABLED', No$)
+    end
+    
+return
+
+Populate:
+    
+    Set_Property('SYSTEM', 'CURSOR', 'H')
+    
+    Types = Get_Property(@Window:".CMB_FILTER_WORK", "TEXT")
+    Apps = Get_Property(@Window:".CMB_FILTER_APP", "TEXT")
+    Commit = Get_Property(@Window:".CMB_FILTER_COMMIT", "TEXT")
+    CurrCommit = Get_Property(@Window:".EDL_CURR_COMMIT", "@HASH")
+    EntityList = ''
+    Operation  = Get_Property(@Window, '@OPERATION')
+    Begin Case
+        Case Operation EQ "PULL"
+            If Len(Commit) then
+                CommitLabels = Get_Property(@Window:".CMB_FILTER_COMMIT", "LIST")
+                Locate Commit in CommitLabels using @FM setting Pos then
+                    Commit = Get_Property(@Window:".CMB_FILTER_COMMIT", "@IDS")<Pos>
+                end
+            end
+            EntityList = SRP_Git_Services("GetRepoEntities", Types, Apps, Commit, CurrCommit) 
+        Case Operation EQ "PUSH"
+            EntityList = SRP_Git_Services("GetOIEntities", Types, Apps)         
+    End Case
+    
+    Set_Property(@Window:'.OLE_RPT_WORK', 'OLE.List', EntityList)
+    Set_Property(@Window:'.OLE_RPT_WORK', '@ORIGLIST', EntityList)
+
+    GoSub EnableArrowButtons
+    
+    Set_Property('SYSTEM', 'CURSOR', 'A')
+    
+return
+

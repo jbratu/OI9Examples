@@ -1,0 +1,439 @@
+function registry_Method( method, param1, param2, param3 )
+/*
+   Author  : Captain C
+   Date    : September 2002
+   Purpose : Function to demonstrate how to read and write values
+             to the Windows Registry
+             
+   Comments
+   ========
+   
+      This function relies of the following WinAPI functions having been
+      prototyped from AdvApi32.dll:
+      
+         RegCreateKeyEx
+         RegQueryValueEx
+         RegSetValueEx
+         RegCloseKey
+         
+      And these functions from Kernel32.dll:
+      
+         FormatMessage
+         
+      If these functions are NOT defined on your system please see the 
+      notes at the end of this program that should help you do this.
+      
+   
+   Arguments
+   =========
+   
+      method  -> Specifies the task to perform:
+      
+                 'READ'   - Reads a string from the registry
+                 'WRITE'  - Writes a string to the registry
+                 
+      param1  -> Depends on method:
+      
+                 'READ'   - Specifies the path and key to read
+                 'WRITE'  - Specifies the path and key to write to
+      
+      param2  -> Depends on method:
+      
+                 'READ'   - not used
+                 'WRITE'  - The value to write 
+                 
+      param3  -> Depends on method:
+      
+                 'READ'   - not used
+                 'WRITE'  - The value to write 
+   
+   Returns
+   =======
+   
+      Dependant on method:
+      
+         'READ'  -> Returns the string asked for
+         'WRITE' -> Returns the previous value of the 
+         
+      Error details are returned via set_Status()
+      
+      
+   Amended   Date          Reason
+   =======   ====          ======   
+
+*/
+   declare function get_Status, set_Status, RegCreateKeyEx, RegCloseKey
+   declare function RegQueryValueEx, RegSetValueEx
+   declare subroutine formatMessage
+   $insert registry_Method_Equates
+   $insert logical
+   
+   if assigned( method ) else method = ""
+   if assigned( param1 ) else param1 = ""
+   if assigned( param2 ) else param2 = ""
+   if assigned( param3 ) else param3 = ""
+   
+   errorText = ""
+   abort     = FALSE$
+   retVal    = ""
+   
+   hKeyRoot  = 0
+   hKey      = 0
+   regPath   = ""
+   regKey    = ""
+   
+   if len( method ) then
+      thisData = method
+      convert    @lower.case to @UPPER.CASE in thisData
+      locate thisData in "READ,WRITE" using "," setting pos then
+         on pos goSub regRead, regWrite
+      end else
+         errorText = "Illegal method " : quote( method ) : " passed to the REGISTRY_METHOD procedure"
+         abort     = TRUE$
+      end   
+   end else
+      errorText = "No method passed to the REGISTRY_METHOD procedure"   
+      abort     = TRUE$
+   end
+   
+   if abort then
+      if len( errorText ) then
+         call set_Status( TRUE$, errorText )
+      end   
+   end
+   
+return retVal
+
+////////////////////////////////////////////////////////////////////////////////
+
+regRead:
+   * // Param1 should contain the path and key of the registry value to read. It
+   * // should be a string in the format:
+   * //
+   * //    HKEY_LOCAL_MACHINE\SOFTWARE\Revelation Software\OpenInsight\TestKey
+   * // 
+   * // In the above example:
+   * //
+   * //    regRootKey is : HKEY_LOCAL_MACHINE
+   * //    regPath is    : SOFTWARE\Revelation Software\OpenInsight
+   * //    regKey        : TestKey
+   
+   if len( param1 ) then
+      goSub openKey
+      if abort else
+         goSub readKey
+         goSub closeKey
+      end
+   end else
+      errorText = "No path and key passed to the READ method in the REGISTRY_METHOD procedure"
+      abort     = TRUE$
+   end   
+   
+return
+
+////////////////////////////////////////////////////////////////////////////////
+
+regWrite:
+   * // Param1 should contain the path and key of the registry value to read. It
+   * // should be a string in the format:
+   * //
+   * //    HKEY_LOCAL_MACHINE\SOFTWARE\Revelation Software\OpenInsight\TestKey
+   * // 
+   * // In the above example:
+   * //
+   * //    regRootKey is : HKEY_LOCAL_MACHINE
+   * //    regPath is    : SOFTWARE\Revelation Software\OpenInsight
+   * //    regKey        : TestKey
+   * //
+   * // Param2 should contain the valeu to write ( can be null )
+   * //
+   * // Param3 should specify the TYPE of value to write - REG_SZ$ is the 
+   * // default
+   
+   if len( param1 ) then
+      goSub openKey
+      if abort else
+         goSub readKey
+         if abort else
+            goSub writeKey
+         end   
+         goSub closeKey
+      end
+   end else
+      errorText = "No path and key passed to the READ method in the REGISTRY_METHOD procedure"
+      abort     = TRUE$
+   end
+   
+return
+
+///////////////////////////////////////////////////////////////////////////////
+
+openKey:
+   * // Before we can read ot write any values we need to 'open' the key in 
+   * // the registry which should give us a handle with which we can perform
+   * // further tasks
+   
+   * // First grab the root key, the path and the key from param1
+   
+   thisData  = param1[1,"\"]
+   regPath   = param1[col2()+1,\00\]
+   
+   begin case
+      case ( thisData _eqc HKEYTXT_CLASSES_ROOT$ )
+         hKeyRoot = HKEY_CLASSES_ROOT$
+         
+      case ( thisData _eqc HKEYTXT_CURRENT_USER$ )
+         hKeyRoot = HKEY_CURRENT_USER$
+         
+      case ( thisData _eqc HKEYTXT_LOCAL_MACHINE$ )
+         hKeyRoot = HKEY_LOCAL_MACHINE$
+         
+      case ( thisData _eqc HKEYTXT_USERS$ )
+         hKeyRoot = HKEY_USERS$
+         
+      case ( thisData _eqc HKEYTXT_PERFORMANCE_DATA$ )
+         hKeyRoot = HKEY_PERFORMANCE_DATA$
+         
+      case ( thisData _eqc HKEYTXT_CURRENT_CONFIG$ )
+         hKeyRoot = HKEY_CURRENT_CONFIG$
+         
+      case ( thisData _eqc HKEYTXT_DYN_DATA$ )
+         hKeyRoot = HKEY_DYN_DATA$
+         
+      case OTHERWISE$
+         errorText = thisData : " is not a valid Registry Root Key"
+         abort     = TRUE$
+   end case
+   
+   if abort else
+      * // We are always going to create the key even if it doesn't exist so
+      
+      regKey          = regPath[-1,"B\"]
+      regPath         = regPath[1,col1()-1]
+      
+      lpRegPath       = regPath : \00\
+      dwReserved      = 0
+      lpClass         = 0
+      dwOptions       = REG_OPTION_NON_VOLATILE$
+      samDesired      = KEY_ALL_ACCESS$
+      lpSecAttrib     = 0
+      hKey            = 0
+      lpdwDisposition = 0
+      
+      abort = RegCreateKeyEx( hKeyRoot, lpRegPath, dwReserved, lpClass, dwOptions, |
+                              samDesired, lpSecAttrib, hKey, lpdwDisposition )
+      if abort then
+         * // We should have an error number in abort so we can use the Windows
+         * // FormatMessage() API call to get the text
+         goSub formatWindowsMessage
+      end
+   end
+   
+return
+
+///////////////////////////////////////////////////////////////////////////////
+
+closeKey:
+   if hKey then
+      call RegCloseKey( hKey )
+   end
+return
+
+///////////////////////////////////////////////////////////////////////////////
+
+readKey:
+   * // Get the value of the specified key and place it in retVal, translating
+   * // it as necessary
+   
+   lpValueName = regKey : \00\
+   lpReserved  = 0
+   lpType      = REG_NONE$
+   lpData      = str( \00\, 4096 )
+   lpcbData    = len( lpData )
+        
+   abort = RegQueryValueEx( hKey, lpValueName, lpReserved, lpType, lpData, lpcbData )
+   
+   begin case
+      case ( abort = 2 )
+         * // Nothing found or key doesn't exist so just return null
+         * // and clear the error condition
+         abort = FALSE$
+         
+      case ( abort > 0 )
+         goSub formatWindowsMessage
+         
+      case OTHERWISE$
+         retVal = lpData[1,lpcbData]
+      
+         begin case
+            case ( lpType = REG_DWORD$ )
+               * // It's in internal format so convert to an OI
+               * // number
+               retVal = seq(retVal[4,1]) * 16777216 + seq(retVal[3,1]) * 65536 + seq(retVal[2,1]) * 256 + seq(retVal[1,1])
+            
+            case ( lpType = REG_DWORD_BIG_ENDIAN$ )
+               * // It's the other way round to REG_DWORD )
+               retVal = seq(retVal[1,1]) * 16777216 + seq(retVal[2,1]) * 65536 + seq(retVal[3,1]) * 256 + seq(retVal[4,1])
+         
+            case ( lpType = REG_BINARY$ )
+               * // It's binary so we return EXACTLY what's there
+               null
+            
+            case ( lpType = REG_MULTI_SZ$ )
+               * // Walk along the string until we find 2 trailing char 0's
+               * // and delimit the strings by @fm
+               retVal = retVal[1,index( retVal,\0000\, 1)-1]
+               convert \00\ to @fm in retVal
+            
+            case OTHERWISE$
+               * // remove any trailing char 0's
+               if retVal[-1,1] = \00\ then
+                  retVal[-1,1] = ""
+               end
+              
+         end case
+         
+   end case   
+   
+return
+
+///////////////////////////////////////////////////////////////////////////////
+
+writeKey:
+   * // Write the specified value to the registry...assume it's
+   * // a null terminated string is invalid/no type is passed
+   
+   lpValueName = regKey : \00\
+   lpReserved  = 0
+   dwType      = REG_SZ$
+   lpData      = ""
+   cbData      = 0
+   
+   * // Validate the data type passed and convert if necessary
+   begin case
+      case ( param3 = REG_BINARY$ )
+         dwType = param3
+         lpData = param2
+         cbData = len( lpData )
+         
+      case ( param3 = REG_DWORD$ )
+         dwType =  param3
+         lpData =  char( mod( param2, 256 ) )
+         lpData := char( mod( int( param2 / 256 ), 256 ) ) 
+         lpData := char( mod( int( param2 / 65536 ), 256 ) )
+         lpData := char( mod( int( val / 16777216 ), 256 ) )
+         cbData =  4
+         
+      case ( param3 = REG_DWORD_BIG_ENDIAN$ )
+         dwType =  param3
+         lpData =  char( mod( int( val / 16777216 ), 256 ) )
+         lpData := char( mod( int( param2 / 65536 ), 256 ) )
+         lpData := char( mod( int( param2 / 256 ), 256 ) ) 
+         lpData := char( mod( param2, 256 ) )
+         cbData =  4
+         
+      case ( param3 = REG_MULTI_SZ$ )
+         dwType = param3
+         lpData = param2 : \0000\
+         convert  @fm to \00\ in lpData
+         cbData = len( lpData )
+   
+      case OTHERWISE$
+         * // Assume a null-terminated string
+         lpData = param2 : \00\
+         cbData = len( lpData )
+   
+   end case
+   
+   abort = RegSetValueEx( hKey, lpValueName, lpReserved, dwType, lpData, cbData )
+   if abort then
+      goSub formatWindowsMessage
+   end
+   
+return
+   
+///////////////////////////////////////////////////////////////////////////////
+
+formatWindowsMessage: ; *    ( abort, errorText )
+                      ; * -> ( abort, errorText )
+                      
+   * // This function calls the windows API FormatMessage() function to return
+   * // error text based on an error code passed in the abort variable
+   
+   dwFlags      = FORMAT_MESSAGE_FROM_SYSTEM$
+   lpSource     = 0
+   dwMessageID  = abort
+   dwLanguageID = 0
+   lpBuffer     = str( \00\, 2048 )
+   nSize        = len( lpBuffer ) - 1
+   lpArguments  = 0
+   
+   call formatMessage( dwFlags, lpSource, dwMessageID, dwLanguageID, lpBuffer, nSize, lpArguments )
+   
+   errorText = lpBuffer[1,\00\]
+   if ( errorText[-2,2] = \0D0A\ ) then
+      errorText[-2,2] = ""
+   end
+   abort = TRUE$
+   
+return
+
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+// DLL and Windows API Prototyping notes ///////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+
+   * // The basic registry functions are exported from AdvApi32.DLL - these 
+   * // functions are not part of the standard OI32 release and as such you may 
+   * // need to prototype them yourself. If this is the case please follow the 
+   * // steps below:
+   * //
+   * // 1) Create a new record in the System Editor 
+   * // 
+   * // 2) On the first line enter the text 'ADVAPI32' without the quotes
+   * //
+   * // 3) On the next four lines enter the following text:
+   * //
+   * //    LONG STDCALL RegCreateKeyExA( HANDLE, LPCHAR, ULONG, LONG, ULONG, ULONG, LONG, LPLONG, LPULONG ) as RegCreateKeyEx
+   * //    LONG STDCALL RegQueryValueExA( HANDLE, LPCHAR, ULONG, LPULONG, LPCHAR, LPULONG ) as RegQueryValueEx
+   * //    LONG STDCALL RegSetValueExA( HANDLE, LPCHAR, ULONG, ULONG, LPCHAR, ULONG ) as RegSetValueEx
+   * //    LONG STDCALL RegCloseKey( HANDLE )
+   * //
+   * // 4) Save this record to the SYSPROCS table as DLL_ADVAPI32
+   * //
+   * // 5) In the System Editor Exec line enter and execute the following:
+   * //
+   * //    RUN DECLARE_FCNS "DLL_ADVAPI32"
+   * //
+   * // There is one other function we use within this procedure and that too
+   * // is not part of a standard OI32 distribution. This function, 
+   * // FormatMessage(), is exported from KERNEL32.DLL.  Some other functions 
+   * // from this DLL are prototyped so we don't need to create a new DLL_
+   * // prototype record for it - we just need to add it to the one already 
+   * // there.  To do this follow these steps:
+   * // 
+   * // 1) Open the DLL_KERNEL32 record in the System Editor.
+   * //
+   * // 2) Add a line at the end of the record with the following text:
+   * //    
+   * //    ULONG STDCALL FormatMessageA( ULONG, LPVOID, ULONG, ULONG, LPCHAR, ULONG, LONG ) as FormatMessage
+   * //
+   * // 3) Save the record
+   * // 
+   * // 4) In the System Editor Exec line enter and execute the following:
+   * //
+   * //    RUN DECLARE_FCNS "DLL_ADVAPI32"
+   * // 
+   * // Note that we recommend you perform any DLL prototyping from within
+   * // your SYSPROG account rather than you application account to help avoid
+   * // any future version problems.
+   * //
+   * // For more information on DLL prototyping please consult the OpenInsight
+   * // on-line help.
+   * //
+   * // For more information on the Windows API please visit the Microsoft
+   * // Developers Network site on teh web at http://msdn.microsoft.com
+   
+////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////   

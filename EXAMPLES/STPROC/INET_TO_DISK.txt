@@ -1,0 +1,16 @@
+Function INET_TO_DISK(Request, Data)
+
+$insert logical
+$insert inet_equates
+
+Declare Function Inet_QueryParam
+Declare Subroutine Inet_QueryParam
+
+*
+* /oecgiapi/oecgi4.exe/inet_response_test?size=30240
+*
+
+OSWrite Request<1> To 'C:\temp\inet_request.txt'
+*OSWrite Data To 'C:\temp\inet_data.txt'
+
+Return 'Done'

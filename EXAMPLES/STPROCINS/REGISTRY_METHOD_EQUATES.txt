@@ -1,0 +1,73 @@
+compile insert registry_Method_Equates
+/*
+   Author   : Captain C
+   Date     : September 2002
+   Purpose  : equates for use with the registry_Method function
+*/
+   * // Access right equates from WINDOWS.H
+   equ SYNCHRONIZE$              to 0x00100000
+   equ STANDARD_RIGHTS_REQUIRED$ to 0x000F0000
+   equ READ_CONTROL$             to 0x00020000
+   equ WRITE_DAC$                to 0x00040000
+   equ WRITE_OWNER$              to 0x00080000
+   equ STANDARD_RIGHTS_READ$     to READ_CONTROL$
+   equ STANDARD_RIGHTS_WRITE$    to READ_CONTROL$
+   equ STANDARD_RIGHTS_EXECUTE$  to READ_CONTROL$
+   equ STANDARD_RIGHTS_ALL$      to 0x001F0000
+   equ SPECIFIC_RIGHTS_ALL$      to 0x0000FFFF
+   equ ACCESS_SYSTEM_SECURITY$   to 0x01000000
+   equ MAXIMUM_ALLOWED$          to 0x02000000
+   equ GENERIC_READ$             to 0x80000000
+   equ GENERIC_WRITE$            to 0x40000000
+   equ GENERIC_EXECUTE$          to 0x20000000
+   equ GENERIC_ALL$              to 0x10000000
+   equ KEY_QUERY_VALUE$          to 0x0001
+   equ KEY_SET_VALUE$            to 0x0002
+   equ KEY_CREATE_SUB_KEY$       to 0x0004
+   equ KEY_ENUMERATE_SUB_KEYS$   to 0x0008
+   equ KEY_NOTIFY$               to 0x0010
+   equ KEY_CREATE_LINK$          to 0x0020
+   equ KEY_READ$                 to ( STANDARD_RIGHTS_READ$ + KEY_QUERY_VALUE$ + KEY_ENUMERATE_SUB_KEYS$ + KEY_NOTIFY$ )
+   equ KEY_WRITE$                to ( STANDARD_RIGHTS_WRITE$ + KEY_SET_VALUE$ + KEY_CREATE_SUB_KEY$ )
+   equ KEY_EXECUTE$              to KEY_READ$
+   equ KEY_ALL_ACCESS$           to ( STANDARD_RIGHTS_ALL$ + KEY_QUERY_VALUE$ + KEY_SET_VALUE$ + KEY_CREATE_SUB_KEY$ + KEY_ENUMERATE_SUB_KEYS$ + KEY_NOTIFY$ + KEY_CREATE_LINK$ ) - SYNCHRONIZE$
+   
+   * // Standard Registry Types
+   equ REG_NONE$                 to 0
+   equ REG_SZ$                   to 1
+   equ REG_EXPAND_SZ$            to 2
+   equ REG_BINARY$               to 3
+   equ REG_DWORD$                to 4
+   equ REG_DWORD_LITTLE_ENDIAN$  to 4
+   equ REG_DWORD_BIG_ENDIAN$     to 5
+   equ REG_LINK$                 to 6
+   equ REG_MULTI_SZ$             to 7
+   equ REG_RESOURCE_LIST$        to 8
+   
+   * // Registry option equates
+   equ REG_OPTION_NON_VOLATILE$  to 0
+   
+   * // Predefined registry keys from WINDOWS.H
+   equ HKEY_CLASSES_ROOT$        to 0x80000000
+   equ HKEY_CURRENT_USER$        to 0x80000001
+   equ HKEY_LOCAL_MACHINE$       to 0x80000002
+   equ HKEY_USERS$               to 0x80000003
+   equ HKEY_PERFORMANCE_DATA$    to 0x80000004
+   equ HKEY_CURRENT_CONFIG$      to 0x80000005
+   equ HKEY_DYN_DATA$            to 0x80000006
+   
+   * // Root key text equates
+   equ HKEYTXT_CLASSES_ROOT$     to "HKEY_CLASSES_ROOT"
+   equ HKEYTXT_CURRENT_USER$     to "HKEY_CURRENT_USER"
+   equ HKEYTXT_LOCAL_MACHINE$    to "HKEY_LOCAL_MACHINE"
+   equ HKEYTXT_USERS$            to "HKEY_USERS"
+   equ HKEYTXT_PERFORMANCE_DATA$ to "HKEY_PERFORMANCE_DATA"
+   equ HKEYTXT_CURRENT_CONFIG$   to "HKEY_CURRENT_CONFIG"
+   equ HKEYTXT_DYN_DATA$         to "HKEY_DYN_DATA"
+   
+   * // Error codes from WINDOWS.H
+   equ ERROR_SUCCESS$            to 0
+   
+   * // FormatMessage equates
+   equ FORMAT_MESSAGE_FROM_SYSTEM$ to 0x1000
+

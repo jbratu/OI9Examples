@@ -1,0 +1,8 @@
+compile insert Logical
+
+equ OTHERWISE$   to 1
+equ TRUE$        to 1
+equ FALSE$       to 0
+equ YES$         to 1
+equ NO$          to 0
+

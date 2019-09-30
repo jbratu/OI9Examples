@@ -1,0 +1,294 @@
+Function Inet_XML(Request, cmd, dosfile)
+/*
+  
+  Example program to return XML formatted data
+  pattern is <tablename><row><col>value</col><col2>value</col2><col3 mv_count="2"><mv>value</mv><mv>value</mv></col3></row></tablename>
+  
+  Parameters:
+    request  [in/out]  CGI queryparam
+    cmd      [in]      Rlist Cmd to override / supplement data in request
+    dosfile  [in/out]  Optional fully qualified filename for a dos file.
+                       Will be used if return data exceeds 64k.
+                       Need another process to kill expired files.
+  
+  
+  12-25-2000   RJC    Created
+  02-13-2001   mtr    Added keyword cleanups
+  
+*/
+
+
+Declare Function Inet_QueryParam, Inet_Msg 
+
+$INSERT Dict_Equates
+$INSERT Rlist_Equates
+
+Keywords = 'TITLE'
+
+
+EQU XML_PATH$ to 'oixml'                      ; * Path (internal name) This is where we write flat files.  You must ensure that this directory exists
+                                              ; * and is where XML_SERVER$ points.  
+EQU XML_SERVER$ to 'http://localhost/oixml'   ; * url for directory that will serve up dos files
+equ MIMETYPE_SUFFIX$ to '.xml' 
+
+Equ MAX_STRINGSIZE$ To 60000
+Equ Crlf$ To \0D0A\
+
+Err = '' 
+Varhtml = '' 
+Convs = '' 
+Positions = '' 
+Keyparts = '' 
+xml_out = '' 
+Offset = 0
+lengths = ''
+f_dosfile = ''
+
+if assigned(cmd) else cmd = ''
+if len(cmd) else
+   cmd = Inet_QueryParam(request,'CMD')
+end
+
+
+if len(cmd) then 
+  call Inet_Rlist_Parse(request,cmd)
+end
+  
+if assigned(dosfile) else dosfile = ''
+
+tablename = Inet_QueryParam(Request,'FILENAME','')
+Fields = Inet_QueryParam(Request,'FIELDS')
+with_clauses =  Inet_QueryParam(Request,'WITH_CLAUSES')
+By_clauses =  Inet_QueryParam(Request,'BY_CLAUSES')
+num_to_select = Inet_QueryParam(Request,'NUM_TO_SELECT')
+ 
+If tablename Else
+   err = 'Table name is missing'
+   GoTo Error
+End
+   
+ 
+Convert @LOWER.CASE To @UPPER.CASE In tablename
+Convert @LOWER.CASE To @UPPER.CASE In Fields
+Convert @LOWER.CASE To @UPPER.CASE In with_clauses
+
+at_dict = @dict
+at_record = @Record
+at_id = @id
+
+open tablename  to f_tablename else
+   err = 'Unable to Open the file ' : quote(tablename)
+   GoTo Error
+end
+open 'DICT.':tablename to d_tablename else
+   err = 'Unable to Open the dictionary for the file ' : quote(tablename)
+   GoTo Error
+end
+@DICT = d_tablename
+
+If Len(Fields) Else
+   Perform = "SELECT DICT." :tablename: " WITH TYPE = 'F' AND WITHOUT @ID '[%]' BY FMC" 
+   Call Rlist(Perform,TARGET_ACTIVELIST$, '' , '' )
+   Done = '' 
+   Loop Readnext Id Else Done = 1
+   Until Done
+      Fields:=ID:@FM
+   Repeat
+   Fields[-1,1] = '' 
+End
+
+convert @fm to @vm in fields
+colnames = fields
+convert @upper.case to @lower.case in colnames
+convert '.' to '_' in colnames
+field_cnt = count(fields,@vm) + ( len(fields) > 0 )
+For Fld = 1 To Field_Cnt
+   fieldname = fields<1,fld>
+   colname = colnames<1,fld>
+   Read Dict_Rec From D_tablename,Fieldname Else
+      Dict_Rec = '' 
+   End
+   
+   Convs<1,Fld> = Dict_Rec<DICT_CONV$>
+   Positions<1,Fld> = Dict_Rec<DICT_COLUMN_NO$>
+   Keyparts<1,Fld> = Dict_Rec<DICT_PART$>
+   maxlen = Dict_rec<DICT_LENGTH$>   
+   lengths<1,fld> = maxlen
+Next
+
+If len(with_clauses) then
+   if with_clauses[1, ' ' ] = 'WITH' else 
+     with_clauses = 'WITH ': with_clauses 
+   end   
+   perform = 'SELECT ': num_to_select:' ' : tablename : ' ' : with_clauses : ' ' : by_clauses
+end else
+   perform = 'SELECT ' : num_to_select:' ':tablename: ' ' : by_clauses 
+end
+
+
+*---
+* Build the XML for the data
+*---
+xml_out :='<?xml version="1.0" encoding="windows-1252" ?>': CRLF$
+fields_attribute = "fields=" : Quote(fields)
+convert @vm to ' ' in fields_attribute 
+xml_out :='<rows tablename=':quote(tablename):' ': fields_attribute :'>': CRLF$
+
+ClearSelect
+Call Rlist(Perform,TARGET_ACTIVELIST$, '' , '' )
+
+Done = '' 
+Loop Readnext @ID Else Done = 1
+Until Done
+Until len(err)
+   Reado @RECORD From F_tablename, @ID Then
+      xml_out:= CRLF$: '<row ID=':quote(@id) : ' >' 
+      For i = 1 To Field_Cnt
+         fieldname = Fields<1,i>
+         colname = Colnames<1,i>
+         *---
+         * mtr colname/keyword check
+         *---
+         u_colname = colname
+         convert @lower.case to @upper.case in u_colname
+         locate u_colname in keywords using ' ' setting keyword_pos then
+         	colname = 'Q':colname
+         End
+         Conv = Convs<1,i>
+         Fno = Positions<1,i>
+         Keypart = Keyparts<1,i>
+         If Fno Then
+            Data = @Record<Fno>
+         End Else
+            If Len(Keypart) Then
+               Data = Field(@Id, '*' , keypart)
+            End Else
+               Data = Calculate(Fieldname)
+            End
+         End
+         
+         *--
+         * Escape Special Characters
+         *--
+         Swap '&' With '&amp;' In Data
+         Swap '>' With '&gt;' In Data
+         Swap '"' With '&quot;' In Data
+         Swap "'" With '&apos;' In Data
+         Swap '<' With '&lt;' In Data
+         
+         * Kill stray delimiters
+         Convert @SVM:@TM To Space(2) In Data
+         * Convert to XML
+         mv_count = Count(Data,@VM)
+         If mv_Count Then
+            xml_out:=CRLF$:'<':colname:' mv_count = ':quote(mv_count):' >'
+            Mv_Nr = 0
+            mv_data = data
+            Loop
+               Mv_Nr +=1
+               Remove Data From mv_Data At Mvcol Setting Mvflag
+               If Len(Conv) Then
+                  Data = Oconv(Data,Conv)
+               end               
+               If Len(data) + Len(xml_out) > MAX_STRINGSIZE$ Then
+                  Gosub Write_Block
+               End
+               xml_out:= CRLF$: '<MV>':Data:'</MV>'
+            While Mvflag
+            Repeat
+            xml_out:=CRLF$:'</':colname:'>'
+         End Else
+            If Len(Conv) Then
+               Data = Oconv(Data,Conv)
+            End
+            If Len(data) + Len(xml_out) > MAX_STRINGSIZE$ Then
+               Gosub Write_Block
+            End
+            xml_out:= crlf$ :'<':colname:'>':data:'</':colname:'>'
+         End
+      Next i
+      xml_out := crlf$: "</row>" 
+   End Else
+      Err = 'Unable to read ' : tablename : ' row ' : Quote(@ID)
+      Goto Error
+   End
+Repeat
+
+xml_out := crlf$: '</rows>'
+
+*---
+* Did we use the flat file?
+* if ans > 64k, the result is buffered in flat file. Send url back to myxml.asp, it will retrieve flat file
+* If you use a perl / php script, it needs to handle getting back a bare url
+* Have hard coded to use localhost.  With IIS as main server, OI / apache on an internal machine you may want to
+* change this url to use a different server.    
+*
+*---
+
+if offset then
+   Gosub Write_Block  
+   OsClose f_dosfile
+   url =  XML_SERVER$:'/' :rand_name
+   convert '\' to '/' in url
+   return  url
+end else   
+   return xml_out
+end   
+******
+
+*---
+Write_Block:
+*---
+if len(f_dosfile) else
+  *----
+  * Create_Dosfile
+  * Wait until we need file before creating it
+  * Since most requests are under 64k, usually will not need dosfile
+  * Avoid overhead of create, delete
+  *---
+  
+  if len(dosfile) then
+     rand_name = dosfile
+  end else
+    InitRnd Time():date()  
+    * Random name, Assume no collision.
+    rand_name ='' 
+    for i = 1 to 8
+      letter = 64 + rnd(26)+1
+      rand_name:= Char(letter)
+    next
+    rand_name:= MIMETYPE_SUFFIX$    
+    dosfile = XML_PATH$:'\':rand_name
+  end
+  
+  Oswrite '' On Dosfile
+  If Status() Then
+    Err = 'Unable to initialize ' : Quote(Dosfile)
+    Goto Error
+  End
+
+  Osopen Dosfile To F_Dosfile Else
+    Err = 'Unable to OsOpen ' : Quote(Dosfile)
+    Goto Error
+  End
+end
+
+Osbwrite xml_out On F_Dosfile At Offset
+If Status() Then
+   Err = 'Error Writing to dos file ' : Quote(Dosfile)
+   Goto Error
+End
+Offset += Len(xml_out)
+xml_out = '' 
+
+Return
+******
+
+
+
+
+Error:
+
+err = '<error>':err:'</error>'
+
+Return err 

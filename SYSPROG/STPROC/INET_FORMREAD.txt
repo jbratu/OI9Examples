@@ -1,0 +1,118 @@
+function Inet_FormRead (Request)
+*********************************************************************
+*
+* This program is proprietary and is not to be used by or disclosed
+* to others, nor is it to be copied without written permission from
+* Revelation Technologies, Inc.
+*
+* Product    :  OI/WG
+* Project    :  OpenInsight for Internet
+* Release    :  3.5
+*
+* Name       :  Inet_FormRead
+* Description:  HTML version of generic READ event
+*
+* Parameters:
+*   Request  [in] -- HTTP request with following parameters:
+*                    FORM_ID - form name
+*   ret     [out] -- HTML script with a form filled with data
+*
+* History (Date, Initials, Notes)
+*   10/15/97  gg   Original programmer
+*********************************************************************
+
+$insert winres_equates
+$insert fserrors_100
+$insert syserrors_1000
+$insert logical
+
+equ FORM_ID$ to 'FORM_ID'
+
+declare function   Inet_QueryParam, Inet_Msg, Web_GetKey, Web_FormLoad
+declare function   FormRead, Get_Property, Get_Status
+declare subroutine Start_oiwin, Oiwin_FormUnlock, End_Window, Set_Status
+
+	formId = Inet_QueryParam(Request, FORM_ID$)
+
+	if len(formId) else
+		return Inet_Msg(Request, '', 'INET_INVALIDPARAM', FORM_ID$)
+	end
+
+	convert @lower.case to @upper.case in formId
+	winId = formId :'*': Get_Property('SYSTEM', 'COUNTER')
+
+	Start_oiwin(winId)
+
+	if Get_Status(statCode) then
+		Set_Status(FALSE$)
+		return Inet_Msg(Request, '', 'INETFORM_NOTFOUND', formId)
+	end
+
+	htmlDoc = ''
+
+	keyVal = Web_GetKey(Request, winId)
+
+	if len(keyVal) else
+		htmlDoc = Inet_Msg(Request, '', 'INETFORM_NULLKEYERR', formId)
+	end
+
+	if len(htmlDoc) else
+		resultRow = formRead(winId, keyVal)
+
+		bNewRecord = FALSE$
+		bLocked    = FALSE$
+
+		if Get_Status(statCode) then
+			Set_Status(FALSE$)
+
+			if statCode<1, 1> = SYS_FORM_PRILOCK_ERR$ or statCode<1, 1> = SYS_FORM_SUBLOCK_ERR$ then
+				bLocked = TRUE$
+			end else
+				if statCode<1, 1> = 'FS':FS_REC_DNE$ then
+					* new record
+					bNewRecord = TRUE$
+				end else
+					* some other error
+					htmlDoc = Inet_Msg(Request, '', 'INETFORM_IOERR', statCode)
+				end
+			end
+		end
+	end
+
+	if len(htmlDoc) else
+		htmlDoc = Web_FormLoad(Request, winId, resultRow, bNewRecord)
+
+		if bNewRecord then
+			suffix = ResToString(WINRES_NEWENTRY$, 'SYSTEM')
+			gosub SetTitle
+		end
+
+		if bLocked then
+			suffix = ResToString(WINRES_LOCKED$, 'SYSTEM')
+			gosub SetTitle
+		end
+	end
+
+	Oiwin_FormUnlock(winId)
+	End_Window(winId)
+
+	return htmlDoc
+
+*********************************************
+* set the form's title
+*
+* suffix      [in] -- a suffix to add to the form's title
+* htmlDoc [in/out] -- the resulting HTML document
+*********************************************
+
+SetTitle:
+
+	tagPattern = '</TITLE>'
+	tagStart   = indexc(htmlDoc, tagPattern, 1)
+
+	if tagStart then
+		htmlDoc[tagStart, 0] = suffix
+	end
+
+	return
+

@@ -1,0 +1,10 @@
+Subroutine TEST_SCRATCH(void)
+
+Call RTP27("SEND_INFO")
+
+Return
+
+Declare Function get_property
+object = Get_Property("SYSTEM", "RECEIVER")
+debug
+Call SEND_DYN('Hello World')

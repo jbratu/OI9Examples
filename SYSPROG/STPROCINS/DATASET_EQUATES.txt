@@ -1,0 +1,95 @@
+compile insert DataSet_Equates
+
+*****************************************************************************
+*
+* This program is proprietary and is not to be used by or disclosed
+* to others, nor is it to be copied without written permission from
+* Revelation Technologies, Inc.
+*
+* Product    :  OI/WG
+* Poject     :  OI/CS
+* Release    :  3.1
+*
+* Name       :  DataSet_Equates
+* Description:  Equates for the DataSet structure, DS_Child function and form
+*
+* History (Date, Initials, Notes)
+*   02/15/96  cp   Original programmer.
+*   06/12/97  cp   Updating to support new WorkSpace
+*
+*****************************************************************************
+
+* datasource type specific dataset structure
+equ DSPOS_COLNAMES$        to 6         ;* Name of columns
+equ DSPOS_DATATYPES$       to 7         ;* Type, Scale, and precision
+equ DSPOS_NULLS$           to 8         ;* Is column nullable
+equ DSPOS_KEYS$            to 9         ;* Is column a key column
+equ DSPOS_DESC$            to 10        ;* Description of each column
+equ DSPOS_VALIDATION$      to 11        ;* Validation for columns
+equ DSPOS_CONV$            to 12        ;* Conversion for columns
+equ DSPOS_DISPLAY$         to 13        ;* Heading fo columns
+
+equ DSPOS_SCRIPTS$         to 16
+equ DSPOS_ARGNAMES$        to 17
+equ DSPOS_ARGDFLTS$        to 18
+
+
+equ DS_COLDEFCNT$          to 8
+equ DS_SCRIPTCNT$          to 4
+equ DS_ARGCNT$             to 2
+
+equ DS_VERSION$            to 30
+
+equ DS_NOSOURCE$           to "<NONE>"
+equ DS_BASESRCTYPE$        to "BASE"
+
+* other
+equ DEF_ARGVAL$            to "%DEFAULT%"  ;* used to distinguish between "" and default
+equ MAX_SRC_TYPES$         to 5            ;* this is a big enough number for now
+
+* type list
+equ DATASET_TYPE_LIST$     to "BIT,UINT1,SINT1,UINT2,SINT2,UINT4,SINT4,DECIMAL,FLOAT,DOUBLE,CHAR,VARCHAR,LONGVARCHAR,BINARY,VARBINARY,LONGVARBINARY,DATE,TIME,DATETIME"
+
+* precision limits
+equ MIN_PRECISION$         to "0,0,0,0,0,0,0,1,0,0,1,1,1,1,1,1,0,5,16"
+equ MAX_PRECISION$         to "0,0,0,0,0,0,0,128,0,0,254,254,4294967294,255,255,4294967295,0,13,24"
+
+* scale limits
+equ MIN_SCALE$             to "0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0"
+equ MAX_SCALE$             to "0,0,0,0,0,0,0,128,0,0,0,0,0,0,0,0,0,4,4"
+
+
+* instruction parameter for DS_Child()
+equ DSEVENT_CREATE$           to  1
+equ DSEVENT_CLOSE$            to  2
+equ DSEVENT_ACTIVATE$         to  3
+equ DSEVENT_DEACTIVATE$       to  4
+equ DSEVENT_PAGE$             to  5
+equ DSEVENT_READ$             to  6
+equ DSEVENT_WRITE$            to  7
+equ DSEVENT_GETRECORD$        to  8
+equ DSEVENT_SETRECORD$        to  9
+equ DSEVENT_RESETRECORD$      to  10
+equ DSEVENT_SETKEY$           to  11
+equ DSEVENT_UNLOCKKEY$        to  12
+equ DSEVENT_LOCKWINDOW$       to  13
+equ DSEVENT_UNLOCKWINDOW$     to  14
+equ DSEVENT_TESTRUN$          to  15
+equ DSEVENT_HELP$             to  16
+equ DSEVENT_ABOUT$            to  17
+equ DSEVENT_SOURCECHANGED$    to  18
+equ DSEVENT_SCRIPTCHANGED$    to  19
+equ DSEVENT_TYPECHANGED$      to  20
+equ DSEVENT_REPOSMODIFIED$    to  21
+equ DSEVENT_UPDATEREPOS$      to  22
+equ DSEVENT_SCRIPTLOSTFOCUS$  to  23
+equ DSEVENT_USETABLE$         to  24
+equ DSEVENT_DEFINECOLUMNS$    to  25
+equ DSEVENT_DEFINESCRIPTS$    to  26
+equ DSEVENT_COLSGOTFOCUS$     to  27
+equ DSEVENT_COLSLOSTFOCUS$    to  28
+equ DSEVENT_COLSOPTIONS$      to  29
+equ DSEVENT_GETKEY$           to  30
+equ DSEVENT_OMNIEVENT$        to  31
+equ DSEVENT_DEFINESCRIPTSOK$  to  32
+

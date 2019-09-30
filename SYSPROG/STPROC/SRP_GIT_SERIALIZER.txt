@@ -1,0 +1,128 @@
+Compile function SRP_Git_Serializer(@Service, @Params)
+/************************************************************************************************
+    This program is proprietary and is not to be used by or disclosed to others, nor is it to
+    be copied without written permission from SRP Computer Solutions, Inc.
+
+    Name        : SRP_Git_Serializer
+
+    Description : Service module for the converting files to formats suitable for Git.
+
+    Parameters:
+        Service [IN] - The service to execute
+        Params  [IN] - Service specific parameters
+
+    History (Date, Initials, Notes)
+        02/20/19    KRF    Original programmer
+        07/30/19    KRF    Renamed to SRP_Git_Serializer and updated to use new DLL stubs
+************************************************************************************************/
+#pragma precomp SRP_PreCompiler
+#pragma output SYSLISTS SRP_GIT_SERIALIZER
+$insert LOGICAL
+
+Declare function ISRPGitSerializer_ReadFromGit, ISRPGitSerializer_ReadFileFromGit, ISRPGitSerializer_PathToEntityId
+Declare function ISRPGitSerializer_EntityIdToPath, ISRPGitSerializer_GetSupportedTypes, ISRPGitSerializer_EntityIdToKeys
+Declare subroutine ISRPGitSerializer_WriteToGit, ISRPGitSerializer_WriteToGitSync, ISRPGitSerializer_DeleteFromGit, ISRPGitSerializer_CopyOutput
+
+GoToService
+
+Return Response or ""
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// SERVICES
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+//-------------------------------------------------------------------------------------------------
+// Converts the given entity into a file suitable for GIT comparisons.
+//-------------------------------------------------------------------------------------------------
+Service Write(EntityId, Record, RepoPath)
+    
+    ISRPGitSerializer_WriteToGit(EntityId, Record, Len(Record), RepoPath)
+    
+end service
+
+//-------------------------------------------------------------------------------------------------
+// Converts the given entity into a file suitable for GIT comparisons. Synchronous.
+//-------------------------------------------------------------------------------------------------
+Service WriteSync(EntityId, Record, RepoPath)
+    
+    ISRPGitSerializer_WriteToGitSync(EntityId, Record, Len(Record), RepoPath)
+    
+end service
+
+//-------------------------------------------------------------------------------------------------
+// Deletes the file associated with this entity id
+//-------------------------------------------------------------------------------------------------
+Service Delete(EntityId, RepoPath)
+    
+    ISRPGitSerializer_DeleteFromGit(EntityId, RepoPath)
+    
+end service
+
+//-------------------------------------------------------------------------------------------------
+// Converts a file suitable for GIT comparisons back into an OI entity.
+//-------------------------------------------------------------------------------------------------
+Service Read(EntityId, RepoPath)
+    
+    Len = ISRPGitSerializer_ReadFromGit(EntityId, RepoPath)
+    If Len GT 0 then
+        Response = Str(\00\, Len)
+        ISRPGitSerializer_CopyOutput(Response, Len)
+    end
+    
+end service
+
+//-------------------------------------------------------------------------------------------------
+// Reads the given file, returning the record and it's entity id
+//-------------------------------------------------------------------------------------------------
+Service ReadFile(RepoPath, FilePath, Ref EntityId)
+    
+    EntityId = Str(\00\, 260)
+    Len = ISRPGitSerializer_ReadFileFromGit(EntityId, RepoPath, FilePath)
+    EntityId = EntityId[1, \00\]
+    If Len GT 0 then
+        Response = Str(\00\, Len)
+        ISRPGitSerializer_CopyOutput(Response, Len)
+    end
+    
+end service
+
+//-------------------------------------------------------------------------------------------------
+// Given an EntityId, this service constructs the target full file and path name
+//-------------------------------------------------------------------------------------------------
+Service EntityIdToPath(RepoPath, EntityId)
+    
+    Response = ISRPGitSerializer_EntityIdToPath(RepoPath, EntityId)
+    
+end service
+
+//-------------------------------------------------------------------------------------------------
+// Given a full file and path name, this service constructs the target EntityId
+//-------------------------------------------------------------------------------------------------
+Service PathToEntityId(RepoPath, FilePath)
+    
+    Response = ISRPGitSerializer_PathToEntityId(RepoPath, FilePath)
+    
+end service
+
+//-------------------------------------------------------------------------------------------------
+// Given an EntityId, this service constructs all the tables and keys housing that entities data
+//-------------------------------------------------------------------------------------------------
+Service EntityIdToKeys(EntityId)
+    
+    Response = ISRPGitSerializer_EntityIdToKeys(EntityId)
+    
+end service
+
+//-------------------------------------------------------------------------------------------------
+// An @FM delimited list of supported entity types
+//-------------------------------------------------------------------------------------------------
+Service GetSupportedEntityTypes()
+    
+    Response = ISRPGitSerializer_GetSupportedTypes()
+    
+end service
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// GOSUBS
+///////////////////////////////////////////////////////////////////////////////////////////////////
+

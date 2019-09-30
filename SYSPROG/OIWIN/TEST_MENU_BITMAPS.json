@@ -1,0 +1,173 @@
+{
+    "style-sheet-id": "",
+    "name": "TEST_MENU_BITMAPS",
+    "icon-name": "",
+    "title": "Test Menu Bitmaps",
+    "size": {
+        "x": 110,
+        "y": 136,
+        "y-ext": null,
+        "width": -562,
+        "height": -398
+    },
+    "style": [
+        "WS_POPUP",
+        "WS_CLIPSIBLINGS",
+        "WS_BORDER",
+        "WS_DLGFRAME",
+        "WS_SYSMENU",
+        "WS_THICKFRAME",
+        "WS_MINIMIZEBOX",
+        "WS_MAXIMIZEBOX"
+    ],
+    "style-ex": [],
+    "ps-style": [],
+    "background": "#00FFFFFF",
+    "script-events": [],
+    "quick-events": [
+        {
+            "name": "CREATE",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**TEST_MENU_BITMAPS_EVENTS",
+            "parameters": [
+                "TEST_MENU_BITMAPS",
+                "CREATE",
+                "@PARAM1",
+                "@PARAM2",
+                "@PARAM3",
+                "@PARAM4",
+                "@PARAM5",
+                "@PARAM6"
+            ],
+            "return-id": "",
+            "return-property": ""
+        }
+    ],
+    "tables": [],
+    "io-options": {
+        "optimistic-locking": false,
+        "locking-behavior": "Exclusive",
+        "coordinate-with-file-locks": false,
+        "ignore-self-locks": false,
+        "ignore-subrow-locks": false,
+        "no-clear-on-write": false,
+        "commit-after-data-set": null,
+        "rollback-if-commit-fails": null,
+        "auto-rollback-on-clear": null,
+        "enforce-required-fields-before-save": null
+    },
+    "joined-tables": {
+        "primary": null,
+        "joined": null
+    },
+    "form-designer-flags": [
+        "0x7FFFE",
+        "0xF001E808"
+    ],
+    "background-image": "",
+    "icon": "",
+    "page-count": 1,
+    "controls": [
+        {
+            "name": "BUTTON_1",
+            "icon-literal": "",
+            "type": "PUSHBUTTON",
+            "parent": "TEST_MENU_BITMAPS",
+            "size": {
+                "x": 236,
+                "y": 244,
+                "y-ext": null,
+                "width": 80,
+                "height": 24
+            },
+            "text": "Text",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_PUSHBUTTON",
+                "BS_CENTER",
+                "BS_LEFT",
+                "BS_RIGHT",
+                "BS_MULTILINE"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_INITIALFOCUS",
+                "PSS_TRANSPARENT_BMP"
+            ],
+            "tab-stop": 1,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "Tahoma",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 3,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**TEST_MENU_BITMAPS_EVENTS",
+                    "parameters": [
+                        "TEST_MENU_BITMAPS.BUTTON_1",
+                        "CLICK",
+                        "@PARAM1",
+                        "@PARAM2",
+                        "@PARAM3",
+                        "@PARAM4",
+                        "@PARAM5",
+                        "@PARAM6"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016488"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        }
+    ],
+    "menu": null,
+    "menu-script-events": [],
+    "menu-quick-events": []
+}

@@ -1,0 +1,77 @@
+
+*
+*================================ BLOCK -400 =================================
+* Compiler/Parsing Errors
+
+EQU SQL_NOT_SUPPORTED_ERR$      TO -401  ;* Statement or feature not supported
+EQU SQL_VIEW_INSERT_NS_ERR$     TO -402  ;* insert to view tables not supported
+EQU SQL_SERVER_TERMINAL_ERR$    TO -403  ;* Server request hard failure - @file.error returned in detail
+
+EQU SQL_PROJEX_GENERATE_ERR$    TO -405  ;* Projex module meta generation failed.
+
+EQU SQL_PROJEX_COMPILE_ERR$     TO -410  ;* Projex module failed R/BASIC compilation - internal error.
+EQU SQL_COMP_TABLE_ORDER_ERR$   TO -415  ;* Could not find table name in TABLE ORDER list - internal error
+EQU SQL_BAD_TABLE_REF_ERR$      TO -416  ;* Table reference token invalid (internal compiler error )
+EQU SQL_INVALID_SCHEMA_CODE_ERR$ TO -417 ;* Not a valid request code to the schema processor.
+EQU SQL_JOIN_ORDER_SYNCH_ERR$   TO -418  ;* Internal error - Join plan not synched with table.order.
+EQU SQL_JOIN_FIELDS_COMPAT_ERR$ TO -419  ;* Both join fields must be right just or not. ; Table1, col1, table2, col2
+
+EQU SQL_IXPLAN1_READ_ERR$       TO -425  ;* SQLINDEX1.RUN meta object missing from VERBS.
+EQU SQL_IXPLAN2_READ_ERR$       TO -426  ;* SQLINDEX2.RUN meta object missing from VERBS
+EQU SQL_IXPLAN1_GENERATE_ERR$   TO -427  ;* Error in SQLINDEX1 meta.
+EQU SQL_IXPLAN2_GENERATE_ERR$   TO -428  ;* Error in SQLINDEX2 meta.
+EQU SQL_INDEX_TEST_ERR$         TO -429  ;* Error in index test call to filing system
+
+EQU SQL_UNRECOGNIZE_CMD_ERR$    TO -440  ;* not TCL or SQL command
+EQU SQL_ISQL_MOD_MISSING_ERR$   TO -441  ;* ISQL.MOD is missing in verbs file
+EQU SQL_ISQL_MOD_COMPILE_ERR$   TO -442  ;* error compile code from ISQL.MOD
+
+EQU SQL_DICT_MISSING_ERR$       TO -450  ;* Could not find dict while attempting to compile ; Table name
+EQU SQL_DICT_REC_MISSING_ERR$   TO -451  ;* Could not find dict record while compiling. ; Table name, key name
+EQU SQL_VIEW_CATALOG_MISSING_ERR$ TO -452 ;* Could not open the View Catalog file VIEW_CATAOG
+EQU SQL_INS_DATA_MISMATCH_ERR$  TO -453  ;* # of columns & inserted val are not matched; Tabname:@VM:#of col:@VM:# of ins val.
+EQU SQL_DICT_UPDATE_ERR$        TO -454  ;* Error writing to dict; Tablename, columnname
+EQU SQL_COMPILE_TABLE_MISSING_ERR$ TO -455  ;* Table(s) not available during compilation
+
+EQU SQL_QUAL_COL1_ERR$          TO -460  ;* Qualification error: Column not found in Table.
+EQU SQL_QUAL_COL2_ERR$          TO -461  ;* Qualification error: Column not found in any tables.
+EQU SQL_QUAL_COL3_ERR$          TO -462  ;* Qualification error: Column found in multiple tables
+EQU SQL_QUAL_TABLE_ERR$         TO -463  ;* Qualification error: Reference not a view or base table.
+EQU SQL_INSERT_QUAL1_ERR$       TO -464  ;* Qualification error: Column(s) not found ; Column list (1st displayed).
+EQU SQL_INSERT_QUAL2_ERR$       TO -465  ;* Qualification error: Column(s) were symbolic and not updateable. ; Column list (1st displayed)
+EQU SQL_JOIN_PLAN_ERR$          TO -466  ;* Internal error developing join plan
+EQU SQL_ORDER_UNION_NUMERIC_ERR$ TO -467 ;* Order by specifiers must be numeric in UNION queries.
+EQU SQL_ORDER_SPEC_OORANGE_ERR$ TO -468  ;* Order by numeric specifier out of range of columns defined.
+EQU SQL_ORDER_SPEC_INVALID_ERR$ TO -469  ;* Non numeric order spec not in selection list.
+
+EQU SQL_BAD_SELECT_LITERAL_ERR$ TO -470  ;* Failure on ICONV of literal in SELECTION clause (data type err)
+EQU SQL_BAD_WHERE_LITERAL_ERR$  TO -471  ;* Failure on Iconv of literal in WHERE clause (data type err)
+EQU SQL_TABLES_SYNCH_ERR$       TO -472  ;* Could not find qualified table in TABLES.
+EQU SQL_VOLUMES_SYNCH_ERR$      TO -473  ;* Could not find qualified volume in VOLUMES.
+
+EQU SQL_EMB_PARSE_NEST_ERR$     TO -475  ;* EXEC SQL encountered before prior END EXEC - return line number
+EQU SQL_EMB_PARSE_TERM_ERR$     TO -476  ;* No END EXEC found before end of source.
+EQU SQL_EMB_BASIC_COMPILE_ERR$  TO -477  ;* Error compiling R/BASIC source.
+EQU SQL_EMB_SQL_COMPILE_ERR$    TO -478  ;* Error compiling SQL source.
+EQU SQL_EMB_USING_SUB_ERR$      TO -479  ;* USING MODULE only allowed in Subroutines and Functions
+
+EQU SQL_EMB_USING_FIRST_ERR$    TO -480  ;* USING MODULE must be first SQL statement
+EQU SQL_EMB_MULT_DECLARE_ERR$   TO -481  ;* Multiple BEGIN DECLARE statements
+EQU SQL_EMB_MULT_END_DECLARE_ERR$ TO -482 ;* Multiple END DECLARE statements
+EQU SQL_EMB_WHENEVER_TEST_ERR$  TO -483  ;* WHENEVER statement test must be SQLERROR or NOT FOUND
+EQU SQL_EMB_WHENEVER_ACT_ERR$   TO -484  ;* WHENEVER action must be GOSUB, GOTO or CONTINUE
+EQU SQL_EMB_CURS_DECL_SUB_ERR$  TO -485  ;* Cursor declarations allowed only in MAIN programs.
+EQU SQL_EMB_CURS_DECL_OPEN_ERR$ TO -486  ;* OPEN compile failed. Cursor not declared
+EQU SQL_EMB_QUOTE_BALANCE_ERR$  TO -487  ;* Unbalanced quotes in SQL_MODULE source.
+EQU SQL_EMB_INVALID_PARAMS$     TO -488  ;* Invalid RBASIC variables used in embedded SQL statement
+EQU SQL_EMB_MODULE_FIRST_ERR$   TO -489  ;* SQL MODULE must begin with SQL MODULE
+
+EQU SQL_EMB_AUTHORIZATION_ERR$  TO -490  ;* Missing AUTHORIZATION specifier
+EQU SQL_EMB_CURSOR_OPEN_ERR$    TO -491  ;* Cursor has already been opened; cursor name
+EQU SQL_EMB_CURSOR_NOT_DEF_ERR$ TO -492  ;* Cursor is not defined; cursor name
+EQU SQL_EMB_UPDATE_PARMS_ERR$   TO -493  ;* bad parameters for UPDATE statement
+EQU SQL_EMB_KEY_PART_ERR$       TO -494  ;* incomplete multi-part key
+EQU SQL_EMB_KEY_ALTER_ERR$      TO -495  ;* attempt to alter key column
+EQU SQL_EMB_PARAM_COL_ERR$      TO -496  ;* param/column reference collision.
+EQU SQL_EMB_BAD_PARAM_ERR$      TO -497  ;* bad paramter name.
+* Source Date: 16:42:26  12 JAN 1993  Build ID: OI*1.0.10  Level: 2.0

@@ -1,0 +1,178 @@
+Function inet_pdf_example(request, run_task_info)
+/*
+***
+**  Submit - Start a report from the web
+**  * request = parameters for the report
+**  * run_task_info = ''
+**  * response = redirect page back to this procedure, to get the status
+
+**  Run_task
+**  * request = the action
+**  * run_task_info = the original request
+**  * response = the pdf filename
+**  * Note: 
+**  *     run_task is only used by task scheduler
+**  *     I test for a value in the run_task_info to prove it is call internally
+
+*** Status
+**  * request = the action
+**  * run_task_info = the original request
+**  * response = if still processing, another redirect page back to this procedure, to get the status
+**             = if complete, the pdf with mime heading
+**
+**
+**
+**  Rememeber to add it to the whitelist in your CFG_INET record
+
+**  03-16-12  rjc  Created
+**/
+
+$Insert Inet_Equates
+Equ lf$ To \0A\
+Equ crlf$ To \0D0A\
+
+Declare Function RTI_TASK_SUBMIT, RTI_TASK_STATUS, Inet_QueryParam, Inet_Msg, rti_createguid
+
+response = ''
+err = ''
+action = Inet_QueryParam(request, 'ACTION')
+Begin Case
+	Case action _eqc 'SUBMIT' ; Gosub Submit	
+	Case action _eqc 'STATUS' ; Gosub getStatus
+	Case action _eqc 'RUN_TASK' And (run_task_info # '' )  ; Gosub Run_task
+	Case 1
+		response = Inet_Msg(request, 'I am disinclined to acquiesce to your request')
+End Case
+If response eq '' Then
+	response = Inet_Msg(request, 'An error has occurred')
+end
+Return response
+
+
+Submit:
+/*
+**  Run the request Async
+**  This will place the parameters in the task queue
+**  then return a redirect to the caller
+*/
+CallType = ''
+funcname = 'INET_PDF_EXAMPLE'
+param1 = 'ACTION=RUN_TASK'
+param2 = request[1,1024] ; * truncate request in case bad guy is sending long string
+task_id = RTI_Task_Submit( CallType, FuncName, param1, param2)
+Gosub SendRedirect
+Return
+
+getStatus:
+/*
+**  Use built in function to see if task is completed
+**  Done? return result else repeat the redirect
+*/
+task_id = Inet_QueryParam(request, 'TASK_ID')
+results = ''
+pdfFile = ''
+status = RTI_Task_Status( task_id, pdfFile )
+If status _eqc 'COMPLETED' Then
+	Gosub SendFile
+End Else
+	Gosub SendRedirect
+end
+
+return
+
+
+
+Run_Task:
+/*
+** run the report
+** Here you have been called by the task manager in a separate oinsight, in event context.
+** Note, run_task_info contains the original request from the web
+** To see what the user passed in use syntax like
+  
+   start_date =  inet_queryparam(run_task_info, 'START_DATE')
+   
+*/
+
+* Make up a location for the file. Guid means nobody will guess it
+pdfFolder = 'c:\temp\'
+pdfFile =  pdfFolder: rti_createguid() : '.pdf'
+
+* Run the report
+statement = 'LIST 100 BOOKS BY AUTHOR BY TITLE BREAK-ON AUTHOR TITLE PDFFILE ' : Quote(pdfFile)
+Call run_report('', statement)
+
+* Return the filename
+response = pdfFile
+return
+
+
+SendRedirect:
+/*
+** Return an autorefresh page
+** So user can keep checking on the report without getting a timeout
+**
+*/
+
+port = request<SERVER_PORT$>
+If port = 443 Then
+	protocol = 'https'
+End Else
+	protocol = 'http'
+End
+
+* you can keep track of the number of tries, change a graphic on the page
+* So they see something happening
+retry_count = Inet_QueryParam(request, 'RETRY_COUNT')
+If alpha(retry_count) Then retry_count = 0
+retry_count += 1
+
+SCRIPT_NAME = request<SCRIPT_NAME$>
+SERVER_NAME = request<SERVER_NAME$>
+PATH_INFO = request<PATH_INFO$>
+url = protocol:'://':server_name:script_name:path_info
+url := "?ACTION=STATUS"
+url := "&TASK_ID=":task_id
+url := "&retry_count=":retry_count
+
+refresh_time = "5"
+response = ''
+response :=        '<html>'
+response :=  crlf$ : '<head>'
+response :=  crlf$ : '<title>Processing your request</title>'
+response :=  crlf$ : '<meta '
+response :=  crlf$ : '   http-equiv="refresh"'
+response :=  crlf$ : '    content="%REFRESH_TIME%;url=%URL%";retry_count=%RETRY_COUNT%'
+response :=  crlf$ : ' >'
+response :=  crlf$ : '<meta name="keywords" content="automatic redirection">'
+response :=  crlf$ : '</head>'
+response :=  crlf$ : '<body bgcolor="#91afff"><center>'
+response :=  crlf$ : "  If your browser doesn't automatically open another page within ":refresh_time:" seconds,<br> "
+response :=  crlf$ : '  you may want to go to the destination<br>'
+response :=  crlf$ : '  <a href="%URL%">%URL%</a> <br>'
+response :=  crlf$ : '  manually.'
+response :=  crlf$ : '</body>'
+response :=  crlf$ : '</html>'
+
+swap '%URL%' with url in response
+swap '%REFRESH_TIME%' with refresh_time in response
+swap '%RETRY_COUNT%' with retry_count in response
+
+Return response
+******
+
+SendFile:
+/*
+**  REturn the PDF inline
+*/
+
+OSRead binary_data From pdfFile Else binary_data = ''
+OsDelete pdfFile
+
+request<response_is_binary$> = 1
+content_length = getByteSize(binary_data)
+response = ''
+response := "Content-Type: application/pdf" : lf$
+response := "Content-Length: ": content_length: lf$
+response := lf$
+response := binary_Data
+Return

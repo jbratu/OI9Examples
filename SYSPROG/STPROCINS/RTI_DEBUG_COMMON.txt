@@ -1,0 +1,3 @@
+compile insert RTI_DEBUG_COMMON
+
+common /rti_debug_common/ SPStatus@, SPStatCode@, Curr_Program@, CallDepth@, LineNo@, CallStack@

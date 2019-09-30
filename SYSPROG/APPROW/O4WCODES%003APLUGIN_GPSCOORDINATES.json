@@ -1,0 +1,9 @@
+{
+    "record1": {
+        "<1>": "",
+        "<2>": {
+            "<2,1>": "http://maps.googleapis.com/maps/api/js?sensor=true",
+            "<2,2>": "../plugins/jquery-gpscoordinates-1.0/jquery.gpscoordinates.js"
+        }
+    }
+}

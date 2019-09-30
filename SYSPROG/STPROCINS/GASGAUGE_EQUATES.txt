@@ -1,0 +1,54 @@
+compile insert gasgauge_equates
+
+*****************************************************************************
+*
+* Product    :  OI/WG
+* Poject     :  OI/RDK
+* Release    :  3.0
+*
+* Name       :  gasgauge_equates
+* Description:  Instructions and structure for GasGauge function
+*
+* History (Date, Initials, Notes)
+*   11/14/95  vg   Original programmer
+*   10/09/96  bb   Added labeled common to handle advanced dialog box	
+*
+*****************************************************************************
+
+* Function Declares
+declare function RDK_GasGauge ;* Flag = RDK_GasGauge(Instruction, Arg [, ArgList])
+
+* positions into structure to pass to GG_EXECUTE$
+EQU GGPOS_TITLE$        TO 1 ;* window title
+EQU GGPOS_GBLABEL$      TO 2 ;* group box label
+EQU GGPOS_SECTIONCNT$   TO 3 ;* number of sections to progress through
+EQU GGPOS_LABELLIST$    TO 4 ;* @vm delimited list of labels for each section (last is propagated)
+EQU GGPOS_SECTIONLIST$  TO 5 ;* @vm delimited list of section names
+EQU GGPOS_ALLOWSTOP$    TO 6 ;* boolean val specifying whether process can be halted
+EQU GGPOS_CALLBACKFUNC$ TO 7 ;* function to call to do processing ( argument can be passed in ArgList )
+
+* instructions
+EQU GG_EXECUTE$         TO  1 ;* start Gas Gauge
+EQU GG_GET$             TO  2 ;* get saved structure  (Not implemented yet)
+EQU GG_SAVE$            TO  3 ;* save structure       (Not implemented yet)
+EQU GG_SETPERCENT$      TO  4 ;* set bar and text to a percentage done state
+EQU GG_SETLABEL$        TO  5 ;* set label (can be used when changing section)
+EQU GG_SETMESSAGE$      TO  6 ;* set message text
+EQU GG_SETSECTION$      TO  7 ;* Checks current section as done and marks next section as current one
+EQU GG_SETFORECOLOR$    TO  8 ;* change from the default blue
+EQU GG_SETBKCOLOR$      TO  9 ;* change from the default white
+EQU GG_ISSTOPPED$       TO 10 ;* Returns true if stop or cancel have been pressed
+
+* 11-14 are reserved for future use
+
+* following equates are used by system
+EQU GG_CREATE$          TO 15
+EQU GG_CLOSE$           TO 16
+EQU GG_START$			TO 17
+
+* this is used for inter - procedureal variable storage
+EQU AUX_LAYOUT$		    TO "%%AUXIL_DIALOG_SETTINGS%%"
+
+* declare labeled common 
+Common //AUX_LAYOUT$// AuxPage@, AdvncSttns@, ErrDescr@  
+

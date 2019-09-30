@@ -1,0 +1,89 @@
+compile insert Notes_OIWin_Equates
+
+*---------------------------------------------------------------------------
+* Revision History
+*
+*  Date      Initials  Description
+*  --------  --------  -----------
+*  02-21-95  gg        Changed layout for CS_NOTESINFO$
+*  03-13-95  gg        Added MASTER_VIEWS$ field
+*  04-04-95  gg        Added layout for view-bound listboxes
+*---------------------------------------------------------------------------
+
+* The same equates describe the layout of Notes specific information
+* for both controlSemantics@ <ctlIx, CS_NOTESINFO$> (in OIWINEXE)
+* and oiwinStructure <ctlIx, POS_NOTESINFO$> (in OIWIN)
+* Some fields in controlSemantics@ <ctlIx, CS_NOTESINFO$> are calculated
+* by compilation logic (see repos.oiwin..compile, oiwin_compile_semantics)
+
+* subfields in controlSemantics@ <1, CS_NOTESINFO$>
+
+EQU MASTER_DBLIST$    TO 1   ;* in OIWIN - repository ENTID list for forms and views
+                              * in OIWINEXE - DBPath list
+EQU MASTER_FLAGS$     TO 2
+EQU MASTER_FORMULAS$  TO 3
+EQU MASTER_CONTROLS$  TO 4   ;* in OIWINEXE only - list of Notes bound controls (columns)
+                              * format: <ctrlIx> :@stm: <ctrlColumn>
+EQU MASTER_FORMS$     TO 5   ;* in OIWIN - repository ENTID list
+                              * in OIWINEXE - FormName list
+EQU MASTER_VIEWS$     TO 6   ;* in OIWINEXE only - list of view names
+
+	* flags in MASTER_FLAGS$ subfield
+	EQU DBFLAG_AFTERREAD$		TO		1
+	EQU DBFLAG_AFTERWRITE$		TO		2
+	EQU DBFLAG_AFTERDEL$		TO		4
+	EQU DBFLAG_READALWAYS$		TO		8
+	EQU DBFLAG_WRITEALWAYS$		TO		16
+	EQU DBFLAG_DELALWAYS$		TO		32
+	EQU DBFLAG_DELBROWSELIST$	TO		64
+	EQU DBFLAG_SEARCHLINEAR$	TO		128
+	EQU DBFLAG_SEARCHINDEXED$	TO		256
+	EQU DBFLAG_SEARCHFULLTEXT$	TO		512
+	EQU DBFLAG_PREOPEN$			TO		1024
+	EQU DBFLAG_LOCKNOTE$		TO		2048
+
+* subfields in controlSemantics@ <ctlIx, CS_NOTESINFO$> for ctlIx >= 2
+* (for EDITTABLE each subfield is an @tm delimited array of column-bound values)
+
+EQU FIELD_DBPOS$      TO 1   ;* in OIWIN - repository ENTID
+                             ;* in OIWINEXE - position in master db-list
+EQU FIELD_NAME$       TO 2
+EQU FIELD_DATATYPE$   TO 3   ;* Notes datatype
+EQU FIELD_FLAGS$      TO 4
+
+* subfields in controlSemantics@ <ctlIx, CS_NOTESINFO$> for view-bound
+* listboxes (each subfield is an @tm delimited array of column-bound values)
+
+EQU VIEW_DBPOS$       TO 1   ;* same as FIELD_DBPOS$
+EQU VIEW_COLUMNPOS$   TO 2   ;* list of column numbers
+EQU VIEW_COLUMNTYPE$  TO 3   ;* not used
+EQU VIEW_COLUMNFLAGS$ TO 4   ;* not used
+EQU VIEW_COLUMNWIDTH$ TO 5   ;* in OIWIN - column width in characters
+
+	* flags in FIELD_FLAGS$/VIEW_COLUMNFLAGS$ subfield
+	EQU CTRLFLAG_HIDECTRL$  TO 1
+	EQU CTRLFLAG_DELITEM$   TO 2
+	EQU CTRLFLAG_VIEWBOUND$ TO 4
+
+* possible tasks to perform when calling oiwin_notehook
+
+EQU HOOKOP_READSUCCEEDED$	TO 1
+EQU HOOKOP_READFAILED$      TO 2
+EQU HOOKOP_WRITESUCCEEDED$	TO 3
+EQU HOOKOP_WRITEFAILED$     TO 4
+EQU HOOKOP_DELETESUCCEEDED$	TO 5
+EQU HOOKOP_DELETEFAILED$    TO 6
+ 
+* possible modes to access when calling oiwin_notebrowse
+
+EQU NOTEBROWSE_FIRST$       TO 1
+EQU NOTEBROWSE_LAST$        TO 2
+EQU NOTEBROWSE_NEXT$        TO 3
+EQU NOTEBROWSE_PREV$        TO 4
+EQU NOTEBROWSE_ABS$         TO 5
+
+* possible tasks to perform when calling oiwin_notespreopenDB
+
+EQU NOTES_PREOPEN$          TO 1
+EQU NOTES_POSTCLOSE$        TO 2
+

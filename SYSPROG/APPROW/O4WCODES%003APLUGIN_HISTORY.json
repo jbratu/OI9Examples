@@ -1,0 +1,7 @@
+{
+    "record1": {
+        "<1>": "",
+        "<2>": "../plugins/jquery.address-1.5/jquery.address-1.5.min.js",
+        "<3>": "$(function(){o4wbDoHistory = 1; $.address.change(function(event){o4wHandleHistory(\"change\", event);});});"
+    }
+}

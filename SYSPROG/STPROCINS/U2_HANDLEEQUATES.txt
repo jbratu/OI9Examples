@@ -1,0 +1,13 @@
+Compile Insert U2_HandleEquates
+
+/* Equates for creation of a file handle for the U2 bond */
+
+EQU HANDLE_FILE_NAME$       TO 1    ;* The foreign name of the file
+EQU HANDLE_IC_OPEN_HANDLE$  TO 2    ;* Handle returned by an IC_OPEN call
+EQU HANDLE_FDICT_FLAG$      TO 3    ;* Flag indicating that U2 file's a dict
+EQU HANDLE_SESSION_ID$      TO 4    ;* The session id for this file
+
+* rjc  01-Jan-08 Change delimiter to a character which is unlikely to appear in filenames
+*EQU U2_HANDLE_DELIM$        TO "*"  ;* A delimiter for our part of the handle
+EQU U2_HANDLE_DELIM$        TO "~"  ;* A delimiter for our part of the handle
+

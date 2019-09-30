@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "\r\ndeclare function RDK_Deploy_Option\r\n\r\nequ RDKDO_CLOSE$ to 3\r\n\r\nreturn RDK_Deploy_Option(RDKDO_CLOSE$)\r\n"
+    }
+}

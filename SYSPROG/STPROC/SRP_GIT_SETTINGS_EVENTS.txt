@@ -1,0 +1,204 @@
+Compile function SRP_GIT_SETTINGS_EVENTS(Event, CtrlEntId, @PARAMS)
+/************************************************************************************************
+*
+* This program is proprietary and is not to be used by or disclosed to others, nor is it to
+* be copied without written permission from SRP Computer Solutions, Inc.
+*
+* Name       :  SRP_GIT_SETTINGS_Events
+*
+* Description:  Event handling commuter module for the SRP_GIT_SETTINGS form.
+*
+* User Defined Properties:
+*
+* Parameters:
+*	EventID		[in] -- Event ID
+*	CtrlEntId	[in] -- Control whose event is being handled
+*	Param1-13	[in] -- Event Parameters
+*
+* Returns:
+*	Event handling result, usually 1
+*
+* History (Date, Initials, Notes)
+*	02/25/19    DJS    Original programmer
+*	07/29/19    KRF    Updated with different controls and cleaned up the code
+*
+************************************************************************************************/
+#pragma precomp SRP_PreCompiler
+#window SRP_GIT_SETTINGS
+
+$insert APP_INSERTS
+
+Declare function SRP_Git_Services
+Declare subroutine SRP_Show_Window, SRP_Git_Services
+
+GoToEvent Event for CtrlEntId else
+    // Event not implemented
+end
+
+Return EventFlow or 1
+
+//-----------------------------------------------------------------------------
+// EVENT HANDLERS
+//-----------------------------------------------------------------------------
+
+Event WINDOW.CREATE(CreateParam)
+    
+    GoSub Setup_OLE_Controls
+    GoSub FillUserSettings
+    SRP_Show_Window(@Window, '', 'C', 'C', 1, '', False$, False$)
+    
+End Event
+
+
+Event PUB_APPLY.CLICK()
+    
+    GoSub SaveUserSettings
+    Set_Property(CtrlEntID, 'ENABLED', False$)
+
+end event
+
+
+Event PUB_OK.CLICK()
+    
+    GoSub SaveUserSettings
+    Post_Event(@Window, 'CLOSE')
+    
+end event
+
+
+Event CHB_ENABLED.CLICK()
+    
+    GoSub CheckModified
+    
+end event
+
+
+Event EDL_REPO_LOC.LOSTFOCUS(Flag, FocusID)
+    
+    GoSub CheckModified
+    
+end event
+
+
+Event EDL_GIT_LOC.LOSTFOCUS(Flag, FocusID)
+    
+    GoSub CheckModified
+    
+end event
+
+
+Event EDL_GUI_LOC.LOSTFOCUS(Flag, FocusID)
+    
+    GoSub CheckModified
+    
+end event
+
+
+Event OLE_SUBCLASS.OnOptionClick(CtrlId)
+    
+    OrigDirectory = Get_Property(CtrlId, 'TEXT')
+    
+    If CtrlId[-1, "B."] EQ "EDL_REPO_LOC" then
+        Directory = Utility("CHOOSEDIR", @Window, "Select directory":@FM:"%HOMEPATH%")
+    end else
+        Directory = Utility("CHOOSEFILE", @Window, "Select executable":@FM:"%HOMEPATH%")
+    end
+       
+    If Directory NE '' then
+        Set_Property(CtrlId, 'TEXT', Directory)
+        GoSub CheckModified
+    end
+        
+end event
+
+
+* Event OLE_EDITTABLE_GIT.OnOptionClick(Cell, Point, Button, Shift, Ctrl)
+*    
+*    Col = Field(Cell, ';', 1)
+*    Row = Field(Cell, ';', 2)
+*    OrigDirectory = Get_Property(CtrlEntID, 'OLE.CellText[':Col:'; ':Row:']')
+*    Directory     = Utility("CHOOSEFILE", @Window, "Select executable":@FM:"%HOMEPATH%")
+*    If Directory NE '' then
+*        Set_Property(CtrlEntID, 'OLE.CellText[':Col:'; ':Row:']', Directory) 
+*        GoSub CheckModified
+*    end
+*    
+* end event
+
+
+Event OLE_EDITTABLE_GIT.AfterUpdate(Cell, Text, Pattern, OldText)
+    GoSub CheckModified
+end event
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Internal GoSubs
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+Setup_OLE_Controls:
+    
+	// Add browse buttons
+    Ctrl = @Window:".OLE_SUBCLASS"
+	CtrlIds = "EDL_REPO_LOC,EDL_GIT_LOC,EDL_GUI_LOC"
+	For i = 1 to 3
+        CtrlId = @Window:".":Field(CtrlIds, ",", i, 1)
+        Handle = Get_Property(CtrlId, "HANDLE")
+        rv = Send_Message(Ctrl, "OLE.Subclass", Handle, CtrlId)
+        Convert "." to ";" in CtrlId
+        Set_Property(Ctrl, "OLE.OptionButton[":CtrlId:"]", 1)
+        Set_Property(Ctrl, "OLE.OptionImage[":CtrlId:"]", "BMPS\SRPGit.zip#browse.png")
+        Send_Message(Ctrl, "QUALIFY_EVENT", "OLE.OnOptionClick", Yes$)
+	Next i	
+
+return
+
+
+CheckModified:
+    
+    OrigGenCtrlList = Get_Property(@Window, '@OrigGitCtrlList')
+    CurrGenCtrlList = Get_Property(@Window:".CHB_ENABLED", 'CHECK'):@RM:Get_Property(@Window:".EDL_REPO_LOC", 'TEXT'):@RM:Get_Property(@Window:".EDL_GIT_LOC", 'TEXT'):@RM:Get_Property(@Window:".EDL_GUI_LOC", 'TEXT')
+    If CurrGenCtrlList NE OrigGenCtrlList then
+        Set_Property(@Window:'.PUB_APPLY', 'ENABLED', True$)
+    end else
+        Set_Property(@Window:'.PUB_APPLY', 'ENABLED', False$)
+    end
+    
+return
+
+
+FillUserSettings:
+    
+    // Get the settings
+    GitEnabled       = SRP_Git_Services("IsEnabled")
+    GitRepoLoc       = SRP_Git_Services("GetRepoPath")
+    GitExePath       = SRP_Git_Services("GetGitPath")
+    GitGUICommand    = SRP_Git_Services("GetGuiCommand")
+    
+    // Pass the data to the control
+    Set_Property(@Window:".CHB_ENABLED", "CHECK", GitEnabled)
+    Set_Property(@Window:".EDL_REPO_LOC", "TEXT", GitRepoLoc)
+    Set_Property(@Window:".EDL_GIT_LOC", "TEXT", GitExePath)
+    Set_Property(@Window:".EDL_GUI_LOC", "TEXT", GitGUICommand)
+    
+    // Save the data so we know when we can apply
+    Set_Property(@Window, "@OrigGitCtrlList", GitEnabled:@RM:GitRepoLoc:@RM:GitExePath:@RM:GitGUICommand)
+    Set_Property(@Window:".PUB_APPLY", "ENABLED", False$)
+    
+return
+
+
+SaveUserSettings:
+    
+    GitEnabled        = Get_Property(@Window:".CHB_ENABLED", "CHECK")
+    GitRepoLoc        = Get_Property(@Window:".EDL_REPO_LOC", "TEXT")
+    GitExePath        = Get_Property(@Window:".EDL_GIT_LOC", "TEXT")
+    GitGUICommand     = Get_Property(@Window:".EDL_GUI_LOC", "TEXT")
+    SRP_Git_Services("SaveUserSettings", GitEnabled, GitRepoLoc, GitExePath, GitGUICommand)
+        
+    // Save the data so we know when we can apply
+    Set_Property(@Window, "@OrigGitCtrlList", GitEnabled:@RM:GitRepoLoc:@RM:GitExePath:@RM:GitGUICommand)
+    Set_Property(@Window:".PUB_APPLY", "ENABLED", False$)
+    
+return
+

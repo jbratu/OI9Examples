@@ -1,0 +1,8 @@
+{
+    "record1": {
+        "<1>": "SHLWAPI",
+        "<2>": "",
+        "<3>": "INT STDCALL PathFindOnPathA(LPASTR,LONG) AS PATHFINDONPATH",
+        "<4>": "INT STDCALL PathIsURLA(LPASTR) AS PathIsURL"
+    }
+}

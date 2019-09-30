@@ -1,0 +1,63 @@
+compile insert XOQuery_Equates
+
+*****************************************************************************
+*
+* This program is proprietary and is not to be used by or disclosed
+* to others, nor is it to be copied without written permission from
+* Revelation Technologies, Inc.
+*
+* Product    :  OI/WG
+* Poject     :  OI/CS
+* Release    :  3.1
+*
+* Name       :  XOQuery_Equates
+* Description:  Constants and declarations for the XOQuery() function
+*
+* History (Date, Initials, Notes)
+*   07/13/95  cp   Original programmer
+*   09/13/95  vg   Added activated, commit, and rollback
+*   02/08/96  cp   Added help & about, updated for Hoffa
+*
+*****************************************************************************
+
+declare function XOQuery        ;* Ret = XOQuery(Instruction, Parm)
+
+common /XOQUERY/ XOQuery_Scripts@, XOQuery_Unused_3@, XOQuery_Unused_2@, XOQuery_Unused_1@
+
+* instructions
+equ XOQ_CREATE$              to 3
+equ XOQ_CLOSE$               to 4
+equ XOQ_QUERY_EXECUTE$       to 5
+equ XOQ_QUERY_HALTEXECUTION$ to 6
+equ XOQ_QUERY_RESETRESULT$   to 7
+equ XOQ_QUERY_HISTORY$       to 8
+equ XOQ_HIST_CREATE$         to 9
+equ XOQ_HIST_OK$             to 10
+equ XOQ_HIST_CANCEL$         to 11
+equ XOQ_HIST_SELECT$         to 12
+equ XOQ_QUERY_LISTTABLES$    to 13
+equ XOQ_QUERY_LISTCOLUMNS$   to 14
+equ XOQ_ACTIVATED$           to 15
+equ XOQ_COMMIT_TRANS$        to 16
+equ XOQ_ROLLBACK_TRANS$      to 17
+equ XOQ_HELP$                to 18
+equ XOQ_ABOUT$               to 19
+equ XOQ_INACTIVATED$         to 20
+equ XOQ_OBJECTTYPES$         to 21
+equ XOQ_OMNIEVENT$           to 22
+
+* literals
+equ XOQ_QUERY_WINDOW$        to "XO_QUERY"
+equ XOQ_HISTORY_DIALOG$      to "XO_HISTORY"
+
+* tool-specific menu items (command numbers)
+equ XOM_EXECUTE$             to 11
+equ XOM_HALT$                to 12
+equ XOM_RESET$               to 13
+equ XOM_COMMIT$              to 15
+equ XOM_ROLLBACK$            to 16
+equ XOM_LISTOBJECTS$         to 18
+equ XOM_LISTCOLUMNS$         to 19
+equ XOM_OBJECTTYPES$         to 20
+equ XOM_HISTORY$             to 22
+

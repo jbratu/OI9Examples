@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "\r\nDECLARE SUBROUTINE Forward_Event\r\n\r\n$insert rev_bp, rdk_designer_equates\r\n\r\nForward_Event( PageAction )\r\nStat\t= RDKRepViewEdit( RDKRVE_PAGE$, PageAction )\r\n\r\nRETURN 0"
+    }
+}

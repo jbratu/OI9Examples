@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "\r\ndeclare function send_message\r\n\r\nproperty = .Property->TEXT\r\n\r\nvalue = Get_Property(@Window:'.HTML', property)\r\n.Value->Text = value\r\n.Property->Focus = 1\r\n\r\n\r\nRETURN 0"
+    }
+}

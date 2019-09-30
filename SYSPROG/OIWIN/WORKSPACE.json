@@ -1,0 +1,2301 @@
+{
+    "style-sheet-id": "",
+    "name": "WORKSPACE",
+    "icon-name": "POPUP",
+    "title": "Workspace",
+    "size": {
+        "x": 10,
+        "y": 88,
+        "y-ext": null,
+        "width": 564,
+        "height": 388
+    },
+    "style": [
+        "WS_POPUP",
+        "WS_CLIPCHILDREN",
+        "WS_BORDER",
+        "WS_DLGFRAME",
+        "WS_SYSMENU",
+        "WS_THICKFRAME",
+        "WS_MINIMIZEBOX",
+        "WS_MAXIMIZEBOX"
+    ],
+    "style-ex": [],
+    "ps-style": [
+        "PSS_WIN_HASMENU",
+        "PSS_WIN_MULTIINSTANCE"
+    ],
+    "background": "#00FFFFFF",
+    "script-events": [],
+    "quick-events": [
+        {
+            "name": "CLOSE",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "@WINDOW",
+                "2",
+                "@PARAM1"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "CREATE",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "@WINDOW",
+                "1",
+                "@PARAM1"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "OMNIEVENT",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "@WINDOW",
+                "18",
+                "@PARAM1",
+                "@PARAM2",
+                "@PARAM3"
+            ],
+            "return-id": "",
+            "return-property": ""
+        }
+    ],
+    "tables": [],
+    "io-options": {
+        "optimistic-locking": false,
+        "locking-behavior": "Exclusive",
+        "coordinate-with-file-locks": false,
+        "ignore-self-locks": false,
+        "ignore-subrow-locks": false,
+        "no-clear-on-write": false,
+        "commit-after-data-set": null,
+        "rollback-if-commit-fails": null,
+        "auto-rollback-on-clear": null,
+        "enforce-required-fields-before-save": null
+    },
+    "joined-tables": {
+        "primary": null,
+        "joined": null
+    },
+    "form-designer-flags": [
+        "0x7FFFE",
+        "0xF001E988"
+    ],
+    "background-image": "",
+    "icon": "SYSPROG*IMAGE*ICO*POPUP",
+    "page-count": 1,
+    "controls": [
+        {
+            "name": "MDICLIENT",
+            "icon-literal": "RTISTATIC",
+            "type": "MDICLIENT",
+            "parent": "WORKSPACE",
+            "size": {
+                "x": 1,
+                "y": 38,
+                "y-ext": null,
+                "width": 554,
+                "height": 281
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_CLIPSIBLINGS",
+                "WS_CLIPCHILDREN",
+                "WS_BORDER"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_AUTOSIZE_W",
+                "PSS_AUTOSIZE_H"
+            ],
+            "tab-stop": 0,
+            "background": "",
+            "foreground": "#00000000",
+            "font": null,
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "",
+            "o-conv": "",
+            "default": "",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0014808"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "GB_BUTTONBAR",
+            "icon-literal": "",
+            "type": "GROUPBOX",
+            "parent": "WORKSPACE",
+            "size": {
+                "x": 1,
+                "y": 0,
+                "y-ext": null,
+                "width": -1,
+                "height": 38
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_GROUPBOX"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_AUTOSIZE_W"
+            ],
+            "tab-stop": 0,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016408"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "CB_NEW",
+            "icon-literal": "",
+            "type": "PUSHBMP",
+            "parent": "WORKSPACE",
+            "size": {
+                "x": 4,
+                "y": 10,
+                "y-ext": null,
+                "width": 24,
+                "height": 22
+            },
+            "text": "Design New Component|New Component",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_INITIALFOCUS",
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 1,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Event",
+                    "message": "MENU",
+                    "entity-id": "@WINDOW.MENU.FILE.NEW",
+                    "parameters": [],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016000"
+            ],
+            "bitmap-id": "SYSPROG*IMAGE*BMP*POPNEW",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 4,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "CB_OPEN",
+            "icon-literal": "",
+            "type": "PUSHBMP",
+            "parent": "WORKSPACE",
+            "size": {
+                "x": 28,
+                "y": 10,
+                "y-ext": null,
+                "width": 24,
+                "height": 22
+            },
+            "text": "Open an Existing Component for Design|Open Component",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 2,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Event",
+                    "message": "MENU",
+                    "entity-id": "@WINDOW.MENU.FILE.OPEN",
+                    "parameters": [],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016000"
+            ],
+            "bitmap-id": "SYSPROG*IMAGE*BMP*POPOPEN",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 4,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "CB_SAVE",
+            "icon-literal": "",
+            "type": "PUSHBMP",
+            "parent": "WORKSPACE",
+            "size": {
+                "x": 52,
+                "y": 10,
+                "y-ext": null,
+                "width": 24,
+                "height": 22
+            },
+            "text": "Save the Contents of the Current Window|Save Component",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_DISABLED",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 3,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Event",
+                    "message": "MENU",
+                    "entity-id": "@WINDOW.MENU.FILE.SAVE",
+                    "parameters": [],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016000"
+            ],
+            "bitmap-id": "SYSPROG*IMAGE*BMP*POPSAVE",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 4,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "CB_CLOSE",
+            "icon-literal": "",
+            "type": "PUSHBMP",
+            "parent": "WORKSPACE",
+            "size": {
+                "x": 76,
+                "y": 10,
+                "y-ext": null,
+                "width": 24,
+                "height": 22
+            },
+            "text": "Closes the Current Window|Close Component",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_DISABLED",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 4,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Event",
+                    "message": "MENU",
+                    "entity-id": "@WINDOW.MENU.FILE.CLOSE",
+                    "parameters": [],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016000"
+            ],
+            "bitmap-id": "SYSPROG*IMAGE*BMP*POPCLOSE",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 4,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "CB_TEST_RUN",
+            "icon-literal": "",
+            "type": "PUSHBMP",
+            "parent": "WORKSPACE",
+            "size": {
+                "x": 105,
+                "y": 10,
+                "y-ext": null,
+                "width": 24,
+                "height": 22
+            },
+            "text": "Test Run the Current Component|Test Run",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_DISABLED",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 5,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Event",
+                    "message": "MENU",
+                    "entity-id": "@WINDOW.MENU.FILE.TEST_RUN",
+                    "parameters": [],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016188"
+            ],
+            "bitmap-id": "SYSPROG*IMAGE*BMP*POPRUN",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 4,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "CB_HELP",
+            "icon-literal": "",
+            "type": "PUSHBMP",
+            "parent": "WORKSPACE",
+            "size": {
+                "x": -36,
+                "y": 9,
+                "y-ext": null,
+                "width": 24,
+                "height": 22
+            },
+            "text": "Access the Online Help|Help",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY",
+                "PSS_AUTOSIZE_X"
+            ],
+            "tab-stop": 6,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Event",
+                    "message": "MENU",
+                    "entity-id": "@WINDOW.MENU.HELP.CONTENTS",
+                    "parameters": [],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016588"
+            ],
+            "bitmap-id": "SYSPROG*IMAGE*BMP*POPHELP",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 4,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "EB_STATUS",
+            "icon-literal": "",
+            "type": "EDITFIELD",
+            "parent": "WORKSPACE",
+            "size": {
+                "x": 1,
+                "y": -23,
+                "y-ext": null,
+                "width": -1,
+                "height": 21
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_DISABLED",
+                "WS_BORDER",
+                "ES_AUTOHSCROLL"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_AUTOSIZE_Y",
+                "PSS_AUTOSIZE_W"
+            ],
+            "tab-stop": 7,
+            "background": "#00C0C0C0",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016408"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        }
+    ],
+    "menu": {
+        "type": "MENU",
+        "name": "",
+        "text": "",
+        "disabled": false,
+        "checked": false,
+        "hidden": false,
+        "accelerator": "None",
+        "tooltip": "",
+        "flags": [],
+        "sub-menus": [
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "&File",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "Create, Access, Update, and Test Entities",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&New\tCtrl+N",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+N",
+                        "tooltip": "Create a new component",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Open\tCtrl+O",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+O",
+                        "tooltip": "Open an existing component",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Close",
+                        "disabled": true,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "Close the current window",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "SEP103",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Save\tCtrl+S",
+                        "disabled": true,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+S",
+                        "tooltip": "Save the current component definition",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Save &As",
+                        "disabled": true,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "Save the component definition using a new component name",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Save Al&l",
+                        "disabled": true,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "Save all modified component definitions",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "SEP107",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Test &Run\tCtrl+R",
+                        "disabled": true,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+R",
+                        "tooltip": "Execute the current window",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "SEP109",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Prev1",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Prev2",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Prev3",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Prev4",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Prev5",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Prev6",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Prev7",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Prev8",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Prev9",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Prev10",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "SEP120",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "E&xit\tAlt+F4",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Alt+F4",
+                        "tooltip": "Close the Workspace",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            },
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "&Edit",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Undo\tCtrl+Z",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+Z",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "SEP101",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Cu&t\tCtrl+X",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+X",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Copy\tCtrl+C",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+C",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Paste\tCtrl+V",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+V",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            },
+            {
+                "type": "POPUP",
+                "name": "SPECIFIC",
+                "text": "&Options",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "SPECIFIC.CMD1",
+                        "text": "&No Options Available",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "SPECIFIC.CMD2",
+                        "text": "Cmd2",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "SPECIFIC.CMD3",
+                        "text": "Cmd3",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "SPECIFIC.CMD4",
+                        "text": "Cmd4",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "SPECIFIC.CMD5",
+                        "text": "Cmd5",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "SPECIFIC.CMD6",
+                        "text": "Cmd6",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "SPECIFIC.CMD7",
+                        "text": "Cmd7",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "SPECIFIC.CMD8",
+                        "text": "Cmd8",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "SPECIFIC.CMD9",
+                        "text": "Cmd9",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "SPECIFIC.CMD10",
+                        "text": "Cmd10",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "SPECIFIC.CMD11",
+                        "text": "Cmd11",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "SPECIFIC.CMD12",
+                        "text": "Cmd12",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "SPECIFIC.CMD13",
+                        "text": "Cmd13",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "SPECIFIC.CMD14",
+                        "text": "Cmd14",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "SPECIFIC.CMD15",
+                        "text": "Cmd15",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            },
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "&Tools",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Tool1",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Tool2",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Tool3",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Tool4",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Tool5",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Tool6",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Tool7",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Tool8",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Tool9",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Tool10",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "SEP110",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Preferences",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "Modify Workspace preferences",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            },
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "&Window",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "Access and arrange the Popup windows",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Cascade\tShift+F5",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Shift+F5",
+                        "tooltip": "Cascade the Workspace windows",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Tile\tShift+F4",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Shift+F4",
+                        "tooltip": "Tile the Workspace windows",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Arrange &Icons",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "Arrange the iconized Workspace windows",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            },
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "&Help",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "Access the Online Help menu",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Contents\tF1",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "F1",
+                        "tooltip": "Access the Online Help",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Options\tAlt+Down",
+                        "disabled": true,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Alt+Down",
+                        "tooltip": "Choose from a list of available options for a field",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "SEP102",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&About",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "Displays a description of the Workspace",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            }
+        ]
+    },
+    "menu-script-events": [],
+    "menu-quick-events": [
+        {
+            "name": "FILE.NEW",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "",
+                "3"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.OPEN",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "",
+                "4"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.CLOSE",
+            "type": "Event",
+            "message": "CLOSE",
+            "entity-id": "@MDIACTIVE",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.SAVE",
+            "type": "Event",
+            "message": "WRITE",
+            "entity-id": "@MDIACTIVE",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.SAVE_AS",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "@MDIACTIVE",
+                "5"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.SAVE_ALL",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "@MDIACTIVE",
+                "19",
+                ""
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.TEST_RUN",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "@MDIACTIVE",
+                "6"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.PREV1",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "",
+                "7",
+                "1"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.PREV2",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "",
+                "7",
+                "2"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.PREV3",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "",
+                "7",
+                "3"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.PREV4",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "",
+                "7",
+                "4"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.PREV5",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "",
+                "7",
+                "5"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.PREV6",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "",
+                "7",
+                "6"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.PREV7",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "",
+                "7",
+                "7"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.PREV8",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "",
+                "7",
+                "8"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.PREV9",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "",
+                "7",
+                "9"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.PREV10",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "",
+                "7",
+                "10"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.EXIT",
+            "type": "Event",
+            "message": "CLOSE",
+            "entity-id": "@WINDOW",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "EDIT.UNDO",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**SEND_MESSAGE",
+            "parameters": [
+                "@FOCUS",
+                "UNDO"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "EDIT.CUT",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**SEND_MESSAGE",
+            "parameters": [
+                "@FOCUS",
+                "CUT"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "EDIT.COPY",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**SEND_MESSAGE",
+            "parameters": [
+                "@FOCUS",
+                "COPY"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "EDIT.PASTE",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**SEND_MESSAGE",
+            "parameters": [
+                "@FOCUS",
+                "PASTE"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "SPECIFIC.CMD1",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "@MDIACTIVE",
+                "20",
+                "1"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "SPECIFIC.CMD2",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "@MDIACTIVE",
+                "20",
+                "2"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "SPECIFIC.CMD3",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "@MDIACTIVE",
+                "20",
+                "3"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "SPECIFIC.CMD4",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "@MDIACTIVE",
+                "20",
+                "4"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "SPECIFIC.CMD5",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "@MDIACTIVE",
+                "20",
+                "5"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "SPECIFIC.CMD6",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "@MDIACTIVE",
+                "20",
+                "6"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "SPECIFIC.CMD7",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "@MDIACTIVE",
+                "20",
+                "7"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "SPECIFIC.CMD8",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "@MDIACTIVE",
+                "20",
+                "8"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "SPECIFIC.CMD9",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "@MDIACTIVE",
+                "20",
+                "9"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "SPECIFIC.CMD10",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "@MDIACTIVE",
+                "20",
+                "10"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "SPECIFIC.CMD11",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "@MDIACTIVE",
+                "20",
+                "11"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "SPECIFIC.CMD12",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "@MDIACTIVE",
+                "20",
+                "12"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "SPECIFIC.CMD13",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "@MDIACTIVE",
+                "20",
+                "13"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "SPECIFIC.CMD14",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "@MDIACTIVE",
+                "20",
+                "14"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "SPECIFIC.CMD15",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "@MDIACTIVE",
+                "20",
+                "15"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "TOOLS.TOOL1",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "",
+                "9",
+                "1"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "TOOLS.TOOL2",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "",
+                "9",
+                "2"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "TOOLS.TOOL3",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "",
+                "9",
+                "3"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "TOOLS.TOOL4",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "",
+                "9",
+                "4"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "TOOLS.TOOL5",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "",
+                "9",
+                "5"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "TOOLS.TOOL6",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "",
+                "9",
+                "6"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "TOOLS.TOOL7",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "",
+                "9",
+                "7"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "TOOLS.TOOL8",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "",
+                "9",
+                "8"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "TOOLS.TOOL9",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "",
+                "9",
+                "9"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "TOOLS.TOOL10",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "",
+                "9",
+                "10"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "TOOLS.PREFERENCES",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "",
+                "8"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "WINDOW.CASCADE",
+            "type": "Event",
+            "message": "CASCADE",
+            "entity-id": "@WINDOW",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "WINDOW.TILE",
+            "type": "Event",
+            "message": "TILE",
+            "entity-id": "@WINDOW",
+            "parameters": [
+                "0"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "WINDOW.ARRANGE_ICONS",
+            "type": "Event",
+            "message": "ARRANGEICONS",
+            "entity-id": "@WINDOW",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "HELP.CONTENTS",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "@MDIACTIVE",
+                "10"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "HELP.OPTIONS",
+            "type": "Event",
+            "message": "OPTIONS",
+            "entity-id": "@FOCUS",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "HELP.ABOUT",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**WORKSPACE",
+            "parameters": [
+                "@MDIACTIVE",
+                "11"
+            ],
+            "return-id": "",
+            "return-property": ""
+        }
+    ]
+}

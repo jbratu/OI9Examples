@@ -1,0 +1,22 @@
+compile insert O4WMENUEQUATES
+* O4WMenus record layout
+
+Equ Template_Name$ To 2
+Equ Permissions$ To 3
+Equ Description$ To 4
+Equ Modules$ To 5
+
+Equ Type$ To 10
+Equ Text$ To 11
+Equ LinkTo$ To 12
+Equ LinkType$ To 13
+Equ ItemPerms$ To 14
+
+Equ RSSFeedName$ To 15
+Equ RSSFeedParams$ To 16
+Equ RSSDisplayText$ To 17
+Equ RSSDisplayImage$ To 18
+Equ RSSDisplayLoc$ To 19
+
+Equ SystemFlag$ To 25
+

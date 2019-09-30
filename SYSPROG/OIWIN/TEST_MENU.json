@@ -1,0 +1,523 @@
+{
+    "style-sheet-id": "",
+    "name": "TEST_MENU",
+    "icon-name": "",
+    "title": "Test Menu",
+    "size": {
+        "x": 40,
+        "y": 100,
+        "y-ext": null,
+        "width": -492,
+        "height": -296
+    },
+    "style": [
+        "WS_POPUP",
+        "WS_VISIBLE",
+        "WS_CLIPSIBLINGS",
+        "WS_BORDER",
+        "WS_DLGFRAME",
+        "WS_SYSMENU",
+        "WS_THICKFRAME",
+        "WS_MINIMIZEBOX",
+        "WS_MAXIMIZEBOX"
+    ],
+    "style-ex": [],
+    "ps-style": [
+        "PSS_WIN_HASMENU"
+    ],
+    "background": "#00FFFFFF",
+    "script-events": [],
+    "quick-events": [],
+    "tables": [],
+    "io-options": {
+        "optimistic-locking": false,
+        "locking-behavior": "Exclusive",
+        "coordinate-with-file-locks": false,
+        "ignore-self-locks": false,
+        "ignore-subrow-locks": false,
+        "no-clear-on-write": false,
+        "commit-after-data-set": null,
+        "rollback-if-commit-fails": null,
+        "auto-rollback-on-clear": null,
+        "enforce-required-fields-before-save": null
+    },
+    "joined-tables": {
+        "primary": null,
+        "joined": null
+    },
+    "form-designer-flags": [
+        "0x7FFFE",
+        "0xF001E808"
+    ],
+    "background-image": "",
+    "icon": "",
+    "page-count": 1,
+    "controls": [],
+    "menu": {
+        "type": "MENU",
+        "name": "",
+        "text": "",
+        "disabled": false,
+        "checked": false,
+        "hidden": false,
+        "accelerator": "None",
+        "tooltip": "",
+        "flags": [],
+        "sub-menus": [
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "File",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&New\tCtrl+N",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+N",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Open\tCtrl+O",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+O",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Save\tCtrl+S",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+S",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Print\tCtrl+P",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+P",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "E&xit\tAlt+F4",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Alt+F4",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            },
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "Edit",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Undo\tCtrl+Z",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+Z",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "EDIT.CUT",
+                        "text": "Cu&t (Disabled)\tCtrl+X",
+                        "disabled": true,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+X",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Copy\tCtrl+C",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+C",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Paste\tCtrl+V",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+V",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Delete",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "POPUP",
+                        "name": "",
+                        "text": "Popup",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": [
+                            {
+                                "type": "ITEM",
+                                "name": "",
+                                "text": "Popup1",
+                                "disabled": false,
+                                "checked": false,
+                                "hidden": false,
+                                "accelerator": "None",
+                                "tooltip": "",
+                                "flags": [],
+                                "sub-menus": []
+                            },
+                            {
+                                "type": "POPUP",
+                                "name": "",
+                                "text": "Popup2",
+                                "disabled": false,
+                                "checked": false,
+                                "hidden": false,
+                                "accelerator": "None",
+                                "tooltip": "",
+                                "flags": [],
+                                "sub-menus": [
+                                    {
+                                        "type": "SEPARATOR",
+                                        "name": "",
+                                        "text": "",
+                                        "disabled": false,
+                                        "checked": false,
+                                        "hidden": false,
+                                        "accelerator": "None",
+                                        "tooltip": "",
+                                        "flags": [],
+                                        "sub-menus": []
+                                    },
+                                    {
+                                        "type": "ITEM",
+                                        "name": "",
+                                        "text": "Wibble 1",
+                                        "disabled": true,
+                                        "checked": false,
+                                        "hidden": false,
+                                        "accelerator": "None",
+                                        "tooltip": "",
+                                        "flags": [],
+                                        "sub-menus": []
+                                    },
+                                    {
+                                        "type": "ITEM",
+                                        "name": "",
+                                        "text": "Wibble 2",
+                                        "disabled": false,
+                                        "checked": false,
+                                        "hidden": false,
+                                        "accelerator": "None",
+                                        "tooltip": "",
+                                        "flags": [],
+                                        "sub-menus": []
+                                    },
+                                    {
+                                        "type": "ITEM",
+                                        "name": "",
+                                        "text": "Wibble 3",
+                                        "disabled": false,
+                                        "checked": true,
+                                        "hidden": false,
+                                        "accelerator": "None",
+                                        "tooltip": "",
+                                        "flags": [],
+                                        "sub-menus": []
+                                    },
+                                    {
+                                        "type": "ITEM",
+                                        "name": "",
+                                        "text": "Wibble 4",
+                                        "disabled": true,
+                                        "checked": true,
+                                        "hidden": false,
+                                        "accelerator": "None",
+                                        "tooltip": "",
+                                        "flags": [],
+                                        "sub-menus": []
+                                    },
+                                    {
+                                        "type": "ITEM",
+                                        "name": "",
+                                        "text": "Bitmap Wibble",
+                                        "disabled": false,
+                                        "checked": false,
+                                        "hidden": false,
+                                        "accelerator": "None",
+                                        "tooltip": "",
+                                        "flags": [],
+                                        "sub-menus": []
+                                    },
+                                    {
+                                        "type": "ITEM",
+                                        "name": "",
+                                        "text": "Bitmap Check",
+                                        "disabled": false,
+                                        "checked": true,
+                                        "hidden": false,
+                                        "accelerator": "None",
+                                        "tooltip": "",
+                                        "flags": [
+                                            "PSIS_AUTOCHECK"
+                                        ],
+                                        "sub-menus": []
+                                    }
+                                ]
+                            },
+                            {
+                                "type": "ITEM",
+                                "name": "",
+                                "text": "Popup3",
+                                "disabled": false,
+                                "checked": false,
+                                "hidden": false,
+                                "accelerator": "None",
+                                "tooltip": "",
+                                "flags": [],
+                                "sub-menus": []
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "ITEM",
+                "name": "",
+                "text": "No Popup",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "",
+                "flags": [],
+                "sub-menus": []
+            },
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "SoftKeys",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "M1 checked",
+                        "disabled": false,
+                        "checked": true,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "M2 (Disabled)",
+                        "disabled": true,
+                        "checked": true,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "M3 Autocheck",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [
+                            "PSIS_AUTOCHECK"
+                        ],
+                        "sub-menus": []
+                    }
+                ]
+            },
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "Help",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Help",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "About",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            }
+        ]
+    },
+    "menu-script-events": [],
+    "menu-quick-events": [
+        {
+            "name": "FILE.EXIT",
+            "type": "Event",
+            "message": "CLOSE",
+            "entity-id": "@WINDOW",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        }
+    ]
+}

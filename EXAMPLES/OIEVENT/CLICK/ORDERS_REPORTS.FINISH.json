@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "declare subroutine OIPI_Report, RList\r\ndeclare function rlist\r\n\r\nretval = ''\r\nreport = ''\r\nstmt = ''\r\ndone = ''\r\nkey = ''\r\nwin_name = CtrlEntId[1,'.']\r\n\r\nx = Get_Property(win_name:'.RB_P2_ITEM','DEFPROP')\r\n\r\nif x = 3 then\r\n\t/*\r\n\tstmt = 'SELECT ORDERS BY CUST_NO'\r\n\tRlist(stmt,5,'','','')\r\n\r\n\tloop until done = 'YES'\r\n\t\treadnext key else done = 'YES'\r\n\t\t\tretval<-1> = key\r\n\trepeat\r\n\tswap @FM with @VM in retval\r\n\t*/\r\n\t\r\n\treport = get_property(win_name:'.RB_P1_ITEM','DEFPROP')\r\n\tif report = 1 then report = 'CUSTOMER'\r\n\tif report = 2 then report = 'PRODUCT'\r\n\tif report = 3 then report = 'DATE'\r\n\r\nend else\r\n\tretval = @USER0\r\n\treport = @USER1\r\nend\r\n\r\nOIPI_Report(report,retval)\r\n\r\nRETURN 0"
+    }
+}

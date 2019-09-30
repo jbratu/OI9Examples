@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "\r\n\r\ncall Send_Event(@window, 'WINMSG', '', CtrlEntID, '', '')\r\n\r\nRETURN 0"
+    }
+}

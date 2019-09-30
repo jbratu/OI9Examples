@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "declare function  Repository\r\n\t\r\nrepos_key = @appid<1>:'*POPUP**CUSTOMER_ID_POPUP'\r\nkeys = Repository('EXECUTE', repos_key, @WINdow)\r\n\r\nif keys then\r\n\t*---\r\n\t* the following is shorthande notation for set_property.\r\n\t*---\r\n\t.CUST_NO->text=keys\r\n\t.cust_no->focus=1\r\nEnd\r\n\t\t\r\nRETURN 0"
+    }
+}

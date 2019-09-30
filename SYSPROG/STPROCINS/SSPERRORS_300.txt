@@ -1,0 +1,25 @@
+/*---------------- System Stored Procedures Error Codes -------------------*/
+/*                   Environment Management Block 300                      */
+
+
+EQU SSP_INVALID_ENV_ATTRIB$      TO "SSP301" ;* Invalid environment attribute value - (validation pattern)
+
+EQU SSP_INVALID_DBID$            TO "SSP310" ;* The Database Identifier is not valid - must be 8 chars or less - valid chars. - (dbid)
+EQU SSP_DBTEMPLATE_EXISTS$       TO "SSP311" ;* The Database template already exists. - (dbid)
+EQU SSP_ENVIRON_NOT_SAVED$       TO "SSP312" ;* Error writing the environment record (dbid)
+EQU SSP_DBTEMPLATE_OVERFLOW$     TO "SSP313" ;* Database template > 64K.
+EQU SSP_DBTEMPLATE_MISSING$      TO "SSP314" ;* Database template not found.
+
+EQU SSP_INVALID_USERID$          TO "SSP320" ;* Invalid user id
+EQU SSP_USERID_NOT_SAVED$        TO "SSO321" ;* Error writing the user record.
+EQU SSP_INVALID_PASSWORD$        TO "SSP322" ;* Password must be between 6 and 20 characters
+EQU SSP_USERID_EXISTS$           TO "SSP323" ;* Userid already registered - no overwrite specified.
+EQU SSP_USERID_MISSING$          TO "SSP324" ;* Userid not found in user record
+EQU SSP_USERID_PROTECTED$        TO "SSP325" ;* Userid cannot be deleted or modified
+EQU SSP_INVALID_ADMIN$           TO "SSP326" ;* Only Admin values of '0', '1', and '2' are valid
+EQU SPP_ILLEGAL_USER_RIGHTS$     TO "SSP327" ;* illegal user to access app.
+
+EQU SSP_INVALID_DICT_PARAM$      TO "SSP330" ;*
+EQU SSP_SYMBOLIC_SAVE_FAIL$      TO "SSP331" ;* Error writing symbolic column
+EQU SSP_MISSING_MEDIAS_ERR$      TO "SSP332" ;* Missing list of open media names cr+lf used in swap_database.
+* Source Date: 14:01:32  10 NOV 1993  Build ID: OI*2.01.5  Level: 2.01

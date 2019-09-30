@@ -1,0 +1,273 @@
+Compile Insert U2_Errors_Ins
+/* 
+** Text from C:\IBM\UniDK\include\intercall.h formatted for ease of use by U2_Error
+** Note that the entire block is commented out.
+** To look up an error:
+** pos = Index(U2_Errors_Ins, errno:';', 1)
+** confirm_errno = U2_Errors_Ins[pos,';']
+** err_Name = trim(U2_Errors_Ins[Col2()+1,';'])
+** err_Desc = trim(U2_Errors_Ins[Col2()+1, @fm])
+
+10000;IE_FRST; First PI-specific error number
+11000;IE_NOACCESS; Requested access denied      
+11001;IE_NOSUPPORT; Function not supported on this system
+11002;IE_NOTRELATIVE; Relative pathname expected and not given
+11003;IE_PATHNOTFOUND; Pathname could not be found  
+11004;IE_NOTASSIGNED; Device not assigned          
+11005;IE_NODEVICE; Device not known             
+11006;IE_ROFS; Device assigned with Read Only access
+11007;IE_BADSTTY; Bad stty option when device assigned
+11008;IE_UNKNOWN_USER; Attempting to send message to user not in PI
+11009;IE_SND_REQ_REC; Sender requires receive enabled
+11010;IE_MSG_REJECTED; Message rejected by recipient
+14000;IE_PC_CLIB_FIRST; First error number in range  
+14002;IE_ENOENT; No such file or directory    
+14005;IE_EIO; I/O error                    
+14009;IE_EBADF; Bad file number              
+14012;IE_ENOMEM; No memory available          
+14013;IE_EACCES; Permission denied            
+14022;IE_EINVAL; Invalid argument             
+14023;IE_ENFILE; File table overflow          
+14024;IE_EMFILE; Too many open files          
+14028;IE_ENOSPC; No space left on device      
+14200;IE_BW_START; Beginning of range           
+14495;IE_VSL_BADNETKEY; VSL network type not specified correctly
+14499;IE_VSL_NONETMODULE; VSL network module not loaded
+14500;IE_BW_BASE; Offset for error mapping     
+14535;IE_BW_WOULDBLOCK; Operation would block        
+14536;IE_BW_INPROGRESS; Operation now in progress    
+14537;IE_BW_ALREADY; Operation already in progress
+14538;IE_BW_NOTSOCK; Socket operation on non-socket
+14539;IE_BW_DESTADDRREQ; Destination address required 
+14540;IE_BW_MSGSIZE; Message too long             
+14541;IE_BW_PROTOTYPE; Protocol wrong type for socket
+14542;IE_BW_NOPROTOOPT; Bad protocol option          
+14543;IE_BW_PROTONOSUPPORT; Protocol not supported       
+14544;IE_BW_SOCKTNOSUPPORT; Socket type not supported    
+14545;IE_BW_OPNOTSUPP; Operation not supported on socket
+14546;IE_BW_PFNOSUPPORT; Protocol family not supported
+14547;IE_BW_AFNOSUPPORT; Addr family not supported by prot family
+14548;IE_BW_ADDRINUSE; Address already in use       
+14549;IE_BW_ADDRNOTAVAIL; Can't assign requested address
+14550;IE_BW_NETDOWN; Network is down              
+14551;IE_BW_NETUNREACH; Network is unreachable       
+14552;IE_BW_NETRESET; Network dropped connection or reset
+14553;IE_BW_CONNABORTED; Software caused connection abort
+14554;IE_BW_CONNRESET; Connection reset by peer     
+14555;IE_BW_NOBUFS; No buffer space available    
+14556;IE_BW_ISCONN; Socket is already connected  
+14557;IE_BW_NOTCONN; Socket is not connected      
+14558;IE_BW_SHUTDOWN; Can't send after socket shutdown
+14559;IE_BW_TOOMANYREFS; Too many references: can't splice
+14560;IE_BW_TIMEDOUT; Connection timed out         
+14561;IE_BW_CONNREFUSED; Connection refused           
+14562;IE_BW_LOOP; Too many levels of symbolic links
+14563;IE_BW_NAMETOOLONG; File name too long           
+14564;IE_BW_HOSTDOWN; Host is down                 
+14565;IE_BW_HOSTUNREACH; Host is unreachable          
+14566;IE_BW_NOTEMPTY; Directory not empty          
+14567;IE_BW_PROCLIM; Too many processes           
+14568;IE_BW_USERS; Too many users               
+14569;IE_BW_DQUOT; Disc quota exceeded          
+14570;IE_BW_STALE; Stale NFS file handle        
+14571;IE_BW_REMOTE; Too many levels of remote in path
+14572;IE_BW_NOSTR; Device is not a stream       
+14573;IE_BW_TIME; Timer expired                
+14574;IE_BW_NOSR; Out of streams resources     
+14575;IE_BW_NOMSG; No message of desired type   
+14576;IE_BW_BADMSG; Trying to read unreadable message
+14577;IE_BW_IDRM; Identifier removed           
+14578;IE_BW_DEADLK; Deadlock condition.          
+14579;IE_BW_NOLCK; No record locks available.   
+14580;IE_BW_BADVERSION; Library/driver version mismatch
+14581;IE_BW_INVALSOCK; Invalid argument             
+14582;IE_BW_TOOMANYSOCK; Too many open sockets        
+14583;IE_BW_FAULTSOCK; Bad address in sockets call  
+14584;IE_BW_RESET; The socket has reset         
+14585;IE_BW_NOTUNIQUE; Unique parameter required    
+14586;IE_BW_NOGATEADDR; Gateway address required     
+14587;IE_BW_SENDERR; The packet could not be sent 
+14588;IE_BW_NOETHDRVR; No driver or card failed init
+14589;IE_BW_WRITPENDING; Queued write operation       
+14590;IE_BW_READPENDING; Queued read operation        
+14591;IE_BW_NOTCPIP; TCPIP not loaded             
+14592;IE_BW_DRVBUSY; TCPIP busy                   
+14999;IE_BW_END; End of range                 
+22000;IE_ALI; Already initialised          
+22001;IE_BFN;" bad field number (READV, WRITEV...)"
+22002;IE_BTS; buffer.size too small or not valid number
+22003;IE_IID; Illegal record ID            
+22004;IE_LRR; last record read (READNEXT)  
+22005;IE_NFI; file.tag is not a file identifier
+22006;IE_NIN; Client library not initialised for this task
+22007;IE_NLK; The file was not locked by your process
+22008;IE_NPI; Prime INFORMATION is not available
+22009;IE_STR; The FILEINFO result is a string.
+22010;IE_MEM; no memory to DIM an array (OPEN)
+22011;IE_RLS; Error releasing memory       
+22012;IE_BPF; Bad Partitioned file         
+22013;IE_ALG; Bad Partitioning algorithm   
+22014;IE_NUP; Non-unique Part number       
+22015;IE_DNA; Dynt not available           
+30001;IE_RNF; Record not found             
+30002;IE_LCK; File or record is locked by another user
+30007;IE_FITF; File table (ie smm) full     
+30010;IE_PAR; Bad parameter                
+30011;IE_KEY; Bad key                      
+30012;IE_EXS; File already exists in an attempt to create
+30013;IE_WFT; Wrong file type: not segdir or dir
+30014;IE_EXCL; File opened exclusively by another user
+30015;IE_BRWL; Rwlock on file is wrong and can't be fixed
+30016;IE_WSFT; Wrong subfile type           
+30018;IE_SFNF; Subfile not found when expected
+30019;IE_BMF; Bad header in memory file    
+30020;IE_UFT; Unsupported file type        
+30021;IE_UNKN; Unknown file type detected   
+30031;IE_IOF; Illegal operation on file    
+30049;IE_BSHR; Shared data for file doesn't match file
+30052;IE_BLHP; Bad header in LH primary subfile
+30053;IE_BLHO; Bad header in LH overflow subfile
+30075;IE_NAM; Bad file name                
+30086;IE_UFI; Unimplemented FILEINFO request
+30094;IE_BIL; Bad ID length                
+30095;IE_FIFS; Fileid is incorrect for session 
+30096;IE_USC;" Unsupport Server command, functions not availble let "
+30097;IE_SELFAIL; Select Failed 
+30098;IE_LOCKINVALID; Lock number provided is invalid 
+30099;IE_SEQOPENED; Filed opened for sequential access and hashed access tried 
+30100;IE_HASHOPENED; Filed opened for hashed access and sequential access tried 
+30101;IE_SEEKFAILED; Seek command failed 
+30102;IE_DATUMERROR; Internal datum error 
+30103;IE_INVALIDATKEY; Invalid Key used for GET/SET at variables 
+30104;IE_INVALIDFILEINFOKEY; FILEINFO Key out of range 
+30105;IE_UNABLETOLOADSUB; Unable to load subroutine on host 
+30106;IE_BADNUMARGS;" Bad number of arguments for subroutine, either too many or not enough "
+30107;IE_SUBERROR; Subroutine failed to complete suceesfully 
+30108;IE_ITYPEFTC; IType failed to complete correctly 
+30109;IE_ITYPEFAILEDTOLOAD; IType failed to load 
+30110;IE_ITYPENOTCOMPILED; The IType has not been compiled 
+30111;IE_BADITYPE; It is not an itype or the itype is corrupt 
+30112;IE_INVALIDFILENAME; Filename is null 
+30113;IE_WEOFFAILED; Weofseq failed 
+30114;IE_EXECUTEISACTIVE; An execute is currently active 
+30115;IE_EXECUTENOTACTIVE; An execute is currently active 
+30116;IE_BADEXECUTESTATUS;" Internal execute error, execute has not return an expected status "
+30117;IE_INVALIDBLOCKSIZE; Blocksize is invalid for call 
+30118;IE_BAD_CONTROL_CODE; Bad trans control code 
+30119;IE_BAD_EXEC_CODE; Execute did not send returncodes bad to client correctly 
+30120;IE_BAD_TTY_DUP; failure to dup ttys 
+30121;IE_BAD_TX_KEY; Bad Transaction Key 
+30122;IE_TX_COMMIT_FAILED; Transaction commit has failed 
+30123;IE_TX_ROLLBACK_FAILED; Transaction rollback has failed 
+30124;IE_TX_ACTIVE; A Transaction is active so this action is forbidden 
+30125;IE_CANT_ACCESS_PF; Can not access part files 
+30126;IE_FAIL_TO_CANCEL; failed to cancel an execute 
+30127;IE_INVALID_INFO_KEY; Bad key for ic_session_info 
+30128;IE_CREATE_FAILED; create of sequential file failed 
+30129;IE_DUPHANDLE_FAILED; Failed to duplicate a pipe handle 
+31000;IE_NVR; No VOC record                
+31001;IE_NPN; No pathname in VOC record    
+31002;IE_VNF; VOC file record not a File record
+31100;IE_CFNEA; Clear file no exclusive access
+33200;IE_LNA; Select list not active       
+33201;IE_PAR1; Bad parameter 1              
+33202;IE_PAR2; Bad parameter 2              
+33203;IE_PAR3; Bad parameter 3              
+33204;IE_PAR4; Bad parameter 4              
+33205;IE_PAR5; Bad parameter 5              
+33206;IE_PAR6; Bad parameter 6              
+33207;IE_PAR7; Bad parameter 7              
+33208;IE_PAR8; Bad parameter 8              
+33209;IE_PAR9; Bad parameter 9              
+33211;IE_BSLN; Bad select list number       
+33212;IE_BPID; Bad partfile id              
+33213;IE_BAK; Bad AK file                  
+39000;IE_BAD_COMMAND; command not recognized by server
+39001;IE_NO_LOGOUT; no way to perform a LOGOUT command
+39002;IE_BAD_LENGTH; data.length not a valid number
+39003;IE_NO_VOC; can't open the VOC file      
+39004;IE_CLIENT_RESET; internal - client RESET received OK
+39005;IE_INVALID_SRC; @SYSTEM.RETURN.CODE non-numeric after EXECUTE
+39006;IE_TOOLONG_SRC; @SYSTEM.RETURN.CODE has more than 2 fields
+39007;IE_KEY_NOT_IMP; interCALL server key not implemented
+39008;IE_WRITE_FAILURE; WRITE failed and taken ELSE clause
+39101;IE_NODATA; Host not responding          
+39102;IE_SYNC_TIMEOUT; Synchroniser not received    
+39103;IE_RCV_TIMEOUT; Timeout on receving packets  
+39104;IE_HOSTERROR; Host length error on receive 
+39105;IE_NOT_READY;" Host does not give ready"""
+39106;IE_NO_ACK; Packet not acknowledged      
+39107;IE_NUM_TASKS; Too many concurrent user tasks
+39108;IE_UDATA_LOCK; Could not lock user data block
+39109;IE_LIBINUSE; Library in use               
+39110;IE_DATA_LOSS; Host got incorrect length from PC
+39111;IE_HOST_NNUM; Host response non-numeric    
+39112;IE_HOST_DATA; Host length error on receive 
+39113;IE_HOST_RESPONSE; No data in host response     
+39114;IE_NO_HOST_NAME; Host name missing from script file
+39115;IE_SOCKET_CLOSED; Host has closed socket       
+39116;IE_BAD_HOST_NAME; Failed to get address for this host
+39117;IE_FATAL; Fatal error 
+39118;IE_BAD_ERROR;" Bad error number from host, i.e. error 0"
+39119;IE_AT_INPUT; Server waiting for input 
+39120;IE_SESSION_NOT_OPEN; Session is not opened when an action has be tried on it 
+39121;IE_UVEXPIRED; The Universe license has expired 
+39122;IE_CSVERSION; Client or server is out of date Client/server functions have been updated
+39123;IE_COMMSVERSION; Client or server is out of date comms support has been updated 
+39124;IE_BADSIG; Incorrect client/server being commuincated with 
+39125;IE_BADDIR;" The dicteroy you are connecting to, either is not a universe account or does not exist "
+39126;IE_SERVERERR; An error has occurred on the server when trying to transmit an error code to the client ;
+39127;IE_BAD_UVHOME; Unable to get the uv home coorectly ;
+39128;IE_INVALIDPATH; Bad path found UV.ACCUNTS file ;
+39129;IE_INVALIDACCOUNT; Account name given is not an account ;
+39130;IE_BAD_UVACCOUNT_FILE; UV.ACCOUNT file could not be found to opened ;
+39131;IE_FTA_NEW_ACCOUNT; Failed to attach to the account specified ;
+39132;IE_NOT_UVACCOUNT; not a valid universe account ;
+39133;IE_FTS_TERMINAL; failed to setup the terminal for server ;
+39134;IE_ULR; user limited reached ;
+39135;IE_NO_NLS; NLS support not available ;"prompt"""
+39136;IE_MAP_NOT_FOUND; NLS map not found ;
+39137;IE_NO_LOCALE; NLS locale support not available ;
+39138;IE_LOCALE_NOT_FOUND; NLS locale not found ;
+39139;IE_CATEGORY_NOT_FOUND; NLS locale category not found ;
+39200;IE_SR_CREATE_PIPE_FAIL; Server failed to create the slave pipes ;
+39201;IE_SR_SOCK_CON_FAIL; Server failed to connect to socket ;
+39202;IE_SR_GA_FAIL; Slave failed to give server the Go Ahead message 
+39203;IE_SR_MEMALLOC_FAIL; Failed to allocate memory for the message from the slave 
+39204;IE_SR_SLAVE_EXEC_FAIL; The slave failed to start correctly 
+39205;IE_SR_PASS_TO_SLAVE_FAIL; Failed to the pass the message to the slave correctly 
+39206;IE_SR_EXEC_ALLOC_FAIL; Server failed to allocate the memory for the execute buffer correctly 
+39207;IE_SR_SLAVE_READ_FAIL; Failed to read from the slave correctly 
+39208;IE_SR_REPLY_WRITE_FAIL; Failed to write the reply to the slave (ic_inputreply) 
+39209;IE_SR_SIZE_READ_FAIL; Failed to read the size of the message from the slave 
+39210;IE_SR_SELECT_FAIL; Server failed to select() on input channel 
+39211;IE_SR_SELECT_TIMEOUT; The select has timed out 
+80011;IE_BAD_LOGINNAME; login name or password provided is incorrect 
+80019;IE_BAD_PASSWORD; password provided has expired 
+80036;IE_REM_AUTH_FAILED; Remote authorisation failed 
+80144;IE_ACCOUNT_EXPIRED; The account has expired 
+80147;IE_RUN_REMOTE_FAILLED; Unable to run on the remote machine as the given user. 
+80148;IE_UPDATE_USER_FAILED; Unable to update user details. 
+81001;UVRPC_BAD_CONNECTION; connection is bad 
+81002;UVRPC_NO_CONNECTION; connection is down 
+81003;UVRPC_NOT_INITED; the rpc has not be initialised 
+81004;UVRPC_INVALID_ARG_TYPE; argument for message is not a valid type 
+81005;UVRPC_WRONG_VERSION; rpc version mismatch 
+81006;UVRPC_BAD_SEQNO; packet message out of step 
+81007;UVRPC_NO_MORE_CONNECTIONS; not more connections available 
+81008;UVRPC_BAD_PARAMETER; bad parameter passed to the rpc 
+81009;UVRPC_FAILED; rpc failed 
+81010;UVRPC_ARG_COUNT; bad number pf arguments for message 
+81011;UVRPC_UNKNOWN_HOST;" bad hostname, or host not responding "
+81012;UVRPC_FORK_FAILED; rpc failed to fork service correctly 
+81013;UVRPC_CANT_OPEN_SERV_FILE; cannot find or open the unirpcserices file 
+81014;UVRPC_CANT_FIND_SERVICE; unable to find the service in the unirpcservices file 
+81015;UVRPC_TIMEOUT; connection has timed out 
+81016;UVRPC_REFUSED;" connection refused, unirpcd not running "
+81017;UVRPC_SOCKET_INIT_FAILED; Failed to initialise the socket 
+81018;UVRPC_SERVICE_PAUSED; The unirpcd service on the server has been paused 
+81019;UVRPC_BAD_TRANSPORT; Invalid transport type 
+81020;UVRPC_BAD_PIPE; Bad pipe 
+81021;UVRPC_PIPE_WRITE_ERROR; Error writing to pipe 
+81022;UVRPC_PIPE_READ_ERROR; Error reading from pipe 
+*/

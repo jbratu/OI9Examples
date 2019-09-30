@@ -1,0 +1,9 @@
+compile insert REVDOTNET_COMMON
+
+Equ INTERNAL_OBJECT_START$ To "{RevDotNet Object:"
+Equ INTERNAL_OBJECT_PREFIX$ To 18
+Equ INTERNAL_PARAMS_START$ To "{RevDotNet Params:"
+Equ INTERNAL_PARAMS_PREFIX$ To 18
+Equ MAX_OBJECTS$ To 50000
+*common /DOTNETINTERNALS/ ObjectStack(MAX_OBJECTS$), DetailsStack(MAX_OBJECTS$), NextUsed@, FreeList@
+COMMON /DOTNETINTERNALS/ DotNetHashTable@, NextUsed@

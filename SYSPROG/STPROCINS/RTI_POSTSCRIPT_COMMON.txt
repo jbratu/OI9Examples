@@ -1,0 +1,19 @@
+compile insert RTI_POSTSCRIPT_COMMON
+
+COMMON /RTI_PS/ header@,footer@,body@,proforma_key@,proforma_def@,pagecount@,linecount@,bMultiFont@, Num_Hlines@, LinesPrinted@
+
+/*
+* mtr 1-17-04
+
+header@			The Postscript Header, nothing to do with an Rlist heading on a page
+footer@			The PostScript footer, nothing to do with an Rlist heading on a page
+Body@			The data that eill be written to the .PS file, with all markup information
+proforma_key@	The key for the proforma record in the SYSPROCS file, if used
+proforma_def@	The proforma record in the SYSPROCS file, if used
+pagecount@		The page number currently being processed
+linecount@		The line number of the proforma definition currently being processed
+bMultiFont@		A flag indicating whether Or Not there are multiple fonts In a line
+Num_Hlines@		The number of lines In the Rlist header
+LinesPrinted@	The number of lines printed In a page
+
+*/

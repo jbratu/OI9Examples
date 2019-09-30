@@ -1,0 +1,277 @@
+compile insert OIWin_Equates
+/*
+   Amended  Date        Reason
+   =======  ====        ======
+   Mr C     23rd Apr 09 Added MENUPOS_BITMAP$
+                        Added OIWIN_OLECONTROL$
+                        Added OIWIN_WINCONTROL$
+   
+   Mr C     3rd Jan 06  Added OIWIN_RICHEDITBOX$
+   
+*/
+******************************************
+* OIWIN structure (SYSREPOSWINS records) *
+******************************************
+
+* record is @rm-delim'd array of header, window, controls, menu
+
+* positions (@vm-delim'd) of window attributes
+* applies to window and controls
+
+equ POS_NAME$           to 1
+equ POS_CLASS$          to 2
+equ POS_TYPE$           to 3
+equ POS_PARENT$         to 4
+equ POS_X$              to 5
+equ POS_Y$              to 6
+equ POS_WIDE$           to 7
+equ POS_HIGH$           to 8
+equ POS_TEXT$           to 9
+equ POS_SDKSTYLE$       to 10
+equ POS_PSSTYLE$        to 11
+equ POS_TAB$            to 12
+equ POS_BKCOLOR$        to 13
+equ POS_FORECOLOR$      to 14
+equ POS_LOGFONT$        to 15
+equ POS_MISC$           to 16
+equ POS_EVENTS$         to 17
+equ POS_EVENT_HANDLER$  to 18
+equ POS_QEVENTS$        to 19
+equ POS_RESERVED3$      to 20
+equ POS_RESERVED4$      to 21
+equ POS_SPOTPOS$        to 22
+equ POS_TABLE$          to 23
+equ POS_COLUMN$         to 24
+equ POS_KEY$            to 25
+equ POS_KEYPART$        to 26
+equ POS_JOININFO$       to 27
+equ POS_VALIDATION$     to 28
+equ POS_CONVERSION$     to 29
+equ POS_DEFAULT$        to 30
+equ POS_REQUIRED$       to 31
+equ POS_RESERVED10$     to 32
+equ POS_BITMAP$         to 33
+equ POS_ICON$           to 34
+equ POS_LIST$           to 35
+equ POS_VALUE$          to 36
+equ POS_SCROLLRANGE$    to 37
+equ POS_SCROLLCHANGE$   to 38
+equ POS_CHARCOUNT$      to 39
+equ POS_NUMCOLS$        to 40
+equ POS_ROWLIMIT$       to 41
+equ POS_COLSTYLES$      to 42
+equ POS_COLWIDE$        to 43
+equ POS_LABEL$          to 44
+equ POS_DDEMODE$        to 45
+equ POS_DDEITEM$        to 46
+equ POS_DDETOPIC$       to 47
+equ POS_DDESERVER$      to 48
+equ POS_DDETIMETOUT$    to 49
+equ POS_CHILD_COORD$    to 50
+equ POS_NOTESINFO$      to 51   ;* LOTUSNOTES specific -- see notes_oiwin_equates for layout
+equ POS_DTSRCINFO$      to 51   ;* polymorphic structure (overlaps for DATASET and NOTES)
+  equ DTSRC_MASTERLIST$    to 1
+  equ DTSRC_MAXSTRUCTSIZE$ to 6 ;* max number of fields in any of overlapping structures
+
+* menu sub-structure positions
+
+equ MENUPOS_TYPE$       to 1
+
+equ MENUPOS_NUMITEMS$   to 2  ;* source
+equ MENUPOS_END$        to 2  ;* compiled
+
+equ MENUPOS_EVENT$      to 3  ;* source
+equ MENUPOS_RESERVED$   to 3
+
+equ MENUPOS_TEXT$       to 4
+equ MENUPOS_GREY$       to 5
+equ MENUPOS_CHECK$      to 6
+equ MENUPOS_HIDDEN$     to 7
+equ MENUPOS_ACCEL$      to 8
+
+equ MENUPOS_TOTALITEMS$ to 9  ;* source
+equ MENUPOS_HELP_TEXT$  to 9  ;* compiled
+
+equ MENUPOS_HANDLER$    to 10
+equ MENUPOS_STYLE$      to 11
+equ MENUPOS_BITMAP$     to 12
+
+* PSCONTROL equates
+
+equ OIWIN_WINDOW$       to "WINDOW"
+equ OIWIN_CHECKBOX$     to "CHECKBOX"
+equ OIWIN_COMBOBOX$     to "COMBOBOX"
+equ OIWIN_EDITLINE$     to "EDITLINE"
+equ OIWIN_EDITFIELD$    to "EDITFIELD"
+equ OIWIN_LISTBOX$      to "LISTBOX"
+equ OIWIN_PUSHBUTTON$   to "PUSHBUTTON"
+equ OIWIN_RADIOBUTTON$  to "RADIOBUTTON"
+equ OIWIN_RADIOGROUP$   to "RADIOGROUP"
+equ OIWIN_ICON$         to "ICON"
+equ OIWIN_MENU$         to "MENU"
+
+equ OIWIN_BITMAP$       to "BITMAP"
+equ OIWIN_EDITBOX$      to "EDITBOX"
+equ OIWIN_GROUPBOX$     to "GROUPBOX"
+equ OIWIN_SCROLLBAR$    to "SCROLLBAR"
+equ OIWIN_DATATABLE$    to "EDITTABLE"
+equ OIWIN_TABCONTROL$   to "TABCONTROL"
+
+equ OIWIN_RADIOBMP$     to "RADIOBMP"
+equ OIWIN_CHECKBMP$     to "CHECKBMP"
+equ OIWIN_PUSHBMP$      to "PUSHBMP"
+
+equ OIWIN_RTFBOX$       to "RTFBOX"      ; * // No longer valid in OI 7
+equ OIWIN_RICHEDITBOX$  to "RICHEDITBOX"
+equ OIWIN_OLECONTROL$   to "OLECONTROL"
+equ OIWIN_WINCONTROL$   to "WINCONTROL"
+
+* OIWIN Join Spec structure (source only)
+
+equ JSPEC_TABLENAME$        to 1
+equ JSPEC_JOIN_COLUMNS$     to 2
+equ JSPEC_JOIN_CONTROLS$    to 3
+equ JSPEC_JOIN_FUNCTION$    to 4
+equ JSPEC_JOIN_PRED$        to 5
+equ JSPEC_KEY_CONTROLS$     to 6
+equ JSPEC_INSERT_FLAG$      to 7
+equ JSPEC_UPDATE_FLAG$      to 8
+equ JSPEC_DELETE_FLAG$      to 9
+equ JSPEC_IMPL_DELETE_FLAG$ to 10
+
+equ JSPEC_CONTROL_NAME$     to 1
+equ JSPEC_CONTROL_INDEX$    to 2   ;* Used to specify column in edit table
+
+************************************************
+* OIWINEXE structure (SYSREPOSWINEXES records) *
+************************************************
+
+* record is @rm-delim'd array of control definitions, join maps, row maps,
+* master row map, control map, key map; use oiwin_comm_init insert to access
+
+* Control Map (controlMap@)
+
+* Control List (controlList@) -- assosiated with Control Map
+  * see PS_EQUATES for layout
+
+* Join Map structure (joinMap@)
+
+equ JMAP_TABLENAME$        to 1
+equ JMAP_JOIN_COLUMNS$     to 2
+equ JMAP_JCOLUMN_POS$      to 3
+equ JMAP_JCOLUMN_PART$     to 4
+equ JMAP_JOIN_FIELDS$      to 5   ;* position(s) in masterRowMap@
+equ JMAP_JOIN_FUNCTION$    to 6
+equ JMAP_JOIN_PRED$        to 7
+equ JMAP_KEY_CONTROLS$     to 8
+equ JMAP_KEY_FIELDS$       to 9
+equ JMAP_INSERT_FLAG$      to 10
+equ JMAP_UPDATE_FLAG$      to 11
+equ JMAP_DELETE_FLAG$      to 12
+equ JMAP_IMPL_DELETE_FLAG$ to 13
+equ JMAP_READ_OPTIM$       to 14
+equ JMAP_DBCOMP_CLASS$     to 15
+
+* Per-table Row Map structure (rowMaps@)
+
+equ RMAP_COLUMN$   to 1
+equ RMAP_POS$      to 2
+equ RMAP_PART$     to 3
+equ RMAP_FIELD$    to 4   ;* position in masterRowMap@
+equ RMAP_CONV$     to 5
+equ RMAP_VALID$    to 6
+equ RMAP_MV$       to 7
+
+* Master Row Map structure (materRowMap@)
+
+equ MRMAP_CONTROL$ to 1   ;* name of control
+equ MRMAP_INDEX$   to 2   ;* index (column) of control (if edit table)
+equ MRMAP_TYPE$    to 3   ;* type of control
+equ MRMAP_CTLPOS$  to 4   ;* position of control in control list
+equ MRMAP_TABPOS$  to 5   ;* Table number field/control is associated with
+
+* Key Map structure (keyMap@)
+
+equ KMAP_CONTROL$  to 1
+equ KMAP_TYPE$     to 2
+equ KMAP_CTLPOS$   to 3   ;* position of control in control list
+
+* Control Semantics (controlSemantics@) -- associated with Control Map
+
+equ CS_TABLE$          to 1
+equ CS_COLUMN$         to 2
+equ CS_POS$            to 3
+equ CS_PART$           to 4
+equ CS_CONV$           to 5
+equ CS_VALID$          to 6
+equ CS_MV$             to 7
+equ CS_EVENTS$         to 8
+equ CS_EVENT_HDLR$     to 9
+equ CS_QBFSTATUS$      to 10
+equ CS_LOSTFOCUS$      to 11   ;* True if any condition needs evaluation on losfocus (optim)
+equ CS_SIBLING_CTLS$   to 12   ;* positions of sibling controls for update
+equ CS_TABLEKEY$       to 13   ;* # of table this is key part for (for autoread and subrefetch)
+equ CS_RECALC$         to 14   ;* list of controls to send recalcs to on change
+equ CS_GOTFOCUS_VALUE$ to 16
+equ CS_REQUIRED$       to 17
+equ CS_DEFAULT$        to 18
+equ CS_NOTESINFO$      to 19   ;* Lotus Notes specific information
+  * see notes_oiwin_equates for layout
+equ CS_DATASETINFO$    to 20   ;* DataSet specific information
+  * subfields in <1, CS_DATASETINFO$>
+  equ DSINFO_NAMES$      to 1
+  equ DSINFO_FLAGS$      to 2
+  equ DSINFO_XOS$        to 3
+  * subfields in <ctlIx, CS_DATASETINFO$>
+  equ DSINFO_POS$        to 1
+  equ DSINFO_COLNAME$    to 2
+  equ DSINFO_COLTYPE$    to 3
+equ CS_DBCOMP_CLASS$   to 21   ;* class of DBCOMPONENT. Domain of this field is:
+  equ DBCOMPCLASS_NATIVE$      to ''
+  equ DBCOMPCLASS_NOTESFORM$   to 'NOTESFORM'
+  equ DBCOMPCLASS_NOTESVIEW$   to 'NOTESVIEW'
+  equ DBCOMPCLASS_NOTESFOLDER$ to 'NOTESFOLDER'
+  equ DBCOMPCLASS_DATASET$     to 'DATASET'
+
+* Resolution Map equates
+* Resolution map is used at load time to determine which and what
+* location resolution need to be performed.  It is a sort of run-time
+* link map for windows
+equ RESMAP_CTLN$     to 1
+equ RESMAP_ICORES$   to 2
+equ RESMAP_BMPRES$   to 3
+equ RESMAP_NOTESRES$ to 4
+equ RESMAP_DSRES$    to 5
+
+* File I/O Options flags and modes equates
+* References the CS_COLUMN$ attribute of semantics for the window
+
+equ FIO_LOCKMODE$         to  1   ;* 0 Pessemistic locking; 1 Optimistic Locking
+equ FIO_LOCKLEVEL$        to  2   ;* Mode  Pessimistic   Optimistic
+                                   * 0     Exclusive     Compare All
+                                   * 1     Shared        Compare Changes
+                                   * 2     No Lock       No Comparison
+equ FIO_LOCKCOORD$        to  3   ;* Do File Coord locks
+equ FIO_LOCKSELF$         to  4   ;* 1 - Self locks OK
+equ FIO_LOCKSUB$          to  5   ;* 1 - Ignore subrows that are locked
+equ FIO_WRITECLEAR$       to  6   ;* 0 - Clear on write; 1 - Don't clear on write
+equ FIO_NOCOMMIT$         to  7   ;* 1 - Don't commit transaction after commiting DSOs
+equ FIO_NOROLLBACK$       to  8   ;* 1 - Don't rollback transacion if commiting DSOs failed
+equ FIO_ROLLBACKONCLEAR$  to  9   ;* 1 - Rollback transaction when clearing the form
+equ FIO_REQONSAVEONLY$    to 10   ;* 1 - Check required field on WRITE only (not on LOSTFOCUS)
+equ FIO_QUOTEPARAMS$      to 11   ;* 1 - Quote the quotes before setting DSO arguments in DSOSETPARAM event
+equ FIO_NUMERICCOMPARE$   to 12   ;* 1 - Write logic calculates changes using standard comparison
+                                   *    (instead of forcing string comparison)
+
+* Datasource Map structure (dataSourceMap@)
+
+* DSO maps are associated with joinMap@
+equ DTSRC_DSO_HANDLE$     to  1   ;* list of DSO handles
+equ DTSRC_DSO_NAME$       to  2   ;* list DSO names
+equ DTSRC_DSO_STATE$      to  3
+  equ DSOSTATE_BACKGROUND$  to 1
+
+* assosiated maps for SQL bond tables (kept for backward compatibility)
+equ DTSRC_MSSQL_DBPROCESS$ to 10
+equ DTSRC_MSSQL_HOOKPROC$  to 11
+

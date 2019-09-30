@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "\r\ndeclare function  Repository, POPUP\r\n\r\nrepos_key = @appid<1>:'*POPUP**CUSTOMER_ID_POPUP'\r\nkeys = popup(@window, '', 'CUSTOMER_ID_POPUP')\r\n\t\t\r\nif keys then\r\n\t.id_fix->defprop=keys\r\n\tCall Send_Event(@window:'.ID_FIX', 'LOSTFOCUS')\r\nEnd\r\n\t\t\r\nRETURN 0"
+    }
+}

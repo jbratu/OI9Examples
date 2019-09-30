@@ -1,0 +1,115 @@
+Function TEST_DRAGDROP_EVENTS(CtrlEntID,Event,Param1,Param2,Param3,Param4,Param5,Param6)
+*
+* Subroutine Name :TEST_DRAGDROP_EVENTS
+*
+* Description : Commuter Module for TEST_DRAGDROP
+*
+* Date : 04/01/2009
+*
+* Author : SYSPROG
+*
+* OI Version : 9.0.1
+*
+* Comments : MTR 2007 - for Martyn to test
+*
+*** RTI Generated Commuter Module ***
+*
+********************************************************
+*
+*
+Declare Subroutine MSG
+
+Declare Function MSG,GET_PROPERTY,SET_STATUS,GET_STATUS,SET_PROPERTY
+Declare Function POPUP,REPOSITORY,SEND_MESSAGE,SEND_EVENT,UNASSIGNED
+Declare Function UTILITY,CONTEXTMENU
+
+$INSERT MSG_EQUATES
+$INSERT POPUP_EQUATES
+
+If Unassigned(CtrlEntID) Then CtrlEntID = ''
+If Unassigned(Event) Then Event = ''
+If Unassigned(Param1) Then Param1 = ''
+If Unassigned(Param2) Then Param2 = ''
+If Unassigned(Param3) Then Param3 = ''
+If Unassigned(Param4) Then Param4 = ''
+If Unassigned(Param5) Then Param5 = ''
+If Unassigned(Param6) Then Param6 = ''
+*
+*
+If index(CtrlEntID,".",1) then
+	WinName = Field(CtrlEntID,'.',1)
+	Control = Field(CtrlEntID,'.',2)
+End else
+	WinName = CtrlEntID
+	Control = WinName
+End
+*
+Parent = @window
+Frame = Get_Property(Parent,'MDIFRAME')
+If len(Frame) then Parent = Frame
+*
+Retval = 1
+*
+Begin Case
+	Case Control = "TEST_DRAGDROP"
+		Begin Case
+			Case Event = "CREATE"
+				CreateParam = Param1
+				
+				couldDropFiles = set_Property( @window:'.AUTHOR', "ACCEPTDROPFILES", 1 )
+				couldDropFiles = set_Property( @window:'.BITMAP_1', "ACCEPTDROPFILES", 1 )
+				
+				couldDropFiles = set_Property( @window:'.TABLE_1', "ACCEPTDROPFILES", 1 )
+				
+				call send_message(@WINDOW:'.OLECONTROL_3','Navigate2', 'file:///c:/')
+				
+				rec = xlate( "SYSENV", "SYSPROCNAMES", "", "X" )
+				
+				STATX@=SET_PROPERTY(@WINDOW:".LIST_1","LIST", rec )
+				// GET_PROPERTY(@WINDOW:".LIST_3","LIST") = rec
+				
+				swap @fm with \0D0A\ in rec
+				STATX@=SET_PROPERTY(@WINDOW:".EDITBOX_1","TEXT", rec)
+				
+				Retval = 0
+		End Case
+	Case Control = "OLECONTROL_1"
+		Begin Case
+			Case Event = "DROPFILES"
+				if FileList then
+					file = fileList<1,1>
+					x = Set_Property(CtrlEntID, 'LOCATION', file)
+				end
+				
+				Retval = 0
+		End Case
+	Case Control = "BUTTON_1"
+		Begin Case
+			Case Event = "CLICK"
+				OLD_VAL = Send_Message(@window:'.TABLE_1','COLSTYLE', 1)
+				
+				new_val = bitOr(old_val,0x20000000)
+				* set into column 1
+				x = Send_Message(@window:'.TABLE_1','COLSTYLE', 1, new_val)
+				
+				Retval = 0
+		End Case
+	Case Control = "BITMAP_1"
+		Begin Case
+			Case Event = "DROPFILES"
+				FileList = Param1
+				xDrop = Param2
+				yDrop = Param3
+				
+				
+				if FileList then
+					STATX@=SET_PROPERTY(CTRLENTID,"BITMAP",filelist<1,1>)
+					STATX@=SET_PROPERTY(@WINDOW:".FILENAME","TEXT",filelist<1,1>)
+				end
+				
+				
+				Retval = 0
+		End Case
+End Case
+*
+return retval

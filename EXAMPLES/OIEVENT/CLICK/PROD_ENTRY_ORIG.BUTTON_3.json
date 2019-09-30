@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "\r\ndeclare function Msg, Repository, IndexLookup\r\n\r\n$Insert Msg_Equates\r\n\r\n*---\r\n* we'll display a message with two buttons, \r\n* one saying Keyword, and one saying Listing\r\n*---\r\nmess = ''\r\nmess<MTEXT$> \t= 'Search by keyword, or entire product Listing?'\r\nmess<MTYPE$> \t= 'BKeyword,Listing'\r\nmess<MCAPTION$> = 'Search Options'\r\nmess<MICON$>\t= '?'\r\nresp = msg(@window, mess)\r\n\r\nif resp = 2 then\r\n\trepos_key = @appid<1>:'*POPUP**PRODUCT_POPUP_SINGLE'\r\n\tkeys = Repository('EXECUTE', repos_key, @WINdow)\r\n\tif keys then\r\n\t\t.id->text=keys\r\n\t\tCall Send_Event(@window, 'READ')\r\n\tEnd\r\nend else\r\n\tOwnerWindow = @Window\r\n\ttable = 'PRODUCTS'\r\n\tIndexedFields = 'DESCRIPTION_XREF'\r\n\tDISPLAYedfIELDS = 'ID':@VM:'DESCRIPTION'\r\n\tmode = 'SINGLE'\r\n\tpopupname = ''\r\n\tkeys = IndexLookup(ownerwindow, table, indexedfields, displayedfields, mode, popupname)\r\n\tif len(keys) then\r\n\t\t.id->text=keys\r\n\t\tCall Send_Event(@window, 'READ')\r\n\tEnd\r\nend\r\n\t\r\nRETURN 0"
+    }
+}

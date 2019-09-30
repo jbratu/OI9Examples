@@ -1,0 +1,15 @@
+compile insert oireport_equates
+
+*** equates for REPOS.OIREPORT.. methods
+
+EQU OIREPORT_FILE$		TO 'SYSREPOSREPORTS'
+
+* repository type
+
+EQU OIREPORT$		TO 'OIREPORT'
+
+* repository classes for OIREPORT type
+
+EQU REPORT_BUILDER_LAYOUT$	TO 'RBLAYOUT'
+EQU REPORT_DESIGNER_LAYOUT$	TO 'RDLAYOUT'
+EQU REPORT_DESIGNER_QUERY$	TO 'RDQUERY'

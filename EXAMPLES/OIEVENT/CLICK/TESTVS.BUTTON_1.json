@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "DECLARE FUNCTION SEND_EVENT\r\nFILE = \"\"\r\nFILE<3> = 10\r\nFILE<4> = \"C:\\TESTOI.OIP\"\r\n*\r\nPRINTER = ''\r\nPRINTER<1,1> = 2 ;* Must go to preview to work\r\nprinter<1,4> = 3 ;* hide preview during printing\r\n\r\nCALL SET_PRINTER(\"INIT\",FILE,\"\",\"\",\"\",printer)\r\nFOR X = 1 TO 200\r\nCALL SET_PRINTER(\"TEXT\",\"PRINTING LINE NUMBER \":X)\r\nNEXT X\r\nCALL SET_PRINTER(\"TERM\")\r\nCALL SEND_MESSAGE(@WINDOW:\".OLE_CONTROL1\",\"LOADDOC\",FILE<4>)\r\nA = SEND_EVENT(\"VSPRINTER\",\"CLOSE\")\r\nRETURN 0"
+    }
+}

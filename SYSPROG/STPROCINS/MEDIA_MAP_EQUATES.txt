@@ -1,0 +1,97 @@
+Compile Insert Media_Map_Equates
+
+* This record defines the layout of media map records for Advanced
+* Revelation 2.0.
+*
+
+* The first two fields were already defined in Advanced Revelation
+* before version 2.0
+*
+
+*   MM.FILE.NAME$  - The name of the foreign file.
+EQU MM.FILE.NAME$           TO  1
+
+*   MM.MFS.LIST$   - the Modifying File Systems list for this file.
+EQU MM.MFS.LIST$            TO  2
+
+!
+* The following 10 fields are reserved for future definition of items
+* that are required for both DICT. and DATA. media map records.
+*
+EQU MM.RESERVED.1$          TO  3
+EQU MM.RESERVED.2$          TO  4
+EQU MM.RESERVED.3$          TO  5
+EQU MM.RESERVED.4$          TO  6
+EQU MM.RESERVED.5$          TO  7
+EQU MM.RESERVED.6$          TO  8
+EQU MM.RESERVED.7$          TO  9
+EQU MM.RESERVED.8$          TO  10
+EQU MM.RESERVED.9$          TO  11
+EQU MM.RESERVED.10$         TO  12
+
+!
+*
+* All fields defined below this point are defined only for DICT. media
+* map records.  These positions are available to be defined by individual
+* bonds for DATA. media map records.
+*
+
+*   MM.DATA.NAME$   - The fully qualified name of the foreign data file,
+*                  suitable for error messages.
+EQU MM.DATA.NAME$        TO  13
+
+*   MM.FOREIGN.PASSWORD$ - The password for the foreign file, if the foreign
+*                  environment supports foreign passwords and if the bond
+*                  allows them to be resident.  The password should not be
+*                  stored as clear text.
+EQU MM.FOREIGN.PASSWORD$    TO  14
+
+*   MM.FLAGS$      - a set of valuemark-delimited flags.
+EQU MM.FLAGS$               TO  15
+
+*     MM.FLAG.DELFILE$ - if non-zero and non-null, this flag causes the bond
+*                    fail any attempt to delete the data portion of the file.
+EQU   MM.FLAG.DELFILE$      TO  1
+
+*     MM.FLAG.IMPDICT$ - non-zero if this dictionary was created implicitly
+*                    by the bond AND has never been written to.
+EQU   MM.FLAG.IMPDICT$      TO  2
+
+
+
+
+
+*   MM.TIME.STAMPS$ - a valuemark-delimited set of time stamps (DATE() + TIME()/86400).
+EQU MM.TIME.STAMPS$         TO  16
+
+*     MM.TIME.CREATE$ - time that the dictionary portion of the file was
+*                    created.
+EQU   MM.TIME.CREATE$       TO  1
+
+*   MM.FILE.STATE$ - specifies the current state of the file.
+EQU MM.FILE.STATE$          TO  17
+EQU   MM.STATE.DEFINED$     TO  0
+EQU   MM.STATE.DEFINING$    TO  1
+EQU   MM.STATE.REDEFINING$  TO  2
+
+EQU MM.FOREIGN.ATTR$        TO  18
+
+!
+*
+* The following fields are reserved for future definition of file attributes
+*
+
+EQU MM.RESERVED.11$         TO  19
+EQU MM.RESERVED.12$         TO  20
+EQU MM.RESERVED.13$         TO  21
+EQU MM.RESERVED.14$         TO  22
+EQU MM.RESERVED.15$         TO  23
+EQU MM.RESERVED.16$         TO  24
+EQU MM.RESERVED.17$         TO  25
+EQU MM.RESERVED.18$         TO  26
+EQU MM.RESERVED.19$         TO  27
+EQU MM.RESERVED.20$         TO  29
+
+* The remaining fields can be defined by each bond in any way it
+* sees fit.
+* Source Date: 09:47:30  24 OCT 1990  Build ID: AREV*2.0.98  Level: 2.1

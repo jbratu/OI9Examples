@@ -1,0 +1,32 @@
+Compile Insert MVBFS_HANDLER_U2_EQUATES
+* Equates specific to the U2 mvbfs connector
+
+Equ HOSTNAME$    To "HOSTNAME"
+Equ SERVERPORT$ To "SERVERPORT"
+Equ SERVERSERVICE$ To "SERVICENAME"
+Equ POOLING$ To "POOLING" ; * 08-29-12 rjc 
+Equ MINPOOL$ To "MINPOOL"
+Equ MAXPOOL$ To "MAXPOOL"
+
+*Equ USERNAME$    To "USERNAME"
+*Equ PASSWORD$    To "PASSWORD"
+Equ APPLICATION$ To "APPLICATION"
+Equ CONNECTION_STRING_PARAMS$ To hostname$:@vm:SERVERPORT$:@vm:APPLICATION$:@vm:SERVERSERVICE$
+Equ U2U_COM_OBJECT$ To "OIBFSHELPER.OI4U2U"
+
+
+* execute status
+equ SV_OK$       to  0    ;* Action successful
+equ SV_ON_ERROR$ To  1    ;* Action took ON ERROR clause
+equ SV_ELSE$     to  2    ;* Action took ELSE clause
+equ SV_ERROR$    to  3    ;* Action failed. Error text available
+equ SV_LOCKED$   to  4    ;* Action took LOCKED clause
+equ SV_PROMPT$   to  5    ;* Server requesting input
+
+/* Uniobject status codes
+equ UVS_COMPLETE    to 0      //' Execution complete
+equ UVS_REPLY   to 1      //   ' Waiting for a reply
+equ UVS_MORE    to 2      //    ' More data to come
+equ UVE_NOERROR  to 0      // ' No error
+*/
+

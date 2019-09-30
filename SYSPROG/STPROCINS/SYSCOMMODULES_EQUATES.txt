@@ -1,0 +1,20 @@
+compile insert SYSCOMMODULES_EQUATES
+/*----------------------------------------
+ Author      : Table Create Insert Routine
+ Written     : 11/07/2008
+ Description : Insert for Table SYSCOMMODULES
+----------------------------------------*/
+
+
+Equ SYSCOMMODULES_WINDOW_NAME$       To   0
+Equ SYSCOMMODULES_CONTROLS$          To   1
+Equ SYSCOMMODULES_EVENTS$            To   2
+Equ SYSCOMMODULES_PREEVENT$          To   3
+Equ SYSCOMMODULES_POSTEVENT$         To   4
+Equ SYSCOMMODULES_INSERTS$           To   5
+Equ SYSCOMMODULES_COMMENTS$          To   6
+Equ SYSCOMMODULES_ALLEVENTS$         To   7
+Equ SYSCOMMODULES_COMPILENOW$        To   8
+Equ SYSCOMMODULES_DOFORM$            To   9
+Equ SYSCOMMODULES_ACCONTROLS$        To  10
+Equ SYSCOMMODULES_WEBOI_COMPATIBILITY$ To  11

@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "If scancode = 46 Then\r\n\tmdi_form = @@window->mdiFrame\r\n\tIf .fld_list->visible Then\r\n\t\tcall Send_Event(mdi_form, 'OMNIEVENT', 'DELETE')\r\n\tEnd\t\t\r\nEnd\r\nRETURN 0"
+    }
+}

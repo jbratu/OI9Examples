@@ -1,0 +1,25 @@
+compile insert GOOGLE_KML_STYLES
+<Style id="highlightPlacemark">
+	<IconStyle>
+		<Icon>
+          <href>http://maps.google.com/mapfiles/kml/paddle/red-stars.png</href>
+        </Icon>
+      </IconStyle>
+</Style>
+<Style id="normalPlacemark">
+  <IconStyle>
+    <Icon>
+      <href>http://maps.google.com/mapfiles/kml/paddle/red-blank.png</href>
+    </Icon>
+  </IconStyle>
+</Style>
+<StyleMap id="exampleStyleMap">
+	<Pair>
+		<key>normal</key>
+		<styleUrl>#normalPlacemark</styleUrl>
+	</Pair>
+	<Pair>
+		<key>highlight</key>
+		<styleUrl>#highlightPlacemark</styleUrl>
+	</Pair>
+</StyleMap>

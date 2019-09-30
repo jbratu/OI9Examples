@@ -1,0 +1,139 @@
+Function Inet_web_cust_entry(request)
+/* --------------------------------------------------------------------------
+
+  This  program  is  proprietary and is not  to be used  by or  disclosed to others, nor is it to be copied
+  without written permission from Revelation Technologies, Inc.
+ VERSION    : OI 4.1.1
+ PURPOSE    : Sample Customer Entry screen across the web 
+ AUTHOR     : Revelation Software
+ CREATED    : September, 2002
+ PROCEDURES : This module may be called either as a stored procedure
+              or as an internal subroutine.
+ WARNINGS   : Must run in event context. 
+ THEORY OF OPERATION :
+			Called from the Web
+   
+ COMMENTS :
+
+ REVISION HISTORY           (Most CURRENT first) :
+
+    DATE       IMPLEMENTOR     FUNCTION
+  --------     -----------     --------
+  MM-DD-YY     initials        Modification
+
+---------------------------------------------------------------------------*/
+
+*****************************
+* Declare stored procedures *
+*****************************
+
+declare function inet_queryparam, inet_msg, get_next_id
+declare subroutine rlist
+************************
+* Initialize Variables *
+************************
+
+temp_cust = ''
+varHtml = ''
+
+***************************************
+* Get the information from the screen *
+***************************************
+
+fname = inet_queryparam(request,'FNAME')
+lname = inet_queryparam(request,'LNAME')
+address1 = inet_queryparam(request,'ADDRESS1')
+address2 = inet_queryparam(request,'ADDRESS2')
+city = inet_queryparam(request,'CITY')
+state = inet_queryparam(request,'STATE')
+zip = inet_queryparam(request,'ZIP')
+country = inet_queryparam(request,'COUNTRY')
+phone = inet_queryparam(request,'PHONE')
+fax = inet_queryparam(request,'FAX')
+email = inet_queryparam(request,'EMAIL')
+
+*****************************************************************
+* Check required fields - if null then display required message *
+*****************************************************************
+	
+begin case
+	case fname = ''
+		varhtml = inet_msg(request, 'Please enter a first name')
+		return varhtml
+	case lname = ''
+		varhtml = inet_msg(request,'Please enter a last name.')
+		return varhtml
+	case address1 = ''
+		varhtml = inet_msg(request,'Please enter a street name.')
+		return varhtml
+	case state = ''
+		varhtml = inet_msg(request,'Please enter a state name.')
+		return varhtml
+	case city = ''
+		varhtml = inet_msg(request,'Please enter a city name.')
+		return varhtml
+	case zip = ''
+		varhtml = inet_msg(request,'Please enter a zip code.')
+		return varhtml
+	case country = ''
+		varhtml = inet_msg(request,'Please enter a country name.')
+		return varhtml
+	case phone = ''
+		varhtml = inet_msg(request,'Please enter a phone number.')
+		return varhtml
+end case
+						
+
+if len(state) then
+
+	stmt = 'Select STATE WITH DESCRIPTION = "STATE"'
+	RList(stmt,5,'','','')
+	readnext key else null
+end
+
+
+
+*****************************************
+* Write the data to the customers table *
+*****************************************			
+
+open "CONT_COLLATOR" to f_cont_collator else
+	varhtml = inet_msg(request,'Unable to open the collator table')
+	return varhtml
+end
+
+Open "CUSTOMERS" to f_customers else
+	varhtml = inet_msg(request,'Unable to open the customers table.')
+	return varhtml
+end
+
+cust_id = Get_Next_ID("CUSTOMERS")
+
+temp_cust<1> = fname
+temp_cust<2> = lname
+temp_cust<3> = address1
+temp_cust<4> = address2
+temp_cust<5> = city
+temp_cust<6> = state
+temp_cust<7> = zip
+temp_cust<8> = country
+temp_cust<9> = phone
+temp_cust<10> = fax
+temp_cust<11> = email
+
+write temp_cust to f_customers, cust_id else
+	varhtml = inet_msg(request, 'Unable to write to the customers table.')
+	return varhtml
+end
+
+************************
+* Display confirmation *
+************************
+
+varhtml = '<html><head><title>Add Customer Complete</title></head>':crlf$
+varhtml: = '<body bgcolor="#d7cfa8" text="#000000" link="#0000ff" vlink="#800080" alink="#ff0000">':crlf$
+varhtml: = '<DIV align="center">The Customer has been added succesfully.</DIV>':crlf$
+varhtml: = '</body></html>':crlf$
+
+return varhtml
+

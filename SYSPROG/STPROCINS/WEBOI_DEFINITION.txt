@@ -1,0 +1,574 @@
+COMPILE INSERT WEBOI_Definition
+* WEBOI_Definition
+
+* Copyright 2001-2007 Freedomsoft/The Future Is Freedom Pty Ltd. All rights reserved.
+* WEBOI 8.1.1
+* 20071222 (Full WEBOI)
+
+* 20071222 (WEBOI Web Ready)
+
+* The following line should only be included on UniVerse platforms.
+*$OPTIONS PICK
+
+* The following line should only be included on QM platforms.
+*$MODE UV.LOCATE
+
+      DECLARE FUNCTION UNASSIGNED
+      EQU Attribute_KeyParts TO 3
+      EQU Attribute_DATETIMEWRITTEN TO 1
+      EQU Attribute_Databasee TO 2
+      EQU Attribute_Class TO 3
+      EQU Attribute_Attribute TO 4
+      EQU Attribute_Type TO 5
+      EQU Attribute_Position TO 6
+      EQU Attribute_Description TO 7
+      EQU Attribute_LastUnique TO 8
+      EQU Attribute_ErrorMessage TO 9
+      EQU Attribute_UniqueKeyFlag TO 10
+      EQU Attribute_ErrorRecurse TO 11
+      EQU Attribute_ControlAttribute TO 12
+      EQU Attribute_Alias TO 13
+      EQU Attribute_Conversion TO 14
+      EQU Attribute_Script TO 15
+
+      EQU Audit_KeyParts TO 5
+      EQU Audit_DATETIMEWRITTEN TO 1
+      EQU Audit_Dat TO 2
+      EQU Audit_Tim TO 3
+      EQU Audit_SupplierNumber TO 4
+      EQU Audit_SerialNumber TO 5
+      EQU Audit_Sequence TO 6
+      EQU Audit_Databasee TO 7
+      EQU Audit_Class TO 8
+      EQU Audit_User TO 9
+      EQU Audit_NewInstance TO 10
+      EQU Audit_OldInstance TO 11
+      EQU Audit_Errors TO 12
+      EQU Audit_Flag TO 13
+
+      EQU AuditDisplay_KeyParts TO 1
+      EQU AuditDisplay_DATETIMEWRITTEN TO 1
+      EQU AuditDisplay_CurrentUser TO 2
+      EQU AuditDisplay_FirstDate TO 3
+      EQU AuditDisplay_FirstTime TO 4
+      EQU AuditDisplay_LastDate TO 5
+      EQU AuditDisplay_LastTime TO 6
+      EQU AuditDisplay_User TO 7
+      EQU AuditDisplay_Type TO 8
+      EQU AuditDisplay_Template TO 9
+      EQU AuditDisplay_Databasee TO 10
+      EQU AuditDisplay_Class TO 11
+      EQU AuditDisplay_AuditKeyList TO 12
+      EQU AuditDisplay_DateList TO 13
+      EQU AuditDisplay_TimeList TO 14
+      EQU AuditDisplay_UserList TO 15
+      EQU AuditDisplay_TypeList TO 16
+      EQU AuditDisplay_TemplateList TO 17
+      EQU AuditDisplay_DatabaseeList TO 18
+      EQU AuditDisplay_ClassList TO 19
+      EQU AuditDisplay_KeyList TO 20
+      EQU AuditDisplay_DataList TO 21
+      EQU AuditDisplay_Maximum TO 22
+      EQU AuditDisplay_Message TO 23
+
+      EQU AuditView_KeyParts TO 3
+      EQU AuditView_DATETIMEWRITTEN TO 1
+      EQU AuditView_Dat TO 2
+      EQU AuditView_Tim TO 3
+      EQU AuditView_Sequence TO 4
+      EQU AuditView_User TO 5
+      EQU AuditView_Template TO 6
+      EQU AuditView_DatabaseClassList TO 7
+      EQU AuditView_KeyList TO 8
+      EQU AuditView_InstanceList TO 9
+      EQU AuditView_ErrorMessageList TO 10
+
+      EQU Class_KeyParts TO 2
+      EQU Class_DATETIMEWRITTEN TO 1
+      EQU Class_Databasee TO 2
+      EQU Class_Class TO 3
+      EQU Class_NumberKeyParts TO 4
+      EQU Class_NumberAttributes TO 5
+      EQU Class_Description TO 6
+      EQU Class_Recurse TO 8
+      EQU Class_StartControlPos TO 9
+      EQU Class_Alias TO 10
+      EQU Class_CompileResult TO 11
+      EQU Class_BeforeCode TO 12
+      EQU Class_AfterCode TO 13
+
+      EQU Code_KeyParts TO 1
+      EQU Code_DATETIMEWRITTEN TO 1
+      EQU Code_File TO 2
+      EQU Code_Location TO 3
+      EQU Code_CompileResult TO 4
+      EQU Code_Databasee TO 5
+      EQU Code_Class TO 6
+      EQU Code_Template TO 7
+      EQU Code_Integrated TO 8
+      EQU Code_Code TO 9
+
+      EQU Control_KeyParts TO 1
+      EQU Control_DATETIMEWRITTEN TO 1
+      EQU Control_ControlKey TO 2
+      EQU Control_ControlData TO 3
+
+      EQU Create_KeyParts TO 1
+      EQU Create_DATETIMEWRITTEN TO 1
+      EQU Create_ControlKey TO 1
+      EQU Create_ControlData TO 2
+
+      EQU CurrentUser_KeyParts TO 1
+      EQU CurrentUser_DATETIMEWRITTEN TO 1
+      EQU CurrentUser_User TO 2
+      EQU CurrentUser_IP TO 3
+      EQU CurrentUser_DateTimeLast TO 4
+      EQU CurrentUser_LoginTemplate TO 5
+      EQU CurrentUser_Templates TO 6
+      EQU CurrentUser_LogFlag TO 7
+      EQU CurrentUser_IPPrecision TO 8
+      EQU CurrentUser_LastUnique TO 9
+
+      EQU CurrentWorking_KeyParts TO 1
+      EQU CurrentWorking_DATETIMEWRITTEN TO 1
+      EQU CurrentWorking_User TO 2
+      EQU CurrentWorking_Templates TO 3
+
+      EQU Databasee_KeyParts TO 1
+      EQU Databasee_DATETIMEWRITTEN TO 1
+      EQU Databasee_Databasee TO 2
+      EQU Databasee_Description TO 3
+      EQU Databasee_SQLName TO 4
+      EQU Databasee_SQLUser TO 5
+      EQU Databasee_SQLPassword TO 6
+
+      EQU DOMGUIDataList_ApplicationName TO 1
+      EQU DOMGUIDataList_WindowName TO 2
+      EQU DOMGUIDataList_DatabaseClass TO 3
+      EQU DOMGUIDataList_TableName TO 4
+      EQU DOMGUIDataList_KeyControlNameList TO 5
+
+      EQU DOMGUIDataListWorking_iColumn TO 1
+      EQU DOMGUIDataListWorking_iRow TO 2
+
+      EQU Delimiter_Key TO '*'
+      EQU Delimiter_SubKey TO '|'
+      EQU Delimiter_Name TO '_'
+      EQU Delimiter_Class TO '_'
+      EQU Delimiter_Reference_Start TO '<'
+      EQU Delimiter_Reference_End TO '>'
+
+      EQU Derivation_KeyParts TO 3
+      EQU Derivation_DATETIMEWRITTEN TO 1
+      EQU Derivation_Databasee TO 2
+      EQU Derivation_Class TO 3
+      EQU Derivation_Attribute TO 4
+      EQU Derivation_Description TO 5
+      EQU Derivation_Calculation TO 6
+      EQU Derivation_Sequence TO 7
+      EQU Derivation_Recurse TO 8
+
+      * The dictionary definition below is for A type dictionary entries
+
+      EQU Dictionary_KeyParts TO 1
+      EQU Dictionary_Type TO 1
+      EQU Dictionary_Position TO 2
+      EQU Dictionary_Description TO 3
+      EQU Dictionary_Conversion TO 7
+      EQU Dictionary_SelectConversion TO 8
+      EQU Dictionary_Alignment TO 9
+      EQU Dictionary_Size TO 10
+
+      * The dictionary definition below is for D type dictionary entries
+
+      EQU DictionaryD_KeyParts TO 1
+      EQU DictionaryD_Type TO 1
+      EQU DictionaryD_Position TO 2
+      EQU DictionaryD_Conversion TO 3
+      EQU DictionaryD_Description TO 4
+      EQU DictionaryD_SizeAlignment TO 5
+      EQU DictionaryD_SingleMulti TO 6
+
+      * The dictionary definition below is for OpenInsight type dictionary entries - both F and S
+
+      EQU DictionaryOI_KeyParts TO 1
+      EQU DictionaryOI_Type TO 1
+      EQU DictionaryOI_FTypePosition TO 2
+      EQU DictionaryOI_Description TO 3
+      EQU DictionaryOI_SingleMulti TO 4
+      EQU DictionaryOI_OutputConversion TO 7
+      EQU DictionaryOI_STypeCode TO 8
+      EQU DictionaryOI_Alignment TO 9
+      EQU DictionaryOI_Size TO 10
+      EQU DictionaryOI_OIType TO 12
+
+      EQU ErrorLog_KeyParts TO 4
+      EQU ErrorLog_DATETIMEWRITTEN TO 1
+      EQU ErrorLog_UserName TO 2
+      EQU ErrorLog_Dat TO 3
+      EQU ErrorLog_Tim TO 4
+      EQU ErrorLog_Occurrence TO 5
+      EQU ErrorLog_ErrorData TO 6
+
+      EQU WEBOI_DATETIMEWRITTEN TO 1
+
+      EQU WEBOI_Session_Session TO 1
+      EQU WEBOI_Session_User TO 2
+      EQU WEBOI_Session_Command TO 3
+      EQU WEBOI_Session_NextTemplate TO 4
+      EQU WEBOI_Session_LogFlag TO 5
+      EQU WEBOI_Session_ModeFlag TO 6
+      EQU WEBOI_Session_RemotePathFileList TO 8
+      EQU WEBOI_Session_LocalPathFileList TO 9
+      EQU WEBOI_Session_NameList TO 11
+      EQU WEBOI_Session_ValueList TO 12
+      EQU WEBOI_Session_DatabaseClassList TO 13
+      EQU WEBOI_Session_KeyList TO 14
+      EQU WEBOI_Session_InstanceList TO 15
+      EQU WEBOI_Session_ErrorMessageList TO 16
+      EQU WEBOI_Session_SequenceList TO 17
+      EQU WEBOI_Session_NoUpdateFlagList TO 18
+      EQU WEBOI_Session_ElementList TO 19
+      EQU WEBOI_Session_ElementOccurrenceList TO 20
+      EQU WEBOI_Session_ElementCommand TO 21
+      EQU WEBOI_Session_CurrentTemplate TO 22
+      EQU WEBOI_Session_ActionQueue TO 23
+      EQU WEBOI_Session_DOMGUIData TO 24
+      EQU WEBOI_Session_DOMGUITemplateLoadedFlag TO 25
+      EQU WEBOI_Session_DOMGUIFormControlName TO 29
+      EQU WEBOI_Session_DOMGUIFormControlType TO 30
+      EQU WEBOI_Session_DOMGUIWebControlName TO 31
+      EQU WEBOI_Session_DOMGUIWebContainerName TO 32
+      EQU WEBOI_Session_DOMGUIDataList TO 33
+      EQU WEBOI_Session_DOMGUIDataListWorking TO 34
+      EQU WEBOI_Session_DOMGUIFormControlValue TO 35
+
+      EQU HelpBook_KeyParts TO 1
+      EQU HelpBook_Book TO 2
+      EQU HelpBook_Description TO 3
+      EQU HelpBook_Page TO 4
+      EQU HelpBook_IndexValues TO 5
+      EQU HelpBook_IndexDeleteFlag TO 6
+
+      EQU HelpDestination_KeyParts TO 1
+      EQU HelpDestination_Destination TO 2
+      EQU HelpDestination_Description TO 3
+      EQU HelpDestination_Sequence TO 4
+
+      EQU HelpIndex_KeyParts TO 2
+      EQU HelpIndex_Book TO 2
+      EQU HelpIndex_Indexx TO 3
+      EQU HelpIndex_Title TO 4
+      EQU HelpIndex_DeleteFlag TO 5
+      EQU HelpIndex_Page TO 6
+      EQU HelpIndex_PageTitle TO 7
+      EQU HelpIndex_PageDestination TO 8
+
+      EQU HelpOutput_KeyParts TO 3
+      EQU HelpOutput_Book TO 2
+      EQU HelpOutput_Output TO 3
+      EQU HelpOutput_User TO 4
+      EQU HelpOutput_Contents TO 5
+      EQU HelpOutput_Body TO 6
+      EQU HelpOutput_DeleteFlag TO 7
+      EQU HelpOutput_CurrentUser TO 9
+      EQU HelpOutput_SearchData TO 10
+
+      EQU HelpPage_KeyParts TO 2
+      EQU HelpPage_Book TO 2
+      EQU HelpPage_Page TO 3
+      EQU HelpPage_Title TO 4
+      EQU HelpPage_Contents TO 5
+      EQU HelpPage_Destination TO 6
+      EQU HelpPage_IndexValues TO 7
+      EQU HelpPage_LinkToPage TO 8
+      EQU HelpPage_LinkToSequence TO 9
+      EQU HelpPage_LastUpdate TO 10
+      EQU HelpPage_BookDescription TO 11
+      EQU HelpPage_IndexMaster TO 12
+      EQU HelpPage_IndexBlock TO 13
+      EQU HelpPage_IndexDeleteFlag TO 14
+      EQU HelpPage_LinkToDeleteFlag TO 15
+
+      EQU Indexx_KeyParts TO 3
+      EQU Indexx_DATETIMEWRITTEN TO 1
+      EQU Indexx_Databasee TO 2
+      EQU Indexx_Class TO 3
+      EQU Indexx_Attribute TO 4
+      EQU Indexx_Description TO 5
+
+      EQU InstanceRetrieved_KeyParts TO 4
+      EQU InstanceRetrieved_DATETIMEWRITTEN TO 1
+      EQU InstanceRetrieved_User TO 2
+      EQU InstanceRetrieved_Databasee TO 3
+      EQU InstanceRetrieved_Class TO 4
+      EQU InstanceRetrieved_InstanceKey TO 5
+      EQU InstanceRetrieved_InstanceOriginal TO 6
+
+      EQU LastUnique_KeyParts TO 1
+      EQU LastUnique_DATETIMEWRITTEN TO 1
+      EQU LastUnique_LastUniqueKey TO 2
+      EQU LastUnique_LastUnique TO 3
+
+      EQU Map_KeyParts TO 1
+      EQU Map_DATETIMEWRITTEN TO 1
+      EQU Map_Map TO 2
+      EQU Map_Databasee TO 3
+      EQU Map_Class TO 4
+      EQU Map_Attribute TO 5
+      EQU Map_Description TO 6
+      EQU Map_DeleteFlag TO 7
+
+      EQU Relation_KeyParts TO 1
+      EQU Relation_DATETIMEWRITTEN TO 1
+      EQU Relation_Relation TO 2
+      EQU Relation_Description TO 3
+
+      EQU Relationship_KeyParts TO 5
+      EQU Relationship_DATETIMEWRITTEN TO 1
+      EQU Relationship_Databasee TO 2
+      EQU Relationship_Class TO 3
+      EQU Relationship_PointerDatabasee TO 4
+      EQU Relationship_PointerClass TO 5
+      EQU Relationship_Occurrence TO 6
+      EQU Relationship_Attribute TO 7
+      EQU Relationship_PointerAttribute TO 8
+      EQU Relationship_Relation TO 9
+      EQU Relationship_Description TO 10
+      EQU Relationship_RelationshipType TO 11
+      EQU Relationship_DeleteFlag TO 12
+      EQU Relationship_Handicap TO 13
+
+      EQU RelationshipLink_KeyParts TO 5
+      EQU RelationshipLink_DATETIMEWRITTEN TO 1
+      EQU RelationshipLink_Databasee TO 2
+      EQU RelationshipLink_Class TO 3
+      EQU RelationshipLink_PointerDatabasee TO 4
+      EQU RelationshipLink_PointerClass TO 5
+      EQU RelationshipLink_Occurrence TO 6
+      EQU RelationshipLink_Attribute TO 7
+      EQU RelationshipLink_PointerAttribute TO 8
+      EQU RelationshipLink_Relation TO 9
+      EQU RelationshipLink_Description TO 10
+      EQU RelationshipLink_RelationshipType TO 11
+      EQU RelationshipLink_DeleteFlag TO 12
+
+      EQU RelationshipType_KeyParts TO 1
+      EQU RelationshipType_DATETIMEWRITTEN TO 1
+      EQU RelationshipType_RelationshipType TO 2
+      EQU RelationshipType_Description TO 3
+
+      * The SBDictionary definition below is for the extra dictionary entries
+      * required by SB+
+
+      EQU SBDictionary_KeyParts TO 1
+      EQU SBDictionary_Type TO 1
+      EQU SBDictionary_Position TO 2
+      EQU SBDictionary_ReportHeading TO 3
+      EQU SBDictionary_Description TO 4
+      EQU SBDictionary_ConversionOne TO 7
+      EQU SBDictionary_Alignment TO 9
+      EQU SBDictionary_Length TO 10
+      EQU SBDictionary_SBType TO 11
+      EQU SBDictionary_AllowAmend TO 12
+      EQU SBDictionary_ConversionTwo TO 16
+
+      EQU SelectSavedlist_KeyParts TO 4
+      EQU SelectSavedlist_DATETIMEWRITTEN TO 1
+      EQU SelectSavedlist_User TO 2
+      EQU SelectSavedlist_Databasee TO 3
+      EQU SelectSavedlist_Class TO 4
+      EQU SelectSavedlist_Selectt TO 5
+      EQU SelectSavedlist_KeyList TO 6
+
+      EQU SelectVersion_KeyParts TO 1
+      EQU SelectVersion_DATETIMEWRITTEN TO 1
+      EQU SelectVersion_User TO 2
+      EQU SelectVersion_SelectCommand TO 3
+      EQU SelectVersion_Selectt TO 4
+
+      EQU Sequence_KeyParts TO 3
+      EQU Sequence_DATETIMEWRITTEN TO 1
+      EQU Sequence_Databasee TO 2
+      EQU Sequence_Class TO 3
+      EQU Sequence_User TO 4
+      EQU Sequence_First TO 5
+      EQU Sequence_Second TO 6
+      EQU Sequence_Third TO 7
+      EQU Sequence_FirstSequence TO 8
+      EQU Sequence_SecondSequence TO 9
+      EQU Sequence_ThirdSequence TO 10
+      EQU Sequence_FirstAlignment TO 11
+      EQU Sequence_SecondAlignment TO 12
+      EQU Sequence_ThirdAlignment TO 13
+
+      EQU TemplateDOMGUI_KeyParts TO 1
+      EQU TemplateDOMGUI_DATETIMEWRITTEN TO 1
+      EQU TemplateDOMGUI_File TO 2
+      EQU TemplateDOMGUI_FormControlName TO 3
+      EQU TemplateDOMGUI_FormControlType TO 4
+      EQU TemplateDOMGUI_WebControlName TO 5
+      EQU TemplateDOMGUI_WebContainerName TO 6
+      EQU TemplateDOMGUI_DataList TO 7
+      EQU TemplateDOMGUI_FormControlValue TO 8
+
+      EQU Templates_KeyParts TO 1
+      EQU Templates_DATETIMEWRITTEN TO 1
+      EQU Templates_File TO 2
+      EQU Templates_Title TO 3
+      EQU Templates_Description TO 4
+      EQU Templates_LastBuildDate TO 5
+      EQU Templates_LastBuildTime TO 6
+      EQU Templates_AuditType TO 7
+      EQU Templates_Templates TO 8
+      EQU Templates_CompileResult TO 9
+      EQU Templates_LoginFlag TO 10
+      EQU Templates_BeforeCode TO 11
+      EQU Templates_AfterCode TO 12
+      EQU Templates_Code TO 13
+      EQU Templates_Inserts TO 14
+	  Equ Templates_Selection To 15;* 03/10/08
+
+      EQU Temporary_KeyParts TO 1
+      EQU Temporary_DATETIMEWRITTEN TO 1
+      EQU Temporary_TemporaryKey TO 2
+      EQU Temporary_TemporaryData TO 3
+
+      EQU User_KeyParts TO 1
+      EQU User_DATETIMEWRITTEN TO 1
+      EQU User_Code TO 2
+      EQU User_Password TO 3
+      EQU User_Name TO 4
+      EQU User_Security TO 5
+      EQU User_AllowedIP TO 6
+      EQU User_DisallowedIP TO 7
+      EQU User_Link TO 8
+      EQU User_CurrentPassword TO 9
+      EQU User_NewPasswordOne TO 10
+      EQU User_NewPasswordTwo TO 11
+      EQU User_PasswordChangeMessage TO 12
+      EQU User_DefaultTemplate TO 13
+      EQU User_LoginFailDateTime TO 14
+      EQU User_DisabledUntil TO 15
+      EQU User_LogFlag TO 16
+      EQU User_IPPrecision TO 17
+
+      EQU Validation_KeyParts TO 3
+      EQU Validation_DATETIMEWRITTEN TO 1
+      EQU Validation_Databasee TO 2
+      EQU Validation_Class TO 3
+      EQU Validation_Attribute TO 4
+      EQU Validation_Calculation TO 5
+      EQU Validation_Description TO 6
+      EQU Validation_Recurse TO 7
+
+      COMMON /WEBOI_Definition/iWEBOI_AssignedFlag,WEBOI_Attribute,iWEBOI_Attribute_Open,WEBOI_Audit,iWEBOI_Audit_Open,WEBOI_AuditDisplay,iWEBOI_AuditDisplay_Open,WEBOI_AuditView,iWEBOI_AuditView_Open,WEBOI_Class,iWEBOI_Class_Open,WEBOI_Code,iWEBOI_Code_Open,WEBOI_Control,iWEBOI_Control_Open,WEBOI_Create,iWEBOI_Create_Open,WEBOI_CurrentUser,iWEBOI_CurrentUser_Open,WEBOI_CurrentWorking,iWEBOI_CurrentWorking_Open,WEBOI_Databasee,iWEBOI_Databasee_Open,WEBOI_Derivation,iWEBOI_Derivation_Open,WEBOI_Download,iWEBOI_Download_Open,WEBOI_ErrorLog,iWEBOI_ErrorLog_Open,WEBOI_FB_BP,iWEBOI_FB_BP_Open,WEBOI_Indexx,iWEBOI_Indexx_Open,WEBOI_InstanceRetrieved,iWEBOI_InstanceRetrieved_Open,WEBOI_LastUnique,iWEBOI_LastUnique_Open,WEBOI_Map,iWEBOI_Map_Open,WEBOI_Process_BP,iWEBOI_Process_BP_Open,WEBOI_Relation,iWEBOI_Relation_Open,WEBOI_Relationship,iWEBOI_Relationship_Open,WEBOI_RelationshipLink,iWEBOI_RelationshipLink_Open,WEBOI_RelationshipType,iWEBOI_RelationshipType_Open,WEBOI_SelectSavedlist,iWEBOI_SelectSavedlist_Open,WEBOI_SelectVersion,iWEBOI_SelectVersion_Open,WEBOI_Sequence,iWEBOI_Sequence_Open,WEBOI_Template,iWEBOI_Template_Open,WEBOI_Template_BP,iWEBOI_Template_BP_Open,WEBOI_TemplateDOMGUI,iWEBOI_TemplateDOMGUI_Open,WEBOI_Templates,iWEBOI_Templates_Open,WEBOI_Temporary,iWEBOI_Temporary_Open,WEBOI_User,iWEBOI_User_Open,WEBOI_Validation,iWEBOI_Validation_Open,WEBOI_Session,WEBOI_Request,UserNumber
+
+      EQU WEBOI_Update_ErrorMessage TO 'This information has been updated on the server since you retrieved it. The updated information is now showing on this page. Please try again.'
+      EQU WEBOI_UpdateDOMGUI_ErrorMessage TO 'This information has been updated on the server since you retrieved it. Please refresh/reload the information, and try again.'
+      EQU WEBOI_Locked_ErrorMessage TO 'Is currently locked by someone else. Please try again later.'
+      EQU WEBOI_Required_ErrorMessage TO 'Cannot delete, as other information requires this information.'
+      EQU WEBOI_BlankAttribute_String TO '~~~~~~~~~~'
+      EQU WEBOI_Process_Waiting TO 'Waiting to be rebuilt'
+      EQU WEBOI_Template_Waiting TO 'Waiting to be rebuilt'
+      EQU WEBOI_Entity_List TO 'gt':@VM:'quot':@VM:'apos':@VM:'lt':@VM:'amp'
+      EQU WEBOI_NameCharacter_List TO 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_.'
+      EQU WebOI_Template_NoOptimisticLockingTag TO '<!--NoOptimisticLocking-->'  
+      EQU ExecutePath TO ''
+      EQU UpcaseExtension TO ''
+      EQU iMaximumCalculationRecurse TO 99
+      EQU iMaximumClassCalculationRecurse TO 99
+      EQU iMaximumClosestDatabaseClasses TO 199
+      EQU iMaximumNextDatabaseClasses TO 99
+      EQU iSearchMaximumAttributes TO 5
+
+      * System Type can be:
+      * UV - UniVerse
+      * JB - jBase
+      * QM - QM
+      * OI - OpenInsight
+
+      EQU SystemType TO 'OI'
+      EQU iUpcaseSearchFlag TO 1
+      EQU OperatingSystemDelimiter TO '\'
+      EQU OperatingSystemPath TO ''
+
+      IF (UNASSIGNED(iWEBOI_AssignedFlag)) THEN
+         iWEBOI_AssignedFlag = ''
+      END
+      IF NOT(iWEBOI_AssignedFlag) THEN
+         iWEBOI_AssignedFlag = 1
+         WEBOI_Attribute = ''
+         iWEBOI_Attribute_Open = 0
+         WEBOI_Audit = ''
+         iWEBOI_Audit_Open = 0
+         WEBOI_AuditDisplay = ''
+         iWEBOI_AuditDisplay_Open = 0
+         WEBOI_AuditView = ''
+         iWEBOI_AuditView_Open = 0
+         WEBOI_Class = ''
+         iWEBOI_Class_Open = 0
+         WEBOI_Code = ''
+         iWEBOI_Code_Open = 0
+         WEBOI_Control = ''
+         iWEBOI_Control_Open = 0
+         WEBOI_Create = ''
+         iWEBOI_Create_Open = 0
+         WEBOI_CurrentUser = ''
+         iWEBOI_CurrentUser_Open = 0
+         WEBOI_CurrentWorking = ''
+         iWEBOI_CurrentWorking_Open = 0
+         WEBOI_Databasee = ''
+         iWEBOI_Databasee_Open = 0
+         WEBOI_Derivation = ''
+         iWEBOI_Derivation_Open = 0
+         WEBOI_Download = ''
+         iWEBOI_Download_Open = 0
+         WEBOI_ErrorLog = ''
+         iWEBOI_ErrorLog_Open = 0
+         WEBOI_FB_BP = ''
+         iWEBOI_FB_BP_Open = 0
+         WEBOI_Indexx = ''
+         iWEBOI_Indexx_Open = 0
+         WEBOI_InstanceRetrieved = ''
+         iWEBOI_InstanceRetrieved_Open = 0
+         WEBOI_LastUnique = ''
+         iWEBOI_LastUnique_Open = 0
+         WEBOI_Map = ''
+         iWEBOI_Map_Open = 0
+         WEBOI_Process_BP = ''
+         iWEBOI_Process_BP_Open = 0
+         WEBOI_Relation = ''
+         iWEBOI_Relation_Open = 0
+         WEBOI_Relationship = ''
+         iWEBOI_Relationship_Open = 0
+         WEBOI_RelationshipLink = ''
+         iWEBOI_RelationshipLink_Open = 0
+         WEBOI_RelationshipType = ''
+         iWEBOI_RelationshipType_Open = 0
+         WEBOI_SelectSavedlist = ''
+         iWEBOI_SelectSavedlist_Open = 0
+         WEBOI_SelectVersion = ''
+         iWEBOI_SelectVersion_Open = 0
+         WEBOI_Sequence = ''
+         iWEBOI_Sequence_Open = 0
+         WEBOI_Template = ''
+         iWEBOI_Template_Open = 0
+         WEBOI_Template_BP = ''
+         iWEBOI_Template_BP_Open = 0
+         WEBOI_TemplateDOMGUI = ''
+         iWEBOI_TemplateDOMGUI_Open = 0
+         WEBOI_Templates = ''
+         iWEBOI_Templates_Open = 0
+         WEBOI_Temporary = ''
+         iWEBOI_Temporary_Open = 0
+         WEBOI_User = ''
+         iWEBOI_User_Open = 0
+         WEBOI_Validation = ''
+         iWEBOI_Validation_Open = 0
+         WEBOI_Session = ''
+         WEBOI_Request = ''
+         UserNumber = DATE():TIME():RND(999999)
+      END
+
+

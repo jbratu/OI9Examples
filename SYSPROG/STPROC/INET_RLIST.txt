@@ -1,0 +1,117 @@
+function Inet_Rlist (Request, RlistScript)
+*********************************************************************
+*
+* This program is proprietary and is not to be used by or disclosed
+* to others, nor is it to be copied without written permission from
+* Revelation Technologies, Inc.
+*
+* Product    :  OI/WG
+* Project    :  OpenInsight for Internet
+* Release    :  3.5
+*
+* Name       :  Inet_Rlist
+* Description:  Generates Rlist report as HTML script 
+*
+* Parameters:
+*   Request     [in] -- HTTP request 
+*   RlistScript [in] -- Rlist script (optional)
+*   ret        [out] -- report as an html script
+* 
+* History (Date, Initials, Notes)
+*   02/27/97  bb   Original programmer
+*********************************************************************
+
+/* Basic+ function declarations */
+declare function   Entid, Repository, get_repos_entities, ResToString
+declare function   Inet_QueryParam, Inet_Msg
+declare subroutine Web_Rlist_Callback, Rlist, Set_Status
+
+/* Inserts */
+$insert logical
+$insert inet_equates
+$insert rlist_equates
+$insert msg_equates
+$insert oireport_equates
+
+/* Equates */
+equ HTML_CALLBACK$      to "WEB_RLIST_CALLBACK"
+equ ERR_TITLE$			to "Rlist Error"
+equ STOP$				to 0
+
+/* Globals */
+rsltBuff = ""
+
+rptName = Inet_QueryParam(Request, "REPORT_ID")
+rptArgs = Inet_QueryParam(Request, "ARGS")
+
+iSub = 0
+loop
+	iSub += 1
+	on iSub gosub CheckIns, ProcessIns, GetReport
+while iSub <> STOP$
+repeat
+
+return rsltBuff
+
+/* --------------------------------- */
+CheckIns:
+	rlScript = if assigned(RlistScript) then RlistScript else ''
+
+	if len(rptName) or len(rlScript) else
+		errText = "Report is not specified!"
+		gosub GenerateError
+	end
+return	
+
+/* --------------------------------------- */
+ * we have either report name or script
+/* --------------------------------------- */
+ProcessIns:
+	if len(rlScript) else
+		rptID    = entid(@appid<1>, OIREPORT$, REPORT_BUILDER_LAYOUT$, rptName)
+		rlScript = repository ("ACCESS", rptID)<1>
+		
+		if get_status() then
+			errText = "Cannot find report " :rptName
+			gosub GenerateError
+		end
+	end
+return	
+
+/* ------------------------------------- */
+GetReport:
+	userArg  = ""
+	userArg<1, 1> = rptName
+	userArg<1, 2> = rptArgs
+	
+	Rlist(rlScript, TARGET_CALLBACK$, HTML_CALLBACK$, userArg, 0)
+
+	if get_status(errText) then
+		gosub GenerateError
+	end else
+		Web_Rlist_Callback(CALLCODE_ENDREPORT$, '', userArg, rptArgs, rsltBuff)
+		if len(rsltBuff) else
+			errText = "Failure generating report"
+			gosub GenerateError
+		end
+	end	
+
+	iSub = STOP$
+return
+
+/* ------------------------------------- */
+GenerateError:
+*
+* errText   [in] -- description of the error 
+* rsltBuff [out] -- error in html format
+* iSub     [out] -- set to STOP$
+*
+	set_status(FALSE$)
+	
+	errMsg = ""
+	errMsg<MTEXT$>    = errText
+	errMsg<MCAPTION$> = ERR_TITLE$
+	rsltBuff          = Inet_Msg(Request, errMsg)
+
+	iSub = STOP$
+return

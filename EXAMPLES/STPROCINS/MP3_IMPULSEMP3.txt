@@ -1,0 +1,25 @@
+compile insert MP3_IMPULSEMP3
+* Insert for the ImpulseMP3.ISMP3Player OLE Control
+
+* Control Name
+EQU MP3PLAYERCONTROL$ to ".IMPULSEMP3"
+
+* Properties
+EQU FileName$ 	to "OLE.FileName"
+EQU Title$ 			to "OLE.ID3Title"
+EQU Artist$ 		to "OLE.ID3Artist"
+EQU Album$ 			to "OLE.ID3Album"
+EQU Comments$ 	to "OLE.ID3Comment"
+EQU Genre$ 			to "OLE.ID3Genre"
+EQU Year$ 			to "OLE.ID3Year"
+EQU Length$ 		to "OLE.TrackLength"
+
+* Methods
+EQU About$ 						to "About"
+EQU Play$							to "PlayStart"
+EQU Pause$						to "PlayPause"
+EQU IsPlaying$				to "IsPlaying"
+EQU Stop$							to "PlayStop"
+
+* Events
+EQU FinishedPlaying$ 	to "FinishedPlaying"

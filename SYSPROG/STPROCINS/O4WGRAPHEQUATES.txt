@@ -1,0 +1,70 @@
+compile insert O4WGRAPHEQUATES
+* O4GraphEquates
+*
+Equ gLastUpdated$			To 2
+Equ gBGColor$				To 3
+Equ gBGImage$				To 4
+Equ gTextColor$			To 5
+
+Equ gLinkColor$			To 6
+Equ gVisitedColor$		To 7
+Equ gTitle$					To 8
+Equ gBanner$				To 9
+Equ gFooter$				To 10
+
+Equ gURL$					To 11
+Equ gURLDesc$				To 12
+Equ GraphDesc$				To 13
+Equ GraphPermissions$	To 14
+Equ gAlign$					To 15
+
+Equ gMenuName$				To 16
+Equ gTemplateName$		To 17
+Equ RedrawInterval$		To 18
+Equ GraphRows$				To 19
+Equ GraphCols$				To 20
+
+Equ TotalGraphs$			To 21
+Equ Modules$				To 22
+
+Equ FIRST_GRAPH_FIELD$		To 30
+
+Equ gType$					To 30
+	* type of graph - see O4WEQUATES for list of choices
+Equ GraphWidth$			To 31
+Equ GraphHeight$			To 32
+Equ Graphtitle$			To 33
+Equ GraphSeries$			To 34
+Equ GraphData$				To 35
+	Equ GraphData_FromTable$ To 1
+	Equ GraphData_FromProc$ To 2
+	Equ GraphData_FromReport$ To 3
+	Equ GraphData_FromO4W$ To 4
+	Equ GraphData_NULL$ To 5
+	Equ GraphData_JustReport$ To 6
+	Equ GraphData_JustForm$ To 7
+	Equ GraphData_JustBRW$ To 8
+
+Equ GraphDataName$		To 36
+Equ GraphDataExtra$		To 37
+Equ GraphDataX$			To 38
+Equ GraphDataY$			To 39
+Equ GraphDataXMods$		To 40
+
+Equ GraphDataYMods$		To 41
+Equ gXOptions$				To 42
+Equ gYOptions$				To 43
+Equ gOptions$				To 44
+Equ gAllowDynamic$			To 45
+
+Equ gDynamicSort$			To 46
+Equ gDynamicSelFields$		To 47
+Equ gDynamicSelPrompt$		To 48
+Equ gDynamicSelSourceType$	To 49
+Equ gDynamicSelSource$		To 50
+
+Equ gDynamicHelp$			To 51
+
+Equ gLinkTo$					To 60
+Equ LAST_GRAPH_FIELD$		To 60
+Equ gSystemFlag$			To 100

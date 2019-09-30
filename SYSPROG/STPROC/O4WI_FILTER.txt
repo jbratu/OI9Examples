@@ -1,0 +1,71 @@
+Function O4WI_FILTER(ProcName, UDetails, Tablename)
+*#!Precompile
+/*
+*  This program is proprietary and is not to be used by or disclosed to others, nor is it to be copied without
+*  written permission from Revelation Technologies, Inc.
+!
+*
+*  VERSION    : 1.0
+*
+*
+*  AUTHOR     : Bryan Shumsky
+*
+*  CREATED    : September 23, 2009
+*
+*
+!
+*
+*  REVISION HISTORY           (Most CURRENT first) :
+*
+*    DATE       IMPLEMENTOR     FUNCTION
+*  --------     -----------     --------
+*  03 May 2010	 bzs				  Added logic to respect environment security settings
+*
+*
+*/
+*
+$Insert ENVIRON_CONSTANTS
+*
+If Assigned(procname) Else procname = ""
+If Assigned(udetails) Else udetails = ""
+If Assigned(tablename) Else tablename = ""
+*
+* By default, no filters are applied EXCEPT for system-wide filters
+SecFlds = @ENVIRON_SET<ENV_EXCLUDE_FIELDS$>
+Sectbl =  @ENVIRON_SET<ENV_EXCLUDE_FROM_REPORTS$>
+
+rslt = ""
+Begin Case
+	Case tableName = ""
+		* return list of all tables
+		* 121410 If these are used for the form or report or dashboard process, remove "!" and "DICT." tables
+		bExclude = 0
+		If procName = "O4W_DEFINE_FORM" Or procName = "O4W_DEFINE_REPORT" Or procName = "O4W_DEFINE_DASHBOARD" Then
+			bExclude = 1
+		End
+		Call Rlist("SELECT SYSTABLES BY @ID", '5')
+		DONE = 0
+		Loop
+			Readnext id Else DONE = 1
+		Until DONE Do
+			If bExclude=0 Or (id[1,1] <> "!" And id[1,5] <> "DICT.") then
+				Locate id In SecTbl<1> Using @VM Setting dummy else
+					rslt<1,-1> = id
+				End
+			end
+		Repeat		
+	Case 1
+		* return list of fields for specified table
+		trslt = Xlate("DICT.":TableName, "%FIELDS%", "3", "X")
+		num.flds = dcount(trslt, @VM)
+		rslt = ""
+		For each.fld = 1 To num.flds
+			this.fld = trslt<1,each.fld>
+			chkfld = tableName:@svm:this.fld
+			Locate chkfld In secflds<1> Using @vm Setting chkpos Else
+				rslt<1,-1> = this.fld
+			End
+		Next each.fld
+End Case
+*
+Return rslt

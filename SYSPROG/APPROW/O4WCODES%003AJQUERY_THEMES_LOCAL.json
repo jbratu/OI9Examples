@@ -1,0 +1,25 @@
+{
+    "record1": {
+        "<1>": {
+            "<1,1>": "UI lightness",
+            "<1,2>": "UI darkness",
+            "<1,3>": "Smoothness",
+            "<1,4>": "Flick",
+            "<1,5>": "Other (Custom)"
+        },
+        "<2>": {
+            "<2,1>": "ui-lightness",
+            "<2,2>": "ui-darkness",
+            "<2,3>": "smoothness",
+            "<2,4>": "flick",
+            "<2,5>": "custom"
+        },
+        "<3>": {
+            "<3,1>": "jqthemelcui-lightness",
+            "<3,2>": "jqthemelcui-darkness",
+            "<3,3>": "jqthemelcsmoothness",
+            "<3,4>": "jqthemelcflick",
+            "<3,5>": "jqthemelccustom"
+        }
+    }
+}

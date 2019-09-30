@@ -1,0 +1,265 @@
+Compile Insert DSXO_API
+
+*****************************************************************************
+*
+* This program is proprietary and is not to be used by or disclosed
+* to others, nor is it to be copied without written permission from
+* Revelation Technologies, Inc.
+*
+* Product    :  OI/WG
+* Poject     :  OI/CS
+* Release    :  3.11
+*
+* Name       :  DSXO_API Insert
+* Description:  Low-level DataSet API declarations and constants
+*
+* History (Date, Initials, Notes)
+*   07/11/95  cp   Original programmer
+*   11/05/95  cp   Added header, new sort/filter/search functions, and
+*                  XOGetInfo equates
+*   04/19/96  cp   Added DSCopy, DSFindKey, DSGetOIRow, DSGetOIRecord
+*   06/07/96  cp   Updated Q_ values to include date/time control questions
+*****************************************************************************
+
+* oi30dsxo.dll entries
+* Note: return value is FLAG unless specified otherwise
+
+* XO API functions
+declare function XOLoad             ;* Success=()
+declare function XOUnload           ;* Success=()
+declare function XOCreate           ;* hConnect = (lpcszzDataSourceInfo, lpcszLogin, lpcszPassword, bUseTransactions, nSecondsTimeout )
+declare function XOOpen             ;* hStmnt = (hConnect)
+declare function XOGetTimeOut       ;* (hStmnt, pcSecs)
+declare function XOSetTimeOut       ;* (hStmnt, cSecs)
+declare function XOExecute          ;* (hStmnt, lpcszScript, nExecType, pbResults)
+declare function XODescribeResults  ;* (hStmnt, pnColumns, pnRows)
+declare function XODescribeColumn   ;* (see oi30dsxo.h)
+declare function XOBindColumn       ;* (see oi30dsxo.h)
+declare function XOFetch            ;* (hStmnt, bForwards)
+declare function XOGetColumn        ;* (see oi30dsxo.h)
+declare function XOCancel           ;* (hStmnt)
+declare function XOClose            ;* (hStmnt)
+declare function XORollback         ;* (hConnect)
+declare function XOCommit           ;* (hConnect)
+declare function XODestroy          ;* (hConnect)
+declare function XOGetInfo          ;* (hConnect, iQuestion, lpszAnswer, cbMax, pcbActual)
+declare function XOGetInfo_Num      ;* (hConnect, iQuestion, nAnswer, cbMax, pcbActual)
+declare function XOGetError         ;* (hConnect, hStmnt, pnLocalCode, pnLocalSeverity, pnNativeCode, pnNativeSeverity, lpszErr, cbMax, pcbActual)
+declare function XOGetDBObjects     ;* (hStmnt, maskTableTypes)
+declare function XOGetDBColumns     ;* (hStmnt, lpcszTable)
+
+* DS API functions
+declare function DSLoad             ;* Success=()
+declare function DSUnload           ;* Success=()
+declare function DSCreate           ;* hDS = (lpDsDef, hConnect, maskOptions )
+declare function DSDestroy          ;* (hDS)
+declare function DSGetConnection    ;* hConnect = (hDS)
+declare function DSSetConnection    ;* (hDS, hConnect)
+declare function DSGetStatement     ;* hQry = (hDS)
+declare function DSGetScript        ;* (hDS, nScriptId, lpszScript, cbMax, pcbActual)
+declare function DSSetScript        ;* (hDS, nScriptId, lpcszScript)
+declare function DSResetScript      ;* (hDS, nScriptId)
+declare function DSGetArgumentCount ;* nCount = (hDS)
+declare function DSGetArgumentID    ;* iArg = (hDS, lpszArg)
+declare function DSDescribeArgument ;* (see oi30dsxo.h)
+declare function DSGetArgument      ;* (hDS, iArg, lpszArg, cbMax, pcbActual)
+declare function DSSetArgument      ;* (hDS, iArg, lpcszArg)
+declare function DSResetArgument    ;* (hDS, iArg)
+declare function DSExecute          ;* (hDS, nExecType, nRetType)
+declare function DSGetColumnCount   ;* (hDS)
+declare function DSGetColumnID      ;* (hDS, lpcszColumn)
+declare function DSDescribeColumn   ;* (see oi30dsxo.h)
+declare function DSSetView          ;* (hDS, nView)
+declare function DSGetView          ;* nView = (hDS)
+declare function DSGetRowCount      ;* nCount = (hDS)
+declare function DSGetCurrentRow    ;* iRow = (hDS)
+declare function DSSetCurrentRow    ;* (hDS, bRelative, iRow)
+declare function DSSetSet           ;* (hDS, aiRows, cRow)
+declare function DSResetSet         ;* (hDS)
+declare function DSSetSort          ;* (hDS, Sort)
+declare function DSFindKey          ;* (hDS), note that return is success with info if key found in other view
+declare function DSCopy             ;* (hDSCopyTo, hDSCopyFrom, maskOptions)
+declare function DSClear            ;* (hDS)
+declare function DSAppend           ;* (hDS)
+declare function DSInsert           ;* (hDS)
+declare function DSDelete           ;* (hDS)
+declare function DSExtractWork      ;* (hDS)
+declare function DSDefaultWork      ;* (hDS)
+declare function DSAppendWork       ;* (hDS)
+declare function DSInsertWork       ;* (hDS)
+declare function DSUpdateWork       ;* (hDS)
+declare function DSIsNull           ;* bIs = (hDS, nRowType, iCol)
+declare function DSSetNull          ;* (hDS, nRowType, iCol)
+declare function DSGetValueLen      ;* nSize = (hDS, nRowType, iCol, nConversion)
+declare function DSGetValue         ;* (hDS, nRowType, iCol, lpBuf, nConversion, cbMax, pcbActual)
+declare function DSGetPartValue     ;* (hDS, nRowType, iCol, cbOffset, cbPart, lpBuf, nConversion, cbMax, pcbActual)
+declare function DSGetOIRow         ;* (hDS, nRowType, lpBuf, cbMax, pcbActual)
+declare function DSGetOIRecord      ;* (hDS, iRowFirst, iRowLast, lpBuf, cbMax, pcbActual)
+declare function DSSetValue         ;* (hDS, nRowType, iCol, lpcBuf, nConversion, cbBuf)
+declare function DSSetPartValue     ;* (hDS, nRowType, iCol, cbOffset, cbPart, lpcBuf, nConversion, cbBuf)
+declare function DSResetDefault     ;* (hDS, iCol)
+declare function DSIsModified       ;* bIs = (hDS)
+declare function DSUpdate           ;* (hDS)
+declare function DSCommit           ;* (hDS)
+declare function DSRollBack         ;* (hDS)
+declare function DSGetError         ;* (hDS, pnLocalCode, pnLocalSeverity, pnNativeCode, pnNativeSeverity, lpszErr, cbMax, pcbActual)
+
+* flag values
+equ FLAG_SUCCESS$            to 1
+equ FLAG_SUCCESS_WITH_INFO$  to 3
+equ FLAG_NO_DATA_FOUND$      to 5
+equ FLAG_ERROR$              to 7
+equ FLAG_INVALID_HANDLE$     to 4
+
+* execution types
+equ ET_NORESULTS$      to 0      ;* discard any results
+equ ET_RESULTSET$      to 1      ;* once-through result set (default)
+equ ET_STATCURSOR$     to 2      ;* bi-directional cursor
+equ ET_DYNCURSOR$      to 3      ;* bi-directional dynamic cursor
+
+* retrieve types
+equ RT_NORESULTS$      to 0      ;* discard results
+equ RT_IMMEDIATE$      to 1      ;* retrieve all immediately
+equ RT_ASNEEDED$       to 2      ;* retrieve only as needed
+
+* fetch direction for next row
+equ FD_BACKWARDS$      to 0
+equ FD_FORWARDS$       to 1
+
+* conversion types
+equ CONV_NONE$         to 0      ;* internal DS structure
+equ CONV_ODBC$         to 1      ;* odbc conversion
+equ CONV_OI$           to 2      ;* OpenInsight conversion (default)
+equ CONV_ASCIIZ$       to 3      ;* ASCII-Z conversion (for output)
+
+* data types
+equ DT_VOID$           to 0      ;* no type
+equ DT_BIT$            to 1      ;* boolean (0 or 1) stored as 8-bit unsigned int
+equ DT_UINT1$          to 2      ;* 8-bit unsigned int
+equ DT_SINT1$          to 3      ;* 8-bit signed int
+equ DT_UINT2$          to 4      ;* 16-bit unsigned int
+equ DT_SINT2$          to 5      ;* 16-bit signed int
+equ DT_UINT4$          to 6      ;* 32-bit unsigned int
+equ DT_SINT4$          to 7      ;* 32-bit signed int
+equ DT_DECIMAL$        to 8      ;* decimal ASCII-Z string, fixed precision/scale
+equ DT_FLOAT$          to 9      ;* 32-bit floating point
+equ DT_DOUBLE$         to 10     ;* 64-bit floating point
+equ DT_CHAR$           to 11     ;* fixed length character data
+equ DT_VARCHAR$        to 12     ;* variable length character data (< 256)
+equ DT_LONGVARCHAR$    to 13     ;* variable length character data
+equ DT_BINARY$         to 14     ;* fixed length binary data
+equ DT_VARBINARY$      to 15     ;* variable length binary data (< 256)
+equ DT_LONGVARBINARY$  to 16     ;* variable length binary data
+equ DT_DATE$           to 17     ;* 32-bit date structure
+equ DT_TIME$           to 18     ;* 32-bit time structure
+equ DT_DATETIME$       to 19     ;* 64-bit date/time structure
+equ DT_LASTTYPE$       to 19     ;* used for loops
+
+* nullable flags
+equ N_NOT_NULL$        to 0
+equ N_NULL$            to 1
+equ N_UNKNOWN$         to 2
+
+* DataSet views
+equ V_MASTER$          to 1
+equ V_SELECT$          to 2
+equ V_INSERT$          to 3
+equ V_UPDATE$          to 4
+equ V_DELETE$          to 5
+
+* Row types
+equ RT_SET$            to 0
+equ RT_DEFAULT$        to 1
+equ RT_WORK$           to 2
+equ RT_ORIG$           to 3
+
+* DataSet scripts
+equ S_SELECT$          to 1
+equ S_INSERT$          to 2
+equ S_UPDATE$          to 3
+equ S_DELETE$          to 4
+
+* DSCopy options (at least one must be passed)
+equ DS_COPY_ROW$       to 1
+
+* data object (table) types
+equ OBJ_DATATABLES$    to 1      ;* (default)
+equ OBJ_SYSTABLES$     to 2
+equ OBJ_TEMPTABLES$    to 4
+equ OBJ_VIEWS$         to 8
+equ OBJ_ALIASES$       to 16
+equ OBJ_PROCS$         to 32
+equ OBJ_FUNCS$         to 64
+
+* XOGetInfo questions
+* API-level questions
+equ Q_XOAPIVER$        to 1024   ;* what version is XO API
+equ Q_INIFILE$         to 1025   ;* name of INI file used
+equ Q_LIBSECTION$      to 1026   ;* name of library section
+equ Q_LIBKEY$          to 1027   ;* name of key to lib
+* library-level questions
+equ Q_XOTYPE$          to 2048   ;* db type (ie. "ODBC")
+equ Q_XOVER$           to 2049   ;* supported XO API ver
+equ Q_XODLL$           to 2050   ;*  name of XO DLL
+* connection-level questions
+equ Q_QUOTE$           to 3072   ;* quote string (ie. "'")
+equ Q_QUOTEDQUOTE$     to 3073   ;* escaped quote (ie. "''")
+equ Q_NULL$            to 3074   ;* null token (ie. "NULL")
+equ Q_ET_NORESULTS$    to 3075   ;* discard results
+equ Q_ET_RESULTSET$    to 3076   ;* return set of results
+equ Q_ET_STATCURSOR$   to 3077   ;* bi-directional cursor
+equ Q_ET_DYNCURSOR$    to 3078   ;* bi-directional dynamic
+equ Q_TRANSACT$        to 3079   ;* transactions supported
+equ Q_T_VOID$          to 3080   ;* is type quoted?
+equ Q_T_BIT$           to 3081   ;*
+equ Q_T_UINT1$         to 3082   ;*
+equ Q_T_SINT1$         to 3083   ;*
+equ Q_T_UINT2$         to 3084   ;*
+equ Q_T_SINT2$         to 3085   ;*
+equ Q_T_UINT4$         to 3086   ;*
+equ Q_T_SINT4$         to 3087   ;*
+equ Q_T_DECIMAL$       to 3088   ;*
+equ Q_T_FLOAT$         to 3089   ;*
+equ Q_T_DOUBLE$        to 3090   ;*
+equ Q_T_CHAR$          to 3091   ;*
+equ Q_T_VARCHAR$       to 3092   ;*
+equ Q_T_LONGVARCHAR$   to 3093   ;*
+equ Q_T_BINARY$        to 3094   ;*
+equ Q_T_VARBINARY$     to 3095   ;*
+equ Q_T_LONGVARBINARY$ to 3096   ;*
+equ Q_T_DATE$          to 3097   ;*
+equ Q_T_TIME$          to 3098   ;*
+equ Q_T_DATETIME$      to 3099   ;*
+equ Q_HCONINTERNAL$    to 3100   ;* internal connection handle (eg. for ODBC, the hCon value)
+equ Q_DATECONTROL$     to 3101   ;* date format string (strftime notation)
+equ Q_TIMECONTROL$     to 3102   ;* time format string (strftime notation)
+equ Q_DATETIMECONTROL$ to 3103   ;* date/time format string (strftime notation)
+
+* strftime() (C runtime library) notation
+* (used by Q_...CONTROL$ and the XO_FORMATDATETIME$ property)
+*
+* 1) all tokens start with "%"
+* 2) if "#" follows the "%", then trim leading zeros from the value
+* 3) supported tokens: (HIMSYdfmpy%)
+*      % - the percent sign (ie. swap "%%" with "%")
+*      H - hour in 24-hour format (00-23)
+*      I - hour in 12-hour format (01-12)
+*      M - minute (00-59)
+*      S - second (00-59)
+*      Y - four digit year (0000-9999)
+*      d - day of the month (01-31)
+*      f - fraction of second including decimal point (.0000-.9999)
+*      m - month of the year (01-12)
+*      p - localized AM/PM indicator for a 12-hour clock (eg. AM or PM in the USA)
+*      y - year of the century (00-99)
+* 4) all non-tokens are copied as literal data
+*
+* Example:
+*   "%H:%M:%S%f" -> "03:54:27.1753"
+*   "%#H:%M:%S"  -> "3:54:27"
+*
+* Notes:
+*   Fractional seconds are not supported by all databases; use the precision
+*   for the column to determine if the fractional value is applicable; if the
+*   precision is greater than 20, then fractional seconds are supported.
+

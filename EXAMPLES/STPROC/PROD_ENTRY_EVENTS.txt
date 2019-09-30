@@ -1,0 +1,332 @@
+Subroutine PROD_ENTRY_EVENTS(CtrlEntID,Event,Param1,Param2,Param3,Param4,Param5,Param6)
+*
+* Subroutine Name :PROD_ENTRY_EVENTS
+*
+* Description : Commuter Module for PROD_ENTRY
+*
+* Date : 05/05/2008
+*
+* Author : EXAMPLES
+*
+* OI Version : 8.1.0
+*
+* Comments :
+*
+*** RTI Generated Commuter Module ***
+*
+Declare Function Msg, Get_Property, Set_Status, Get_Status, Set_Property, Popup, Repository, Send_Message
+Declare Function Send_Event
+Declare Subroutine Msg
+*
+$insert LOGICAL
+*
+If index(CtrlEntID,".",1) then
+	WinName = Field(CtrlEntID,'.',1)
+	Control = Field(CtrlEntID,'.',2)
+End else
+	WinName = CtrlEntID
+	Control = WinName
+End
+*
+Parent = @Window
+Frame = Get_Property(Parent,'MDIFRAME')
+If len(Frame) then Parent = Frame
+*
+Retval = 1
+*
+Begin Case
+	Case Control = "ID"
+		Begin Case
+			Case Event = "CALCULATE"
+				*** Insert code for the CALCULATE event here ***
+			Case Event = "DRAGDROP"
+				*** Insert code for the DRAGDROP event here ***
+			Case Event = "DRAGEND"
+				*** Insert code for the DRAGEND event here ***
+			Case Event = "DRAGOVER"
+				*** Insert code for the DRAGOVER event here ***
+			Case Event = "DRAGSTART"
+				*** Insert code for the DRAGSTART event here ***
+			Case Event = "DROPFILES"
+				*** Insert code for the DROPFILES event here ***
+			Case Event = "DSOSETPARAM"
+				*** Insert code for the DSOSETPARAM event here ***
+			Case Event = "GOTFOCUS"
+				*** Insert code for the GOTFOCUS event here ***
+			Case Event = "HELP"
+				*** Insert code for the HELP event here ***
+			Case Event = "LOSTFOCUS"
+				*** Insert code for the LOSTFOCUS event here ***
+			Case Event = "NOTES"
+				*** Insert code for the NOTES event here ***
+			Case Event = "OMNIEVENT"
+				*** Insert code for the OMNIEVENT event here ***
+			Case Event = "OPTIONS"
+				*** Insert code for the OPTIONS event here ***
+			Case Event = "WINMSG"
+				*** Insert code for the WINMSG event here ***
+		End Case
+	Case Control = "DESCRIPTION"
+		Begin Case
+			Case Event = "CALCULATE"
+				*** Insert code for the CALCULATE event here ***
+			Case Event = "DRAGDROP"
+				*** Insert code for the DRAGDROP event here ***
+			Case Event = "DRAGEND"
+				*** Insert code for the DRAGEND event here ***
+			Case Event = "DRAGOVER"
+				*** Insert code for the DRAGOVER event here ***
+			Case Event = "DRAGSTART"
+				*** Insert code for the DRAGSTART event here ***
+			Case Event = "DROPFILES"
+				*** Insert code for the DROPFILES event here ***
+			Case Event = "DSOSETPARAM"
+				*** Insert code for the DSOSETPARAM event here ***
+			Case Event = "GOTFOCUS"
+				*** Insert code for the GOTFOCUS event here ***
+			Case Event = "HELP"
+				*** Insert code for the HELP event here ***
+			Case Event = "LOSTFOCUS"
+				*** Insert code for the LOSTFOCUS event here ***
+			Case Event = "NOTES"
+				*** Insert code for the NOTES event here ***
+			Case Event = "OMNIEVENT"
+				*** Insert code for the OMNIEVENT event here ***
+			Case Event = "OPTIONS"
+				*** Insert code for the OPTIONS event here ***
+			Case Event = "WINMSG"
+				*** Insert code for the WINMSG event here ***
+		End Case
+	Case Control = "PRICE"
+		Begin Case
+			Case Event = "CALCULATE"
+				*** Insert code for the CALCULATE event here ***
+			Case Event = "DRAGDROP"
+				*** Insert code for the DRAGDROP event here ***
+			Case Event = "DRAGEND"
+				*** Insert code for the DRAGEND event here ***
+			Case Event = "DRAGOVER"
+				*** Insert code for the DRAGOVER event here ***
+			Case Event = "DRAGSTART"
+				*** Insert code for the DRAGSTART event here ***
+			Case Event = "DROPFILES"
+				*** Insert code for the DROPFILES event here ***
+			Case Event = "DSOSETPARAM"
+				*** Insert code for the DSOSETPARAM event here ***
+			Case Event = "GOTFOCUS"
+				*** Insert code for the GOTFOCUS event here ***
+			Case Event = "HELP"
+				*** Insert code for the HELP event here ***
+			Case Event = "LOSTFOCUS"
+				*** Insert code for the LOSTFOCUS event here ***
+			Case Event = "NOTES"
+				*** Insert code for the NOTES event here ***
+			Case Event = "OMNIEVENT"
+				*** Insert code for the OMNIEVENT event here ***
+			Case Event = "OPTIONS"
+				*** Insert code for the OPTIONS event here ***
+			Case Event = "WINMSG"
+				*** Insert code for the WINMSG event here ***
+		End Case
+	Case Control = "OK_BUTTON_1"
+		Begin Case
+			Case Event = "CLICK"
+				
+				val = Send_Event("PROD_ENTRY","WRITE")
+				
+			Case Event = "DRAGDROP"
+				*** Insert code for the DRAGDROP event here ***
+			Case Event = "DRAGEND"
+				*** Insert code for the DRAGEND event here ***
+			Case Event = "DRAGOVER"
+				*** Insert code for the DRAGOVER event here ***
+			Case Event = "DRAGSTART"
+				*** Insert code for the DRAGSTART event here ***
+			Case Event = "DROPFILES"
+				*** Insert code for the DROPFILES event here ***
+			Case Event = "GOTFOCUS"
+				*** Insert code for the GOTFOCUS event here ***
+			Case Event = "HELP"
+				*** Insert code for the HELP event here ***
+			Case Event = "LOSTFOCUS"
+				*** Insert code for the LOSTFOCUS event here ***
+			Case Event = "NOTES"
+				*** Insert code for the NOTES event here ***
+			Case Event = "OMNIEVENT"
+				*** Insert code for the OMNIEVENT event here ***
+			Case Event = "SUBMIT"
+				*** Insert code for the SUBMIT event here ***
+			Case Event = "WINMSG"
+				*** Insert code for the WINMSG event here ***
+		End Case
+	Case Control = "CANCEL_BUTTON_2"
+		Begin Case
+			Case Event = "CLICK"
+				
+				val = Send_Event("PROD_ENTRY","CLOSE")
+				
+			Case Event = "DRAGDROP"
+				*** Insert code for the DRAGDROP event here ***
+			Case Event = "DRAGEND"
+				*** Insert code for the DRAGEND event here ***
+			Case Event = "DRAGOVER"
+				*** Insert code for the DRAGOVER event here ***
+			Case Event = "DRAGSTART"
+				*** Insert code for the DRAGSTART event here ***
+			Case Event = "DROPFILES"
+				*** Insert code for the DROPFILES event here ***
+			Case Event = "GOTFOCUS"
+				*** Insert code for the GOTFOCUS event here ***
+			Case Event = "HELP"
+				*** Insert code for the HELP event here ***
+			Case Event = "LOSTFOCUS"
+				*** Insert code for the LOSTFOCUS event here ***
+			Case Event = "NOTES"
+				*** Insert code for the NOTES event here ***
+			Case Event = "OMNIEVENT"
+				*** Insert code for the OMNIEVENT event here ***
+			Case Event = "SUBMIT"
+				*** Insert code for the SUBMIT event here ***
+			Case Event = "WINMSG"
+				*** Insert code for the WINMSG event here ***
+		End Case
+	Case Control = "BUTTON_3"
+		Begin Case
+			Case Event = "CLICK"
+				
+				declare function Msg, Repository, IndexLookup
+				
+				$Insert Msg_Equates
+				
+				*---
+				* we'll display a message with two buttons,
+				* one saying Keyword, and one saying Listing
+				*---
+				mess = ''
+				mess<MTEXT$>  = 'Search by keyword, or entire product Listing?'
+				mess<MTYPE$>  = 'BKeyword,Listing'
+				mess<MCAPTION$> = 'Search Options'
+				mess<MICON$> = '?'
+				resp = msg(@window, mess)
+				
+				if resp = 2 then
+					repos_key = @appid<1>:'*POPUP**PRODUCT_POPUP_SINGLE'
+					keys = Repository('EXECUTE', repos_key, @WINdow)
+					if keys then
+						*.id->text=keys
+						Call Send_Event(@window, 'READ')
+					End
+				end else
+					OwnerWindow = @Window
+					table = 'PRODUCTS'
+					IndexedFields = 'DESCRIPTION_XREF'
+					DISPLAYedfIELDS = 'ID':@VM:'DESCRIPTION'
+					mode = 'SINGLE'
+					popupname = ''
+					keys = IndexLookup(ownerwindow, table, indexedfields, displayedfields, mode, popupname)
+					if len(keys) then
+					*	.id->text=keys
+						Call Send_Event(@window, 'READ')
+					End
+				end
+				
+				Retval =  0
+			Case Event = "DRAGDROP"
+				*** Insert code for the DRAGDROP event here ***
+			Case Event = "DRAGEND"
+				*** Insert code for the DRAGEND event here ***
+			Case Event = "DRAGOVER"
+				*** Insert code for the DRAGOVER event here ***
+			Case Event = "DRAGSTART"
+				*** Insert code for the DRAGSTART event here ***
+			Case Event = "DROPFILES"
+				*** Insert code for the DROPFILES event here ***
+			Case Event = "GOTFOCUS"
+				*** Insert code for the GOTFOCUS event here ***
+			Case Event = "HELP"
+				*** Insert code for the HELP event here ***
+			Case Event = "LOSTFOCUS"
+				*** Insert code for the LOSTFOCUS event here ***
+			Case Event = "NOTES"
+				*** Insert code for the NOTES event here ***
+			Case Event = "OMNIEVENT"
+				*** Insert code for the OMNIEVENT event here ***
+			Case Event = "SUBMIT"
+				*** Insert code for the SUBMIT event here ***
+			Case Event = "WINMSG"
+				*** Insert code for the WINMSG event here ***
+		End Case
+	Case Control = "BTN_IMAGE"
+		Begin Case
+			Case Event = "CLICK"
+				
+				declare function Dialog_Box
+				
+				*id=.id->text
+				desc = .description->text
+				bmp = .image_filename->text
+				
+				title = 'Image for product ':id:', ':desc
+				
+				x = dialog_Box('IMAGE_WINDOW', @window, bmp:@fm:title)
+				
+				Retval =  0
+			Case Event = "DRAGDROP"
+				*** Insert code for the DRAGDROP event here ***
+			Case Event = "DRAGEND"
+				*** Insert code for the DRAGEND event here ***
+			Case Event = "DRAGOVER"
+				*** Insert code for the DRAGOVER event here ***
+			Case Event = "DRAGSTART"
+				*** Insert code for the DRAGSTART event here ***
+			Case Event = "DROPFILES"
+				*** Insert code for the DROPFILES event here ***
+			Case Event = "GOTFOCUS"
+				*** Insert code for the GOTFOCUS event here ***
+			Case Event = "HELP"
+				*** Insert code for the HELP event here ***
+			Case Event = "LOSTFOCUS"
+				*** Insert code for the LOSTFOCUS event here ***
+			Case Event = "NOTES"
+				*** Insert code for the NOTES event here ***
+			Case Event = "OMNIEVENT"
+				*** Insert code for the OMNIEVENT event here ***
+			Case Event = "SUBMIT"
+				*** Insert code for the SUBMIT event here ***
+			Case Event = "WINMSG"
+				*** Insert code for the WINMSG event here ***
+		End Case
+	Case Control = "IMAGE_FILENAME"
+		Begin Case
+			Case Event = "CALCULATE"
+				*** Insert code for the CALCULATE event here ***
+			Case Event = "DRAGDROP"
+				*** Insert code for the DRAGDROP event here ***
+			Case Event = "DRAGEND"
+				*** Insert code for the DRAGEND event here ***
+			Case Event = "DRAGOVER"
+				*** Insert code for the DRAGOVER event here ***
+			Case Event = "DRAGSTART"
+				*** Insert code for the DRAGSTART event here ***
+			Case Event = "DROPFILES"
+				*** Insert code for the DROPFILES event here ***
+			Case Event = "DSOSETPARAM"
+				*** Insert code for the DSOSETPARAM event here ***
+			Case Event = "GOTFOCUS"
+				*** Insert code for the GOTFOCUS event here ***
+			Case Event = "HELP"
+				*** Insert code for the HELP event here ***
+			Case Event = "LOSTFOCUS"
+				*** Insert code for the LOSTFOCUS event here ***
+			Case Event = "NOTES"
+				*** Insert code for the NOTES event here ***
+			Case Event = "OMNIEVENT"
+				*** Insert code for the OMNIEVENT event here ***
+			Case Event = "OPTIONS"
+				*** Insert code for the OPTIONS event here ***
+			Case Event = "WINMSG"
+				*** Insert code for the WINMSG event here ***
+		End Case
+End Case
+*
+return retval

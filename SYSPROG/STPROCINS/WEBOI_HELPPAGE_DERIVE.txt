@@ -1,0 +1,149 @@
+compile insert WEBOI_HELPPAGE_DERIVE
+      SUBROUTINE WEBOI_HELPPAGE_Derive(Command,Instance,iOccurrence,iBlockUniqueFlag,iDeleteFlag,User,iMetaErrorFlag)
+
+* Copyright 2001-2007 Freedomsoft/The Future Is Freedom Pty Ltd. All rights reserved.
+* WEBOI 8.1
+* 20071121
+
+      DECLARE FUNCTION UPCASE,CHANGE,WebOi_PRINT,LOWER
+$INSERT WEBOI_DEFINITION
+$INSERT WEBOI_HELPPAGE_DEFINITION
+
+      Databasee = 'WEBOI'
+      Class = 'HELPPAGE'
+      DatabaseClass = Databasee:Delimiter_Name:Class
+
+      IF FIELD(Command,' ',1) = 'Derive' OR FIELD(Command,' ',1) = 'DeriveValidate' THEN
+         DeriveAttributeList = CHANGE(CHANGE(FIELD(Command,'|',2),' ',@FM),'*',@FM)
+         iDcount_DeriveAttributeList = DCOUNT(DeriveAttributeList,@FM)
+         FOR iDerivePosition = 1 TO iDcount_DeriveAttributeList
+            iDcount_DeriveAttribute = DCOUNT(DeriveAttributeList<iDerivePosition>,Delimiter_Name)
+            BEGIN CASE
+               CASE iDcount_DeriveAttribute = 1
+                  DeriveAttributeList<iDerivePosition> = 'WEBOI':Delimiter_Name:'HELPPAGE':Delimiter_Name:DeriveAttributeList<iDerivePosition>
+               CASE iDcount_DeriveAttribute = 2
+                  DeriveAttributeList<iDerivePosition> = 'WEBOI':Delimiter_Name:DeriveAttributeList<iDerivePosition>
+            END CASE
+NextContinue1:
+         NEXT iDerivePosition
+NextExit1:
+         iDeriveClassFlag = 0
+      END ELSE
+         DeriveAttributeList = ''
+         iDcount_DeriveAttributeList = 0
+         iDeriveClassFlag = 1
+      END
+
+      OriginalValue = ''
+      iCalculationRecurse = 99
+      IF (iDcount_DeriveAttributeList) AND iDcount_DeriveAttributeList < 99 THEN
+         iDeriveClassCalculationRecurse = iDcount_DeriveAttributeList
+      END ELSE
+         iDeriveClassCalculationRecurse = 99
+      END
+      FOR iDeriveCounter = 1 TO iDeriveClassCalculationRecurse
+         ExpressionDatabaseClassList = DatabaseClass
+         ExpressionKeyList = ''
+         ExpressionInstanceList = ''
+         Old_Instance = Instance
+*BreakStart
+         iDeriveAttributeFlag = iDeriveClassFlag
+         IF NOT(iDeriveAttributeFlag) THEN
+            LOCATE 'WEBOI_HELPPAGE_LASTUPDATE' IN DeriveAttributeList USING @FM SETTING iJunk THEN
+               iDeriveAttributeFlag = 1
+            END
+         END
+         IF (iDeriveAttributeFlag) THEN
+            iCalculationRecurse = 1
+            Expression = 'IF(LastUpdate)THEN(LastUpdate)ELSE(DATE())'
+            ExpressionInstance = Instance
+            ExpressionInstanceList<1,1> = LOWER(LOWER(ExpressionInstance))
+            OriginalValue = Instance<WEBOI_HELPPAGE_LASTUPDATE>
+            CALL WEBOI_CLASS_EVALUATE(DatabaseClass,Expression,ExpressionInstance,ExpressionDatabaseClassList,ExpressionKeyList,ExpressionInstanceList,iCalculationRecurse,iBlockUniqueFlag,OriginalValue,iOccurrence,User,Result,iMetaErrorFlag)
+            IF iMetaErrorFlag NE 0 THEN
+               RETURN
+            END
+            Instance<WEBOI_HELPPAGE_LASTUPDATE> = Result
+         END
+         iDeriveAttributeFlag = iDeriveClassFlag
+         IF NOT(iDeriveAttributeFlag) THEN
+            LOCATE 'WEBOI_HELPPAGE_DESTINATION' IN DeriveAttributeList USING @FM SETTING iJunk THEN
+               iDeriveAttributeFlag = 1
+            END
+         END
+         IF (iDeriveAttributeFlag) THEN
+            iCalculationRecurse = 1
+            Expression = "IF(Destination)THEN(UPCASE(Destination))ELSE('R')"
+            ExpressionInstance = Instance
+            ExpressionInstanceList<1,1> = LOWER(LOWER(ExpressionInstance))
+            OriginalValue = Instance<WEBOI_HELPPAGE_DESTINATION>
+            CALL WEBOI_CLASS_EVALUATE(DatabaseClass,Expression,ExpressionInstance,ExpressionDatabaseClassList,ExpressionKeyList,ExpressionInstanceList,iCalculationRecurse,iBlockUniqueFlag,OriginalValue,iOccurrence,User,Result,iMetaErrorFlag)
+            IF iMetaErrorFlag NE 0 THEN
+               RETURN
+            END
+            Instance<WEBOI_HELPPAGE_DESTINATION> = Result
+         END
+         iDeriveAttributeFlag = iDeriveClassFlag
+         IF NOT(iDeriveAttributeFlag) THEN
+            LOCATE 'WEBOI_HELPPAGE_PAGE' IN DeriveAttributeList USING @FM SETTING iJunk THEN
+               iDeriveAttributeFlag = 1
+            END
+         END
+         IF (iDeriveAttributeFlag) THEN
+            iCalculationRecurse = 1
+            Expression = 'IF(Page)THEN(Page)ELSE(UNIQUE(WEBOI_HelpPage_Page))'
+            ExpressionInstance = Instance
+            ExpressionInstanceList<1,1> = LOWER(LOWER(ExpressionInstance))
+            OriginalValue = Instance<WEBOI_HELPPAGE_PAGE>
+            CALL WEBOI_CLASS_EVALUATE(DatabaseClass,Expression,ExpressionInstance,ExpressionDatabaseClassList,ExpressionKeyList,ExpressionInstanceList,iCalculationRecurse,iBlockUniqueFlag,OriginalValue,iOccurrence,User,Result,iMetaErrorFlag)
+            IF iMetaErrorFlag NE 0 THEN
+               RETURN
+            END
+            Instance<WEBOI_HELPPAGE_PAGE> = Result
+         END
+*BreakEnd
+         * Perform Multi Valued iDeleteFlag and Delete Blank Controlling Attribute Processing
+         iDcount_ControlAttribute = DCOUNT(Instance<WEBOI_HELPPAGE_INDEXVALUES>,@VM)
+         iDcount_DeleteAttribute = DCOUNT(Instance<WEBOI_HELPPAGE_INDEXDELETEFLAG>,@VM)
+         IF iDcount_DeleteAttribute > iDcount_ControlAttribute THEN
+            iDcount_ControlAttribute = iDcount_DeleteAttribute
+         END
+         FOR iControlCounter = iDcount_ControlAttribute TO 1 STEP -1
+            iDeleteFlag = 0
+            iDeleteFlag := Instance<WEBOI_HELPPAGE_INDEXDELETEFLAG,iControlCounter>
+            IF (iDeleteFlag NE 0) OR Instance<WEBOI_HELPPAGE_INDEXVALUES,iControlCounter> = '' THEN
+               Instance = DELETE(Instance,WEBOI_HELPPAGE_INDEXMASTER,iControlCounter,0)
+               Instance = DELETE(Instance,WEBOI_HELPPAGE_INDEXVALUES,iControlCounter,0)
+               Instance = DELETE(Instance,WEBOI_HELPPAGE_INDEXBLOCK,iControlCounter,0)
+               Instance = DELETE(Instance,WEBOI_HELPPAGE_INDEXDELETEFLAG,iControlCounter,0)
+            END
+NextContinue2_1:
+         NEXT iControlCounter
+NextExit2_1:
+         iDcount_ControlAttribute = DCOUNT(Instance<WEBOI_HELPPAGE_LINKTOPAGE>,@VM)
+         iDcount_DeleteAttribute = DCOUNT(Instance<WEBOI_HELPPAGE_LINKTODELETEFLAG>,@VM)
+         IF iDcount_DeleteAttribute > iDcount_ControlAttribute THEN
+            iDcount_ControlAttribute = iDcount_DeleteAttribute
+         END
+         FOR iControlCounter = iDcount_ControlAttribute TO 1 STEP -1
+            iDeleteFlag = 0
+            iDeleteFlag := Instance<WEBOI_HELPPAGE_LINKTODELETEFLAG,iControlCounter>
+            IF (iDeleteFlag NE 0) OR Instance<WEBOI_HELPPAGE_LINKTOPAGE,iControlCounter> = '' THEN
+               Instance = DELETE(Instance,WEBOI_HELPPAGE_LINKTOPAGE,iControlCounter,0)
+               Instance = DELETE(Instance,WEBOI_HELPPAGE_LINKTODELETEFLAG,iControlCounter,0)
+               Instance = DELETE(Instance,WEBOI_HELPPAGE_LINKTOSEQUENCE,iControlCounter,0)
+            END
+NextContinue2_2:
+         NEXT iControlCounter
+NextExit2_2:
+      WHILE Old_Instance NE Instance DO
+NextContinue2:
+      NEXT iDeriveCounter
+NextExit2:
+
+      iDeleteFlag = 0
+
+      RETURN
+
+      RETURN WebOi_PRINT('','','')
+

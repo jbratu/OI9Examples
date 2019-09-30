@@ -1,0 +1,164 @@
+compile insert Style_Equates
+
+******************************************************************************
+*
+* Name       :  Style_Equates
+* Description:  Values for various window and control styles
+*
+* History    :
+*   10/26/97  cp   Original programmer, based on Windows SDK and DataTable
+*
+******************************************************************************
+
+* window styles
+equ WS_OVERLAPPED$               to 0
+equ WS_POPUP$                    to 2147483648
+equ WS_CHILD$                    to 1073741824
+equ WS_MINIMIZE$                 to 536870912
+equ WS_VISIBLE$                  to 268435456
+equ WS_DISABLED$                 to 134217728
+equ WS_CLIPSIBLINGS$             to 67108864
+equ WS_CLIPCHILDREN$             to 33554432
+equ WS_MAXIMIZE$                 to 16777216
+equ WS_CAPTION$                  to 12582912
+equ WS_BORDER$                   to 8388608
+equ WS_DLGFRAME$                 to 4194304
+equ WS_VSCROLL$                  to 2097152
+equ WS_HSCROLL$                  to 1048576
+equ WS_SYSMENU$                  to 524288
+equ WS_THICKFRAME$               to 262144
+equ WS_GROUP$                    to 131072
+equ WS_TABSTOP$                  to 65536
+equ WS_MINIMIZEBOX$              to 131072
+equ WS_MAXIMIZEBOX$              to 65536
+
+* extended window styles
+equ WS_EX_DLGMODALFRAME$         to 1
+equ WS_EX_NOPARENTNOTIFY$        to 4
+equ WS_EX_TOPMOST$               to 8
+equ WS_EX_ACCEPTFILES$           to 16
+equ WS_EX_TRANSPARENT$           to 32
+
+* edit styles
+equ ES_LEFT$                     to 0
+equ ES_CENTER$                   to 1
+equ ES_RIGHT$                    to 2
+equ ES_MULTILINE$                to 4
+equ ES_UPPERCASE$                to 8
+equ ES_LOWERCASE$                to 16
+equ ES_PASSWORD$                 to 32
+equ ES_AUTOVSCROLL$              to 64
+equ ES_AUTOHSCROLL$              to 128
+equ ES_NOHIDESEL$                to 256
+equ ES_OEMCONVERT$               to 1024
+equ ES_READONLY$                 to 2048
+equ ES_WANTRETURN$               to 4096
+
+* button styles
+equ BS_PUSHBUTTON$               to 0
+equ BS_DEFPUSHBUTTON$            to 1
+equ BS_CHECKBOX$                 to 2
+equ BS_AUTOCHECKBOX$             to 3
+equ BS_RADIOBUTTON$              to 4
+equ BS_3STATE$                   to 5
+equ BS_AUTO3STATE$               to 6
+equ BS_GROUPBOX$                 to 7
+equ BS_USERBUTTON$               to 8
+equ BS_AUTORADIOBUTTON$          to 9
+equ BS_OWNERDRAW$                to 11
+equ BS_LEFTTEXT$                 to 32
+
+* static text styles
+equ SS_LEFT$                     to 0
+equ SS_CENTER$                   to 1
+equ SS_RIGHT$                    to 2
+equ SS_ICON$                     to 3
+equ SS_BLACKRECT$                to 4
+equ SS_GRAYRECT$                 to 5
+equ SS_WHITERECT$                to 6
+equ SS_BLACKFRAME$               to 7
+equ SS_GRAYFRAME$                to 8
+equ SS_WHITEFRAME$               to 9
+equ SS_USERITEM$                 to 10
+equ SS_SIMPLE$                   to 11
+equ SS_LEFTNOWORDWRAP$           to 12
+
+* listbox styles
+equ LBS_NOTIFY$                  to 1
+equ LBS_SORT$                    to 2
+equ LBS_NOREDRAW$                to 4
+equ LBS_MULTIPLESEL$             to 8
+equ LBS_OWNERDRAWFIXED$          to 16
+equ LBS_OWNERDRAWVARIABLE$       to 32
+equ LBS_HASSTRINGS$              to 64
+equ LBS_USETABSTOPS$             to 128
+equ LBS_NOINTEGRALHEIGHT$        to 256
+equ LBS_MULTICOLUMN$             to 512
+equ LBS_WANTKEYBOARDINPUT$       to 1024
+equ LBS_EXTENDEDSEL$             to 2048
+equ LBS_DISABLENOSCROLL$         to 4096
+equ LBS_NODATA$                  to 8192
+
+* combobox styles
+equ CBS_SIMPLE$                  to 1
+equ CBS_DROPDOWN$                to 2
+equ CBS_DROPDOWNLIST$            to 3
+equ CBS_OWNERDRAWFIXED$          to 16
+equ CBS_OWNERDRAWVARIABLE$       to 32
+equ CBS_AUTOHSCROLL$             to 64
+equ CBS_OEMCONVERT$              to 128
+equ CBS_SORT$                    to 256
+equ CBS_HASSTRINGS$              to 512
+equ CBS_NOINTEGRALHEIGHT$        to 1024
+equ CBS_DISABLENOSCROLL$         to 2048
+
+* scrollbar styles
+equ SBS_HORZ$                    to 0
+equ SBS_VERT$                    to 1
+equ SBS_TOPALIGN$                to 2
+equ SBS_LEFTALIGN$               to 2
+equ SBS_BOTTOMALIGN$             to 4
+equ SBS_RIGHTALIGN$              to 4
+equ SBS_SIZEBOXTOPLEFTALIGN$     to 2
+equ SBS_SIZEBOXBOTTOMRIGHTALIGN$ to 4
+equ SBS_SIZEBOX$                 to 8
+
+* edit table styles
+equ DTS_EDIT$                    to 4
+equ DTS_RESIZE$                  to 8
+equ DTS_NUMBERS$                 to 16
+equ DTS_LETTERS$                 to 32
+equ DTS_OWNERDEF$                to 48
+equ DTS_HGRID$                   to 64
+equ DTS_VGRID$                   to 128
+equ DTS_ROWSELECT$               to 256
+equ DTS_MULTIROW$                to 512
+equ DTS_COLSELECT$               to 1024
+equ DTS_MULTICOL$                to 2048
+equ DTS_SMALLDATA$               to 0
+equ DTS_LARGEDATA$               to 4096
+equ DTS_ROWBUTTONS$              to 8192
+equ DTS_ROWNUMBERS$              to 16384
+equ DTS_DROPDOWN$                to 32768
+equ DTS_AUTODROPDN$              to 32770
+equ DTS_VIRTUALMEM$              to 1
+equ DTS_HSCROLL$                 to 1048576     ;* redundant, WS_HSCROLL$
+equ DTS_VSCROLL$                 to 2097152     ;* redundant, WS_VSCROLL$
+equ DTS_BORDER$                  to 8388608     ;* redundant, WS_BORDER$
+
+* edit-table column styles
+equ DTCS_RESIZE$                 to 1
+equ DTCS_FIXED$                  to 2
+equ DTCS_EDIT$                   to 4
+equ DTCS_PROTECT$                to 8
+equ DTCS_HIDDEN$                 to 32
+equ DTCS_LEFT$                   to 0
+equ DTCS_CENTER$                 to 64
+equ DTCS_RIGHT$                  to 128
+equ DTCS_HEADLEFT$               to 0
+equ DTCS_HEADCENTER$             to 256
+equ DTCS_HEADRIGHT$              to 512
+equ DTCS_LOCKED$                 to 8192
+equ DTCS_SORTASC$                to 16384
+equ DTCS_SORTDESC$               to 32768
+

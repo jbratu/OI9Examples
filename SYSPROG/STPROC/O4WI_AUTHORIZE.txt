@@ -1,0 +1,52 @@
+Function O4WI_AUTHORIZE(uname, pwd, ptime)
+*#!Precompile
+/*
+*  This program is proprietary and is not to be used by or disclosed to others, nor is it to be copied without
+*  written permission from Revelation Technologies, Inc.
+!
+*
+*  VERSION    : 1.0
+*
+*
+*  AUTHOR     : Bryan Shumsky
+*
+*  CREATED    : September 23, 2009
+*
+*
+!
+*
+*  REVISION HISTORY           (Most CURRENT first) :
+*
+*    DATE       IMPLEMENTOR     FUNCTION
+*  --------     -----------     --------
+*
+*	10/29/10	bzs				modified to use hash of password and passed-in time for comparison
+*
+*/
+*
+$Insert O4WCommon
+$Insert O4WEquates
+*
+Declare Function Repository
+Declare Function O4WI_ENCRYPT
+*
+If Assigned(uname) Else uname = ""
+If Assigned(pwd) Else pwd = ""
+If Assigned(ptime) Else ptime = ""
+*
+rslt = ""
+If uname <> "" And pwd <> "" then
+	* Check against permissions file
+	permRecord = Repository("ACCESS", @APPID<1>:"*UINFO*O4W*":uname)
+    CALL SET_STATUS(0) ;* OK IF THIS DOESN'T EXIST
+	* bzs 102910 changed to hash together (already hashed) password from the file with the original form's login time
+	If ptime = "" then
+		If permRecord<1> = pwd Then rslt = permRecord<2>
+	End else
+		HVAL = O4WI_ENCRYPT(permRecord<1>, ptime)
+		If hval = pwd Then rslt = permRecord<2>
+	end
+	* bzs end 102910
+End
+*
+Return rslt

@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "\r\n\r\ndeclare subroutine Forward_Event, Set_Property\r\n\r\nequ TRUE$  to 1\r\nequ FALSE$ to 0\r\n\r\n* tab controls must start with \"PAGE_\" and end with \"_TAB\" with a number in\r\n* between representing the page number associated with the tab\r\nequ TAB_PREFIX$    to  \"PAGE_\"\r\nequ TAB_SUFFIX$    to  \"_TAB\"\r\n\r\n\r\n* handle the page event\r\nForward_Event(PageAction)\r\n\r\n* radio buttons do not auto-check on gotfocus so explicitly set the check\r\nSet_Property(@window: \".\": TAB_PREFIX$ : Get_Property(@window, \"VPOSITION\") <1>: TAB_SUFFIX$, \"CHECK\", TRUE$)\r\n\r\nreturn 0"
+    }
+}

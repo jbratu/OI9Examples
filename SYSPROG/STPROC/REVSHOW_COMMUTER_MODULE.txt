@@ -1,0 +1,131 @@
+Function REVSHOW_COMMUTER_MODULE(ctrlentid,event,p1,p2,p3,p4,p5,p6)
+*
+$Insert REVDOTNETEQUATES
+*
+Declare Function CheckDotNet, Get_Property, Set_Property
+*
+COMMON /REVSHOW/ dotNetHandle, hndlCal
+*
+Equ FORMNAME To CTRLENTID[1,"."]
+Equ DOTNETCTL To FORMNAME:'.DOTNET'
+Equ BUTTON_OK To FORMNAME:'.BUTTON_OK'
+Equ BUTTON_COLOR To FORMNAME:'.BUTTON_COLOR'
+*
+ERRS = ""
+RSLT = 0
+
+Begin Case
+	
+	Case EVENT _EQC "CREATE"
+
+		dotNetHandle = StartDotNet(DotNetCtl)
+		dotNetDir = CheckDotNet("2.0"):"\"
+		rslt = Set_Property.net(dotNetHandle, "AssemblyName", dotNetDir:"System.Windows.Forms.dll")
+		
+		ourClass = "System.Windows.Forms.MonthCalendar"
+		* Determine some info about the assembly and its classes
+		classes = get_info.net(DotNetHandle, REVDOTNET_INFO_CLASSES)
+		If Get_Status(ERRS) Then
+			Gosub handleError
+		End
+		
+		* Create the control
+		hndlCal = create_class.net(DotNetHandle, ourClass)
+		If Get_Status(errs) Then
+			Gosub handleError
+		End
+
+		* Get some more info about this specific control
+		mthds = get_info.net(hndlCal, REVDOTNET_INFO_METHODS)
+		If Get_Status(errs) Then
+			Gosub handleError
+		End
+		mthd = get_info.net(hndlCal, REVDOTNET_INFO_METHODS, "AddBoldedDate")
+		If Get_Status(errs) Then
+			Gosub handleError
+		End
+
+		props = get_info.net(hndlCal, REVDOTNET_INFO_PROPERTIES)
+		If Get_Status(errs) Then
+			Gosub handleError
+		End
+
+		prop = get_info.net(hndlCal, REVDOTNET_INFO_PROPERTIES, "TitleForeColor")
+		If Get_Status(errs) Then
+			Gosub handleError
+		End
+		
+		events = get_info.net(hndlCal, REVDOTNET_INFO_EVENTS)
+		If Get_Status(errs) Then
+			Gosub handleError
+		End
+
+		* Set up the events we care about
+		events.net(hndlCal, 'ForeColorChanged')
+		events.net(hndlCal, 'DateSelected')
+		
+		* Show we can change a property
+		rslt = set_property.net(hndlCal, "TitleForeColor", "Red")
+		rslt = Set_property.net(hndlCal, "SelectionStart", "03/18/2009")
+		rslt = set_property.net(hndlCal, "SelectionEnd", "03/26/2009")
+		rslt = set_property.net(hndlCal, "ShowWeekNumbers", "True")
+		
+		* And invoke a method
+		rslt = send_message.net(hndlCal, "AddBoldedDate", "2009-04-22", "System.DateTime")
+		rslt = send_message.net(hndlCal, "AddBoldedDate", "04/26/2009", "System.DateTime")
+		rslt = send_message.net(hndlCal, "UpdateBoldedDates")
+		
+		* resize the control
+		Gosub resizeMe
+		
+	Case event _eqc "Size"
+		Gosub resizeMe
+	
+	Case event _eqc "OLE" And P1 _eqc "DotNetEvent"
+		caller = P2<1,1>
+		event = P2<1,2>
+		Call Msg(@window, "Event ":event:" has happened!":@FM:"BOK")
+	
+	Case EVENT _EQC "CLICK"
+		Begin Case
+			Case CtrlEntId _eqc BUTTON_COLOR
+				colorList = "Red,Blue,Green,Black"
+				currColor = get_property.net(hndlCal, "ForeColor")
+				* Returned as "Color [<value>]" - just extract the color name
+				currColor = Field(currColor, "[", 2)
+				currColor[-1,1] = ""
+				Locate currColor In colorList Using "," Setting currLoc Else currLoc = 0
+				currLoc += 1
+				If currLoc > 4 Then currLoc = 1
+				newColor = Field(colorList, ",", currLoc)
+				rslt = set_property.net(hndlCal, "ForeColor", newColor)
+			Case CtrlEntId _eqc BUTTON_OK
+				selStart = get_property.net(hndlCal, "SelectionStart")
+				selEnd = get_property.net(hndlCal, "SelectionEnd")
+				DATE1 = Iconv(Field(selStart," ",1), "D")
+				DATE2 = Iconv(Field(selEnd," ",1), "D")
+				OutDate = Oconv(DATE1,'D4/')
+				If DATE1 <> DATE2 Then
+					OutDate := " - ":Oconv(Date2,'D4/')
+				END
+				Call Msg(@WINDOW, "Selected date(s): ":OutDate:@FM:"BOK")
+				Call Send_event(FormName, "CLOSE")
+		End Case
+	
+End Case
+
+Return RSLT
+
+
+HandleError:
+Convert @FM To @VM In ERRS
+Call Msg(@WINDOW, "ERROR: ":ERRS:@FM:"BOK")
+Return
+
+ResizeMe:
+csize = Get_Property(DotNetCtl, "SIZE")
+width = csize<3> - 20
+height = csize<4> - 20
+rslt = set_property.net(hndlCal, "Height", height)
+rslt = set_property.net(hndlCal, "Width", width)
+return

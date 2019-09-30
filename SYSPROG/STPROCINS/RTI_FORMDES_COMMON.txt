@@ -1,0 +1,3 @@
+Compile Insert RTI_FORMDES_COMMON
+
+Common /RTI_FORMDES_COMMON/ new_winstruct%, existing_winstruct%, TYPE_LIST%, make_menu%, make_btns%, YNFields%, reserved6%, reserved7%, reserved8%, WinStruct%

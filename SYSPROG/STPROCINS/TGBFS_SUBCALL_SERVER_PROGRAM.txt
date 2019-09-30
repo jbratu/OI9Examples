@@ -1,0 +1,127 @@
+Compile Insert TGBFS_SUBCALL_SERVER_PROGRAM
+
+
+* rti.interface.subcall
+*
+* $Log: rti.subcall.interface,v $
+* Revision 1.0  2012/03/08 rjc
+* Created.
+*
+* D3/MVBase Server-side program
+* Allow Openinsight to call subroutines with (a option to avoid hung sessions
+* expects to find the id of a record on the command line
+* uses the id to read the parameters from a record in a work file
+* executes @procname, returns the parameters to the record
+* See TGBFS_SUBCALL in OpenInsight.
+* 
+
+SENTE = ""
+TCLREAD SENTE
+SENTE = TRIM(SENTE)
+
+PARAM_ID = FIELD(SENTE, ' ', 2)
+CONVERT '"' TO '' IN PARAM_ID
+CONVERT "'" TO '' IN PARAM_ID
+ERROR = ''
+
+* READ THE RECORD
+OPEN "RTI_SUBCALL" TO F.INTERFACE ELSE
+	STOP 201, "RTI_SUBCALL"
+END
+
+* PARSE THE PARAMETERS
+PARAM_REC = ""
+READ PARAM_REC FROM F.INTERFACE, PARAM_ID ELSE
+   STOP 202, PARAM_ID
+END
+   
+DELIM = CHAR(1)
+FM = CHAR(254)
+
+PROCNAME   = PARAM_REC<1>
+PCOUNT     = PARAM_REC<2>
+ARR_PARAMS = FIELD(PARAM_REC, FM, 3, LEN(PARAM_REC))
+DIM P(PCOUNT+1)
+IF PCOUNT EQ 0 THEN
+	CALL @PROCNAME
+END ELSE	
+	FOR I = 1 TO PCOUNT		
+		P(I) = FIELD(ARR_PARAMS,DELIM,I,1)
+	NEXT I
+	
+	* CALL THE FUNCTION
+	BEGIN CASE
+		CASE PCOUNT EQ 1
+			CALL @PROCNAME(P(1))
+		CASE PCOUNT EQ 2
+			CALL @PROCNAME(P(1), P(2))
+		CASE PCOUNT EQ 3
+			CALL @PROCNAME(P(1), P(2), P(3))
+		CASE PCOUNT EQ 4
+			CALL @PROCNAME(P(1), P(2), P(3), P(4))
+		CASE PCOUNT EQ 5
+			CALL @PROCNAME(P(1), P(2), P(3), P(4), P(5))
+		CASE PCOUNT EQ 6
+			CALL @PROCNAME(P(1), P(2), P(3), P(4), P(5), P(6))
+		CASE PCOUNT EQ 7
+			CALL @PROCNAME(P(1), P(2), P(3), P(4), P(5), P(6), P(7))
+		CASE PCOUNT EQ 8
+			CALL @PROCNAME(P(1), P(2), P(3), P(4), P(5), P(6), P(7), P(8))
+		CASE PCOUNT EQ 9
+			CALL @PROCNAME(P(1), P(2), P(3), P(4), P(5), P(6), P(7), P(8), P(9))
+		CASE PCOUNT EQ 10
+			CALL @PROCNAME(P(1), P(2), P(3), P(4), P(5), P(6), P(7), P(8), P(9), P(10))
+		CASE PCOUNT EQ 11
+			CALL @PROCNAME(P(1), P(2), P(3), P(4), P(5), P(6), P(7), P(8), P(9), P(10), P(11))
+		CASE PCOUNT EQ 12
+			CALL @PROCNAME(P(1), P(2), P(3), P(4), P(5), P(6), P(7), P(8), P(9), P(10), P(11), P(12))
+		CASE PCOUNT EQ 13
+			CALL @PROCNAME(P(1), P(2), P(3), P(4), P(5), P(6), P(7), P(8), P(9), P(10), P(11), P(12), P(13))
+		CASE PCOUNT EQ 14
+			CALL @PROCNAME(P(1), P(2), P(3), P(4), P(5), P(6), P(7), P(8), P(9), P(10), P(11), P(12), P(13), P(14))
+		CASE PCOUNT EQ 15
+			CALL @PROCNAME(P(1), P(2), P(3), P(4), P(5), P(6), P(7), P(8), P(9), P(10), P(11), P(12), P(13), P(14), P(15))
+		CASE PCOUNT EQ 16
+			CALL @PROCNAME(P(1), P(2), P(3), P(4), P(5), P(6), P(7), P(8), P(9), P(10), P(11), P(12), P(13), P(14), P(15), P(16))
+		CASE PCOUNT EQ 17
+			CALL @PROCNAME(P(1), P(2), P(3), P(4), P(5), P(6), P(7), P(8), P(9), P(10), P(11), P(12), P(13), P(14), P(15), P(16), P(17))
+		CASE PCOUNT EQ 18
+			CALL @PROCNAME(P(1), P(2), P(3), P(4), P(5), P(6), P(7), P(8), P(9), P(10), P(11), P(12), P(13), P(14), P(15), P(16), P(17), P(18))
+		CASE PCOUNT EQ 19
+			CALL @PROCNAME(P(1), P(2), P(3), P(4), P(5), P(6), P(7), P(8), P(9), P(10), P(11), P(12), P(13), P(14), P(15), P(16), P(17), P(18), P(19))
+		CASE PCOUNT EQ 20
+			CALL @PROCNAME(P(1), P(2), P(3), P(4), P(5), P(6), P(7), P(8), P(9), P(10), P(11), P(12), P(13), P(14), P(15), P(16), P(17), P(18), P(19), P(20))
+		CASE PCOUNT EQ 21
+			CALL @PROCNAME(P(1), P(2), P(3), P(4), P(5), P(6), P(7), P(8), P(9), P(10), P(11), P(12), P(13), P(14), P(15), P(16), P(17), P(18), P(19), P(20), P(21))
+		CASE PCOUNT EQ 22
+			CALL @PROCNAME(P(1), P(2), P(3), P(4), P(5), P(6), P(7), P(8), P(9), P(10), P(11), P(12), P(13), P(14), P(15), P(16), P(17), P(18), P(19), P(20), P(21), P(22))
+		CASE PCOUNT EQ 23
+			CALL @PROCNAME(P(1), P(2), P(3), P(4), P(5), P(6), P(7), P(8), P(9), P(10), P(11), P(12), P(13), P(14), P(15), P(16), P(17), P(18), P(19), P(20), P(21), P(22), P(23))
+		CASE PCOUNT EQ 24
+			CALL @PROCNAME(P(1), P(2), P(3), P(4), P(5), P(6), P(7), P(8), P(9), P(10), P(11), P(12), P(13), P(14), P(15), P(16), P(17), P(18), P(19), P(20), P(21), P(22), P(23), P(24))
+		CASE PCOUNT EQ 25
+			CALL @PROCNAME(P(1), P(2), P(3), P(4), P(5), P(6), P(7), P(8), P(9), P(10), P(11), P(12), P(13), P(14), P(15), P(16), P(17), P(18), P(19), P(20), P(21), P(22), P(23), P(24), P(25))
+		CASE PCOUNT EQ 26
+			CALL @PROCNAME(P(1), P(2), P(3), P(4), P(5), P(6), P(7), P(8), P(9), P(10), P(11), P(12), P(13), P(14), P(15), P(16), P(17), P(18), P(19), P(20), P(21), P(22), P(23), P(24), P(25), P(26))
+		CASE PCOUNT EQ 27
+			CALL @PROCNAME(P(1), P(2), P(3), P(4), P(5), P(6), P(7), P(8), P(9), P(10), P(11), P(12), P(13), P(14), P(15), P(16), P(17), P(18), P(19), P(20), P(21), P(22), P(23), P(24), P(25), P(26), P(27))
+		CASE PCOUNT EQ 28
+			CALL @PROCNAME(P(1), P(2), P(3), P(4), P(5), P(6), P(7), P(8), P(9), P(10), P(11), P(12), P(13), P(14), P(15), P(16), P(17), P(18), P(19), P(20), P(21), P(22), P(23), P(24), P(25), P(26), P(27), P(28))
+		CASE PCOUNT EQ 29
+			CALL @PROCNAME(P(1), P(2), P(3), P(4), P(5), P(6), P(7), P(8), P(9), P(10), P(11), P(12), P(13), P(14), P(15), P(16), P(17), P(18), P(19), P(20), P(21), P(22), P(23), P(24), P(25), P(26), P(27), P(28), P(29))
+		CASE PCOUNT EQ 30
+			CALL @PROCNAME(P(1), P(2), P(3), P(4), P(5), P(6), P(7), P(8), P(9), P(10), P(11), P(12), P(13), P(14), P(15), P(16), P(17), P(18), P(19), P(20), P(21), P(22), P(23), P(24), P(25), P(26), P(27), P(28), P(29), P(30))
+	END CASE
+
+	* PUT THE PARAMETERS BACK - leave first blank, because it contained prograname/paramcount
+	IF PCOUNT GT 0 THEN
+		PARAM_REC = '' 
+		FOR I = 1 TO PCOUNT
+			VAL = P(I)			
+			PARAM_REC := DELIM:VAL
+		NEXT I
+	END
+	
+	* WRITE THE RECORD
+	WRITE PARAM_REC ON F.INTERFACE, PARAM_ID	
+END

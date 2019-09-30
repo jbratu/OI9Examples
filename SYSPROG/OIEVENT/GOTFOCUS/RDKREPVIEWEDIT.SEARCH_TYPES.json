@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "Common /SEARCHTYPES/ CurSel\r\n\r\nCurSel = .Search_Types->SelPos\r\n\r\nRETURN 0"
+    }
+}

@@ -1,0 +1,87 @@
+Subroutine CUSTOMER_REPORT_EVENTS(CtrlEntID,Event,Param1,Param2,Param3,Param4,Param5,Param6)
+*
+* Subroutine Name :CUSTOMER_REPORT_EVENTS
+*
+* Description : Commuter Module for CUSTOMER_REPORT
+*
+* Date : 10/28/2008
+*
+* Author : EXAMPLES
+*
+* OI Version : 9.0.0
+*
+* Comments :
+*
+*** RTI Generated Commuter Module ***
+*
+********************************************************
+*
+*
+Declare Subroutine Msg
+
+
+Declare Function MSG,GET_PROPERTY,SET_STATUS,GET_STATUS,SET_PROPERTY
+Declare Function POPUP,REPOSITORY,SEND_MESSAGE,SEND_EVENT,UNASSIGNED
+
+$INSERT MSG_EQUATES
+$INSERT POPUP_EQUATES
+
+If Unassigned(CtrlEntID) Then CtrlEntID = ''
+If Unassigned(Event) Then Event = ''
+If Unassigned(Param1) Then Param1 = ''
+If Unassigned(Param2) Then Param2 = ''
+If Unassigned(Param3) Then Param3 = ''
+If Unassigned(Param4) Then Param4 = ''
+If Unassigned(Param5) Then Param5 = ''
+If Unassigned(Param6) Then Param6 = ''
+*
+*
+If index(CtrlEntID,".",1) then
+	WinName = Field(CtrlEntID,'.',1)
+	Control = Field(CtrlEntID,'.',2)
+End else
+	WinName = CtrlEntID
+	Control = WinName
+End
+*
+Parent = @window
+Frame = Get_Property(Parent,'MDIFRAME')
+If len(Frame) then Parent = Frame
+*
+Retval = 1
+*
+Begin Case
+	Case Control = "SEARCH"
+		Begin Case
+			Case Event = "CLICK"
+				ret = popup(@window,'','STATES_POPUP')
+				x = Set_Property(@window:'.STATE','TEXT',ret)
+				Retval = 0
+		End Case
+	Case Control = "CLOSE"
+		Begin Case
+			Case Event = "CLICK"
+				
+				val = Send_Event(@WINDOW,"CLOSE")
+				
+		End Case
+	Case Control = "RUN_REPORT"
+		Begin Case
+			Case Event = "CLICK"
+				CITY = Get_Property(@window:'.CITY','TEXT')
+				STATE = Get_Property(@window:'.STATE','TEXT')
+				OVERRIDE=''
+				If CITY <> '' Then
+					OVERRIDE<8> = 'WITH CITY = "':CITY:'"'
+				End
+				If STATE <> '' Then
+					If OVERRIDE <> '' Then OVERRIDE<8> = OVERRIDE<8> : " AND "
+					OVERRIDE<8> = OVERRIDE<8>:'WITH STATE = "':STATE:'"'
+				End
+				ret = Popup(@window,OVERRIDE,'CUSTOMER_MASTER_REPORT')
+				
+				Retval = 0
+		End Case
+End Case
+*
+return retval

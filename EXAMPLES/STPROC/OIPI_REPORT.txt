@@ -1,0 +1,200 @@
+subroutine OIPI_Report(report,retval,parent)
+/* --------------------------------------------------------------------------
+
+  This  program  is  proprietary and is not  to be used  by or  disclosed to others, nor is it to be copied
+  without written permission from Revelation Technologies, Inc.
+
+ VERSION    : OI 4.0.1
+
+ PURPOSE    : Sample reporting using OIPI
+
+ AUTHOR     : Revelation Software
+
+ CREATED    : January, 2002
+
+ PROCEDURES : This module may be called either as a stored procedure
+              or as an internal subroutine.
+
+ WARNINGS   : Must run in event context. 
+
+ THEORY OF OPERATION :
+			
+			Called from a wizard
+    
+     
+ COMMENTS :
+
+ REVISION HISTORY           (Most CURRENT first) :
+
+    DATE       IMPLEMENTOR     FUNCTION
+  --------     -----------     --------
+  MM-DD-YY     initials        Modification
+
+---------------------------------------------------------------------------*/
+
+declare function Set_Printer, Get_Printer, RGB
+declare function msg, RList, Xlate
+declare subroutine RList, msg, Set_Printer
+$insert OIPRINT_EQUATES
+
+swap @vm with '" "' in retval
+
+Open 'ORDERS' To orders_table else
+	  msg('','Error opening ORDERS	table - Processing stopped')
+	  return
+End
+
+Begin Case
+	case report = 'CUSTOMER'
+		stmt = 'SELECT ORDERS  BY CUST_NO '	
+		If len(retval) then stmt:= ' WITH CUST_NO ' :QUOTE(RETVAL)
+	case report = 'PRODUCT'
+		stmt = 'SELECT ORDERS BY ITEM'
+		if len(retval) then stmt:= ' WITH ITEM ' :QUOTE(RETVAL)
+	case report = 'DATE'
+		stmt = 'SELECT ORDERS BY ORDER_DATE'
+		If len(retval) then stmt:= ' WITH CUST_NO ' :QUOTE(RETVAL)
+End Case
+
+ClearSelect
+Rlist(stmt,5,'','','')
+
+FileName = "OIPI Order by ":report:" Report"
+PrintTitle = "OIPI Printing..."
+PreviewTitle = "OIPI Print Preview"
+
+Margins = 1:@FM:1:@FM:1:@FM:1	;* One inch margins
+Orientation = 0					;* Force portait
+PrintSetup = ""
+PrintSetup<1, 1> = 5	;* Print Preview at a specific location
+PrintSetup<1, 2> = 2	;* Hide PrintSetup button
+PrintSetup<2>    = -1	;* Set initial zoom to PageWidth
+PrintSetup<3>    = 5	;* Set the Print Preview position at 5% from top and left
+PrintSetup<4>    = 5
+PrintSetup<5>    = 95
+PrintSetup<6>    = 95
+
+if Set_Printer("INIT", FileName, PrintTitle:@FM:PreviewTitle, Margins, Orientation, PrintSetup) < 0 then
+  * Always check the return value of the INIT message for error
+  ErrorMsg = "Fatal error with the INIT message"
+  goto fatalExit
+end
+
+report_header = 'ORDERS BY ':report
+if Set_Printer("TEXT", report_header) < 0 then
+  * I'm not going to check the remaining TEXT messages, because if the first one
+  * works then the remaining TEXT messages should also work.
+  ErrorMsg = "Error with the TEXT message"
+  goto fatalExit
+end
+
+* print 2 blank lines
+Set_Printer("TEXT", "")
+Set_Printer("TEXT", "")
+
+header = "Order #":@VM:"Date":@VM:"Item":@vm:"Description":@vm:"Qty":@vm:"Price":@FM
+table = ''
+prev_item = ''
+first_pass = 1
+done = ''
+record = ''
+key = ''
+hold_cust_no = ''
+
+loop 
+	readnext key, which_value else done = 'YES'
+	until done = 'YES'
+		*if which_value then debug
+		
+		record = Xlate('ORDERS', key, '', 'X')
+		this_item = record<3, which_value>
+		if report = 'PRODUCT' THEN
+			if first_pass then
+				prev_item = this_item
+				first_pass = ''
+			End
+		
+			if this_item = prev_item then
+				*---
+				* print info
+				*---
+				gosub Print_Detail_prod		
+					
+			end
+		end
+		
+		if report = 'CUSTOMER' then
+			cust_no = record<1>
+			if cust_no = hold_cust_no then
+				gosub Print_Detail_Cust
+			end else
+				if hold_cust_no = '' else
+					ColumnFormat = "_^770":@VM:"_>1440":@VM:"_>1800":@vm:"_<3270":@VM:"__>500":@vm:"_>1440":@FM
+					if Set_Printer("ADDTABLE", ColumnFormat, header, table, RGB(0, 222, 0), "", "", TB_BOX_COLUMNS) < 0 then goto fatalExit
+					table = ''
+				end
+				hold_cust_no = cust_no
+				* print a customer name line
+				customer_name = xlate('ORDERS', key,'CUSTOMER_NAME','X')
+				Set_Printer("TEXT", "")
+				Set_Printer("TEXT", "")
+				x = Set_Printer("TEXT", customer_name)
+				Set_Printer("TEXT", "")
+				gosub Print_Detail_Cust
+			end
+		end
+		If Report = "DATE" Then
+		   gosub Print_Detail_Cust
+		end
+		prev_item = this_item
+repeat
+
+* ensure last detail prints
+ColumnFormat = "_^770":@VM:"_>1440":@VM:"_>1800":@vm:"_<3270":@VM:"__>500":@vm:"_>1440":@FM
+if Set_Printer("ADDTABLE", ColumnFormat, header, table, RGB(0, 222, 0), "", "", TB_BOX_COLUMNS) < 0 then goto fatalExit
+
+* End the report and tell the OIPI to completely shut down after the print preview is closed.
+x = Set_Printer("TERM", 1)
+return
+
+* jump here if any Set_Printer returns a value < 0
+fatalExit:
+  x = msg("", ErrorMsg)
+  x = Set_Printer("TERM", 1)
+return
+
+Print_Detail_Cust:
+
+date = OConv(record<4>,'D4/')
+qty = record<2>
+item = record<3>
+price = OConv(record<5>,'MD2$')
+description = xlate('ORDERS', key,'DESCRIPTION','X')
+cnt = count(qty, @vm) + (qty# "")
+if cnt > 1 then
+	for i = 1 to cnt
+		if i = 1 then	
+			table<-1> = key:@vm:date:@vm:item<1,i>:@vm:description<1,i>:@vm:qty<1,i>:@vm:price<1,i>
+		end else
+			table<-1> = @vm:@vm:item<1,i>:@vm:description<1,i>:@vm:qty<1,i>:@vm:price<1,i>
+		end
+	next i
+end else
+	table<-1> = key:@vm:date:@vm:item:@vm:description:@vm:qty:@vm:price
+end
+
+return
+
+
+Print_Detail_Prod:
+
+date = OConv(record<4>,'D4/')
+qty = record<2>
+item = record<3>
+price = OConv(record<5>,'MD2$')
+description = xlate('ORDERS', key,'DESCRIPTION','X')
+
+table<-1> = key:@vm:date:@vm:item<1,which_value>:@vm:description<1,which_value>:@vm:qty<1,which_value>:@vm:price<1,which_value>
+
+
+return

@@ -1,0 +1,41 @@
+COMPILE INSERT WEBOI_OIForm_Definition
+
+* Copyright 2006-2007 Freedomsoft/The Future Is Freedom Pty Ltd. All rights reserved.
+* WEBOI 9.0.1
+* 20080422
+
+      EQU OIForm_Name TO 1
+      EQU OIForm_Type TO 2
+      EQU OIForm_XPosition TO 3
+      EQU OIForm_YPosition TO 4
+      EQU OIForm_Width TO 5
+      EQU OIForm_Height TO 6
+      EQU OIForm_Alignment TO 7
+      EQU OIForm_Image TO 8
+      EQU OIForm_Text TO 9
+      EQU OIForm_Font TO 10
+      EQU OIForm_Style TO 11
+      EQU OIForm_ListData TO 12
+      EQU OIForm_ControlName TO 13
+      EQU OIForm_WebControlName TO 14
+      EQU OIForm_WebContainerName TO 15
+      EQU OIForm_DatabaseClass TO 16
+      EQU OIForm_ColumnName TO 17
+      EQU OIForm_AttributeName TO 18
+      EQU OIForm_AttributeWidth TO 19
+      EQU OIForm_AttributeHeading TO 20
+      EQU OIForm_AttributeValue TO 21
+      EQU OIForm_EventEvent TO 22
+      EQU OIForm_EventEntityID TO 23
+      EQU OIForm_EventParameters TO 24
+      EQU OIForm_EventMessage TO 25
+      EQU OIForm_Page TO 26
+      EQU OIForm_MenuTitle TO 27
+      EQU OIForm_MenuDescription TO 28
+      EQU OIForm_MenuItemTitle TO 29
+      EQU OIForm_MenuItemDescription TO 30
+      EQU OIForm_MenuItemAction TO 31
+      EQU OIForm_TabTitle TO 32
+      EQU OIForm_TabPage TO 33
+	  EQU OIForm_TableList TO 34
+

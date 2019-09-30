@@ -1,0 +1,115 @@
+* compile insert NOTES_EQUATES
+
+EQU OI_ITEM_SIGN$       to 1
+EQU OI_ITEM_SEAL$       to 2
+EQU OI_ITEM_APPEND$     to 4
+EQU OI_ITEM_NONSUMMARY$	to 8
+
+* types of notes available to search for with OpenNote(...,'LINEAR',...)
+* to search for notes of more than one class, add the equates together 
+* (e.g. NOTE_CLASS_DOCUMENT$ + NOTE_CLASS_FORM$)
+EQU NOTE_CLASS_NONE$		to 0		;*  Nothing.
+EQU NOTE_CLASS_DOCUMENT$	to 1		;*  Document (data) note.
+EQU NOTE_CLASS_DATA$		to 1		;*  Same as NOTE_CLASS_DOCUMENT - used prior to version 3.0 of the API.
+EQU NOTE_CLASS_INFO$		to 2		;*  Database Policy note also known as Help-About Database document.
+EQU NOTE_CLASS_FORM$		to 4		;*  Form note.
+EQU NOTE_CLASS_VIEW$		to 8		;*  View note.
+EQU NOTE_CLASS_ICON$		to 16		;*  Icon note.
+EQU NOTE_CLASS_DESIGN$		to 32		;*  A special view note that is a collection of all forms, views, macros, and replicaton formulas.
+EQU NOTE_CLASS_ACL$			to 64		;*  Access control list note.
+EQU NOTE_CLASS_HELP_INDEX$	to 128		;*  Help index note.
+EQU NOTE_CLASS_HELP$		to 256		;*  Database Help note also known as Help-Using Database document.
+EQU NOTE_CLASS_FILTER$		to 512		;*  Macro (filter) note.
+EQU NOTE_CLASS_FIELD$		to 1024		;*  Field note.
+EQU NOTE_CLASS_REPLFORMULA$	to 2048		;*  Replication formula note.
+EQU NOTE_CLASS_ALLNONDATA$	to 32766	;*  All types of notes except data notes.
+EQU NOTE_CLASS_ALL$			to 32767	;*  All note types.
+
+* values returned for each column by ListViewColumns(...)
+EQU VIEW_COLUMN_ITEM_NAME$		to 1	;*  Item name.
+EQU VIEW_COLUMN_TITLE$			to 2	;*  Title.
+EQU VIEW_COLUMN_FORMULA$		to 3	;*  1 or 0 if formula.
+EQU VIEW_COLUMN_SORTED$			to 4	;*  1 or 0 if sorted.
+EQU VIEW_COLUMN_CATEGORIZED$	to 5	;*  1 or 0 if categorized.
+EQU VIEW_COLUMN_DESCENDING$		to 6	;*  1 or 0 if descending.
+EQU VIEW_COLUMN_HIDDEN$			to 7	;*  1 or 0 if hidden.
+EQU VIEW_COLUMN_RESPONSE$		to 8	;*  1 or 0 if response.
+EQU VIEW_COLUMN_ICON$			to 9	;*  1 or 0 if icon.
+EQU VIEW_COLUMN_FORMULA_TEXT$   to 10   ;*  Decompiled formula.
+EQU VIEW_COLUMN_DISPLAY_WIDTH$  to 11   ;*  Display width.
+
+* values returned for each database by ListNotesDatabases(...)
+EQU NOTES_DATABASE_TITLE$		to 1	;*  Title.
+EQU NOTES_DATABASE_PATH$		to 2	;*  Path.
+EQU NOTES_DATABASE_TYPE$		to 3	;*  Type.
+EQU NOTES_DATABASE_INFO$		to 4	;*  Info.
+
+* values returned for each field by ListFormFields(...) and ListSharedFields(...)
+
+EQU FORM_FIELD_NAME$  to 1 ;* Name.
+EQU FORM_FIELD_TYPE$  to 2 ;* Data type.
+EQU FORM_FIELD_FLAGS$ to 3 ;* Flag values (see below).
+
+* some possible values for FORM_FIELD_FLAGS$
+EQU COMPUTED_WHEN_COMPOSED$ to  128 ;* 0x0080
+EQU EDITABLE$               to  130 ;* 0x0082
+EQU COMPUTED_FOR_DISPLAY$   to  384 ;* 0x0180
+EQU COMPUTED$               to  392 ;* 0x0188
+EQU SHARED_FIELD_REFERENCE$ to 2186 ;* 0x088a
+
+* types of compression for SetNoteAttachment
+EQU COMPRESS_NONE$ to 0 ;* No compression
+EQU COMPRESS_HUFF$ to 1 ;* Huffman encoding compression
+
+* options for ReplicateNotesServer
+EQU REPL_OPTION_RCV_NOTES$  to     1 ;* Receive notes from server
+EQU REPL_OPTION_SEND_NOTES$ to     2 ;* Send notes to server
+EQU REPL_OPTION_ALL_DBS$    to     4 ;* Replicate all database files
+EQU REPL_OPTION_ALL_NTFS$   to  1024 ;* Replicate all template files
+EQU REPL_OPTION_ALL_FILES$  to  1028 ;* Replicate all databases and templates
+EQU REPL_OPTION_PRI_LOW$    to     0 ;* Replicate low, medium and high priority
+EQU REPL_OPTION_PRI_MED$    to 16384 ;* Replicate medium and high priority
+EQU REPL_OPTION_PRI_HI$     to 32768 ;* Replicate high priority
+EQU REPL_OPTION_CLOSE_SESS$ to    64 ;* Close sessions when done
+
+* output from ReplicateNotesServer
+EQU REPL_SERV_STATS_PULL$                   to 1 ;* Statistics for files received
+EQU REPL_SERV_STATS_PUSH$                   to 2 ;* Statistics for files sent
+EQU REPL_SERV_STATS_STUBS_INITIALIZED$      to 3 ;* Replication stubs initialized
+EQU REPL_SERV_STATS_TOTAL_UNREAD_EXCHANGES$ to 4 ;* Unread marks exchanged
+EQU REPL_SERV_STATS_NUMBER_ERRORS$          to 5 ;* Number of errors
+EQU REPL_SERV_STATS_LAST_ERROR$             to 6 ;* Last error
+EQU REPL_FILE_STATS_TOTAL_FILES$            to 1 ;* Total files processed
+EQU REPL_FILE_STATS_FILES_COMPLETED$        to 2 ;* Number of files completed
+EQU REPL_FILE_STATS_NOTES_ADDED$            to 3 ;* Number of notes added
+EQU REPL_FILE_STATS_NOTES_DELETED$          to 4 ;* Number of notes deleted
+EQU REPL_FILE_STATS_NOTES_UPDATED$          to 5 ;* Number of notes updated
+EQU REPL_FILE_STATS_SUCCESSFUL$             to 6 ;* Number of successes
+EQU REPL_FILE_STATS_FAILED$                 to 7 ;* Number of failures
+EQU REPL_FILE_STATS_NUMBER_ERRORS$          to 8 ;* Number of errors
+
+* access control levels
+EQU ACL_LEVEL_NOACCESS$  to 0 ;* No access to database
+EQU ACL_LEVEL_DEPOSITOR$ to 1 ;* Can add new documents
+EQU ACL_LEVEL_READER$    to 2 ;* Can only read documents
+EQU ACL_LEVEL_AUTHOR$    to 3 ;* Can create documents and edit them
+EQU ACL_LEVEL_EDITOR$    to 4 ;* Can create and edit any document
+EQU ACL_LEVEL_DESIGNER$  to 5 ;* Can edit and design database
+EQU ACL_LEVEL_MANAGER$   to 6 ;* Can edit, design and maintain ACL
+
+* access level modifiers
+EQU ACL_FLAG_AUTHOR_NOCREATE$ to 1 ;* Can only edit existing notes 
+EQU ACL_FLAG_OBSOLETE$        to 2 ;* V1/V2 Trusted server
+EQU ACL_FLAG_NODELETE$        to 4 ;* Cannot delete notes
+
+* access role constants
+equ ACL_PRIVMAXSTRING$ to 18
+equ ACL_PRIVCOUNT$     to 80
+ 
+* output from ListViewFlags
+EQU VIEW_FLAG_COLLAPSED$  to 1 ;* Default to fully collapsed 
+EQU VIEW_FLAG_FLATINDEX$  to 2 ;* Do not index hierarchically
+EQU VIEW_FLAG_DISPUNREAD$ to 3 ;* Display unread flags in margin
+EQU VIEW_FLAG_CONFLICT$   to 4 ;* Contains $Conflict column
+
+* Source Date: 09:06:17  21 AUG 1995  Build ID: OINOTES*2.7.9  Level: 2.7

@@ -1,0 +1,12 @@
+COMPILE Insert RTI_READU_EQUATES
+
+$insert Fserrors_Hdr
+$insert FSErrors_100
+$insert FSErrors_200
+$insert FSErrors_400
+
+EQU STATUS_READ_OK$ TO 1
+Equ STATUS_WRITE_OK$ To 1
+
+Declare Function RTI_READU, RTI_WRITEU, RTI_WRITERELEASE
+

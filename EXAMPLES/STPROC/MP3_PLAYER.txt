@@ -1,0 +1,669 @@
+Compile Subroutine MP3_Player(Branch)
+/* Author			: David Goddard, Revelation Software Australia Pty Ltd
+  Written			: 25 September 2002
+  Description	: Commuter Module for the MP3_Player Form. 
+								This is an example of how to intereact with an OCX control. 
+								This control manipulates MP3 files. The MP3_MP3OCX insert details the Properties,
+								Events and Methods of the OCX.
+								
+								There are examples of getting and setting OCX properties:
+													MP3Artist	- The name of the Artist as stored in the MP3 Tag 
+													MP3Title	- The title of the track as stored in the MP3 Tag
+													MP3Album	- The Album name as stored in the MP3 Tag
+													
+								Executing OCX Methods
+													Open			-	Opens the MP3 file ready for playback etc
+													Play			- begins playback of the MP3 file
+													Stop			- Stops palyack of the MP3 file
+													
+								Trapping OCX Events
+													ActTime	- This event is triggered every 1 seconds	during playback
+													ThreadEnded - This event is triggered when the file stops playing
+													
+	Ammendments	:
+  DD/MM/YYYY	Who		Description
+  
+*/
+
+
+$Insert MP3_MP3OCX
+$Insert Message_Box_Equates
+
+Declare Function Send_Message, Get_Property, Set_Property, Utility, Message_Box, Dialog_Box, Send_Event
+Declare Subroutine Update_Index, Delete_Row, Delay
+
+Begin Case
+	Case Branch = "CREATE"				; Gosub Create
+	Case Branch = "ADDDIRECTORY"	; Gosub AddDirectory
+	Case Branch = "ADDTRACKS"			; Gosub AddTracks
+	Case Branch = "ADDTOPLAYLIST" ; Gosub AddToPlayList
+	Case Branch = "PLAYLISTOPEN"	; Gosub PlaylistOpen
+	Case Branch = "PLAYLISTCLEAR"	; Gosub PlayListClear
+	Case Branch = "PLAYLISTOPENCREATE"	; Gosub PlayListOpen	
+	Case Branch = "PLAYLISTOPENOPEN"		; Gosub PlayListOpen
+	Case Branch = "PLAYLISTOPENDELETE"	; Gosub PlayListOpen
+	Case Branch = "PLAYLISTSAVECREATE"	; Gosub PlayListSave	
+	Case Branch = "PLAYLISTSAVESAVE"		; Gosub PlayListSave
+	Case Branch = "PLAYLISTSAVECLICK"		; Gosub PlayListSave
+	Case Branch = "PLAY"					; Gosub Play	
+	Case Branch = "PLAYNOW"				; Gosub PlayNow
+	Case Branch = "PLAYNEXT"			; Gosub PlayNext
+	Case Branch = "PLAYPREVIOUS"	; Gosub PlayPrevious
+	Case Branch = "PAUSE"					; Gosub Pause	
+	Case Branch = "STOP"					; Gosub Stop
+	Case Branch = "TRACKPOSITION"	; Gosub TrackPosition
+	Case Branch = "STOPPEDPLAYING"; Gosub StoppedPlaying
+	Case Branch = "ABOUT"					; Gosub About
+	Case Branch = "CLOSE" 				; Gosub Close
+	Case Branch = "VOLUME"				; Gosub Volume
+	Case Branch = "MUTE"					; Gosub Mute
+	Case Branch = "DELETE"				; Gosub Delete
+	Case Branch = "ADDDIALOG"			; Gosub AddDialog
+			
+End Case
+	
+Return
+
+*---------------------------------------------------------------
+* Internal Subroutines
+*---------------------------------------------------------------
+* 
+*----------
+CREATE:
+*----------
+*
+	* Here we setup to caputre the OLE events
+ 	Val = Send_Message(@Window:MP3PLAYERCONTROL$, "QUALIFY_EVENT", ActTime$, "1":@FM:"2*":@APPID<1>:"*OMNIEVENT*":@Window:".")
+	Val = Send_Message(@Window:MP3PLAYERCONTROL$, "QUALIFY_EVENT", FinishedPlaying$, "1":@FM:"2*":@APPID<1>:"*OMNIEVENT*":@Window:".PLAYLIST")
+	
+	* Load the Library Info into the Edit Table
+	Gosub Library_Load
+	
+	* Clear the Current Playlist
+	Val = Set_Property(@Window:".PLAYLIST","LIST","")
+	
+Return
+
+*----------
+AddDialog:
+*----------
+
+Val = Dialog_Box("MP3_ADDLIBRARY",@WINDOW, "")
+
+Return
+
+*----------
+AddDirectory:
+*----------
+*
+* Display the directory dialog box to allow the user to select where their MP3 files are
+*
+	Directory = Get_Property(@Window:".DIRECTORY","TEXT")
+
+	CFOpt = ""
+	CFOpt<1> = "Add to Library (inc Sub Directories)" ;* Title for Dialog Box
+	CFOpt<2> = Directory
+
+	Directory = Utility("CHOOSEDIR", @window, CFOpt)
+	
+	Val = Set_Property(@Window:".DIRECTORY","TEXT",Directory)
+	
+	* Grab the files in the selected directory
+	InitDir Directory:"\*.MP3"
+ 	FILES = DirList()
+
+	Val = Set_Property(@Window:".DIRECTORY","TEXT",Directory)
+	Val = Set_Property(@Window:".TRACKS","LIST",FILES)
+	
+Return 
+
+*----------
+AddTracks:
+*----------
+*
+* Add the tracks from the selected Directory to the Library
+*
+
+Directory = Get_Property(@Window:".DIRECTORY","TEXT")
+Include_SubDir = Get_Property(@Window:".SUBDIRECTORY","CHECK")
+
+If Include_SubDir = 1 Then
+	* The user wants us to add tracks from all subdirectories as well.
+	* We need to build a list of Directories to search
+	Level = 1
+	Loop
+		For i = 1 to Count(Directory<Level>,@vm) + Len(Directory<Level>[1,1])
+			InitDir Directory<Level,i>:"\*."
+			SubDirs = DirList()
+			If Len(SubDirs) then
+				For j = 1 to Count(SubDirs,@FM) + Len(SubDirs[1,1])
+					Directory = Insert(Directory,Level+1,-1,0,Directory<Level,i>:"\":SubDirs<j>)
+				Next j
+			End
+		Next i
+		Level += 1
+	Until Directory<Level> = "" do
+	Repeat	
+	Convert @VM to @FM in Directory
+End	
+				
+If Len(Directory) then
+	OrigCursor = Utility("CURSOR","H")
+	Open "MP3_LIBRARY" TO Library_File then
+		For i = 1 to Count(Directory,@FM) + 1
+			* Grab the files in the selected directory
+			InitDir Directory<i>:"\*.MP3"
+ 			FILES = DirList()
+	
+		 	If Len(Files) then
+ 				* Ok, We found some files to add. 
+ 				* Loop through each file and add to the library
+ 				For j = 1 to Count(Files,@FM) + 1
+	
+					Library_Id = Files<j>
+					* We convert spaces to # in the key.
+					Convert " " to "#" in Library_Id
+				
+					FileName = Directory<i>:"\":Files<j>
+				
+					* Now lets check to see if this file is already in the library
+					Read Library_Rec from Library_File, Library_Id Then
+						* Ok, this file has already been added, so lets skip it
+					End Else
+						Library_Rec = ""				
+						* Update the OLEControl so we can extract the Tag Info and save this to file
+					
+						Val = Send_Message(@Window:MP3PLAYERCONTROL$,Open$,FileName)
+	
+						* Grab the Info from the ID Tag
+						Library_Rec<1> = get_property(@window:MP3PLAYERCONTROL$,Artist$)
+						Library_Rec<2> = get_property(@window:MP3PLAYERCONTROL$,Title$)					
+						Library_Rec<3> = get_property(@window:MP3PLAYERCONTROL$,Album$)
+						Library_Rec<4> = get_property(@window:MP3PLAYERCONTROL$,Genre$)
+						Library_Rec<5> = INT(get_property(@window:MP3PLAYERCONTROL$,Length$)/1000)
+						Library_Rec<6> = get_property(@window:MP3PLAYERCONTROL$,Year$)
+						Library_Rec<7> = FileName
+					
+						* Now write the data to the file
+						Write Library_Rec on Library_File,Library_Id then
+							* All Done
+						End
+					End					
+					Val = Send_Message(@Window:MP3PLAYERCONTROL$,Close$)
+				Next j
+			End
+		Next i					
+	End
+	* Update the Indexes
+	Update_Index("MP3_LIBRARY", "", 1)
+	
+	* Now go and refresh the Library List
+	Gosub Library_Load					
+	Val = Send_Event(@Window,"CLOSE")
+	Val = Utility("CURSOR",OrigCursor)
+End
+
+RETURN
+
+*
+*----------
+AddToPlayList:
+*----------
+*
+* Add to The Playlist Window.
+* We are going to add this track to the playlist. 
+* If this is the first track or no other track is playing then we will start playing this track.
+
+	* Get the selected track information
+	LibraryList = Get_Property(@Window:".LIBRARY","LIST")
+	SelPos 	= Get_Property(@Window:".LIBRARY","SELPOS")
+	Col 	= Selpos<1>
+	Row		= SelPos<2>
+	
+	ClickPos = Get_Property(@Window:".LIBRARY","CLICKPOS")
+	
+	PlayListPos = Get_Property(@Window:".PLAYLIST","SELPOS")
+	Filename = LibraryList<Row,7>
+	
+	If ClickPos = 1 then
+		* We want to sort the edittable
+		* we'll store toggle information in a user defined property
+		orig_sortinfo = get_Property(@Window:".LIBRARY", '@SORTEDCOL')
+		orig_col = orig_sortinfo<1>
+		orig_val = orig_sortinfo<2>
+		If orig_col = col then
+			If orig_val = 1 Then val = 0 Else Val = 1
+		End Else
+			Val = 1
+		end
+		void = Set_Property(@Window:".LIBRARY", 'SORTEDCOL', col:@fm:Val)
+		void = Set_Property(@Window:".LIBRARY", '@SORTEDCOL', col:@fm:Val)
+	End else
+		* Add the track to the Playlist 
+		PlayList = Get_Property(@Window:".PLAYLIST","LIST")
+		PlayListCnt = Count(PlayList,@FM) + Len(Playlist[1,1])
+		PlayList = Insert(PlayList,-1,0,0,LibraryList<Row, 2>:" by ":LibraryList<Row, 1>:@VM:LibraryList<Row, 7>)
+		Val = set_property(@Window:".PLAYLIST","LIST",PLAYLIST)		
+		
+		If PlayListCnt = 0 then
+			* This is the first track, so lets add it to Now Playing and start to play it
+			Val = Set_Property(@Window:".PLAYLIST","SELPOS",1:@FM:1)
+			Gosub Play
+		End	Else
+			* Set the PlayPos back to the original Postion
+			Val = Set_Property(@Window:".PLAYLIST","SELPOS",PlayListPos)
+		End	
+	End
+	
+RETURN
+
+*
+*----------
+PlayListClear:
+*----------
+* * Clears the current playlist
+	* We must also stop the current track from playing
+	
+	Gosub Stop
+
+	Val = Set_Property(@Window:".PLAYLIST","LIST","")
+Return	
+
+*
+*----------
+PlayListOpen:
+*----------
+* * Display a list of Playlists to load
+*
+	Begin Case
+		Case Branch = "PLAYLISTOPENCREATE"
+			* The Open Dialog has opened. Load the current playlists
+			Open "MP3_PLAYLIST" to PlayList_File then
+				Select PlayList_File
+				EOF = 0
+				PlayList = ""
+				Loop
+					ReadNext Id Else EOF = 1
+				Until EOF = 1 do
+					PlayList = Insert(PlayList,-1,0,0,Id)
+				Repeat
+				Convert "#" to " " In PlayList
+				Val = Set_Property(@Window:".PLAYLIST","LIST",PlayList)
+			End		
+		Case Branch = "PLAYLISTOPENDELETE"			
+			* The User wants to delete a Playlist
+			PlayListPos = Get_Property(@Window:".PLAYLIST","SELPOS")
+			PlayListName = Get_Property(@Window:".PLAYLIST","LIST")<PlayListPos>
+			Val = Message_Box(@Window,"Delete Playlist ":PlayListName:"?","PlayList Delete?",MSG_BTN_YESNOCAN$ + MSG_DEFAULT2$ + MSG_ICON_QUESTION$)
+			If Val = 6 then
+				Convert " " to "#" in PlayListName		
+				Delete_Row("MP3_PLAYLIST",PlayListName,"")
+				* Now go and refresh the PlayList List
+				Val = Send_Event(@Window,"CREATE")
+			End			
+		Case Branch = "PLAYLISTOPENOPEN"
+			* The user has selected a playlist to Open. 
+			Open "MP3_PLAYLIST" to PlayList_File Then
+				PlayListPos = Get_Property(@Window:".PLAYLIST","SELPOS")
+				PlayListname = Get_Property(@Window:".PLAYLIST","LIST")<PlayListPos>
+				Convert " " to "#" in PlayListName
+				Read PlayList from PlayList_File, PlayListName Then
+					* Update the Playlist Control in the Player Window
+					Val = Set_Property("MP3_PLAYER.PLAYLIST","LIST",PlayList)
+					Val = Set_Property("MP3_PLAYER.PLAYLIST","SELPOS",1:@FM:1)
+					Val = Send_Event(@Window,"CLOSE")
+				End
+			End		
+	End Case	
+
+Return
+
+*
+*----------
+PlayListSave:
+*----------
+* * Calls the 
+
+	Begin Case
+		Case Branch = "PLAYLISTSAVECREATE"
+			* The Save Dialog has opened. Load the current playlists
+			Open "MP3_PLAYLIST" to PlayList_File then
+				Select PlayList_File
+				EOF = 0
+				PlayList = ""
+				Loop
+					ReadNext Id Else EOF = 1
+				Until EOF = 1 do
+					PlayList = Insert(PlayList,-1,0,0,Id)
+				Repeat
+				Convert "#" to " " In PlayList
+				Val = Set_Property(@Window:".PLAYLIST","LIST",PlayList)
+			End		
+		Case Branch = "PLAYLISTSAVECLICK"														
+			* User has selected an existsing playlist. Move this to the PlayList Name Edit Box
+			PlayList = Get_Property(@Window:".PLAYLIST","LIST")
+			PlayListPos = Get_Property(@Window:".PLAYLIST","SELPOS")
+			Val = Set_Property(@Window:".NAME","TEXT", PlayList<PlayListPos>)
+		
+		Case Branch = "PLAYLISTSAVESAVE"
+			* User wants to save the playlist to the following name
+			PlayListName = Get_Property(@Window:".NAME","TEXT")
+			If Len(PlayListName) then
+				* We have a name, so lets save it
+				Open "MP3_PLAYLIST" to PlayList_File Then
+					Convert " " to "#" In PlayListName
+					PlayList = Get_Property("MP3_PLAYER.PLAYLIST","LIST")
+					Write PlayList to PlayLIst_File, PlayListName Then
+						Val = Send_Event(@Window,"CLOSE")
+					End	
+				End	
+			End	
+	End Case	
+
+Return
+
+*-----------
+Library_Load:
+*-----------
+
+* We load the Library info into the Edit Table
+
+Open "MP3_LIBRARY" to Library_File Then
+	Cursor = 0
+	ClearSelect Cursor
+	Select "MP3_LIBRARY" By "ARTIST":@FM:"ALBUM":@FM:"TITLE" Setting Cursor Else
+  	status = Set_FSError()
+  	Return
+	End
+	
+	* Select Library_File
+	EOF = 0
+	LibraryList = ""
+	Loop
+		Readnext ID Using Cursor By 0 Else EOF = 1
+		* Readnext ID Else EOF = 1
+	Until EOF = 1 Do
+		Read Library_Rec from Library_File, ID then
+			Convert @FM to @VM in Library_Rec
+			Library_Rec<1,5> = OCONV(Library_Rec<1,5>*60,"MT")
+			LibraryList = Insert(LibraryList,-1,0,0,Library_Rec)
+		End
+	Repeat
+	 
+	* Now Lets update the Form with the data
+	Val = Set_Property("MP3_PLAYER.LIBRARY","LIST",LibraryList)
+End
+	
+Return	
+
+*
+*----------
+About:
+*----------
+*
+* Displays the about box for the MP3 OLE Control
+
+Val = Send_Message(@Window:MP3PLAYERCONTROL$,About$)
+
+RETURN
+
+*
+*----------
+PlayNow:
+*----------
+*
+* The user has double clicked on a track in the  Play List. Start playing the new track
+* Stop what is currently playing
+
+	Gosub Stop       
+	Gosub Play
+	
+RETURN
+
+*----------
+Play:
+*----------
+* Play the currently selected title
+
+	Val = Get_Property(@Window:".TRACKPOSITION","HPOSITION")<1>
+	If Val > 0 then
+		* A track is already playing and must be paused
+		Val = Send_Message(@Window:MP3PLAYERCONTROL$,Play$)	
+	End Else
+		* We need to Open the Track, Load the info into the Now Playiung box and start playback
+		PlayListPos = Get_Property(@Window:".PLAYLIST","SELPOS")<2>
+		FileName = Get_Property(@Window:".PLAYLIST","LIST")<PlayListPos,2>
+
+		Val = Send_Message(@Window:MP3PLAYERCONTROL$,Open$,FileName)
+
+		* Now display the selected file
+
+	  TRACKPOSITION =""
+	  TRACKPOSITION<1> = 0
+	  TRACKPOSITION<2> = 0
+	  TRACKPOSITION<3> = INT(get_property(@window:MP3PLAYERCONTROL$,Length$)/1000)*60
+	  TRACKPOSITION<4> = 1
+          
+		val = set_property(@Window:".TITLE","TEXT",Get_property(@window:MP3PLAYERCONTROL$,Title$))
+		val = set_property(@Window:".ARTIST","TEXT",Get_property(@window:MP3PLAYERCONTROL$,Artist$))
+		val = set_property(@Window:".LENGTH","TEXT",Oconv(TrackPosition<3>,"MT"))	
+		val = set_property(@Window:".TRACKTIME","TEXT",Oconv(0,"MT"))
+		val = set_property(@Window:".MPEGMODE","TEXT",Get_property(@window:MP3PLAYERCONTROL$,"OLE.MPEGMode"))	
+		val = set_property(@Window:".MPEGBITRATE","TEXT",Get_property(@window:MP3PLAYERCONTROL$,"OLE.MPEGBitRate"):" Kbps")			
+		val = set_property(@Window:".MPEGSAMPLERATE","TEXT",Get_property(@window:MP3PLAYERCONTROL$,"OLE.MPEGSampleRate"):" Khz")			
+		val = set_property(@Window:".TRACKPOSITION","HPOSITION",TrackPosition)			        		
+		
+		Val = Send_Message(@Window:MP3PLAYERCONTROL$,Play$)	
+		
+		End		
+		
+RETURN
+
+*
+*----------
+PlayNext:
+*----------
+*	* The User wants to skip to the next track in the playlist
+	* First we stop the current track
+	
+	Gosub Stop
+	
+	* Now move forward to the next track in the playlist
+	PlayListPos = Get_Property(@Window:".PLAYLIST","SELPOS")<2>
+	PlayList = Get_Property(@Window:".PLAYLIST","LIST")
+	PlayListCnt = Count(PlayList,@FM) + Len(Playlist[1,1])
+			
+	If PlaylistPos = PlayListCnt then
+		* We have reaached the end of the Playlist, so stop playing
+	End Else
+		* More tracks to play in the playlist, so move to the next track and begin playing	
+		* Update the Playlist Positiion
+		Val = Set_Property(@Window:".PLAYLIST","SELPOS",1:@FM:PlayListPos + 1)
+
+		* The User must have pressed stop during playback so just close the file
+ 		Val = Send_Message(@Window:MP3PLAYERCONTROL$,Close$)
+ 
+		Gosub Play			
+	End
+	
+Return
+
+*
+*----------
+PlayPrevious:
+*----------
+*	* The User wants to skip to the previous track in the playlist
+	* First we stop the current track
+	
+	Gosub Stop
+	
+	* Now move forward to the next track in the playlist
+	PlayListPos = Get_Property(@Window:".PLAYLIST","SELPOS")<2>
+			
+	If PlaylistPos = 1 then
+		* We have reaached the Begining of the Playlist, so stop playing
+	End Else
+		* More tracks to play in the playlist, so move to the next track and begin playing	
+		* Update the Playlist Positiion
+		Val = Set_Property(@Window:".PLAYLIST","SELPOS",1:@FM:PlayListPos - 1)
+		
+		* The User must have pressed stop during playback so just close the file
+	 	Val = Send_Message(@Window:MP3PLAYERCONTROL$,Close$)
+
+		Gosub Play	
+	End
+Return
+
+*----------
+Pause:
+*----------
+* Pause the currently selected title
+
+	Val = Send_Message(@Window:MP3PLAYERCONTROL$,Pause$)
+
+RETURN
+
+*----------
+Stop:
+*----------
+*
+* Stops the current Playback.
+
+	Val = Send_Message(@Window:MP3PLAYERCONTROL$,Stop$)
+		
+Return
+
+*---------
+StoppedPlaying:
+*---------
+	* This is an OLE Event that we have trapped.
+  * The Track has stopped Playing
+  * The OLE control is returning back here when the track stops playing
+  
+	* Check to see if the track played to the end. If so move to the next track in the playlist
+		
+	TrackPosition = Get_property(@Window:".TRACKPOSITION","HPOSITION")
+  FinishedTrackPosition = TrackPosition<1>
+  TrackPosition<1> = 0
+  Val = Set_Property(@Window:".TRACKPOSITION","HPOSITION",TrackPosition)
+  
+  Begin Case
+  	Case FinishedTrackPosition = 29*60  
+			* The Track played through to the end so lets move on to the next track in the playlist
+			* Lets get the current playlist position
+			PlayListPos = Get_Property(@Window:".PLAYLIST","SELPOS")<2>
+			PlayList = Get_Property(@Window:".PLAYLIST","LIST")
+			PlayListCnt = Count(PlayList,@FM) + Len(Playlist[1,1])
+			
+			If PlaylistPos = PlayListCnt then
+				* We have reaached the end of the Playlist, so stop playing
+			End Else
+				* More tracks to play in the playlist, so move to the next track and begin playing	
+				* Update the Playlist Positiion
+				Val = Set_Property(@Window:".PLAYLIST","SELPOS",1:@FM:PlayListPos + 1)
+		
+			  * Close the current track file
+	 			Val = Send_Message(@Window:MP3PLAYERCONTROL$,Close$)
+	 	
+				Gosub Play
+			End	
+		Case FinishedTrackPosition > 0
+			* The User must have pressed stop during playback so just close the file
+	 		Val = Send_Message(@Window:MP3PLAYERCONTROL$,Close$)
+	 	Case 1		
+	 		* Let this just fall through
+	End Case
+	
+Return
+
+*---------
+TrackPosition:
+*---------
+	* This is an OLE Event we have trapped.
+  * We update the track progress bar here. 
+  * The OLE control is returning back here every 1 seconds.
+  
+	Position = Get_Property(@Window:MP3PLAYERCONTROL$,Position$,"")
+	Position = Iconv(Position,"MT")
+	If Position > 0 then
+		TrackPosition = Get_property(@Window:".TRACKPOSITION","HPOSITION")
+		TrackPosition<1> = Position
+	
+		Val = Set_Property(@Window:".TRACKTIME","TEXT",OCONV(Position,"MT"))
+		Val = set_property(@Window:".TRACKPOSITION","HPOSITION",TrackPosition)			
+	End	
+
+Return
+
+*----------
+Close:
+*----------
+
+	Val = Send_Message(@Window:MP3PLAYERCONTROL$,Stop$)
+	Val = Send_Message(@Window:MP3PLAYERCONTROL$,Close$)
+
+Return
+
+*----------
+VOLUME:
+*----------
+
+* Set the volume
+* Get the volume setting from the control
+
+Volume = Get_Property(@Window:".VOLUME","VPOSITION")<1>
+
+* Invert the Value 
+Volume = 100 - Volume
+
+* Now set the volume
+Val = Send_Message(@Window:MP3PLAYERCONTROL$,Volume$,Volume,Volume)
+Return
+
+*----------
+MUTE:
+*----------
+
+* Mute or un-mute the Volume
+* Get the mute setting from the mute control
+
+Mute = Get_Property(@Window:".MUTE","CHECK")
+
+If Mute = 0 then
+	* We are already Mute, so Set Volume back to 100
+	Volume = 100
+	Val = Send_Message(@Window:MP3PLAYERCONTROL$,Volume$,Volume,Volume)	
+End Else
+	Volume = 0
+	Val = Send_Message(@Window:MP3PLAYERCONTROL$,Volume$,Volume,Volume)
+End
+
+Current_Volume = 100-Volume:@FM:0:@FM:100:@FM:0
+Val = Set_Property(@Window:".VOLUME","VPOSITION",Current_Volume)	
+Return
+
+*----------
+DELETE:
+*----------
+
+* Remove record from the library
+
+	LibraryList = Get_Property(@Window:".LIBRARY","LIST")
+	Pos = Get_Property(@Window:".LIBRARY","SELPOS")<2>
+	
+	FileName = LibraryList<Pos,7>[-1,"B\"]
+
+	Val = Message_Box(@Window,"Delete ":Char(13):Char(10):FileName:" from Library?","Library Delete?",MSG_BTN_YESNOCAN$ + MSG_DEFAULT2$ + MSG_ICON_QUESTION$)
+	If Val = 6 then
+		Convert " " to "#" in FileName
+		Delete_Row("MP3_LIBRARY",FileName,"")
+		* Update the Indexes
+		Update_Index("MP3_LIBRARY", "", 1)
+	
+		* Now go and refresh the Library List
+		Gosub Library_Load							
+	End
+		
+Return
+
+End

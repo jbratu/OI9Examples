@@ -1,0 +1,290 @@
+compile insert Microsoft_Ado_Equates
+
+//--------------------------------------------------------------------
+// Microsoft ADO
+//
+// (c) 1996 Microsoft Corporation. All Rights Reserved.
+//
+//
+//
+// ADO equates include file for VBScript
+//
+//--------------------------------------------------------------------
+* 2010-08-20  rjc  Added values for fields enum
+* 2014-10-14  rjc  Clean Up
+
+//---- CursorTypeEnum Values ----
+equ adOpenForwardOnly to 0
+equ adOpenKeyset to 1
+equ adOpenDynamic to 2
+equ adOpenStatic to 3
+
+//---- CursorOptionEnum Values ----
+equ adHoldRecords to 0x00000100
+equ adMovePrevious to 0x00000200
+equ adAddNew to 0x01000400
+equ adDelete to 0x01000800
+equ adUpdate to 0x01008000
+equ adBookmark to 0x00002000
+equ adApproxPosition to 0x00004000
+equ adUpdateBatch to 0x00010000
+equ adResync to 0x00020000
+equ adNotify to 0x00040000
+
+//---- LockTypeEnum Values ----
+equ adLockReadOnly to 1
+equ adLockPessimistic to 2
+equ adLockOptimistic to 3
+equ adLockBatchOptimistic to 4
+
+//---- ExecuteOptionEnum Values ----
+equ adRunAsync to 0x00000010
+
+//---- ObjectStateEnum Values ----
+equ adStateClosed to 0x00000000
+equ adStateOpen to 0x00000001
+equ adStateConnecting to 0x00000002
+equ adStateExecuting to 0x00000004
+equ adStateFetching To 0x00000008
+
+//---- CursorLocationEnum Values ----
+equ adUseServer to 2
+equ adUseClient to 3
+
+//---- DataTypeEnum Values ----
+equ adEmpty to 0
+equ adTinyInt to 16
+equ adSmallInt to 2
+equ adInteger to 3
+equ adBigInt to 20
+equ adUnsignedTinyInt to 17
+equ adUnsignedSmallInt to 18
+equ adUnsignedInt to 19
+equ adUnsignedBigInt to 21
+equ adSingle to 4
+equ adDouble to 5
+equ adCurrency to 6
+equ adDecimal to 14
+equ adNumeric to 131
+equ adBoolean to 11
+equ adError to 10
+equ adUserDefined to 132
+equ adVariant to 12
+equ adIDispatch to 9
+equ adIUnknown to 13
+equ adGUID to 72
+equ adDate to 7
+equ adDBDate to 133
+equ adDBTime to 134
+equ adDBTimeStamp to 135
+equ adBSTR to 8
+equ adChar to 129
+equ adVarChar to 200
+equ adLongVarChar to 201
+equ adWChar to 130
+equ adVarWChar to 202
+equ adLongVarWChar to 203
+equ adBinary to 128
+equ adVarBinary to 204
+equ adLongVarBinary to 205
+equ adChapter  to 136 ; * Indicates a four-byte chapter value that identifies rows in a child rowset (DBTYPE_HCHAPTER).
+equ adFileTime to 64 ; * Indicates a 64-bit value representing the number of 100-nanosecond intervals since January 1, 1601 (DBTYPE_FILETIME).
+equ adPropVariant to 138 ; * Indicates an Automation PROPVARIANT (DBTYPE_PROP_VARIANT).
+equ adVarNumeric to 139 ; * Indicates a numeric value.
+
+//---- FieldAttributeEnum Values ----
+equ adFldCacheDeferred    to 0x1000     ; * Indicates that the provider caches field values and that subsequent reads are done from the cache.
+equ adFldFixed            to 0x10       ; * Indicates that the field contains fixed-length data.
+equ adFldIsChapter        to 0x2000     ; * Indicates that the field contains a chapter value, which specifies a specific child recordset related to this parent field. Typically chapter fields are used with data shaping or filters.
+equ adFldIsCollection     to 0x40000    ; * Indicates that the field specifies that the resource represented by the record is a collection of other resources, such as a folder, rather than a simple resource, such as a text file.
+equ adFldKeyColumn        to 0x8000     ; * Indicates that the field specifies all or part of the column's primary key.
+equ adFldIsDefaultStream  to 0x20000    ; * Indicates that the field contains the default stream for the resource represented by the record. For example, the default stream can be the HTML content of a root folder on a Web site, which is automatically served when the root URL is specified.
+equ adFldIsNullable       to 0x20       ; * Indicates that the field accepts null values.
+equ adFldIsRowURL         to 0x10000    ; * Indicates that the field contains the URL that names the resource from the data store represented by the record.
+equ adFldLong             to 0x80       ; * Indicates that the field is a long binary field. Also indicates that you can use the AppendChunk and GetChunk methods.
+equ adFldMayBeNull        to 0x40       ; *Indicates that you can read null values from the field.
+equ adFldMayDefer         to 0x2        ; * Indicates that the field is deferredthat is, the field values are not retrieved from the data source with the whole record, but only when you explicitly access them.
+equ adFldNegativeScale    to 0x4000     ; *Indicates that the field represents a numeric value from a column that supports negative scale values. The scale is specified by the NumericScale property.
+equ adFldRowID            to 0x100      ; *Indicates that the field contains a persistent row identifier that cannot be written to and has no meaningful value except to identify the row (such as a record number, unique identifier, and so forth).
+equ adFldRowVersion       to 0x200      ; * Indicates that the field contains some kind of time or date stamp used to track updates.
+equ adFldUnknownUpdatable to 0x8        ; * Indicates that the provider cannot determine if you can write to the field.
+equ adFldUnspecified      to 0xFFFFFFFF ; * Indicates that the provider does not specify the field attributes.
+equ adFldUpdatable        to 0x4        ; * Indicates that you can write to the field.
+
+//---- EditModeEnum Values ----
+equ adEditNone to 0x0000
+equ adEditInProgress to 0x0001
+equ adEditAdd to 0x0002
+equ adEditDelete to 0x0004
+
+//---- RecordStatusEnum Values ----
+equ adRecOK to 0x0000000
+equ adRecNew to 0x0000001
+equ adRecModified to 0x0000002
+equ adRecDeleted to 0x0000004
+equ adRecUnmodified to 0x0000008
+equ adRecInvalid to 0x0000010
+equ adRecMultipleChanges to 0x0000040
+equ adRecPendingChanges to 0x0000080
+equ adRecCanceled to 0x0000100
+equ adRecCantRelease to 0x0000400
+equ adRecConcurrencyViolation to 0x0000800
+equ adRecIntegrityViolation to 0x0001000
+equ adRecMaxChangesExceeded to 0x0002000
+equ adRecObjectOpen to 0x0004000
+equ adRecOutOfMemory to 0x0008000
+equ adRecPermissionDenied to 0x0010000
+equ adRecSchemaViolation to 0x0020000
+equ adRecDBDeleted to 0x0040000
+
+//---- GetRowsOptionEnum Values ----
+equ adGetRowsRest to -1
+
+//---- PositionEnum Values ----
+equ adPosUnknown to -1
+equ adPosBOF to -2
+equ adPosEOF to -3
+
+//---- enum Values ----
+equ adBookmarkCurrent to 0
+equ adBookmarkFirst to 1
+equ adBookmarkLast to 2
+
+//---- MarshalOptionsEnum Values ----
+equ adMarshalAll to 0
+equ adMarshalModifiedOnly to 1
+
+//---- AffectEnum Values ----
+equ adAffectCurrent to 1
+equ adAffectGroup to 2
+equ adAffectAll to 3
+
+//---- FilterGroupEnum Values ----
+equ adFilterNone to 0
+equ adFilterPendingRecords to 1
+equ adFilterAffectedRecords to 2
+equ adFilterFetchedRecords to 3
+equ adFilterPredicate to 4
+
+//---- SearchDirection Values ----
+equ adSearchForward to 1
+equ adSearchBackward to -1
+
+//---- ConnectPromptEnum Values ----
+equ adPromptAlways to 1
+equ adPromptComplete to 2
+equ adPromptCompleteRequired to 3
+equ adPromptNever to 4
+
+//---- ConnectModeEnum Values ----
+equ adModeUnknown to 0
+equ adModeRead to 1
+equ adModeWrite to 2
+equ adModeReadWrite to 3
+equ adModeShareDenyRead to 4
+equ adModeShareDenyWrite to 8
+equ adModeShareExclusive to 0xc
+equ adModeShareDenyNone to 0x10
+
+//---- IsolationLevelEnum Values ----
+equ adXactUnspecified to 0xffffffff
+equ adXactChaos to 0x00000010
+equ adXactReadUncommitted to 0x00000100
+equ adXactBrowse to 0x00000100
+equ adXactCursorStability to 0x00001000
+equ adXactReadCommitted to 0x00001000
+equ adXactRepeatableRead to 0x00010000
+equ adXactSerializable to 0x00100000
+equ adXactIsolated to 0x00100000
+
+//---- XactAttributeEnum Values ----
+equ adXactCommitRetaining to 0x00020000
+equ adXactAbortRetaining to 0x00040000
+
+//---- PropertyAttributesEnum Values ----
+equ adPropNotSupported to 0x0000
+equ adPropRequired to 0x0001
+equ adPropOptional to 0x0002
+equ adPropRead to 0x0200
+equ adPropWrite to 0x0400
+
+//---- ErrorValueEnum Values ----
+equ adErrInvalidArgument to 0xbb9
+equ adErrNoCurrentRecord to 0xbcd
+equ adErrIllegalOperation to 0xc93
+equ adErrInTransaction to 0xcae
+equ adErrFeatureNotAvailable to 0xcb3
+equ adErrItemNotFound to 0xcc1
+equ adErrObjectInCollection to 0xd27
+equ adErrObjectNotSet to 0xd5c
+equ adErrDataConversion to 0xd5d
+equ adErrObjectClosed to 0xe78
+equ adErrObjectOpen to 0xe79
+equ adErrProviderNotFound to 0xe7a
+equ adErrBoundToCommand to 0xe7b
+equ adErrInvalidParamInfo to 0xe7c
+equ adErrInvalidConnection to 0xe7d
+equ adErrStillExecuting to 0xe7f
+equ adErrStillConnecting to 0xe81
+
+//---- ParameterAttributesEnum Values ----
+equ adParamSigned to 0x0010
+equ adParamNullable to 0x0040
+equ adParamLong to 0x0080
+
+//---- ParameterDirectionEnum Values ----
+equ adParamUnknown to 0x0000
+equ adParamInput to 0x0001
+equ adParamOutput to 0x0002
+equ adParamInputOutput to 0x0003
+equ adParamReturnValue to 0x0004
+
+//---- CommandTypeEnum Values ----
+equ adCmdUnknown to 0x0008
+equ adCmdText to 0x0001
+equ adCmdTable to 0x0002
+equ adCmdStoredProc to 0x0004
+equ adCmdUnspecified to -1  ; * Does not specify the command type argument.
+equ adCmdFile to 256        ; * Evaluates CommandText as the file name of a persistently stored Recordset. Used with Recordset.Open or Requery only.
+equ adCmdTableDirect to 512 ; * Evaluates CommandText as a table name whose columns are all returned. Used with Recordset.Open or Requery only. To use the Seek method, the Recordset must be opened with adCmdTableDirect.
+
+//---- SchemaEnum Values ----
+equ adSchemaProviderSpecific to -1
+equ adSchemaAsserts to 0
+equ adSchemaCatalogs to 1
+equ adSchemaCharacterSets to 2
+equ adSchemaCollations to 3
+equ adSchemaColumns to 4
+equ adSchemaCheckequraints to 5
+equ adSchemaequraintColumnUsage to 6
+equ adSchemaequraintTableUsage to 7
+equ adSchemaKeyColumnUsage to 8
+equ adSchemaReferentialContraints to 9
+equ adSchemaTableequraints to 10
+equ adSchemaColumnsDomainUsage to 11
+equ adSchemaIndexes to 12
+equ adSchemaColumnPrivileges to 13
+equ adSchemaTablePrivileges to 14
+equ adSchemaUsagePrivileges to 15
+equ adSchemaProcedures to 16
+equ adSchemaSchemata to 17
+equ adSchemaSQLLanguages to 18
+equ adSchemaStatistics to 19
+equ adSchemaTables to 20
+equ adSchemaTranslations to 21
+equ adSchemaProviderTypes to 22
+equ adSchemaViews to 23
+equ adSchemaViewColumnUsage to 24
+equ adSchemaViewTableUsage to 25
+equ adSchemaProcedureParameters to 26
+equ adSchemaForeignKeys to 27
+equ adSchemaPrimaryKeys to 28
+equ adSchemaProcedureColumns to 29
+
+* rjc added
+equ adReadAll to -1
+equ adPersistXML to 1
+
+Equ adExecuteNoRecords to 0x80
+
+* End of Equate *

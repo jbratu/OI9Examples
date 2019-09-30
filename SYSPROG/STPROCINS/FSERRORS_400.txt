@@ -1,0 +1,105 @@
+*----------------------------------------------------------------------------
+* Block 400 - 499
+*
+* Advanced Revelation System and RTP error codes return as @FILE.ERRORS
+*
+* June 23, 1989
+* Updated 31 October, 2002. Happy Halloween!
+*
+*                                    STATUS   DESCRIPTION ; MSG PARAMETERS
+*----------------------------------------------------------------------------
+EQU FS_SYS_INVALID_HANDLE$ TO 400 ;* 1  - Generic not valid or not open file handle ; ???
+EQU FS_SYS_NOT_ATTACHED$   TO 401 ;* 1  - Generic File is not attached ; FILENAME
+EQU FS_SYS_LISTS_REC_DNE$  TO 402 ;* 1  - List in LISTS file does not exist ; Record key
+EQU FS_SYS_FILE_VOL_SYNC$  TO 403 ;* 1  - A file is attached but the volume isn't ; Procedure name
+EQU FS_SYS_SAME_VOL_ID$    TO 404 ;* 1  - Cannot attach volume, same volume ID ; Attempted volume, Volume already attached, Volume ID
+EQU FS_SYS_REQUIRED_VOL_ERR$ TO 405 ;* 0  - Volume is required and cannot be attached ; Volume name
+
+EQU FS_SYS_INVALID_LOCKTYPE$ TO 410 ;* 2 - lock type not valid ; null
+EQU FS_SYS_LOCKFILE_NF$    TO 411 ;* 1 - File specified not found in list of locked files.
+EQU FS_SYS_LOCKREC_NF$     TO 412 ;* 1 - record specified not found in list of locked records
+EQU FS_SYS_LOCKSEMA_NF$    TO 413 ;* 1 - semaphore not found in list of locked semaphores.
+EQU FS_SYS_OWN_LOCK_ERR$   TO 414 ;* 1 - Unsuccessful lock - station's own lock ; No parameters.
+EQU FS_SYS_LOCK_ERR$       TO 415 ;* 0 - Unsuccessful lock - other station's lock ; No parameters.
+
+EQU FS_SYS_INVALID_RN_DIR$ TO 420 ;* 1 - Readnext Direction Out of Range ; Direction Parameter
+EQU FS_SYS_USER_ABORT$     TO 421 ;* 1 - User terminated action <ESC> ; No parameters.
+
+EQU FS_SYS_DICT_MISMATCH$   TO 430 ;* 1 - Dictionary handle mismatch in SELECT ; Dict handle name TO not displayed).
+EQU FS_SYS_NO_CURSORS$      TO 431 ;* 1 - Ran out of cursor handles ; No parameters.
+EQU FS_SYS_LIST_ACTIVE_ERR$ TO 432 ;* 1 - Invalid LIST.ACTIVE value ; No parameters.
+EQU FS_SYS_INVALID_FIELD$   TO 434 ;* 1 - Invalid field type in sort list ; Attempted field type.
+EQU FS_SYS_CLEAR_CURS_ERR$  TO 435 ;* 1 - Cannot clear designated cursor ; No parameters.
+EQU FS_SYS_BAD_CURSOR_VAL$  TO 436 ;* 1 - Invalid cursor value ; No parameters.
+EQU FS_SYS_SORT_FIELD_ERR$  TO 437 ;* 1 - Invalid field names in sort expression ; List of invalid field names
+EQU FS_SYS_MULTI_HANDLES_ERR$ TO 438 ;* 1 - Multiple handles in a SELECT ; Handle list (not displayed)
+EQU FS_SYS_COL_QUAL_ERR$    TO 439 ;* 1 - Column qualifier error ; No Parameters.
+EQU FS_SYS_SORT_MERGE_ERR$  TO 440 ;* 1 - Error merging a sort file ; No Parameters.
+EQU FS_SYS_SORT_EXTRACT_ERR$ TO 441 ;* 1 - Error extracting a sort file ; No Parameters.
+EQU FS_SYS_SORT_INIT_ERR$   TO 442 ;* 1 - Error initializing sort file ; No Parameters.
+EQU FS_SYS_SORT_WRITE_ERR$  TO 443 ;* 1 - Error writing to sort file ; No Parameters.
+
+EQU FS_SYS_SORT_ERR_OVER$   TO 444 ;* 1 - List of logical errors in sort > 32K in length - abort.
+EQU FS_IDX_SETS_ERROR$      TO 445 ;* 1 - Error codes returned from IDX_SETS
+EQU FS_IDX_SETS_OUT_OF_MEM$ TO 446 ;* 1 - Out of memory error
+EQU FS_IDX_SETS_FILE_IO$    TO 447 ;* 1 - Usually out of disk or bad sort path
+EQU FS_IDX_SETS_FATAL_ERR$  TO 448 ;* 1 - Fatal internal idx_sets error
+EQU FS_IDX_SETS_OUT_OF_HAND$ TO 449;* 1 - Out of Resources (handles/cursors).
+
+*---
+* MTR 10-31-02
+* Used by network products. Included for documentation purposes only.
+*---
+
+equ LH_CLIENT_INIT_PROTOCAL_ERR$     TO 450
+equ LH_CLIENT_OPEN_PROTOCAL_ERR$     TO 451
+equ LH_CLIENT_NO_NEAREST_SERVER$     TO 452
+equ LH_CLIENT_NO_TSR$                TO 453
+equ LH_CLIENT_INIT_ALLOCATION_ERR$   TO 454
+equ LH_CLIENT_GET_CANOCICAL_PATH_ERR$ TO 455
+equ LH_CLIENT_LOCAL_FILE_ERR$        TO 456
+equ LH_CLIENT_FILE_NAME_FORMAT_ERR$  TO 457
+equ LH_CLIENT_ALLOCATION_ERR$        TO 458
+equ LH_CLIENT_INVALID_FILE_HANDLE$   TO 459
+equ LH_CLIENT_INVALID_SERVER_HANDLE$ TO 460
+equ LH_CLIENT_GET_LOCAL_TARGET_ERR$  TO 461
+equ LH_CLIENT_NO_SERVER$             TO 462
+equ LH_CLIENT_TSR_TABLE_FULL$        TO 463
+equ LH_CLIENT_SEND_PACKET_ERR$       TO 464
+equ LH_CLIENT_RECEIVE_PACKET_ERR$    TO 465
+equ LH_CLIENT_NO_SERVER_RESPONSE$    TO 466
+equ LH_CLIENT_SERVER_TABLE_FULL$     TO 467
+equ LH_CLIENT_FILE_TABLE_FULL$       TO 468
+equ LH_DUPLICATE_SERVER_SERIAL_NUMBER$ TO 469
+
+equ LH_SERVER_ALLOCATION_ERR$        TO 470
+equ LH_SERVER_PACKET_SIZE_ERR$       TO 471
+equ LH_SERVER_SET_CONNECTION_ERR$    TO 472
+equ LH_SERVER_SET_TASK_ERR$          TO 473
+equ LH_SERVER_NEXT_PACKET_ERR$       TO 474
+
+// 477, 478 and 479 are used internally by AREV and OI network drivers.
+
+equ LH_NOT_INITIALIZED$              TO 480
+equ LH_FILE_OPEN_ERR$                TO 481
+equ LH_TEMP_ALLOCATION_ERR$          TO 482
+equ LH_FILE_CLOSE_ERR$               TO 483
+equ LH_VERSION1_ERR$                 TO 484
+equ LH_INVALID_FILE_HANDLE$          TO 485
+equ LH_INVALID_FILE_VARIABLE        TO 486
+equ LH_CONNECTION_SYNC_ERR$          TO 487
+equ LH_TASK_SYNC_ERR$                TO 488
+equ LH_LOCK_ALLOCATION_ERR$          TO 489
+equ LH_FILE_HANDLE_TABLE_FULL$       TO 490
+equ LH_FILE_VARIABLE_TABLE_FULL$     TO 491
+equ LH_VERSION_SYNCRONIZATION_ERR$   TO 492
+
+equ LH_GFE_READ_FRAME_TYPE_ERR$      TO 493
+equ LH_GFE_WRITE_FRAME_TYPE_ERR$     TO 494
+equ LH_GFE_RECORD_IN_GROUP_ERR$      TO 495
+
+equ LH_RECORD_SIZE_ERR$              TO 496
+equ LH_ID_GROUP_SIZE_ERR$            TO 497
+
+EQU FS_EXTENDED_ERR$        TO 499 ;* 1 - Extended bfs error ; detail msg
+* Source Date: 10:46:34  06 DEC 1993  Build ID: OI*2.01.8  Level: 2.01

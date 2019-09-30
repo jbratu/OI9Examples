@@ -1,0 +1,21 @@
+SUBROUTINE REDUCETEST(VOID)
+*
+DECLARE FUNCTION GET_PROPERTY 
+ClearSelect  
+IF VOID = 1 THEN REDUCE_SCRIPT = GET_PROPERTY(@WINDOW:".TEST1","TEXT")
+IF VOID = 2 THEN REDUCE_SCRIPT = GET_PROPERTY(@WINDOW:".TEST2","TEXT")
+IF VOID = 3 THEN  
+  CALL RUN_REPORT("","LIST TESTDATA LNAME FNAME COMPANY BY LNAME")
+  RETURN
+END  
+ 
+*Reduce_Script = "WITH {LNAME} []  'TR'"
+*Reduce_Script:= " AND WITH {COMPANY} []  'IRON'"
+mode = 0
+Table_Name = "TESTDATA"
+sort_list = 'CLIENT_NUMBER'
+Cursorvar = 0
+Flag = ''
+Call Reduce(reduce_script, sort_list, mode, table_name, Cursorvar, flag)
+call msg("Records selects = ":@reccount) 
+ 

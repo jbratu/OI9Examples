@@ -1,0 +1,484 @@
+Compile function SRP_Git_Services(@Service, @Params)
+/************************************************************************************************
+    This program is proprietary and is not to be used by or disclosed to others, nor is it to
+    be copied without written permission from SRP Computer Solutions, Inc.
+
+    Name        : SRP_GIT_SERVICES
+    Test
+    Description : Service module for the SRP GIT system.
+
+    Parameters:
+        Service [IN] - The service to execute
+        Params  [IN] - Service specific parameters
+
+    History (Date, Initials, Notes)
+        02/25/19    DJS    Original programmer
+        07/29/19    KRF    Ported from Git_Services
+************************************************************************************************/
+#pragma precomp SRP_PreCompiler
+
+Common /SRP_Git_Services/ SRPGitServices_UserSettings@
+
+$insert LOGICAL
+$insert MESSAGE_BOX_EQUATES
+$insert RLIST_EQUATES
+
+Equ SrpGitEnabled$             To 1
+Equ SrpGitRepoLoc$             To 2
+Equ SrpGitExePath$             To 3
+Equ SrpGitGUICommand$          To 4
+Equ SrpGitCommitCommand$       To 5
+Equ SrpGitPullCommand$         To 6
+Equ SrpGitPushCommand$         To 7
+Equ SrpGitHistCommand$         To 8
+Equ SrpGitDiffCommand$         To 9
+
+Declare function SRP_Git_Services, SRP_Git_Serializer, Get_Repos_Entities, Repository, SRP_Editor_Parse
+Declare subroutine SRP_Git_Serializer, Utility, Get_Status, Set_Status, Repository, Msg, Set_Property
+
+// load the settings on the first call
+If Len(SRPGitServices_UserSettings@) else
+    SRPGitServices_UserSettings@ = Xlate("SYSENV", "SRP_GIT_SETTINGS*":@APPID<1>:"*":@Username, "", "X")
+    If Len(SRPGitServices_UserSettings@) else
+        SRPGitServices_UserSettings@ = 0
+    end
+end
+
+GoToService
+
+Return Response or ""
+
+//-----------------------------------------------------------------------------
+// SERVICES
+//-----------------------------------------------------------------------------
+
+Service IsEnabled()
+    Response = SRPGitServices_UserSettings@<SrpGitEnabled$>
+end service
+
+Service GetRepoPath()
+    Response = SRPGitServices_UserSettings@<SrpGitRepoLoc$>
+end service
+
+Service GetGitPath()
+    Response = SRPGitServices_UserSettings@<SrpGitExePath$>
+end service
+
+Service GetGuiCommand()
+    Response = SRPGitServices_UserSettings@<SrpGitGUICommand$>
+end service
+
+Service GetCommitCommand()
+    Response = SRPGitServices_UserSettings@<SrpGitCommitCommand$>
+end service
+
+Service GetPullCommand()
+    Response = SRPGitServices_UserSettings@<SrpGitPullCommand$>
+end service
+
+Service GetPushCommand()
+    Response = SRPGitServices_UserSettings@<SrpGitPushCommand$>
+end service
+
+Service GetHistCommand()
+    Response = SRPGitServices_UserSettings@<SrpGitHistCommand$>
+end service
+
+Service GetDiffCommand()
+    Response = SRPGitServices_UserSettings@<SrpGitDiffCommand$>
+end service
+
+Service GetCurrentCommit()
+    
+    If Len(SRPGitServices_UserSettings@<SrpGitExePath$>) then
+        Cmd = SRPGitServices_UserSettings@<SrpGitExePath$>:' -C "':SRPGitServices_UserSettings@<SrpGitRepoLoc$>:'" log -1 --format=oneline'
+        Output = "VAR"
+        Call SRP_Run_Command(Cmd, Output)
+        Response = Output[1, ' ']:@FM:Output[Col2() + 1, Len(Output)]
+    end
+    
+end service
+
+Service GetCommits()
+    
+    Response = ""
+    If Len(SRPGitServices_UserSettings@<SrpGitExePath$>) then
+        Cmd = SRPGitServices_UserSettings@<SrpGitExePath$>:' -C "':SRPGitServices_UserSettings@<SrpGitRepoLoc$>:'" log --format=oneline'
+        Output = "VAR"
+        Call SRP_Run_Command(Cmd, Output)
+        For Each Line in Output using \0A\
+            Response<-1> = Line[1, ' ']:@VM:Line[Col2() + 1, Len(Output)]
+        Next Line
+    end
+        
+end service
+
+Service GetFileChanges(StartCommit, EndCommit)
+    
+    Equ StatusName$ to "Added,Deleted,Modified"
+    Response = ""
+    ExePath = SRPGitServices_UserSettings@<SrpGitExePath$>
+    RepoPath = SRPGitServices_UserSettings@<SrpGitRepoLoc$>
+    If Len(ExePath) then
+        Cmd = ExePath:' -C "':RepoPath:'" diff --name-status --no-renames --diff-filter=crtuxb ':StartCommit:'..':EndCommit
+        Output = "VAR"
+        Call SRP_Run_Command(Cmd, Output)
+        If RepoPath[-1, 1] NE '\' then RepoPath := '\'
+        For Each Line in Output using \0A\
+            Status = Line[1, \09\]
+            File = Line[Col2() + 1, \09\]
+            Pos = Index("ADM", Status[1, 1], 1)
+            If Pos GT 0 then Status = Field(StatusName$, ",", Pos, 1) else Status = "Unknown"
+            EntId = SRP_Git_Serializer("PathToEntityId", RepoPath, RepoPath:File)
+            Response<-1> = Status:@VM:EntId
+        Next Line
+    end
+    
+end service
+
+Service SaveUserSettings(GitEnabled, GitRepoLoc, GitExePath, GitGUICommand, GitCommitCommand, GitPullCommand, GitPushCommand, GitHistCommand, GitDiffCommand)
+
+    // Update the settings
+    SRPGitServices_UserSettings@<SrpGitEnabled$> = GitEnabled
+    SRPGitServices_UserSettings@<SrpGitRepoLoc$> = GitRepoLoc
+    SRPGitServices_UserSettings@<SrpGitExePath$> = GitExePath
+    SRPGitServices_UserSettings@<SrpGitGUICommand$> = GitGUICommand
+    SRPGitServices_UserSettings@<SrpGitCommitCommand$> = GitCommitCommand
+    SRPGitServices_UserSettings@<SrpGitPullCommand$> = GitPullCommand
+    SRPGitServices_UserSettings@<SrpGitPushCommand$> = GitPushCommand
+    SRPGitServices_UserSettings@<SrpGitHistCommand$> = GitHistCommand
+    SRPGitServices_UserSettings@<SrpGitDiffCommand$> = GitDiffCommand
+
+    // Write the settings to disk
+    Open 'SYSENV' to hSYSENV then
+        Write SRPGitServices_UserSettings@ on hSYSENV, "SRP_GIT_SETTINGS*":@APPID<1>:"*":@Username else
+            Response = "Failed to save user Git settings. OpenInsight error code: ":Status()
+        end
+    end
+    
+    // Update the MD table base on whether or not things are enabled
+    Open "MD" to hMD then
+        If GitEnabled then
+            Read Rec from hMD, "REPOSITORY" else
+                Rec = 'P':@FM:@FM:@FM:@FM:'SYSOBJ':@FM:'SRP_GIT_LISTENER'
+                Write Rec to hMD, "REPOSITORY" then null
+            end
+        end else
+            Delete hMD, "REPOSITORY" then null
+        end
+        GarbageCollect
+        Flush
+        Call Set_Property("SYSTEM", "IDLEPROC", "RTP27":@FM:"REPOSITORY")
+    end
+    
+end service
+
+Options ENTITY_TYPES = "ALL", "OIWIN", "STPROC", "STPROCINS"
+
+Service GetSupportedEntityTypes()
+    
+    Response = SRP_Git_Serializer("GetSupportedEntityTypes")
+    
+end service
+
+Service GetOIEntities(EntityTypes=ENTITY_TYPES, Apps)
+    
+    Response = ""
+    If EntityTypes EQ "" OR EntityTypes EQ "ALL" then EntityTypes = SRP_Git_Services("GetSupportedEntityTypes")
+    If Apps EQ "" then Apps = @APPID
+    For each EntityType in EntityTypes using @FM
+        For each App in Apps
+            EntList = Get_Repos_Entities(App, EntityType, '')
+            If Len(EntList) then
+                For each EntID in EntList using @FM
+*                    LastChanged = Repository("GETLASTUPDATE", EntID)
+                    Parts = EntID
+                    Convert '*' to @VM in Parts
+                    Response := EntID:@VM:Parts:@FM ; *:@VM:LastChanged:@FM
+                Next EntID
+            end
+        Next App
+    Next EntityType
+    Response[-1, 1] = ""
+    
+end service
+
+Service GetRepoEntities(EntityTypes=ENTITY_TYPES, Apps, CommitStart, CommitEnd)
+
+    // get the repo path
+    RepoPath = SRPGitServices_UserSettings@<SrpGitRepoLoc$>
+    If RepoPath[-1, 1] NE '\' then RepoPath := '\'
+    
+    Response = ""
+    If EntityTypes EQ "" OR EntityTypes EQ "ALL" then EntityTypes = SRP_Git_Services("GetSupportedEntityTypes")
+    If Apps EQ "" then Apps = @APPID
+        
+    If Len(CommitStart) AND Len(CommitEnd) then
+        FileChanges = SRP_Git_Services("GetFileChanges", CommitStart, CommitEnd)
+        For Each FileChange in FileChanges
+            Status = FileChange<1, 1>
+            EntId = FileChange<1, 2>
+            Parts = EntId
+            Convert '*' to @VM in Parts
+            Locate Parts<1, 1> in Apps using @FM setting AppPos then
+                Locate Parts<1, 2> in EntityTypes using @FM setting TypePos then
+                    Response := EntId:@VM:Parts:@VM:Status:@FM
+                end
+            end
+        Next FileChange
+    end else
+        For each EntityType in EntityTypes using @FM
+            For each App in Apps
+                ErrCode = ''
+                Type = EntityType[1, '*']
+                Class = EntityType[Col2() + 1, '*']        
+                WinDir = If Len(Class) then RepoPath:App:'\':Type:'\':Class else RepoPath:App:'\':Type
+                InitDir WinDir:'\*.*'
+                FileList = DirList()
+                If Len(FileList) then
+                    For each Filename in FileList using @FM setting fPos
+                        EntID = SRP_Git_Serializer("PathToEntityId", RepoPath, WinDir:'\':Filename)
+                        Parts = EntID
+                        Convert '*' to @VM in Parts
+                        Response := EntID:@VM:Parts:@FM
+                    Next Filename
+                end
+            Next App
+        Next EntityType
+    end
+    Response[-1, 1] = ""
+     
+return
+
+Service PushEntities(EntityList, StatusCtrl)
+
+    RepoPath = SRPGitServices_UserSettings@<SrpGitRepoLoc$>
+
+    ErrorList = ''
+    NumEntities = DCount(EntityList, @FM)
+    For i = 1 to NumEntities
+        EntityId = EntityList<i>
+        Set_Status(0)
+        Record = Repository("ACCESS", EntityId)
+        If Get_Status(ErrCode) then
+            ErrorList<-1> = ErrCode
+        end else
+            SRP_Git_Serializer("WriteSync", EntityId, Record, RepoPath)
+        end
+        If Len(StatusCtrl) then Set_Property(StatusCtrl, "OLE.PanePercent[1]", Int(i / NumEntities * 100))
+    Next i
+    
+    Response = ErrorList
+    
+end service
+
+Service PullEntities(EntityList, StatusList, StatusCtrl) 
+    
+    RepoPath = SRPGitServices_UserSettings@<SrpGitRepoLoc$>
+    
+    ErrorList = ''
+    NumEntities = DCount(EntityList, @FM)
+    For i = 1 to NumEntities
+        EntityId = EntityList<i>
+        Status = StatusList<i>
+        App = EntityId[1, "*"]
+        Type = EntityId[Col2() + 1, "*"]
+        Class = EntityId[Col2() + 1, "*"]
+        Name = EntityId[Col2() + 1, "*"]
+        If Status _EQC "Deleted" then
+            If Type EQ "APPROW" then
+                Table = Name[1, ":"]
+                Key = Name[Col2() + 1, Len(Name)]
+                Open Table to hTable then
+                    Delete hTable, Key then null
+                end
+                Open "SYSREPOS" to hTable then
+                    Delete hTable, EntityID then null
+                end
+            end else
+                If App EQ @APPID<1> then
+                    Set_Status(0)
+                    Repository("DESTROY", EntityId)
+                end else
+                    GoSub DeleteInherited
+                end
+            end
+        end else
+            Record = SRP_Git_Serializer("Read", EntityId, RepoPath)
+            If Get_Status(ErrCode) then
+                ErrorList<-1> = ErrCode
+            end else
+                If Type EQ "APPROW" then
+                    Table = Name[1, ":"]
+                    Key = Name[Col2() + 1, Len(Name)]
+                    Open Table to hTable then
+                        Write Record to hTable, Key then null
+                    end
+                end else
+                    If App EQ @APPID<1> then
+                        Set_Status(0)
+                        Repository("WRITE", EntityId, "", 1, 1, "", "", "", "", "", EntityId[-1, "F*"], Record)
+                        Set_Status(0)
+                        Repository("COMPILE", EntityId)
+                    end else
+                        GoSub CompileInherited
+                    end
+                end
+            end
+        end
+        If Len(StatusCtrl) then Set_Property(StatusCtrl, "OLE.PanePercent[1]", Int(i / NumEntities * 100))
+    Next i
+    
+    Response  = ErrorList
+      
+end service
+
+Service OpenRepo()
+    
+    Name = "GUI"
+    CmdPos = SrpGitGUICommand$
+    GoSub RunGitCommand
+    If Assigned(ErrorMsg) then
+        If Len(ErrorMsg) then Msg(@Window, ErrorMsg:@FM:@FM:@FM:"!")
+    end
+    
+end service
+
+Service Commit()
+    
+    Name = "Commit"
+    CmdPos = SrpGitCommitCommand$
+    GoSub RunGitCommand
+    
+end service
+
+Service Pull()
+    
+    Name = "Pull"
+    CmdPos = SrpGitPullCommand$
+    GoSub RunGitCommand
+    
+end service
+
+Service Push()
+    
+    Name = "Push"
+    CmdPos = SrpGitPushCommand$
+    GoSub RunGitCommand
+    
+end service
+
+Service ViewHist()
+    
+    Name = "ViewHist"
+    CmdPos = SrpGitHistCommand$
+    GoSub RunGitCommand
+    
+end service
+
+Service Diff()
+    
+    Name = "Diff"
+    CmdPos = SrpGitDiffCommand$
+    GoSub RunGitCommand
+    
+end service
+
+RunGitCommand:
+    
+    ErrorList = ''
+    If SRPGitServices_UserSettings@<SrpGitEnabled$> EQ True$ then
+        Command = SRPGitServices_UserSettings@<CmdPos>
+        RepoPath = SRPGitServices_UserSettings@<SrpGitRepoLoc$>
+        If Command NE '' then
+            If RepoPath NE '' then
+                Utility("RUNWIN", Command, 1)
+            end else
+                // User has not set the Git repository location
+                ErrorMsg = "Git repository location has not been defined within Git Settings"
+                ErrorList<-1> = ErrorMsg
+            end
+        end else
+            // User has not set the Git open repo command (Git GUI command)
+            ErrorMsg = "Git ":Name:" command has not been configured within Git Settings"
+            ErrorList<-1> = ErrorMsg
+        end       
+    end else
+        // User has Git disabled
+        ErrorMsg = "Git must first be enabled within Git Settings"
+        ErrorList<-1> = ErrorMsg
+    end
+    Response = ErrorList
+    
+return
+
+CompileInherited:
+// IN: EntityId, Record
+    
+    // Build a temporary entity in the current app
+    TempId = @APPID<1>:"*":Field(EntityID, "*", 2, 3):"__SRP_GIT_TEMP"
+    Type = Field(EntityId, "*", 2, 1)
+    
+    // If this is a stored procedure or insert, we need to rename it temporarily IN THE CODE
+    FirstLine = Record<1>
+    If Type[1, 6] _EQC "STPROC" AND Len(Xlate("SYSOBJ", "$SRP_EDITOR_PARSE", "", "X")) then
+        ProcType = If Type _EQC "STPROCINS" then "Insert" else "Procedure"
+        OrigProcName = ""
+        If SRP_Editor_Parse(FirstLine, "", ProcType, OrigProcName, "") then
+            TempName = Field(TempId, "*", 4)
+            TempFirstLine = FirstLine[1, "("]
+            Swap OrigProcName with TempName in TempFirstLine
+            If ProcType EQ "Insert" then
+                Record<1> = TempFirstLine
+            end else
+                Record<1> = TempFirstLine:"(":FirstLine[-1, "B("]
+            end
+        end
+    end
+    
+    // Update it and compile it
+    Set_Status(0)
+    Repository("WRITE", TempID, "", 1, 1, "", "", "", "", "", TempID[-1, "F*"], Record)
+    Set_Status(0)
+    Repository("COMPILE", TempId)
+    
+    // Copy the temporary records back to the entity records
+    SourceList = SRP_Git_Serializer("EntityIdToKeys", TempId)
+    DestList = SRP_Git_Serializer("EntityIdToKeys", EntityId)
+    NumItems = DCount(SourceList, @FM)
+    For i = 1 to NumItems
+        Table = SourceList<i, 1>
+        SourceKey = SourceList<i, 2>
+        DestKey = DestList<i, 2>
+        If SourceKey NE DestKey then
+            Open Table to hTable then
+                Read Rec from hTable, SourceKey then
+                    If Table EQ "SYSPROCS" then Rec<1> = FirstLine
+                    Write Rec to hTable, DestKey then null
+                end
+            end
+        end
+    Next i   
+    
+    // Delete the local copy
+    Set_Status(0)
+    Repository("DESTROY", TempId)
+    
+return
+
+DeleteInherited:
+// IN: EntityId, Record
+       
+    // Delete the actual records
+    DestList = SRP_Git_Serializer("EntityIdToKeys", EntityId)
+    NumItems = DCount(DestList, @FM)
+    For i = 1 to NumItems
+        Table = DestList<i, 1>
+        DestKey = DestList<i, 2>
+        Open Table to hTable then
+            Delete hTable, DestKey then null
+        end
+    Next i
+    
+return
+

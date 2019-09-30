@@ -1,0 +1,58 @@
+Function O4WI_LOCKHANDLER(ACTION, THANDLE, ID, RECORD, HANDLE, OPTIONS)
+*#!Precompile
+/*
+*  This program is proprietary and is not to be used by or disclosed to others, nor is it to be copied without
+*  written permission from Revelation Technologies, Inc.
+!
+*
+*  VERSION    : 1.0
+*
+*
+*  AUTHOR     : Bryan Shumsky
+*
+*  CREATED    : February 16, 2010
+*
+*
+!
+*
+*  REVISION HISTORY           (Most CURRENT first) :
+*
+*    DATE       IMPLEMENTOR     FUNCTION
+*  --------     -----------     --------
+*	05/20/11	bzs				Modified to delegate functionality to RTI_OPTIMISTIC_LOCKHANDLER
+*
+*/
+*
+$Insert O4WCommon
+$Insert O4WEquates
+$Insert O4WConfigEquates
+*
+Declare Function Repository, RTI_GETPROTECTEDFIELDS, RTI_OPTIMISTIC_LOCKHANDLER
+Declare Subroutine Repository
+*
+cfgInfo = Repository("ACCESS", @APPID<1>:"*CONFIG*O4W*CFG_O4W")
+Call Set_Status(0)
+lockRoutine = cfgInfo<O4WCONFIG_LOCK_PROC$>
+If lockRoutine <> "" And lockRoutine _nec "O4WI_LOCKHANDLER" Then
+	Return Function(@lockRoutine(ACTION, THANDLE, ID, RECORD, HANDLE, OPTIONS))
+end
+*
+If Assigned(action) Else
+	Return O4W_LOCKHANDLER_MISSING_ACTION$
+End
+If Assigned(THandle) Else
+	Return O4W_LOCKHANDLER_MISSING_THANDLE$
+End
+If Assigned(id) Else
+	Return O4W_LOCKHANDLER_MISSING_ID$
+End
+If Assigned(Options) Else Options = ""
+*
+If action = O4W_LOCKHANDLER_ACTION_READ$ Then
+	* Make sure 'handle' is assigned with O4W-compatible handle
+	If Assigned(handle) Else handle = ""
+	If handle = "" Then handle = o4wgenerateID("LOCK")
+End
+
+Return RTI_OPTIMISTIC_LOCKHANDLER(ACTION, THANDLE, ID, O4WTempFile%, HANDLE, RECORD, OPTIONS)
+

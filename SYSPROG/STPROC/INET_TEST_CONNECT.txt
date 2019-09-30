@@ -1,0 +1,36 @@
+function Inet_Test_Connect(Request)
+*********************************************************************
+*
+* Product    :  OI
+* Release    :  8.0.4
+*
+* Name       :  Inet_Test_Connect
+* Description:  Generates the trace for HTTP request
+*
+* Parameters:
+*   Request  [in] -- HTTP request 
+*   ret     [out] -- HTML script with a trace 
+*
+* History (Date, Initials, Notes)
+*********************************************************************
+
+$insert inet_equates
+declare function Serial, Registry_Method
+
+html = ""
+
+html <-1> = "<!DOCTYPE html>"
+html <-1> = "<html>"
+html <-1> = "   <head>"
+html <-1> = "      <title>"
+html <-1> = "         OpenInsight Inet_Test_Connect Response"
+html <-1> = "      </title>"
+html <-1> = "   </head>"
+html <-1> = ""
+html <-1> = "   <body >"
+html <-1> = "   <H1>Congratulations!</h1>"
+html <-1> = "   <br>If you can read this, you have successfully connected to OpenInsight"
+html <-1> = "   </body>"
+html <-1> = "</html>"
+
+return html

@@ -1,0 +1,25 @@
+Compile Insert Cache_Mfs_Common
+/*
+**
+** See CACHE_MFS, SYSLISTS_MFS
+**
+**
+** 10-20-2005   rjc  Created
+*/
+
+EQU CREATE_CACHE$  TO 0
+EQU OPEN_CACHE$    TO 1
+EQU CLOSE_CACHE$   TO 2
+EQU CLEAR_CACHE$   TO 3
+EQU READ_CACHE$    TO 4
+EQU WRITE_CACHE$   TO 5
+EQU DELETE_CACHE$  TO 6
+EQU MAX_CACHE_CNT$ to 100
+
+EQU CACHE_HANDLE_DELIM$ to \F7\
+Equ CACHE_HANDLE_POS$ To 6
+
+declare subroutine rtp65
+
+common /cache_mfs_Common/init@,handle_cnt@,names@,file_handles@(max_cache_cnt$),cache_handles@,full_cache_flags@
+

@@ -1,0 +1,210 @@
+Function TEST_EDITTABLE_DROPDOWN_EVENTS(CtrlEntID,Event,Param1,Param2,Param3,Param4,Param5,Param6)
+*
+* Subroutine Name :TEST_EDITTABLE_DROPDOWN_EVENTS
+*
+* Description : Commuter Module for TEST_EDITTABLE_DROPDOWN
+*
+* Date : 04/01/2009
+*
+* Author : SYSPROG
+*
+* OI Version : 9.0.1
+*
+* Comments : MTR  - Provided as examples in 9.0.1 Sysprog
+*
+*** RTI Generated Commuter Module ***
+*
+********************************************************
+*
+*
+Declare Subroutine MSG
+
+Declare Function MSG,GET_PROPERTY,SET_STATUS,GET_STATUS,SET_PROPERTY
+Declare Function POPUP,REPOSITORY,SEND_MESSAGE,SEND_EVENT,UNASSIGNED
+Declare Function UTILITY,CONTEXTMENU
+
+$INSERT MSG_EQUATES
+$INSERT POPUP_EQUATES
+
+If Unassigned(CtrlEntID) Then CtrlEntID = ''
+If Unassigned(Event) Then Event = ''
+If Unassigned(Param1) Then Param1 = ''
+If Unassigned(Param2) Then Param2 = ''
+If Unassigned(Param3) Then Param3 = ''
+If Unassigned(Param4) Then Param4 = ''
+If Unassigned(Param5) Then Param5 = ''
+If Unassigned(Param6) Then Param6 = ''
+*
+*
+If index(CtrlEntID,".",1) then
+	WinName = Field(CtrlEntID,'.',1)
+	Control = Field(CtrlEntID,'.',2)
+End else
+	WinName = CtrlEntID
+	Control = WinName
+End
+*
+Parent = @window
+Frame = Get_Property(Parent,'MDIFRAME')
+If len(Frame) then Parent = Frame
+*
+Retval = 1
+*
+Begin Case
+	Case Control = "TEST_EDITTABLE_DROPDOWN"
+		Begin Case
+			Case Event = "CREATE"
+				CreateParam = Param1
+				
+				EditTable = @Window:".TABLE_1"
+				
+				// Column 1 is the column being set up as a drop down.
+				
+				
+				// Flag the column as a drop down column.
+				ColStyle = Send_Message(EditTable, "COLSTYLE", 1)
+				ColStyle = bitor(ColStyle, 0x20000)
+				ColStyle = Send_Message(EditTable, "COLSTYLE", 1, ColStyle)
+				
+				// Establish the list of values in the drop down.
+				
+				ColFormat = Send_Message(EditTable, "COLFORMAT", 1, "Item One":@VM:"Item Two":@VM:"Item Three")
+				
+				
+				EditTable = @Window:".TABLE_2"
+				
+				// Column 1 is the column being set up as a drop down.
+				
+				
+				// Flag the column as a drop down column.
+				ColStyle = Send_Message(EditTable, "COLSTYLE", 2)
+				ColStyle = bitor(ColStyle, 0x20000)
+				ColStyle = Send_Message(EditTable, "COLSTYLE", 2, ColStyle)
+				
+				// Establish the list of values in the drop down.
+				
+				ColFormat = Send_Message(EditTable, "COLFORMAT", 2, "Alpha":@VM:"Beta":@VM:"Gamma")
+				
+				
+				EditTable = @Window:".TABLE_3"
+				
+				// Column 1 is the column being set up as a drop down.
+				
+				
+				// Flag the column as a drop down column.
+				ColStyle = Send_Message(EditTable, "COLSTYLE", 1)
+				ColStyle = bitor(ColStyle, 0x00400000)
+				ColStyle = Send_Message(EditTable, "COLSTYLE", 1, ColStyle)
+				
+				// Establish the list of values in the drop down.
+				
+				ColFormat = Send_Message(EditTable, "COLFORMAT", 1, "Alpha":@VM:"Beta":@VM:"Gamma")
+				
+				
+				
+				Retval = 1
+		End Case
+	Case Control = "TABLE_1"
+		Begin Case
+			Case Event = "CHANGED"
+				NewData = Param1
+
+				Retval = 0
+			Case Event = "POSCHANGED"
+				NextColumn = Param1
+				NextRow = Param2
+				
+				
+				
+				selpos = GET_PROPERTY(CTRLENTID,"SELPOS")
+				prev_selpos = GET_PROPERTY(CTRLENTID,"PREVSELPOS")
+				
+				cell_pos = get_Property(CtrlEntID, 'CELLPOS', SELPOS)
+				prev_cell_pos = Get_Property(CtrlEntID, 'PREV_CELLPOS', prev_selpos)
+				
+				swap @fm with ',' in SELpos
+				swap @fm with ',' in prev_SELpos
+				
+				STATX@=SET_PROPERTY(@WINDOW:".INFO","TEXT", SELpos:'; ':prev_selpos)
+				Retval = 1
+		End Case
+	Case Control = "BUTTON_1"
+		Begin Case
+			Case Event = "CLICK"
+				DATA = GET_PROPERTY(@WINDOW:".TABLE_1","LIST")
+				
+				DEBUG
+				
+				Retval = 0
+		End Case
+	Case Control = "TABLE_2"
+		Begin Case
+			Case Event = "POSCHANGED"
+				NextColumn = Param1
+				NextRow = Param2
+				
+				EditTable = @Window:".TABLE_2"
+				
+				// Column 1 is the column being set up as a drop down.
+				
+				
+				
+				if NextRow = 2 then
+					// Flag the column as a drop down column.
+					ColStyle = Send_Message(EditTable, "COLSTYLE", 2)
+					ColStyle = bitand(ColStyle, bitnot(0x20000) )
+					ColStyle = Send_Message(EditTable, "COLSTYLE", 2, ColStyle)
+				end else
+					ColFormat = Send_Message(EditTable, "COLFORMAT", 2, "")
+				end
+				
+				if nextRow = 4 then
+					// Flag the column as a drop down column.
+					ColStyle = Send_Message(EditTable, "COLSTYLE", 2)
+					ColStyle = bitor(ColStyle, 0x20000)
+					ColStyle = Send_Message(EditTable, "COLSTYLE", 2, ColStyle)
+					
+					// Establish the list of values in the drop down.
+					
+					ColFormat = Send_Message(EditTable, "COLFORMAT", 2, "Font1":@VM:"Font2":@VM:"Font3")
+				end
+				
+				Retval = 0
+		End Case
+	Case Control = "TABLE_3"
+		Begin Case
+			Case Event = "POSCHANGED"
+				NextColumn = Param1
+				NextRow = Param2
+				
+				EditTable = @Window:".TABLE_2"
+				
+				// Column 1 is the column being set up as a drop down.
+				
+				
+				
+				if NextRow = 2 then
+					// Flag the column as a drop down column.
+					ColStyle = Send_Message(EditTable, "COLSTYLE", 2)
+					ColStyle = bitand(ColStyle, bitnot(0x20000) )
+					ColStyle = Send_Message(EditTable, "COLSTYLE", 2, ColStyle)
+				end else
+					ColFormat = Send_Message(EditTable, "COLFORMAT", 2, "")
+				end
+				
+				if nextRow = 4 then
+					// Flag the column as a drop down column.
+					ColStyle = Send_Message(EditTable, "COLSTYLE", 2)
+					ColStyle = bitor(ColStyle, 0x20000)
+					ColStyle = Send_Message(EditTable, "COLSTYLE", 2, ColStyle)
+					
+					// Establish the list of values in the drop down.
+					
+					ColFormat = Send_Message(EditTable, "COLFORMAT", 2, "Font1":@VM:"Font2":@VM:"Font3")
+				end
+				
+				Retval = 0
+		End Case
+End Case
+*
+return retval

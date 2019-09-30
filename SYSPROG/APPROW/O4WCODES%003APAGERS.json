@@ -1,0 +1,20 @@
+{
+    "record1": {
+        "<1>": {
+            "<1,1>": "jQuery TableSorter Plugin (Top)",
+            "<1,2>": "jQuery TableSorter Plugin (Bottom)",
+            "<1,3>": "Local Pagination (Top)",
+            "<1,4>": "Local Pagination (Bottom)",
+            "<1,5>": "Local Pagination w/ Page Numbers (Top)",
+            "<1,6>": "Local Pagination w/ Page Numbers (Bottom)"
+        },
+        "<2>": {
+            "<2,1>": "O4WI_TABLEPAGERPLUGIN",
+            "<2,2>": "O4WI_TABLEPAGERPLUGIN*-1",
+            "<2,3>": "O4WI_TABLEPAGERLOCAL",
+            "<2,4>": "O4WI_TABLEPAGERLOCAL*-1",
+            "<2,5>": "O4WI_TABLEPAGERLOCAL2",
+            "<2,6>": "O4WI_TABLEPAGERLOCAL2*-1"
+        }
+    }
+}

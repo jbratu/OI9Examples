@@ -1,0 +1,33 @@
+Function RTI_INET_DEBUGGER(void)
+******************************************************************************
+*
+* This program is proprietary and is provided as is, with no warranty given or implied
+*
+* Name       :  RTI_INET_Debugger
+* Description:  This procedure implements an example of a way 
+*               to intercept the debugger, yet still report on errors, in the INET environment
+* See Also   :  RTI_Debug_Common   
+*
+* History    :  (date, initials, notes)
+******************************************************************************
+$Insert RTI_Debug_Common
+
+* do whatever you want here- message, MAIL, OSWrite, etc.
+* SPStatcode@ is an @fm delimited array. 
+
+text = 'An error has occurred in program ':Curr_Program@:' on line ':LineNo@
+* error code information
+STATCD = SPSTATCODE@
+convert \00\ to @fm in STATCD
+MSGID = STATCD<2>
+text := @TM:"Error code: ":msgid
+* call stack information
+STACK = callstack@
+If STACK <> "" THEN
+	Swap @FM With @TM:"Program " In stack
+	Swap @VM With " line " In stack
+	text := @TM:'Call stack: Program ':stack
+End
+Call Set_Status(1, TEXT)
+STOP
+

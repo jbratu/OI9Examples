@@ -1,0 +1,54 @@
+Function Debugger_Replacement(void)
+******************************************************************************
+*
+* This program is proprietary and is provided as is, with no warranty given or implied
+*
+* Name       :  Test_Debugger
+* Description:  This procedure implements shows an example of a way 
+*               to intercept the debugger, yet still report on errors.
+* See Also   :  RTI_Debug_Common   
+*
+* History    :  (date, initials, notes)
+* 3-23-05  MTR  Rolled In 7.1.1
+* 5-12-05  mtr  Updated SPStatCode
+* 07-07-07 mtr  Added the IsArev32 code
+* 07-31-07 BZS  updated to allow both CTO and AREV32 to run alt debugger
+* 11-24-10 bzs  changed to provide more information in OI mode
+******************************************************************************
+Declare Function Msg, IsArev32
+ 
+$Insert RTI_Debug_Common
+
+COMMON /AREV32_DEBUGGER/ ORIG.SCREEN, DEBUG.SCREEN
+
+* do whatever you want here- message, MAIL, OSWrite, etc.
+* SPStatcode@ is an @fm delimited array. 
+ 
+* 073107 bzs is_Arev = IsArev32()
+* 073107 bzs If is_Arev Then 
+ 
+is_OI = IsAREV32("OI")
+
+If Is_OI = 0 then
+	ORIG.SCREEN = ""
+	call rtp25()
+End ELse
+	text = 'An error has occurred in program ':Curr_Program@:' on line ':LineNo@
+	* error code information
+	STATCD = SPSTATCODE@
+	convert \00\ to @fm in STATCD
+	MSGID = STATCD<2>
+    text := "|Error code: ":msgid
+	* call stack information
+	STACK = callstack@
+	If stack <> "" then
+		Swap @FM With "|Program " In stack
+		Swap @VM With " line " In stack
+		text := '|Call stack: Program ':stack
+	end
+	x = Msg('', text:@fm:"BOK")
+End
+
+
+
+Return ''

@@ -1,0 +1,350 @@
+function examples_Main( object, method, param1, param2, param3, param4, param5, param6 )
+/*
+   Author  : Captain C
+   Date    : August 2002
+   Purpose : Control Logic for the EXAMPLES_MAIN MDI frame
+   
+   
+   Comments
+   ========
+   
+      This is a commuter routine used by the EXAMPLES_MAIN form to contain 
+      it's event processing logic.  It is designed to be called from a 
+      form/control's quickevent.
+      
+      
+   Arguments
+   =========
+   
+      object  - Name of the control/form triggering the event
+      
+      method  - Name of the currently executing event
+      
+      param1  - Polymorphic arguments - their purpose depends on the 
+       ...      event being executed
+      param6 
+   
+   
+   Returns
+   =======
+   
+      TRUE$ if no errors, FALSE otherwise.  Error descriptions are returned 
+      via set_Status()
+      
+   
+   Amended   Date      Reason
+   =======   ====      ======
+
+*/
+   declare function get_Property, set_Property, utility, get_Status, set_Status
+   declare function send_Message, msg, registry_Method, Start_MDIChild, GetCurrentDir
+   declare subroutine start_OIPI32, stop_OIPI32, Set_Status, declare_fcns
+   Declare Function Create_Dialog
+   $insert msg_Equates
+   $insert logical
+   
+   equ REG_BASE_KEY$    to "HKEY_CURRENT_USER\SOFTWARE\Revelation Software\OpenInsight\" : @appID<1> : "\EXAMPLES_MAIN"
+   equ REG_WINSIZE_KEY$ to "WinSize"
+   
+   equ WM_SETCURSOR$    to 0x0020
+   
+   if assigned( object ) else object = ""
+   if assigned( method ) else method = ""
+   if assigned( param1 ) else param1 = ""
+   if assigned( param2 ) else param2 = ""
+   if assigned( param3 ) else param3 = ""
+   if assigned( param4 ) else param4 = ""
+   if assigned( param5 ) else param5 = ""
+   if assigned( param6 ) else param6 = ""
+   
+   errorText = ""          ; * // global var for holding error details
+   abort     = FALSE$      ; * // global boolean var for flagging error conditions
+   declareOnly = ''	
+  
+   if len( object ) then
+      if len( method ) then
+         locate method in "WINMSG,CREATE,CLOSE,DBLCLICK" using "," setting pos then
+            on pos goSub winMsg,create,close,dblclick
+         end else
+            errorText = "Illegal method " : quote( method ) : " passed to the EXAMPLES_MAIN procedure"
+            abort     = TRUE$
+         end
+      end else
+         errorText = "No method passed to the EXAMPLES_MAIN procedure"
+         abort     = TRUE$
+      end
+   end else
+      errorText = "No object passed to the EXAMPLES_MAIN procedure"
+      abort     = TRUE$
+   end
+   
+   if abort then
+      if len( errorText ) then
+         call set_Status( TRUE$, errorText )
+      end
+   end
+   
+return not( abort )   
+
+////////////////////////////////////////////////////////////////////////////////
+
+DblClick:
+ctrl = Param1
+list_ex 	= Get_Property(Ctrl, 'LIST_EX')
+selpos_ex 	= Get_Property(Ctrl, 'SELPOS_EX')
+nodes = selpos_ex<3>
+If nodes = 0 Then
+	text = list_ex< selpos_ex<1> >
+	text = trim( Field(text, ':', 2) )
+	
+	Begin case
+		Case text _eqc 'Customers Entry'
+			val = Start_MDIChild('CUST_ENTRY', @WINDOW, '', '', '', '', '')
+			
+		Case text _eqc 'Products Entry'
+			val = Start_MDIChild('PROD_ENTRY', @WINDOW, '', '', '', '', '')
+
+		Case text _eqc 'Product Picture Entry'
+			val = Start_MDIChild('PROD_PIC_ENTRY', @WINDOW, '', '', '', '', '')	
+		
+		Case text _eqc 'ORDERs Entry'
+			val = Start_MDIChild('ORDER_ENTRY', @WINDOW, '', '', '', '', '')
+		Case text _eqc 'Invoices Entry'
+			val = Start_MDIChild('INV_ENTRY', @WINDOW, '', '', '', '', '')
+				
+		Case text _eqc 'States Entry'
+			val = Start_MDIChild('ST_ENTRY', @WINDOW, '', '', '', '', '')
+			
+		Case text _eqc 'MP3 Player'
+			val = Create_Dialog('MP3_PLAYER', @WINDOW, 1, 0)
+			
+		Case text _eqc 'All Reports'
+			val = Start_MDIChild('REPORTS', @WINDOW, '', '', '', '', '')						
+	End Case 
+end
+
+Return ''
+
+create:
+   * // This subroutine handles the CREATE logic processing for the 
+   * // EXAMPLES_MAIN form. Within it we perform several tasks:
+   * //
+   * //   1) Start the OIPI32 print engine.  As this is the main application
+   * //      window we are going to start up OIPI32 here so it will be available
+   * //      to us for the duration of the application. It will be unloaded 
+   * //      during this form's CLOSE event
+   * //
+   * //   2) Create a system STATUSLINE (See online help for more details of
+   * //      this property)
+   * // 
+   * //   3) Set the window coordinates to their last known position and make 
+   * //      the window visible
+   * //
+   * //   4) Qualify the WM_SETCURSOR message for the buttons on the window 
+   * //      so we can trap them in a WINMSG event
+   * //
+   * //   5) Display the welcome message regarding updates etc
+   * //
+   * //
+   * //  Arguments
+   * //  =========
+   * //
+   * //     param1  ->  CreateParam passed to the CREATE event. 
+   
+   * // Start up OIPI
+   
+   * // Create a system STATUSLINE with the STATUSLINE edit control on the
+   * // form
+   call set_Property( @window, "STATUSLINE", @window : ".STATUSLINE" )
+   
+   
+   * spf 2/3/04 - REGISTER THE MP3 PLAYER
+  registerThis = 'MP3OCX.OCX /s'
+	program = '.\REGSVR32.EXE'
+	mode = 1 ;* normal mode
+	programStr = program:' ':registerThis
+
+	x = Utility('RUNWIN',programStr,mode)
+
+   open 'SYSPROCS' to f_sysprocs then
+   		read dll_advaip32 from f_sysprocs, 'DLL_ADVAPI32' then
+			open 'SYSOBJ' to f_sysobj then
+   				read fncCreated from f_sysobj,'$REGCREATEKEYEX' else
+   					declareOnly = 1
+   					goSub declare_functions
+   				end
+   			end else
+   				msg(@window,'Error creating Examples_Main mdiframe')
+   				return
+   			end
+   		end else
+   			open 'SYSOBJ' to f_sysobj then
+   				goSub declare_functions
+   			end
+   		end
+   	end else
+		msg(@window,'Error opening SYSPROCS')
+		return
+	end
+	
+   // mtr 2-2-04
+   x = Send_Message(@Window:'.LISTBOX', 'EXPAND', 0, 0)
+   
+   * // Find out the last position of the form.  When the form is closed it 
+   * // writes it's position and size to the registry.  If it was maximized
+   * // it writes an 'X' instead
+   
+   winSize = registry_Method( "READ", REG_BASE_KEY$ : "\" : REG_WINSIZE_KEY$ )
+   if len( winSize ) then
+      if ( winSize = "X" ) then
+         * // It was maximized
+         call set_Property( @window, "VISIBLE", 3 )
+      end else
+         convert "," to @fm in WinSize
+         call set_property( @window, "SIZE", winSize )
+      end
+   end else
+      call set_Property( @window, "VISIBLE", 1 )
+   end
+   
+   * // Qualify the WM_SETCURSOR$ message for each button and create a list
+   * // of them that we may use later in the code
+   ctrlArray = get_Property( @window, "CTRLMAP" )
+   btnArray  = ""
+   pos       = 0
+   loop
+      remove ctrl from ctrlArray at pos setting mark
+      thisName = field( ctrl, ".", 2, 99 )
+      if ( thisName[1,4] = "BTN_" ) then
+         btnArray := ctrl : @fm
+         call send_Message( ctrl, "QUALIFY_EVENT", WM_SETCURSOR$, TRUE$ )
+      end
+   while mark
+   repeat
+   
+   * // Place the list of buttons in a User-Defined Property for the window
+   * // so we can grab them during WINMSG processing
+   btnArray[-1,1] = ""
+   call set_Property( @window, "@TOOLBAR_BUTTONS", btnArray )
+   
+   * // Display the welcome message
+   call dialog_Box( "EXAMPLES_UPDATES", @window, "" )
+   
+return
+
+////////////////////////////////////////////////////////////////////////////////
+
+close:
+   * // This subroutine handles the CLOSE logic for the EXAMPLES_MAIN form
+   * //
+   * // 1) It gets it's current position and writes it to the registry
+   * // 
+   * // 2) It shuts down the OIPI engine
+   * //
+   * //  Arguments
+   * //  =========
+   * //
+   * //     param1  ->  CancelFlag as passed to the CLOSE event. 
+   
+   ctrlArray =        @window
+   propArray =        "VISIBLE"
+   
+   ctrlArray := @rm : @window
+   propArray := @rm : "SIZE"
+   
+   dataArray =        get_Property( ctrlArray, propArray )
+   
+   winVis    =        dataArray[1,@rm]
+   winSize   =        dataArray[col2()+1,@rm]
+      
+   * // If the window is maximized we write an 'X' back to the registry,
+   * // otherwise we write it's size with the @fm's swapped out for ','s
+   if ( winVis = 3 ) then
+      winSize = "X"
+   end else
+      convert @fm to "," in winSize
+   end
+   
+   call registry_Method( "WRITE", REG_BASE_KEY$ : "\" : REG_WINSIZE_KEY$, winSize )
+   
+   * // Now shutdown OIPI
+   
+return
+
+////////////////////////////////////////////////////////////////////////////////
+
+winMsg:
+   * // This subroutine handles the WINMSG processing for the form.  Messages
+   * // handled are:
+   * //
+   * // WM_SETCURSOR - This is message is processed for the buttons on the form
+   * //                so that we may make them behave like the standard windows
+   * //                flat-style buttons that are highlighted when the mouse
+   * //                is over them.
+   * //
+   * // Arguments
+   * // =========
+   * //
+   * //   param1 -> hwnd:  Windows handle of the control sending the message
+   * //
+   * //   param2 -> Message:  ID of the message being sent
+   * //
+   * //   param3 -> wParam: Supplemental message information
+   * //   
+   * //   param4 -> lParam: Supplemental message information
+    
+   begin case
+      case ( param2 = WM_SETCURSOR$ )
+         
+         ctrlName = field( object, '.', 2, 99 )
+         if ( ctrlName[1,4] = "BTN_" ) then
+            * // Assume it's a toolbar button so set the toolbar button's 
+            * // images to raised or lowered accordingly
+            btnArray = get_Property( @window, "@TOOLBAR_BUTTONS" )
+            pos      = 0
+            loop
+               remove thisBtn from btnArray at pos setting mark
+               bmp =  get_Property( thisBtn, "BITMAP" )[1,"_"]
+               if ( object = thisBtn ) then
+                  bmp := "_FOCUS.BMP"
+               end else
+                  bmp := "_NOFOCUS.BMP"
+               end
+               call set_Property( thisBtn, "BITMAP", bmp )
+            while mark
+            repeat
+         end
+         
+      case OTHERWISE$
+         null
+         
+   end case      
+
+return
+
+
+declare_functions:
+
+if declareOnly else
+	rec = ''
+	rec<1> = "ADVAPI32"
+	rec<2> = "LONG STDCALL RegCreateKeyExA( HANDLE, LPCHAR, ULONG, LONG, ULONG, ULONG, LONG, LPLONG, LPULONG ) as RegCreateKeyEx"
+	rec<3> = "LONG STDCALL RegQueryValueExA( HANDLE, LPCHAR, ULONG, LPULONG, LPCHAR, LPULONG ) as RegQueryValueEx"
+	rec<4> = "LONG STDCALL RegSetValueExA( HANDLE, LPCHAR, ULONG, ULONG, LPCHAR, ULONG ) as RegSetValueEx"
+	rec<5> = "LONG STDCALL RegCloseKey( HANDLE )"	
+	
+	write rec to f_sysprocs, 'DLL_ADVAPI32' else
+		msg(@window,'Error creating Examples_Main mdiframe')
+   		return
+   	end
+End
+
+set_status(0)
+declare_fcns('DLL_ADVAPI32')   	
+status = Get_Status(errcodes)
+if status then
+	msg(@window,'Error on Declare_fns')
+	return
+end
+
+return

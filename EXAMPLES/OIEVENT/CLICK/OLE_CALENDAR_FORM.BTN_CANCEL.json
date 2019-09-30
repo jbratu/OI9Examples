@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "call End_Dialog(@window,'')\r\nRETURN 0"
+    }
+}

@@ -1,0 +1,5 @@
+compile Insert rdesign.common
+
+*COMMON FILE.RDES, prompt.for, VC3, VC4, VC5, VC6, PROGRAM, VC8, VC9, VC10, VC11, VC12, VC13, VC14, VC15, VC16, VC17, VC18, VC19, VC20, VC21, VC22, VC23, VC24, VC25, Screen, VC27, VC28, VC29, VC30
+*           1         2            3           4          5        6          7        8       9        10              11        12        13          14            15               16       17           18         19         20         21         22        23          24           25       26           27           28          29        30    
+COMMON FILE.RDES, PROMPT.FOR, LAST.PROMPT, ITEM.RDES , DATA.IO, VALUE.NO , PROGRAM, DIS.VAL, WORK  , STD.PATRN.FLAG, DEPTH.FLAG, DUP   , REST.OF.SCR, PROMPT.NMS, PROMPT.BODIES, COLM.INCR, ROW.INCR , DONT.DISPLAY, IN.SCREEN, ERROR.SPC, CLR.SPC, WINDOW.ACT, WINDOW.CNT, WINDOW.OP, SAVE.VALUE, SCREEN, FORMULA.ANSWER, XREF.ENABLED, CHANGE, OLD.ITEM

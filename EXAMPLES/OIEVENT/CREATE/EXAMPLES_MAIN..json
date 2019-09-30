@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "\r\nx = set_Property( @window:'.MDICLIENT', \"BACKCOLOR\", 0x00F7E2CD : @fm : 0x00F3A080 : @fm : 0 )\r\n\r\nRETURN 1"
+    }
+}

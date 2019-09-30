@@ -1,0 +1,1018 @@
+{
+    "style-sheet-id": "",
+    "name": "TEST_NEW_EDITTABLE_STYLES",
+    "icon-name": "OI_IDE",
+    "title": "Test New Edittable Styles",
+    "size": {
+        "x": 267,
+        "y": 112,
+        "y-ext": null,
+        "width": -529,
+        "height": -658
+    },
+    "style": [
+        "WS_POPUP",
+        "WS_VISIBLE",
+        "WS_CLIPSIBLINGS",
+        "WS_BORDER",
+        "WS_DLGFRAME",
+        "WS_SYSMENU",
+        "WS_THICKFRAME",
+        "WS_MINIMIZEBOX",
+        "WS_MAXIMIZEBOX"
+    ],
+    "style-ex": [],
+    "ps-style": [],
+    "background": "#00FFFFFF",
+    "script-events": [],
+    "quick-events": [
+        {
+            "name": "CREATE",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**TEST_NEW_ET_STYLES",
+            "parameters": [
+                "@window",
+                "CREATE"
+            ],
+            "return-id": "",
+            "return-property": ""
+        }
+    ],
+    "tables": [],
+    "io-options": {
+        "optimistic-locking": false,
+        "locking-behavior": "Exclusive",
+        "coordinate-with-file-locks": false,
+        "ignore-self-locks": false,
+        "ignore-subrow-locks": false,
+        "no-clear-on-write": false,
+        "commit-after-data-set": null,
+        "rollback-if-commit-fails": null,
+        "auto-rollback-on-clear": null,
+        "enforce-required-fields-before-save": null
+    },
+    "joined-tables": {
+        "primary": null,
+        "joined": null
+    },
+    "form-designer-flags": [
+        "0x7FFFE",
+        "0xF001E808"
+    ],
+    "background-image": "",
+    "icon": "SYSPROG*IMAGE*ICO*OI_IDE",
+    "page-count": 1,
+    "controls": [
+        {
+            "name": "BUTTON_1",
+            "icon-literal": "",
+            "type": "PUSHBUTTON",
+            "parent": "TEST_NEW_EDITTABLE_STYLES",
+            "size": {
+                "x": 4,
+                "y": -355,
+                "y-ext": null,
+                "width": 512,
+                "height": 24
+            },
+            "text": "Options Button - column 2 will have a button that calls the options event of the edittable control",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_PUSHBUTTON",
+                "BS_MULTILINE"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_INITIALFOCUS",
+                "PSS_CLIPONLY",
+                "PSS_AUTOSIZE_Y"
+            ],
+            "tab-stop": 1,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "Tahoma",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 3,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**TEST_NEW_ET_STYLES",
+                    "parameters": [
+                        "@WINDOW",
+                        "OPT_BTN"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016008"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "TABLE_1",
+            "icon-literal": "",
+            "type": "EDITTABLE",
+            "parent": "TEST_NEW_EDITTABLE_STYLES",
+            "size": {
+                "x": 4,
+                "y": 8,
+                "y-ext": null,
+                "width": -13,
+                "height": -364
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_BORDER",
+                "WS_VSCROLL",
+                "DTS_OWNERDEF",
+                "DTS_EDIT",
+                "DTS_HGRID",
+                "DTS_VGRID",
+                "DTS_ROWSELECT",
+                "DTS_ROWNUMBERS"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_AUTOSIZE_W",
+                "PSS_AUTOSIZE_H"
+            ],
+            "tab-stop": 2,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "Tahoma",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 3,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [
+                "OPTIONS"
+            ],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "",
+            "o-conv": "",
+            "default": "",
+            "form-designer-flags": [
+                "0x7e27e",
+                "0xc001e208"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": 40,
+            "columns": [
+                {
+                    "data-width": 999,
+                    "width": 177,
+                    "label": "Name",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_HIDDEN",
+                        "DTCS_CENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 80,
+                    "width": 161,
+                    "label": "Event",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_RESIZE",
+                        "DTCS_HIDDEN",
+                        "DTCS_CENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 400,
+                    "width": 120,
+                    "label": "Showing",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_RESIZE",
+                        "DTCS_HIDDEN",
+                        "DTCS_CENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                }
+            ],
+            "image-count": null,
+            "row-limit": 0,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "BUTTON_5",
+            "icon-literal": "",
+            "type": "PUSHBUTTON",
+            "parent": "TEST_NEW_EDITTABLE_STYLES",
+            "size": {
+                "x": 4,
+                "y": -325,
+                "y-ext": null,
+                "width": 512,
+                "height": 24
+            },
+            "text": "Vertical Styles - click the button then enter text in the cells.",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_PUSHBUTTON",
+                "BS_MULTILINE"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_TRANSPARENT_BMP",
+                "PSS_CLIPONLY",
+                "PSS_AUTOSIZE_Y"
+            ],
+            "tab-stop": 3,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "Tahoma",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 3,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**TEST_NEW_ET_STYLES",
+                    "parameters": [
+                        "@WINDOW",
+                        "VERTSTYLES"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016008"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "BUTTON_6",
+            "icon-literal": "",
+            "type": "PUSHBUTTON",
+            "parent": "TEST_NEW_EDITTABLE_STYLES",
+            "size": {
+                "x": 4,
+                "y": -295,
+                "y-ext": null,
+                "width": 512,
+                "height": 24
+            },
+            "text": "Uppercase Row Data in Row 2 - Click the button then type data in row 2",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_PUSHBUTTON",
+                "BS_MULTILINE"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_TRANSPARENT_BMP",
+                "PSS_CLIPONLY",
+                "PSS_AUTOSIZE_Y"
+            ],
+            "tab-stop": 4,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "Tahoma",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 3,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**TEST_NEW_ET_STYLES",
+                    "parameters": [
+                        "@window",
+                        "UPPERCASE_ROW"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016008"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "BUTTON_7",
+            "icon-literal": "",
+            "type": "PUSHBUTTON",
+            "parent": "TEST_NEW_EDITTABLE_STYLES",
+            "size": {
+                "x": 4,
+                "y": -261,
+                "y-ext": null,
+                "width": 512,
+                "height": 24
+            },
+            "text": "Multiline Processing - Click this button, then press F2 in SELPOS 1,1 of the Edit Table",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_PUSHBUTTON",
+                "BS_MULTILINE"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY",
+                "PSS_AUTOSIZE_Y"
+            ],
+            "tab-stop": 5,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "Tahoma",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 3,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**TEST_NEW_ET_STYLES",
+                    "parameters": [
+                        "@window",
+                        "MULTILINE_PROCESSING"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016008"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "BUTTON_8",
+            "icon-literal": "",
+            "type": "PUSHBUTTON",
+            "parent": "TEST_NEW_EDITTABLE_STYLES",
+            "size": {
+                "x": 4,
+                "y": -230,
+                "y-ext": null,
+                "width": 512,
+                "height": 72
+            },
+            "text": "Drop Downs\r\nColumn 1 has an \"A,B,C\" drop down\r\nSELPOS 2,2 has a \"Yes, No\" drop down\r\nRow 2 has a \"Yes, No, Undetermined\" drop down\r\n**** SELPOS trumps ROW, ROW trumps COLUMN ****",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_PUSHBUTTON",
+                "BS_MULTILINE"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY",
+                "PSS_AUTOSIZE_Y"
+            ],
+            "tab-stop": 6,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "Tahoma",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 3,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**TEST_NEW_ET_STYLES",
+                    "parameters": [
+                        "@window",
+                        "DROPDOWNs"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016008"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "BUTTON_9",
+            "icon-literal": "",
+            "type": "PUSHBUTTON",
+            "parent": "TEST_NEW_EDITTABLE_STYLES",
+            "size": {
+                "x": 4,
+                "y": -151,
+                "y-ext": null,
+                "width": 512,
+                "height": 32
+            },
+            "text": "Drop Down Edit\r\nColumn 1 has an Drop Down that behaves as the Drop Down combo box control does.",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_PUSHBUTTON",
+                "BS_MULTILINE"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY",
+                "PSS_AUTOSIZE_Y"
+            ],
+            "tab-stop": 7,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "Tahoma",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 3,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**TEST_NEW_ET_STYLES",
+                    "parameters": [
+                        "@window",
+                        "DROP_DOWN_EDIT"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016008"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "BUTTON_10",
+            "icon-literal": "",
+            "type": "PUSHBUTTON",
+            "parent": "TEST_NEW_EDITTABLE_STYLES",
+            "size": {
+                "x": 4,
+                "y": -115,
+                "y-ext": null,
+                "width": 512,
+                "height": 32
+            },
+            "text": "Multi-Line Header\r\nChanges the heading of the cells to multi-line\r\n",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_PUSHBUTTON",
+                "BS_MULTILINE"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY",
+                "PSS_AUTOSIZE_Y"
+            ],
+            "tab-stop": 8,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "Tahoma",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 3,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**TEST_NEW_ET_STYLES",
+                    "parameters": [
+                        "@window",
+                        "MULTI_LINE_HEADER"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016008"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "BUTTON_11",
+            "icon-literal": "",
+            "type": "PUSHBUTTON",
+            "parent": "TEST_NEW_EDITTABLE_STYLES",
+            "size": {
+                "x": 4,
+                "y": -79,
+                "y-ext": null,
+                "width": 512,
+                "height": 32
+            },
+            "text": "Customize ALL Row Labels\r\nChange the text in the Row Buttons to whatever you want (as long as it is 32 characters or less)",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_PUSHBUTTON",
+                "BS_MULTILINE"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY",
+                "PSS_AUTOSIZE_Y"
+            ],
+            "tab-stop": 9,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "Tahoma",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 3,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**TEST_NEW_ET_STYLES",
+                    "parameters": [
+                        "@window",
+                        "MODIFY_ALL_ROW_LABELS"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016008"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "BUTTON_12",
+            "icon-literal": "",
+            "type": "PUSHBUTTON",
+            "parent": "TEST_NEW_EDITTABLE_STYLES",
+            "size": {
+                "x": 4,
+                "y": -43,
+                "y-ext": null,
+                "width": 512,
+                "height": 32
+            },
+            "text": "Customize *Some* Row Labels\r\nChange the text in the Row Buttons to whatever you want (as long as it is 32 characters or less)",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_PUSHBUTTON",
+                "BS_MULTILINE"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY",
+                "PSS_AUTOSIZE_Y"
+            ],
+            "tab-stop": 10,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "Tahoma",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 3,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**TEST_NEW_ET_STYLES",
+                    "parameters": [
+                        "@window",
+                        "MODIFY_SOME_ROW_LABELS"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016008"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        }
+    ],
+    "menu": null,
+    "menu-script-events": [],
+    "menu-quick-events": []
+}

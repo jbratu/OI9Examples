@@ -1,0 +1,7 @@
+{
+    "record1": {
+        "<1>": "Configure NetOI to process conversion codes on the host or in .NET",
+        "<2>": "Choose to have NetOI perform all available conversions on the host, in the .NET assembly if assembly passes validation test, or always process in the .NET assembly",
+        "<3>": "Where should conversion codes be processed?{OPTIONS Process all on host/0|Process in .NET assembly if possible/1|Always process in .NET/-1}{DEFAULT 0}"
+    }
+}

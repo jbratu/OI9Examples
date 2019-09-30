@@ -1,0 +1,791 @@
+{
+    "style-sheet-id": "",
+    "name": "MDITEST",
+    "icon-name": "",
+    "title": "Untitled",
+    "size": {
+        "x": 4,
+        "y": 72,
+        "y-ext": null,
+        "width": 1030,
+        "height": 622
+    },
+    "style": [
+        "WS_POPUP",
+        "WS_VISIBLE",
+        "WS_CLIPCHILDREN",
+        "WS_BORDER",
+        "WS_DLGFRAME",
+        "WS_SYSMENU",
+        "WS_THICKFRAME",
+        "WS_MINIMIZEBOX",
+        "WS_MAXIMIZEBOX"
+    ],
+    "style-ex": [],
+    "ps-style": [
+        "PSS_WIN_HASMENU"
+    ],
+    "background": "#00FFFFFF",
+    "script-events": [],
+    "quick-events": [],
+    "tables": [],
+    "io-options": {
+        "optimistic-locking": false,
+        "locking-behavior": "Exclusive",
+        "coordinate-with-file-locks": false,
+        "ignore-self-locks": false,
+        "ignore-subrow-locks": false,
+        "no-clear-on-write": false,
+        "commit-after-data-set": null,
+        "rollback-if-commit-fails": null,
+        "auto-rollback-on-clear": null,
+        "enforce-required-fields-before-save": null
+    },
+    "joined-tables": {
+        "primary": null,
+        "joined": null
+    },
+    "form-designer-flags": [
+        "0x7FFFE",
+        "0xF001E988"
+    ],
+    "background-image": "",
+    "icon": "",
+    "page-count": 1,
+    "controls": [
+        {
+            "name": "MDICLIENT",
+            "icon-literal": "RTIMDICLIENT",
+            "type": "MDICLIENT",
+            "parent": "MDITEST",
+            "size": {
+                "x": 36,
+                "y": 12,
+                "y-ext": null,
+                "width": 956,
+                "height": 516
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_CLIPSIBLINGS",
+                "WS_CLIPCHILDREN",
+                "WS_VSCROLL",
+                "WS_HSCROLL"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_AUTOSIZE_W",
+                "PSS_AUTOSIZE_H"
+            ],
+            "tab-stop": 0,
+            "background": "",
+            "foreground": "#00000000",
+            "font": null,
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "",
+            "o-conv": "",
+            "default": "",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf001ee08"
+            ],
+            "bitmap-id": "EXAMPLES*IMAGE*BMP*SAGENT1400X400",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        }
+    ],
+    "menu": {
+        "type": "MENU",
+        "name": "",
+        "text": "",
+        "disabled": false,
+        "checked": false,
+        "hidden": false,
+        "accelerator": "None",
+        "tooltip": "",
+        "flags": [],
+        "sub-menus": [
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "&File",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Read Row\tCtrl+R",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+R",
+                        "tooltip": "",
+                        "flags": [
+                            "PSIS_GROUPBEGIN",
+                            "PSIS_SKIPMENUEVENT",
+                            "PSIS_GENERATELOSTFOCUS"
+                        ],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Save Row\tCtrl+S",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+S",
+                        "tooltip": "",
+                        "flags": [
+                            "PSIS_GROUPBEGIN",
+                            "PSIS_SKIPMENUEVENT",
+                            "PSIS_GENERATELOSTFOCUS"
+                        ],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "C&lear Form\tF8",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "F8",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Delete Row\tF7",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "F7",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Close\tAlt+C",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Alt+C",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            },
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "&Edit",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Options\tAlt+Down",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Alt+Down",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            },
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "&View",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&First Page\tCtrl+Shift+Home",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+Shift+Home",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Previous Page\tCtrl+Shift+PgUp",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+Shift+PageUp",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Next Page\tCtrl+Shift+PgDn",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+Shift+Next",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Last Page\tCtrl+Shift+End",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+Shift+End",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            },
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "&QBF",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Initialize\tF11",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "F11",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Execute\tF6",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "F6",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Next\tF3",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "F3",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Previous\tF4",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "F4",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&First\tCtrl+F4",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+F4",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Last\tCtrl+F3",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+F3",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Absolute\tF12",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "F12",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Table",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Close",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            },
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "&Window",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "MDI Child Window Functions",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Tile",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "Tile the MDI Children",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Cascade",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "Cascade the MDI CHildren",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Arrange Icons",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "Arrange the MDI Children ",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            },
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "&Help",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Help\tF1",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "F1",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&QuickHelp\tCtrl+F1",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+F1",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            }
+        ]
+    },
+    "menu-script-events": [],
+    "menu-quick-events": [
+        {
+            "name": "FILE.READ_ROW",
+            "type": "Event",
+            "message": "READ",
+            "entity-id": "@MDIACTIVE",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.SAVE_ROW",
+            "type": "Event",
+            "message": "WRITE",
+            "entity-id": "@MDIACTIVE",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.CLEAR_FORM",
+            "type": "Event",
+            "message": "CLEAR",
+            "entity-id": "@MDIACTIVE",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.DELETE_ROW",
+            "type": "Event",
+            "message": "DELETE",
+            "entity-id": "@MDIACTIVE",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.CLOSE",
+            "type": "Event",
+            "message": "CLOSE",
+            "entity-id": "@MDIACTIVE",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "EDIT.OPTIONS",
+            "type": "Event",
+            "message": "OPTIONS",
+            "entity-id": "@FOCUS",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "VIEW.FIRST_PAGE",
+            "type": "Event",
+            "message": "PAGE",
+            "entity-id": "@MDIACTIVE",
+            "parameters": [
+                "1"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "VIEW.PREVIOUS_PAGE",
+            "type": "Event",
+            "message": "PAGE",
+            "entity-id": "@MDIACTIVE",
+            "parameters": [
+                "-"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "VIEW.NEXT_PAGE",
+            "type": "Event",
+            "message": "PAGE",
+            "entity-id": "@MDIACTIVE",
+            "parameters": [
+                "+"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "VIEW.LAST_PAGE",
+            "type": "Event",
+            "message": "PAGE",
+            "entity-id": "@MDIACTIVE",
+            "parameters": [
+                "L"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "QBF.INITIALIZE",
+            "type": "Event",
+            "message": "QBFINIT",
+            "entity-id": "@MDIACTIVE",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "QBF.EXECUTE",
+            "type": "Event",
+            "message": "QBFRUN",
+            "entity-id": "@MDIACTIVE",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "QBF.NEXT",
+            "type": "Event",
+            "message": "QBFNEXT",
+            "entity-id": "@MDIACTIVE",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "QBF.PREVIOUS",
+            "type": "Event",
+            "message": "QBFPREV",
+            "entity-id": "@MDIACTIVE",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "QBF.FIRST",
+            "type": "Event",
+            "message": "QBFFIRST",
+            "entity-id": "@MDIACTIVE",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "QBF.LAST",
+            "type": "Event",
+            "message": "QBFLAST",
+            "entity-id": "@MDIACTIVE",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "QBF.ABSOLUTE",
+            "type": "Event",
+            "message": "QBFABS",
+            "entity-id": "@MDIACTIVE",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "QBF.TABLE",
+            "type": "Event",
+            "message": "QBFTABLE",
+            "entity-id": "@MDIACTIVE",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "QBF.CLOSE",
+            "type": "Event",
+            "message": "QBFCLOSE",
+            "entity-id": "@MDIACTIVE",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "WINDOW.TILE",
+            "type": "Event",
+            "message": "TILE",
+            "entity-id": "@MDIFRAME",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "WINDOW.CASCADE",
+            "type": "Event",
+            "message": "CASCADE",
+            "entity-id": "@MDIFRAME",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "WINDOW.ARRANGE_ICONS",
+            "type": "Event",
+            "message": "ARRANGEICONS",
+            "entity-id": "@MDIFRAME",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "HELP.HELP",
+            "type": "Event",
+            "message": "HELP",
+            "entity-id": "@FOCUS",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "HELP.QUICKHELP",
+            "type": "Event",
+            "message": "NOTES",
+            "entity-id": "@FOCUS",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        }
+    ]
+}

@@ -1,0 +1,356 @@
+Compile Subroutine SRP_Set_Prop_Array(PropArray)
+
+************************************************************************************************
+*
+* This program is proprietary and is not to be used by or disclosed to others, nor is it to
+* be copied without written permission from SRP Computer Solutions, Inc.
+*
+* Name       :  SRP_Set_Prop_Array
+*
+* Description:
+*
+* 	Sets multiple properties over multiple controls in one data structure. The
+* 	structure is in a column/row format where rows are @FM delimited and columns
+* 	are @VM delimited. The first row always specifies the properties. Each property
+* 	may optionally include the angle-bracket syntax denoting that a particular
+* 	column of values belongs in a Field, Value, etc. of a given procedure. For
+* 	example, "SIZE<1>" indicates that all values represent the controls X position.
+* 	This, "SIZE<2>":@VM:"SIZE<3>":@VM:"SIZE<4>" could be added with "SIZE<1>" to 
+* 	produce all fields of the property.
+* 
+* 	The first column is always the control name with the left most 'cell' being the
+* 	window name to which the controls belong. If you place a value in the left cell,
+* 	then that value is prefixed to all of the following control names. If not, then
+* 	the control names are used as is. (NOTE: you don't need to append a "." to the window
+* 	name. If the top cell is not null, then this function will add the "." for you. So, 
+* 	you can set the top cell to @Window -- not @Window:".") Below is an example array for a
+* 	series of buttons:
+* 
+* 		PropArray		= @Window		:@VM:	"ENABLED"	:@VM:	"SIZE<1>"	:@VM:	"SIZE<2>"	:@VM:	"SIZE<3>"	:@VM:	"SIZE<4>"
+* 		PropArray<-1>	= "BUTTON_1"	:@VM:	0			:@VM:	10			:@VM:	10			:@VM:	100			:@VM:	100
+* 		PropArray<-1>	= "BUTTON_2"	:@VM:	0			:@VM:	20			:@VM:	20			:@VM:	100			:@VM:	100
+* 		PropArray<-1>	= "BUTTON_3"	:@VM:	0			:@VM:	30			:@VM:	30			:@VM:	100			:@VM:	100
+* 		PropArray<-1>	= "BUTTON_4"	:@VM:	0			:@VM:	40			:@VM:	40			:@VM:	100			:@VM:	100
+* 
+* 	You can optionally use this method to set many properties of one control. To
+* 	do this, set the first value in the first field to the control name ensuring that there 
+* 	are absolutely no other value marks in the first row. When you have done this, then each
+* 	following row represents a property/value pair delimited by @VM. Just like before
+* 	you can use the angle-bracket syntax to denote property fields, values, etc. For
+* 	example:
+* 
+* 		PropArray		= @Window:".BUTTON_1"
+* 		PropArray<-1>	= "ENABLED"		:@VM:	0
+* 		PropArray<-1>	= "SIZE<1>"		:@VM:	0
+* 		PropArray<-1>	= "SIZE<2>"		:@VM:	0
+* 		PropArray<-1>	= "SIZE<3>"		:@VM:	0
+* 		PropArray<-1>	= "SIZE<4>"		:@VM:	0
+*
+*	This function also allows you to combine both formats for a powerful and flexible
+*	way to initialize a set of similar controls. In the first example above, notice that
+*	all values are the same for the ENABLED, SIZE<3>, and SIZE<4> properties. To save time
+*	and space, your array can also have a "Shared Properties" section. The section follows
+*	main array and separated by a field containing a single @RM. The section is formatted
+*	like the second example above. Each row in the section contains a property name and
+*	a value. The function will use these property/value pairs to set the same value for all
+*	controls in the preceding section. Here is first example rewritten to take advantage
+*	of this functionality:
+*
+* 		PropArray		= @Window		:@VM:	"SIZE<1>"	:@VM:	"SIZE<2>"
+* 		PropArray<-1>	= "BUTTON_1"	:@VM:	10			:@VM:	10
+* 		PropArray<-1>	= "BUTTON_2"	:@VM:	20			:@VM:	20
+* 		PropArray<-1>	= "BUTTON_3"	:@VM:	30			:@VM:	30
+* 		PropArray<-1>	= "BUTTON_4"	:@VM:	40			:@VM:	40
+*		PropArray<-1>	= @RM													;*<-- Notice that one row contains an @RM only
+*		PropArray<-1>	= "ENABLED"		:@VM:	0
+*		PropArray<-1>	= "SIZE<3>"		:@VM:	100
+*		PropArray<-1>	= "SIZE<4>"		:@VM:	100
+*
+*	For any value you want to "Leave Alone", pass "<NA>" (case insensative). Also, note
+*	that ommitting a field of a multivalue property will also "leave it alone". "Leaving it alone" is
+*	the equivalent of reading the property, changing those values you wish to change, and setting
+*	the property again. The following example leave's the control width alone and also leaves
+*	a couple other values alone as well:
+*
+*		* Set all but SIZE<3>
+* 		PropArray 		= @Window		:@VM:	"SIZE<1>"	:@VM:	"SIZE<2>"	:@VM:	"SIZE<4>"
+* 		PropArray<-1>	= "BUTTON_1"	:@VM:	10			:@VM:	10			:@VM:	100
+* 		PropArray<-1>	= "BUTTON_2"	:@VM:	"<NA>"		:@VM:	20			:@VM:	100
+* 		PropArray<-1>	= "BUTTON_3"	:@VM:	30			:@VM:	"<NA>"		:@VM:	100
+* 		PropArray<-1>	= "BUTTON_4"	:@VM:	40			:@VM:	40			:@VM:	"<NA>"
+*
+*	Finally, you can also use this function to qualify events. To do so, simply specify "QUALIFY_EVENT"
+*	as a property. The value to this property will be a comma delimited list of events to be
+*	qualified. It only qualifies events, there is no rerouting of events involved. The following
+*	example qualifies events for OLE controls
+*
+*		* Init OLE Buttons
+* 		PropArray 		= @Window		:@VM:	"OLE.Style"			:@VM:	"QUALIFY_EVENT"
+* 		PropArray<-1>	= "OLE_BUTTON1"	:@VM:	"Standard"			:@VM:	"OnClick"
+* 		PropArray<-1>	= "OLE_BUTTON2"	:@VM:	"XP"				:@VM:	"OnClick,OnDblClick"
+* 		PropArray<-1>	= "OLE_BUTTON3"	:@VM:	"XP Toolbar"		:@VM:	"<NA>"
+* 		PropArray<-1>	= "OLE_BUTTON4"	:@VM:	"Office XP Toolbar"	:@VM:	"ALL_OLES"
+*
+*		* Init a single OLE Edit Table
+* 		PropArray		= @Window:".OLE_EDITTABLE"
+* 		PropArray<-1>	= "Dimension<1>"	:@VM:	10
+* 		PropArray<-1>	= "Dimension<2>"	:@VM:	10
+* 		PropArray<-1>	= "QUALIFY_EVENT"	:@VM:	"PosChanging,PosChanged,BeforeUpdate,AfterUpdate"
+*
+* Parameters:
+*	PropArray	[in] -- The controls, properties, and values in one array
+*
+* History (Date, Initials, Notes)
+*	04/06/2004		KRF		Initial Programmer
+*
+************************************************************************************************
+
+Declare subroutine Set_Property, Send_Message
+Declare function Get_Property, Extract, Replace, Delete
+
+* debug
+
+* Prepare input
+If Assigned(PropArray) else PropArray = ""
+If PropArray then
+
+	CtrlList = ""
+	PropList = ""
+	ValueList = ""
+	UsedProps = ""
+	MV_Val = ""
+	Shared_MV_Val = ""
+	PrevProp = ""
+	PrevCtrl = ""
+	SharedPrevProp = ""
+	
+	If Count(PropArray<1>, @VM) EQ 0 then
+	
+		* One control ------------------------------------------------
+		Ctrl = Extract(PropArray, 1, 0, 0)
+		PropArray = Delete(PropArray, 1, 0, 0)
+		
+		* Set each property
+		NumProps = Count(PropArray, @FM) + 1
+		For i = 1 to NumProps
+			Prop = PropArray<i, 1>
+			Val = PropArray<i, 2>
+			GoSub Process_Property
+		next i
+		
+		* Just in case last property was MV
+		If MV_Val then
+			GoSub Add_MV_Property
+		end
+			
+	end else
+	
+		* Many controls ----------------------------------------------
+		If Index(PropArray, @RM, 1) then
+			SharedProps = PropArray[-1, "B":@RM]
+			PropArray = PropArray[1, "F":@RM]
+			If SharedProps[1, 1] EQ @FM then SharedProps[1, 1] = ""
+			If PropArray[-1, 1] EQ @FM then PropArray[-1, 1] = ""
+		end else
+			SharedProps = ""
+		end
+		
+		SharedCtrlList = ""
+		
+		* First set individual properties
+		TopRow = Extract(PropArray, 1, 0, 0)
+		NumProps = Count(TopRow, @VM) + 1
+		PropArray = Delete(PropArray, 1, 0, 0)
+		Window = TopRow<1, 1>
+		if Window then Window := "."
+		
+		* Set each property
+		NumCtrls = Count(PropArray, @FM) + 1
+		For iCtrl = 1 to NumCtrls
+			Ctrl = Window:PropArray<iCtrl, 1>
+			If SharedProps NE "" then SharedCtrlList<-1> = Ctrl
+			For i = 2 to NumProps
+				Prop = TopRow<1, i>
+				Val = PropArray<iCtrl, i>
+				GoSub Process_Property
+				If iCtrl EQ 1 then
+					Locate Prop in UsedProps using @FM setting Pos else
+						UsedProps<-1> = Prop
+					end
+				end
+			next i
+		next iCtrl
+		
+		* How many properties are there?
+		NumProps = Count(UsedProps, @FM) + 1
+		
+		* Just in case last property was MV
+		If MV_Val then
+			GoSub Add_MV_Property
+		end
+		
+		* now set shared properties
+		If SharedProps NE "" AND PropArray NE "" then
+			Convert @FM to @RM in SharedCtrlList
+			NumSharedProps = Count(SharedProps, @FM) + 1
+			For iSharedProp = 1 to NumSharedProps			
+				SharedProp = SharedProps<iSharedProp, 1>
+				SharedVal = SharedProps<iSharedProp, 2>
+				GoSub Process_Shared_Property
+			next iSharedProp
+				
+			* Just in case last shared property was MV
+			If MV_Val then
+				GoSub Add_Shared_MV_Property
+			end
+		end
+	end
+	
+	* Set the properties
+	CtrlList[-1, 1] = ""
+	PropList[-1, 1] = ""
+	ValueList[-1, 1] = ""
+	Set_Property(CtrlList, PropList, ValueList)
+
+end
+
+Return
+
+
+Process_Property:
+* Params: [IN]Ctrl, [IN]Prop, [IN]Val, [IN]MV_Val, [IN|OUT]CtrlList, [IN|OUT]PropList, [IN|OUT]ValueList
+	GoSub Get_MV_Structure
+	If Prop NE PrevProp AND MV_Val NE "" then
+		GoSub Add_MV_Property
+		MV_Val = ""
+	end
+			
+	If Prop EQ "QUALIFY_EVENT" then
+		If VAL NE "" AND Val _NEC "<NA>" then
+			NumEvents = Count(Val, ",") + 1
+			For iEvent = 1 to NumEvents
+				Send_Message(Ctrl, "QUALIFY_EVENT", Field(Val, ",", iEvent), 1)
+			next iEvent
+		end
+	end else
+		If Field then
+			If MV_Val EQ "" then			
+				MV_Val = Get_Property(Ctrl, Prop)
+			end
+			If Val _NEC "<NA>" then MV_Val = Replace(MV_Val, Field, Value, SubValue, Val)
+		end else
+			If Val _NEC "<NA>" then GoSub Add_Property
+		end
+	end
+	PrevProp = Prop
+	PrevCtrl = Ctrl
+return
+
+
+Get_MV_Structure:
+* Params: [IN]AnglePos, [IN|OUT]Prop, [OUT]Field, [OUT]Value, [OUT]SubValue
+	Field = 0; Value = 0; SubValue = 0;
+	AnglePos = Index(Prop, "<", 1)
+	If AnglePos then
+		Suffix = Prop[AnglePos + 1, "F>"]
+		Prop = Prop[1, "F<"]
+	 	Convert Char(9):" " to "" in Suffix
+		Field = Field(Suffix, ",", 1)
+		Value = Field(Suffix, ",", 2)
+		SubValue = Field(Suffix, ",", 3)
+	end
+return
+
+
+Add_Property:
+* Params: [IN]Ctrl, [IN]Prop, [IN]Val, [IN|OUT]CtrlList, [IN|OUT]PropList, [IN|OUT]ValueList
+	CtrlList := Ctrl:@RM
+	PropList := Prop:@RM
+	ValueList := Val:@RM
+return
+
+
+Add_MV_Property:
+* Params: [IN]PrevCtrl, [IN]PrevProp, [IN]MV_Val, [IN|OUT]CtrlList, [IN|OUT]PropList, [IN|OUT]ValueList
+	CtrlList := PrevCtrl:@RM
+	PropList := PrevProp:@RM
+	ValueList := MV_Val:@RM
+return
+
+
+Process_Shared_Property:
+* Params: [IN]NumCtrls, [IN]SharedCtrlList, [IN]SharedProp, [IN]SharedVal, [IN]Shared_MV_Val, [IN|OUT]CtrlList, [IN|OUT]PropList, [IN|OUT]ValueList
+	GoSub Get_Shared_MV_Structure
+	If SharedProp NE SharedPrevProp AND Shared_MV_Val NE "" then
+		GoSub Add_Shared_MV_Property
+		Shared_MV_Val = ""
+	end
+	
+	If SharedProp EQ "QUALIFY_EVENT" then
+		If SharedVal NE "" AND SharedVal _NEC "<NA>" then
+			NumEvents = Count(SharedVal, ",") + 1
+			For iCtrl = 1 to NumCtrls
+				CurrSharedCtrl = Field(SharedCtrlList, @RM, iCtrl)
+				For iEvent = 1 to NumEvents
+					Send_Message(CurrSharedCtrl, "QUALIFY_EVENT", Field(SharedVal, ",", iEvent), 1)
+				next iEvent
+			next iCtrl
+		end
+	end else
+		If Field then
+			If Shared_MV_Val EQ "" then
+				Locate SharedProp in UsedProps using @FM setting Pos then
+					For iCtrl = 1 to NumCtrls
+						Data = Field(ValueList, @RM, Pos)
+						Data = Replace(Data, Field, Value, SubValue, SharedVal)
+						ValueList = FieldStore(ValueList, @RM, Pos, 1, Data)
+						Pos += NumProps
+					next iCtrl
+				end else
+					Shared_MV_Val = Get_Property(SharedCtrlList, SharedProp)
+				end
+			end
+			If Shared_MV_Val NE "" AND SharedVal _NEC "<NA>" then
+				For iCtrl = 1 to NumCtrls
+					Data = Field(Shared_MV_Val, @RM, iCtrl)
+					Data = Replace(Data, Field, Value, SubValue, SharedVal)
+					Shared_MV_Val = FieldStore(Shared_MV_Val, @RM, iCtrl, 1, Data)
+				next i
+			end
+		end else
+			If SharedVal _NEC "<NA>" then GoSub Add_Shared_Property
+		end
+	end
+	SharedPrevProp = SharedProp
+return
+
+
+Get_Shared_MV_Structure:
+* Params: [IN]AnglePos, [IN|OUT]SharedProp, [OUT]Field, [OUT]Value, [OUT]SubValue
+	Field = 0; Value = 0; SubValue = 0;
+	AnglePos = Index(SharedProp, "<", 1)
+	If AnglePos then
+		Suffix = SharedProp[AnglePos + 1, "F>"]
+		SharedProp = SharedProp[1, "F<"]
+		Suffix = Trim(Suffix)
+		Field = Field(Suffix, ",", 1)
+		Value = Field(Suffix, ",", 2)
+		SubValue = Field(Suffix, ",", 3)
+	end
+return
+
+
+Add_Shared_Property:
+* Params: [IN]SharedCtrlList, [IN]SharedProp, [IN]SharedVal, [IN|OUT]CtrlList, [IN|OUT]PropList, [IN|OUT]ValueList
+	CtrlList := SharedCtrlList:@RM
+	PropList := Str(SharedProp:@RM, NumCtrls)
+	ValueList := Str(SharedVal:@RM, NumCtrls)
+return
+
+
+Add_Shared_MV_Property:
+* Params: [IN]SharedCtrlList, [IN]SharedPrevProp, [IN]Shared_MV_Val, [IN|OUT]CtrlList, [IN|OUT]PropList, [IN|OUT]ValueList
+	CtrlList := SharedCtrlList:@RM
+	PropList := Str(SharedPrevProp:@RM, NumCtrls)
+	ValueList := Shared_MV_Val:@RM
+return

@@ -1,0 +1,51 @@
+compile insert FSERRORS_300
+*----------------------------------------------------------------------------
+* Block 300 - 399
+*
+* Advanced Revelation System BOND.SUBS error codes.
+*
+* June 2, 1989
+*
+* Beneath the equates for each error code are comments which document
+* the values that will appear in the second field of the error status
+* variable.
+*----------------------------------------------------------------------------
+
+
+EQU     FS_BS_CANT_OPEN$    TO     300  ;* 0  Can't open file ; name of file
+EQU     FS_BS_NTYPE$        TO     301  ;* 0  No such generic type defined ; the type name
+EQU     FS_BS_NCOMMA$       TO     302  ;* 0  Missing comma in type specification. ; text of type specification
+EQU     FS_BS_NQUOTE$       TO     303  ;* 0  Unbalanced quotation marks ; text of type specification , # of argument at fault
+EQU     FS_BS_NMAP$         TO     304  ;* 0  The specified bond did not supply a mapping for the specified generic type ; Bond name , Type name
+EQU     FS_BS_NFIELD.ATTR$  TO     305  ;* 0  The specified bond did not supply a collector window for foreign field attributes ; Bond name
+EQU     FS_BS_NFILE.ATTR$   TO     306  ;* 0  The specified bond did not supply a collector window for foreign file attributes ; Bond name
+EQU     FS_BS_BAD_ARG$      TO     307  ;* 0  Invalid argument(s) to BOND.SUBS.
+EQU     FS_BS_NTYPE_ARG$    TO     308  ;* 0  The type specification did not supply a required argument or supplied an invalid value for it ; type specification , arg# , mnemonic name for arg
+EQU     FS_BS_TYPE_REQUIRED$ TO    309  ;* 0  This BFS requires datatypes on dictionary records ; BFS name
+EQU     FS_BS_NVOL.ATTR$    TO     310  ;* 0  The specified bond did not supply a collector window for foreign file attributes ; Bond name
+EQU     FS_BS_NBOND.DERIVED$ TO    311  ;* 0  The specified bond does not contain code to dynamically derive this type. ; BFS name, data type
+EQU     FS_BS_NBOND.MAPPING$ TO    312  ;* 0  The specified bond does not contain code to dynamically select a mapping for this data type. ; BFS name, data type
+EQU     FS_BS_NSYNONYM$     TO     313  ;* 0  The synonym specified by this data type does not exist in TYPE_TABLE. ; data type, synonym
+EQU     FS_BS_NDERIVED$     TO     314  ;* 0  The type this data type is derived from does not exist in TYPE_TABLE. ; data type, derived type.
+EQU     FS_BS_WRONGMAP$     TO     315  ;* 0  The specified mapping name is not a mapping for this generic type. ; Bond name, type name, mapping name
+EQU     FS_BS_DECIMAL_PREC$ to     316  ;* 0  Decimal precision must be >= decimal scale.
+
+* 03-25-10 rjc DSBFS errors
+Equ     FS_DSBFS_LOGICAL$   To     330  ; *   Ado  returned errors after executing a cmd statement. ; list of errors
+
+* 09-06-11 bzs Encrypted Volume errors
+Equ		FS_XBFS_NO_VOLUME$	to		350 ;* Cannot read volume information from media record
+Equ 	FS_XBFS_VOLUME_ERR$ to		351 ;* Invalid/Missing volume information
+Equ 	FS_XBFS_VOLUME_EXISTS$ to	352 ;* Volume %1% already exists
+Equ 	FS_XBFS_NO_MHANDLE$	TO		353 ;* Missing/invalid media handle
+Equ		FS_XBFS_CACHE_ERR$	TO		354 ;* Cache failure
+Equ		FS_XBFS_PERMS_ERR$	TO		355 ;* Insufficient permissions for requested action
+
+Equ		FS_EBFS_SERVER_ERR$	TO		360 ;* The Encryption Server returned the following errors: %1%
+Equ 	FS_EBFS_MISSING_PARAMS_ENCRYPT$ To 361 ;* Encryption parameters not specified for table %1%.
+Equ 	FS_EBFS_MISSING_PARAMS_PASS$ To 362 ;* Invalid/missing passphrase information for volume.
+Equ		FS_EBFS_MISSING_PARAMS_GROUPS$ To 363 ;* Encryption group parameter not specified for table.
+Equ 	FS_EBFS_ENCRYPT_FAILURE_CHECK$	To 364 ;* Encryption check value failure: %1%
+Equ		FS_EBFS_ENCRYPT_FAILURE_TABLE$	To 365 ;* Unable to encrypt table %1%: %2%.
+
+* Source Date: 16:41:46  12 JAN 1993  Build ID: OI*1.0.10  Level: 2.0

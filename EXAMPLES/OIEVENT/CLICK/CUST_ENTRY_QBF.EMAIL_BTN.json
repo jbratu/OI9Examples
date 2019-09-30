@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "EMAIL = Get_Property(@WINDOW:'.EMAIL',\"TEXT\")\r\nADDR = ' MAILTO:':EMAIL\r\ncall Utility(\"RUNWIN\",\"cmd /c start \" : addr ,'1')\r\n\r\nRETURN 0"
+    }
+}

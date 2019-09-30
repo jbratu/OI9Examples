@@ -1,0 +1,2 @@
+Compile insert DSBFS_Connection_Common
+Common /DSBFS_Connection_com/ DSBFS_Init@,DSBFS_Connections@

@@ -1,0 +1,38 @@
+compile insert sp_equates
+
+* This insert is used by the Set_Printer function
+* Created 10/10/2003 - Sean FitzSimons
+
+*  Equates used for repeating graphics
+equ repx1 to 1
+equ repy1 to 2
+equ repx2 to 3
+equ repy2 to 4
+equ repsStart to 5
+equ repsEnd to 6
+equ repPenStyle to 7
+equ repPenColor to 8
+equ repPenWidth to 9
+equ repBrushStyle to 10
+equ repBrushColor to 11
+equ repShape to 12
+equ repFontName to 13
+equ repFontSize to 14
+equ repFontBold to 15
+equ repFontItalic to 16
+equ repFontUnder to 17
+equ repText to 18
+equ repTextColor to 19
+equ repTextAngle to 20
+
+* Equates used for OnTextBox in Set_Printer
+
+equ SP_FONT$ to 1			;* the FontName
+equ SP_SIZE$ to 2			;* the FontSize
+equ SP_BOLD$ to 3			;* the FontBold
+equ SP_ITALIC$ to 4			;* FontItalic
+equ SP_UNDER$ to 5			;* FontUnderline
+equ SP_COLOR$ to 6			;* TextColor
+equ SP_TEXTANGLE$ to 7		;* TextAngle
+equ SP_ALIGN$ to 8			;* TextAlign
+

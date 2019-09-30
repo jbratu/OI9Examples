@@ -1,0 +1,204 @@
+compile insert DICT_EQUATES
+*  Equates that define the structure of
+*  Advanced Revelation's and OpenEngine's Data Dictionary
+*
+* MTR 1-19-06 Added field 35
+* mtr 2-21-06 Added fields 36 and 37, And  FIELDS For %fields%
+* mtr 1-05-11 Added DICT_bitmap_idx_flag$ for field 46
+EQUATE DICT_TYPE$               TO 1      ;* Type of current field.
+                                        ;* 'F' = Data Field
+                                        ;* 'S' = Symbolic (formula in DICT_FORMULA)
+                                        ;* 'G' = Group (group data in DICT_DISPLAY)
+
+EQUATE DICT_COLUMN_NO$          TO 2      ;* The position of the data in the record
+
+EQUATE DICT_DISPLAY$            TO 3      ;* The Column Heading used by RLIST and other tools
+                                        ;* For type 'G' dictionary records, this field
+                                        ;* contains the group data.
+
+EQUATE DICT_SM$                 TO 4      ;* Single or Multivalue flag "S"ingle "M"ulti
+
+EQUATE DICT_PART$               TO 5      ;* Key part.  For multi-part keys, this field
+                                        ;* specifies the part number (1, 2, 3, etc.)
+                                        ;* For single-part key fields, this field should be 0.
+
+EQUATE DICT_INDEX_FLAG$         TO 6      ;* BTREE INDEX flag (boolean value).
+
+EQUATE DICT_CONV$               TO 7      ;* Contains the output conversion for data
+
+EQUATE DICT_FORMULA$            TO 8      ;* If the field type = "S" then this field will contain an rbasic formula
+
+EQUATE DICT_JUST$               TO 9      ;* Justification for displaying and sorting data.
+                                        ;* 'L' = Left
+                                        ;* 'R' = Right
+                                        ;* 'C' = Centered
+                                        ;* 'T' = Text
+                                        ;* Text justification means no justification.
+
+EQUATE DICT_LENGTH$             TO 10     ;* Display length for this field.  Note that this length
+                                        ;* is not necessarily the length of the data itself,
+                                        ;* especially in bonded files.
+
+EQUATE DICT_PATTERN$            TO 11     ;* Input validation/conversion for this field
+
+EQUATE DICT_GENERIC_TYPE$       TO 12     ;* The Arev Generic Data type associated with this field
+
+EQUATE DICT_SOURCE$             TO 13     ;* This field is basically reserved for backwards compatibility
+                                        ;* with REV/G.  Don't use it.
+
+EQUATE DICT_LAST_UPDATE_BY$  	To 13 	
+EQUATE DICT_DESC$               TO 14     ;* Description of this field. Used for documentation.
+                                        ;* Can be displayed as online help using an HD code.
+
+EQUATE DICT_FOREIGN_TYPE$       TO 15     ;* The data type name in the foreign environment
+
+EQUATE DICT_FOREIGN_NAME$       TO 16     ;* The field name in the foreign environment
+
+EQUATE DICT_FOREIGN_MAP$        TO 17     ;* For bonded files, this field uniquely specifies
+                                        ;* a data mapping (that is, the algorithm used to
+                                        ;* transfer data between the Advanced Revelation data type
+                                        ;* and the foreign data type).
+
+EQUATE DICT_FOREIGN_ATTR$       TO 18     ;* This field contains any foreign field attributes
+                                        ;* that a bonded dictionary field may have, separated
+                                        ;* by value marks.
+
+EQUATE DICT_PMD$                TO 19     ;* This field is still being designed.
+
+EQUATE DICT_NULL_TRUNC$         TO 20     ;* This field allows the user to override the bond's
+                                        ;* default handling of null values for this field.
+                                        ;* If the bond cannot support null values, setting the first
+                                        ;* value of this field to 'Y' allows nulls to be stored
+                                        ;* without an error.  A 'N' or null first value allows the
+                                        ;* default behaviour: if the bond cannot store nulls in this
+                                        ;* field and a null is written, an I/O error will result.
+                                        ;* If the first value is 'Y', the second value can be
+                                        ;* used to specify what value the bond should store in
+                                        ;* the field when a null is written.  The bond is not
+                                        ;* required to support this latter ability.
+
+EQUATE DICT_DEPENDENT$          TO 21     ;* Reserved for indexing.
+
+EQUATE DICT_XREF$               TO 22     ;* If non-null, then there is a cross-reference index
+                                        ;* on this field.  In that case, the value in DICT_XREF
+                                        ;* is the name of the symbolic field that calculates the
+                                        ;* cross-reference index.
+
+EQUATE DICT_RELATIONAL$         TO 23     ;* If non-null, then this field is used to update a relational
+                                        ;* index in another file and contains the key to a record
+                                        ;* in that other file.
+
+EQUATE DICT_RELATED$            TO 24     ;* For relational indexes, this field is updated to contain the
+                                        ;* keys to the related records in the other file.
+
+EQUATE DICT_PROTECT$            TO 25     ;* 1 if this field is protected.  This flag is set by
+                                        ;* relational indexing process.
+
+EQUATE DICT_LOWERCASE$          TO 26     ;* Controls how indexed fields are indexed:
+                                        ;* 0 = convert to uppercase
+                                        ;* 1 = maintain case supplied.
+
+EQUATE DICT_COMPUTED$           TO 27     ;* Reserved for indexing.
+
+EQUATE DICT_MASTER_FLAG$        TO 28     ;* For 'F'-type dictionary records, this flag
+                                        ;* distinguishes synonym fields from the "real" field.
+                                        ;* This flag is '0' for synonyms and '1' otherwise.
+
+EQUATE DICT_DEFAULT$            TO 29     ;* SQL default value for insertions.
+
+EQUATE DICT_REFERENCE$          TO 30     ;* SQL.  Indicates this column is a foreign key to the listed table(s).
+
+EQUATE DICT_NULL$               TO 31     ;* SQL.
+                                        ;* 0 = column can store nulls.
+                                        ;* 1 = column can't store nulls.
+                                        ;* We're still figuring out whether this field and
+                                        ;* DICT_NULL.TRUNC should be the same field.
+
+EQUATE DICT_UNIQUE$             TO 32     ;* SQL.  0=column may contain duplicate values. 1=column must contain unique values.
+
+EQUATE DICT_LENGTH_LIMIT$       TO 33     ;* SQL.  Length (in chars) of data.  Needs to be
+                                        ;* integrated with bonding.
+
+EQUATE DICT_PRODUCT$            TO 34     ;* Product flag
+                                          ;* 0 or null - both Advanced Revelation and OpenInsight
+                                          ;* 1 Advanced Revelation only
+                                          ;* 2 OpenInsight only
+
+Equ		DICT_TIMEDATE$			To 35	  ; *TimeDate stamp On dictionary Field - back For OI 8.0
+Equ		DICT_MV_GROUPNAME$		To 36	  ; *GroupName For AMV groups - back For OI 8.0
+Equ		DICT_MV_GROUP_master$	To 37	  ; *GroupName For AMV groups - back For OI 8.0
+
+
+EQUATE DICT_IN_TRUNC$           TO 39     ;* The first value in this field is either null, 0, or 1.
+                                        ;* 0 or null means the default handling of input truncation:
+                                        ;* if transferring a field into AREV would result in any loss of
+                                        ;* information, an I/O error is returned.  1 allows the
+                                        ;* the bond to truncate the data without returning an error.
+                                        ;* In this case, either one or two values can follow the 1.
+                                        ;* For character-based fields, a single value specifies what the
+                                        ;* bond should read in when all information would be lost
+                                        ;* (e.g., the field consisted of 3 field marks).  For numeric-
+                                        ;* based fields, the second value is the replacement for
+                                        ;* numeric underflow and the third value is the replacement for
+                                        ;* overflow.
+
+EQUATE DICT_OUT_TRUNC$          TO 40     ;* Same as DICT_IN.TRUNC, except for output.
+
+EQUATE DICT_USER1$              TO 41     ;* This field is reserved for the application.
+EQUATE DICT_USER2$              TO 42     ;* ""
+EQUATE DICT_USER3$              TO 43     ;* ""
+EQUATE DICT_USER4$              TO 44     ;* ""
+EQUATE DICT_USER5$              TO 45     ;* ""
+
+Equate DICT_bitmap_idx_flag$    To 46     ;* Bitmap Index Flag. MTR 1-5-2011
+
+******** Used in HR-Intelligence ******
+EQUATE DICT_CHANGES$            TO 46
+EQUATE DICT_TRIGGERS$           TO 47
+EQUATE DICT_PIT$                TO 48
+EQUATE DICT_GROUPNAMES$         TO 49
+***************************************
+
+
+EQUATE DICT_OBJECT$             TO 51     ;* This field contains binary data; object code for the current Field
+
+
+
+*
+* Equates that define the structure of the special record "%FIELDS%" found in each Arev Dictionary
+* All of these fields are associated multivalued fields.
+*
+
+EQUATE FIELDS_VERSION$        TO 1      ;* Dict.mfs associated version number
+EQUATE FIELDS_MAXFIELD$       TO 2      ;* The highest FMC number in the dictionary.
+EQUATE FIELDS_NAME$           TO 3      ;* Contains field names.
+EQUATE FIELDS_TYPE$           TO 4      ;* Contains DICT_TYPE values.
+EQUATE FIELDS_FIELD_NO$       TO 5      ;* Contains DICT_FIELD.NO values.
+EQUATE FIELDS_INDEX$          TO 6      ;* Contains DICT_INDEX.FLAG values.
+EQUATE FIELDS_XREF$           TO 7      ;* Contains DICT_XREF values.
+EQUATE FIELDS_PART$           TO 8      ;* Contains DICT_PART values.
+EQUATE FIELDS_MVFLAG$         TO 9      ;* Contains DICT_SM values.
+EQUATE FIELDS_JUST$           TO 10     ;* Contains DICT_JUST values.
+EQUATE FIELDS_LENGTH$         TO 11     ;* Contains DICT_LENGTH values.
+EQUATE FIELDS_CONV$           TO 12     ;* Contains DICT_CONV values.
+EQUATE FIELDS_DEFAULT$        TO 13     ;* Contains DICT_DEFAULT values.
+EQUATE FIELDS_MASTER_FLAG$    TO 14     ;* Contains DICT_MASTER.FLAG values.
+
+********* Used in HR-Intelligence ******
+EQUATE FIELDS_CHANGES$        TO 15
+EQUATE FIELDS_TRIGGERS$       TO 16
+EQUATE FIELDS_PIT$            TO 17
+****************************************
+
+EQUATE FIELDS_PRODUCT$        TO 18     ;* Contains DICT_PRODUCT values
+Equ	FIELDS_MV_GROUPNAME$	  To 19     ; *GroupName For AMV groups - back For OI 8.0 * mtr 2-21-06
+Equ	FIELDS_MV_GROUP_master$	  To 20     ; *GroupMaster For AMV groups - back For OI 8.0 * mtr 2-21-06
+
+********* Used in HR-Intelligence ******
+equ MFSName$       to 'AUDITLOG.MFS'
+equ AudMapList$    to "%AUDIT_MAPS%"
+equ AudMapObject$  to "%AUDITS%"
+NFName = ''
+equ AudMapName$    to "%":NFName:"%"
+****************************************
+* Source Date: 17:47:31  28 APR 1993  Build ID: AREV*3.1.58  Level: 3.1

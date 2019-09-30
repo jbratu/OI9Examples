@@ -1,0 +1,21 @@
+{
+    "record1": {
+        "<1>": "Define connections for O4W_CHILD_FORM",
+        "<2>": {
+            "<2,1>": "Specify the default URL and parameters to use when the O4W_CHILD_FORM is invoked without any creation parameters.",
+            "<2,2>": "Also define the \"shortcut\" names to use, and the associated URLs and routines to invoke, when passed specific creation parameters."
+        },
+        "<3>": "{WIDTH 40}Full default URL{BREAK}(when the O4W_CHILD_FORM is started without creation parameters) {DEFAULT http://localhost/o4w/start.htm}",
+        "<4>": {
+            "<4,1>": "Default width (in pixels) for default URL {DEFAULT 800}",
+            "<4,2>": "Default height (in pixels) for default URL {DEFAULT 400}"
+        },
+        "<5>": "{MV 1}Site shortcut names",
+        "<6>": "{MV 1}URL \"stubs\" for this site (up to and including \"oecgi3.exe\")",
+        "<7>": "{MV 1}Title to display when using this site shortcut",
+        "<8>": "{MV 1}Type of program to launch when using this site shortcut {OPTIONS Please Select.../|O4W Custom Routine/PROGRAM|O4W Form/FORM|O4W Report/REPORT|O4W Dashboard/GRAPH|O4W Menu/MENU|Full URL/0}",
+        "<9>": "{MV 1}Name of routine, form, report, etc.",
+        "<10>": "{MV 1}Default width{BREAK}(in pixels)",
+        "<11>": "{MV 1}Default height{BREAK}(in pixels)"
+    }
+}

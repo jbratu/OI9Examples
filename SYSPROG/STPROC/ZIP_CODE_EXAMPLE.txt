@@ -1,0 +1,54 @@
+function ZIP_CODE_EXAMPLE(address,city,state,event)
+/*
+**  Use utility32 object to look up a zip code
+**/
+
+$Insert Utility32_msg_equates
+equ crlf$ to \0D0A\
+
+Declare function Utility32_Set_Msg, Utility32_get_msg,Get_Property, Zip_Code_Example, Utility
+
+
+
+
+if assigned(address) else Address = ""
+if assigned(City) else city = ""
+if assigned(state) else State = ""
+if len(address) and len(city) and len(state) else
+	return ''
+end
+
+wascursor =  Utility('CURSOR','H')
+
+action = U32_MSG_HTTPPOST$
+Url = "http://usps.com/cgi-bin/zip4/zip4inq2"
+postdata = "Firm="
+postdata := "&Urbanization="
+postdata := "&Delivery Address=" : Address
+postdata := "&City=" :City
+postdata := "&State=" : State
+postdata := "&Zip Code="
+
+ret = Utility32_set_msg(action,Url,postdata,'','','','6','POST')
+ans = Utility32_get_msg()
+	
+
+
+
+result = ans
+swap '<HR>' with @fm in result
+result = result<2>
+swap '<TABLE border=0>' with '' in result
+swap '</TABLE>' with '' in result
+swap '<BR>' with crlf$ in result 
+tags = "B I P TR TD TBODY "
+for i = 1 to count(tags, ' ') + 1
+	tag = field(tags,' ' ,i)
+	swap '<':tag:'>' with '' in result
+	swap '</':tag:'>' with '' in result
+next
+
+h =  Utility('CURSOR',wascursor) 
+return result 
+
+

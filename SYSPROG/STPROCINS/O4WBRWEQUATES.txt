@@ -1,0 +1,16 @@
+compile insert O4WBRWEQUATES
+* O4W BRW Equates
+Equ UNUSED_AdminFlag$ To 1
+Equ Permissions$ To 2
+Equ Allow_Override$ To 3
+Equ Description$ To 4
+Equ Report_Group$ To 5
+Equ Report_Name$ To 6
+Equ Report_PDF_Details$ To 7
+	Equ Report_PDF_Details_Owner_PWD$ To 1
+	Equ Report_PDF_Details_User_PWD$ To 2
+	Equ Report_PDF_Details_Permissions$ To 3
+Equ Assistant_Procedure$ To 8
+Equ Modules$ To 14
+Equ TransientFlag$ To 20
+

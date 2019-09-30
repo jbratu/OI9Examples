@@ -1,0 +1,35 @@
+
+
+*
+*=============================== BLOCK -500 =================================
+* SCHEMA ERRORS
+
+EQU SQL_CREATE_TABLE_USER_ERR$  TO -500  ;* Cannot create a table for another user.
+EQU SQL_INVALID_TABLE_ID_ERR$   TO -501  ;* Invalid characters in table id name in create table.
+EQU SQL_LOCAL_CREATE_TABLE_ERR$ TO -502  ;* Failure creating a local (non-server) file in create table.
+EQU SQL_LOCAL_CREATE_DICT_ERR$  TO -503  ;* Failure creating a local (non-server) DICT file in create table.
+EQU SQL_FILES_VOLUMES_SYNCH_ERR$ TO -504 ;* Files/Volumes synchronization error in create table. (internal error)
+EQU SQL_MEDIAMAP_READ_ERR$      TO -505  ;* Failure reading media map in create table
+EQU SQL_MEDIAMAP_WRITE_ERR$     TO -506  ;* Failure writing media map in create table
+EQU SQL_CTTABL_NO_KEY_ERR$      TO -507  ;* No key columns specified in create table.
+EQU SQL_BAD_UNIQUE_SPEC_ERR$    TO -508  ;* Bad unique spec in create table
+EQU SQL_DROP_COL_FAIL_ERR$      TO -509  ;* Failure dropping column (DELETE FAIL)
+EQU SQL_DROP_COL_EXIST_ERR$     TO -510  ;* Column specified to drop did not exist.
+EQU SQL_MOD_KEY1_ERR$           TO -511  ;* An existing column cannot be modified to become a key column. must ADD a new key column
+EQU SQL_MOD_KEY2_ERR$           TO -512  ;* An existing key column cannot be modified to be a non-key column.
+EQU SQL_MOD_COL_EXIST_ERR$      TO -513  ;* Column specified for modification does not exist.
+EQU SQL_INVALID_TYPES_ERR$      TO -514  ;* Invalid data type(s) in create or alter table.
+EQU SQL_ALTER_COL_FAIL_ERR$     TO -515  ;* Failure altering column (write fail )
+EQU SQL_DROP_VIEW_EXIST_ERR$    TO -516  ;* View does not exist to be dropped.
+EQU SQL_DROP_TABLE_EXIST_ERR$   TO -517  ;* Base table or View does not exist to be dropped.
+EQU SQL_VIEW_COLUMN_MISMATCH_ERR$ TO -518 ;* Mismatch count between view columns and selections.
+EQU SQL_DEFAULT_VIEW_COLUMN_ERR$ TO -519 ;* Complex selection - cannot create default view columns.
+EQU SQL_SCHEMA_NOT_SUPPORTED_ERR$ TO -520 ;* Schema feature not supported.
+EQU SQL_CREATE_TABLE_EXISTS_ERR$ TO -521 ;* CREATE TABLE failed because table already exists
+EQU SQL_CREATE_VIEW_EXISTS_ERR$ TO -522  ;* CREATE VIEW failed because view already exists
+EQU SQL_CREATE_VIEW_WRITE_ERR$  TO -523  ;* Failure writing view templates in CREATE VIEW .
+EQU SQL_VOL_DNE_ERR$            TO -524  ;* Specified CREATE TABLE volume does not exist ; Bad volume name.
+EQU SQL_ADD_COL_EXIST_ERR$      TO -525  ;* Column specified to add already exists.
+EQU SQL_DROP_VIEW_SYS_ERR$      TO -526  ;* I/O error dropping (deleting) view.; View name, fserror code.
+EQU SQL_DROP_TABLE_SYS_ERR$     TO -527  ;* I/O error dropping base table.; Base table name, fserror code
+* Source Date: 16:42:26  12 JAN 1993  Build ID: OI*1.0.10  Level: 2.0

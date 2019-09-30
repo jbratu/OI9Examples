@@ -1,0 +1,28 @@
+compile insert INET_HEADERS
+COMMON /INET_HEADERS/ Inet_Header_Names%, Inet_Header_Values%
+
+Equ Inet_Header_Content_type$	To "Content-Type"
+Equ Inet_Header_Cookie$			To "Set-Cookie"
+Equ Inet_Header_Location$		To "Location"
+Equ Inet_Header_Server$			To "Server"
+Equ Inet_Header_Date$			To "Date"
+Equ Inet_Header_Pragma$			To "Pragma"
+Equ Inet_Header_Cache_Control$	To "Cache-Control"
+Equ Inet_Header_Expires$		To "Expires"
+Equ Inet_Header_Status$			To "Status"
+
+Equ inet_default_content_type$	To "text/html; charset=utf-8"
+Equ inet_default_server$		To "OpenInsight"
+Equ inet_default_status$		To "200"
+
+Equ inet_content_type_html$		To "text/html"
+Equ inet_content_type_xml$		To "text/xml"
+Equ inet_content_type_json$		To "application/json"
+Equ inet_content_type_plain$	To "text/plain"
+Equ inet_content_type_csv$		To "text/csv"
+Equ inet_content_type_zip$		To "application/x-zip"
+Equ inet_content_type_pdf$		To "application/pdf"
+Equ inet_content_type_gif$		To "image/gif"
+Equ inet_content_type_binary$	To "application/octet-stream"
+
+Declare Subroutine inetAPI_setContentType, inetAPI_setCookie, inetAPI_setRedirect, inetAPI_setStatus, inetAPI_setNoCache

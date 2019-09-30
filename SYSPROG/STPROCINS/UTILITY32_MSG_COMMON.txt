@@ -1,0 +1,26 @@
+compile insert UTILITY32_MSG_COMMON
+
+COMMON /UTILITY32_MSG_COMMON%/ hWnd%, rci_busy%,RCI_started%, hWndRequest%, hWndResponse%, RCI_CHARMAP%, hTxt%,rci_count%,rci_timeout%,UM11%,UM12%
+
+EQU   WM_RCI_SET$ TO 12
+EQU   WM_RCI_GET$ TO 13
+EQU   RCI_WINNAME$ to 'RevComIMessage'
+If Assigned(RCI_Started%) else rci_started% = 0
+If Assigned(RCI_count%) else rci_count% = 0
+
+/*
+*  Common variables used by UTILITY_MSG functions
+*  Version 1.0 
+*  08-21-01   RJCarten       Created
+
+hWnd% 			is handle to 32bit communication window
+hWndRequest% 	is handle to 32bit control that listens for requests from OI
+hWndResponse% 	is handle to 32bit control that responds to requests from OI
+rci_busy%  		is semaphore set when processing a command, cleared when done
+rci_started% 	is flag that we have started exe
+rci_timeout% 	is seconds to wait before giving up on response.  < 0  means never time out
+
+RCI_CHARMAP is charmap structure           **TBD**
+
+ 
+*/

@@ -1,0 +1,463 @@
+Function U2_Connection(inVolumeId, inMethod)
+/*
+*   Manage a u2 connection.  Connect to server, disconnect, determine status
+*   Called by most U2 functions
+*/
+* 2007      rjc  Created from U2_Media
+* 12-28-08  rjc  Detect dead sessions, automatically re-attach
+
+Declare Subroutine U2_log
+
+*----------------------------------------------------------------------------*
+**                           Declare Functions                              **
+*----------------------------------------------------------------------------*
+Declare Function U2_Error, U2_SyncMap
+Declare function IC_UNIVERSE_SESSION, RetStack
+
+
+equ OTHERWISE$   to 1
+equ TRUE$        to 1
+equ FALSE$       to 0
+equ YES$         to 1
+equ NO$          to 0
+equ NULL$ to ""
+
+equ crlf$ to \0D0A\
+
+$Insert Copyright
+$insert Msg_Equates
+$Insert Vol_Table_Equates
+
+$Insert FsErrors_Hdr
+$Insert FsErrors_100
+$insert FsErrors_400
+
+$Insert U2_Volume_Equates
+$Insert U2_Equates
+$insert U2_logequates
+$Insert U2_Subs
+$Insert U2_LC
+$Insert U2_BuffersLC
+EQU VM_SESSION_NAMES$ TO 1
+EQU VM_SESSION_IDS$   TO 2
+
+
+VolumeId = if assigned(inVolumeId) then inVolumeId else ''
+Method = if assigned(inMethod) then inMethod else ''
+
+* rjc  10-30-2008 Default to first volume attached - Usually there is only one anyway
+If volumeId = '' Then volumeId = U2_Sessions@<VM_SESSION_NAMES$,1>
+
+retval = ''
+begin case
+  Case VolumeId = ''
+      err = 'Volume ID required'
+      Call Set_Status(1, err)
+       retval = -1
+   case Method = 'CONNECT' ; GoSub Connect
+   case Method = 'DISCONNECT' ; GoSub DisConnect
+   Case Method = 'STATUS' ; Gosub GetStatus
+      
+end case
+return retval
+
+
+Connect:
+
+declare function isEventContext
+msgUp = ''
+
+* 12-28-08  rjc  Detect dead sessions, automatically re-attach
+* Do I think I am already connected?
+* If I think I am connected an U2 says I am not then I have been forecfully disconnected
+* If forced off and I had tables attached, then I need to reattach. else all file handles will be stale.
+Locate volumeId in U2_Sessions@<VM_SESSION_NAMES$> using @VM setting pos then
+      orig_handle = U2_Sessions@<VM_SESSION_IDS$, pos>
+end else
+      orig_handle = 0
+end
+
+
+bConnected = false$
+Gosub GetConnectionStatus
+* rjc 12-23-08
+is_dead_session = ( bconnected = false$ )  and ( orig_handle # 0 )
+
+
+
+If Not(bConnected) then
+   volDef = Xlate('SYSPTRS', volumeId, '', 'X')
+   connectData = volDef<U2_ConnectInfo$>
+   
+   * 12-01-03  rjc   add null terminating char
+   cHost          = ConnectData<1, U2_Servername$> : \00\
+   cLoginId       = ConnectData<1, U2_LoginId$>    : \00\
+   
+   * 11-22-06  rjc  Decrypt
+   conv = '[ENCRYPT_FORMAT,':U2_PASSWORD_KEY$:']'
+   cLoginPassword = ConnectData<1, U2_Password$>
+   cLoginPassword = Oconv(cLoginPassword, conv) :\00\
+   
+   cAccount       = ConnectData<1, U2_Directory$>  : \00\
+   cSubKey        = ConnectData<1, U2_SubKey$>     : \00\
+   
+   
+   /*
+   * On a machine With both Universe And unidata, ic_opensession tries Unidata first.
+   * If you enter a user And password For the universe instance, it will try unidata instance, fail.
+   * So, If generic opensession fails, try a second time For universe.
+   */
+   iCode = 0
+   ic_handle = 0
+   ic_handle = ic_opensession(cHost, cLoginId, cLoginPassword, cAccount, iCode, cSubKey)
+   if ic_handle else
+      ic_handle = ic_universe_session(cHost, cLoginId, cLoginPassword, cAccount, iCode, cSubKey)
+   end
+   
+   
+   *----
+   * U2_Sessions Associates Session names With the U2 Connection number.
+   * Oi uses its own 'handle', the position of the name In the array, To refer To the connection
+   * The OI handle is embedded In the volume handle And file handles.
+   * Becuase the OI handle is what is embedded, you can re-connect To the server without having To re-Open files
+   * I think.
+   * So,
+   * u2_sessionid is position In Array - Oi handle
+   * ic_handle is actual handle From U2 - U2 handle
+   *
+   * Note: I set the U2_sessions@ before checking for server error.
+   *       This is To catch a session which dies after being connected.
+   *       The session id will be set to zero.
+   *---
+   Locate volumeId in U2_Sessions@<VM_SESSION_NAMES$> using @VM setting u2_sessionid then
+      U2_Sessions@<VM_SESSION_IDS$, u2_sessionid> = ic_handle
+   end else
+      U2_Sessions@ = Insert(U2_Sessions@,VM_SESSION_NAMES$,u2_sessionid,0, volumeId)
+      U2_Sessions@ = Insert(U2_Sessions@,VM_SESSION_IDS$,u2_sessionid,0, ic_handle)
+   end
+   U2_CurSession@ = u2_sessionid
+   
+   /*  check for error from server */
+   * Rjc 01-22-07  Check for 0 session id
+   
+   If ic_handle > 0 then
+      bConnected = true$
+   End else
+      @FILE.ERROR = FS_SERVER_ERR$
+      Gosub ErrorProcessing
+      bConnected = false$
+   end
+   
+   * rjc  01-23-07  Add loginscript
+   U2_cmd = ConnectData<1,U2_LoginProcName$>
+   If bConnected And U2_cmd # '' then
+      * Execute the command
+      * Note: It is possible for the server to prompt for information
+      * This should not happen in a BFS, have not worked around it yet.
+      
+      results = ''
+      promptReplies = ''
+      
+      U2_TxtLen = 0
+      U2_rtncd  = 0
+      U2_rtncd2 = 0
+      U2_statcd = 0
+      
+      IC_EXECUTE(U2_cmd, Len(U2_cmd), U2_TextBuf@, U2_OUTPUTBUFLEN$, U2_txtlen, U2_rtncd, U2_rtncd2, U2_statcd )
+      done = false$
+      changed = false$
+      results = ''
+      Loop
+         begin case
+            case U2_statcd = 0
+               * Cool
+               * Get the Buffer
+               done = true$
+               changed = true$
+               Results := U2_TextBuf@[1,U2_TxtLen]
+               
+            case U2_statcd = IE_AT_INPUT$
+               
+               * Terminal Needs Input
+               * Assume Buffer has the prompt
+               
+               prompt = U2_TextBuf@[1,U2_txtlen]
+               
+               * Get Reply
+               def = ''
+               def<mCaption$> = 'Response_Needed'
+               def<mText$> = prompt
+               def<mType$> = 'RCE'
+               deF<mIcon$> = '?'
+               
+               reply_string = Msg(@Window, def)
+               reply_len = len(reply_String)
+               add_newline = true$
+               changed = false$
+               
+               * Set up for next block of text
+               U2_TxtLen = 0
+               U2_rtncd  = 0
+               U2_rtncd2 = 0
+               U2_statcd = 0
+               
+               * Send reply
+               ic_inputreply (reply_string, reply_len, add_newline, U2_TextBuf@, U2_OUTPUTBUFLEN$, U2_txtlen, U2_rtncd, U2_rtncd2, U2_statcd)
+               
+               * Do not add the prompt to the results
+               changed = false$
+               
+            case U2_statcd = IE_BTS$
+               * Return value is bigger than the buffer, bring it back in chunks
+               Results := U2_TextBuf@[1,U2_TxtLen]
+               changed = true$
+               U2_TxtLen = 0
+               U2_rtncd  = 0
+               U2_rtncd2 = 0
+               U2_statcd = 0
+               IC_ExecuteContinue( U2_TextBuf@, U2_OUTPUTBUFLEN$, U2_TxtLen, U2_RtnCd, U2_RtnCd2, U2_StatCd )
+               
+            case OtherWise$
+               U2_ErrTxt = ''
+               U2_Detail  = ''
+               ret = U2_Error(U2_StatCd, U2_RtnCd, U2_ErrTxt, U2_Detail )
+               Status = false$
+               msgText = U2_StatCd:' ':U2_ErrTxt: crlf$ : U2_Detail
+               CAll Set_Status(-1, msgText)
+               Done = true$
+         end case
+      Until done
+      repeat
+   End /* If connected And login script */
+end
+
+
+* 12-28-08 Dead session? re-attach on the fly
+if is_dead_session then
+   * Any tables Attached?
+   any_attached = false$
+   Locate volumeId In @volumes(vol_location$) Using @fm Setting pos then
+      attached_Tables = @volumes(vol_file_list$)<pos>   
+   End Else 
+      attached_Tables = ''   
+   end
+   any_attached = ( attached_tables # '' )
+   
+   * Currently Attaching?
+   is_attaching = false$
+   attach_verbs = 'ATTACH_TABLE RTP49 DO_ATTACH AREV32_ATTACH'
+   stack = retstack()
+   apos = 1
+   loop
+      verb = attach_verbs[apos,' ']; apos = col2()+1
+   while verb
+   until is_attaching   
+      locate 'verb' in stack using @fm setting unused then
+         is_attaching = true$   
+      end   
+   repeat
+   
+   if any_attached and not(is_attaching) then
+      Call Attach_table(volumeId, '', '')
+   end
+   
+end
+
+
+retval = U2_CurSession@
+
+return
+
+DisConnect:
+Locate volumeId in U2_Sessions@<VM_SESSION_NAMES$> using @VM setting u2_sessionid then
+   ic_handle = U2_Sessions@<VM_SESSION_IDS$, u2_sessionid>
+end else
+   u2_sessionid = 0
+   ic_handle = 0
+end
+
+If ic_handle > 0 then
+   Call Ic_Quit(ic_handle)
+   ic_handle = 0
+   U2_Sessions@<VM_SESSION_IDS$, u2_sessionid> = ic_handle
+end
+
+return
+
+
+
+
+Getstatus:
+
+tablesAttached = false$
+tableText = ''
+Gosub GetTableStatus
+
+bCOnnected = false$
+connectionText = ''
+Gosub GetConnectionStatus
+connectionText = Oconv(bConnected, 'BConnected,Disconnected')
+
+
+retval = bConnected:@fm:tablesAttached:@fm:connectionText:@fm:tableText
+
+return
+
+GetTableStatus:
+
+* undefined - volume_rec lists are blank
+* defined   - volume_rec exists, but @volumes does Not have the tables In it
+* partial_attach - @volumes table list does Not match tables list
+* attached - @volumes Matches system tables list
+tablesAttached = false$
+
+* Use Volume definition To see which tables SHOULD be attached
+vol_rec = Xlate('SYSPTRS', VolumeId, '', 'X')
+U2_AllNames = vol_Rec<U2_TableList$>
+Mapped_Allnames = vol_Rec<U2_MappedTableList$>
+U2_SpecificAttachNames = vol_Rec<U2_SpecificAttachList$>
+AttachOption = vol_rec<U2_ConnectInfo$,U2_AttachListOption$>
+convert @vm to @fm in U2_AllNames
+convert @vm to @fm in Mapped_AllNames
+convert @vm to @fm in U2_SpecificAttachNames
+
+* Did the specify which tables to attach? then only attach those else attach all
+if AttachOption _eqc 'SPECIFIC' and U2_SpecificAttachNames[1,1] # '' then
+   U2_NativeNames = u2_SpecificAttachNames
+   ucol = ''
+   ocol = 1
+   u2_Mappednames = Space(len(U2_NativeNames))
+   loop
+      remove native_name from U2_NativeNames at ucol setting umark
+      locate native_name in U2_AllNames using @fm setting pos then
+          mapped_name = Mapped_Allnames<pos>
+         olen = len(mapped_name) + 1
+         u2_Mappednames[ocol,olen] = mapped_name:@fm
+         ocol += olen
+      end
+   while umark
+   repeat
+   u2_Mappednames = if ocol > 1 then u2_Mappednames[1,ocol-2] else ""
+end else 
+   u2_Mappednames = Mapped_AllNames
+end
+
+Convert @lower.Case To @upper.Case In u2_Mappednames
+* Use @Volumes To see which tables ARE attached
+Locate volumeId In @volumes(vol_location$) Using @fm Setting pos then
+   attached_Tables = @volumes(vol_file_list$)<pos>   
+End Else 
+   attached_Tables = ''   
+end
+any_attached = ( attached_tables # '' )
+
+* Compare the lists, stop as soon as there is a problem
+* mappednames will Not include dicts
+
+all_attached = true$
+col = ''
+loop
+  Remove name From u2_mappednames at col Setting mark
+  If name then
+     Locate name In attached_tables Using @vm Setting pos then
+        attached_tables = Delete(attached_tables, 1, pos,'')
+         Locate 'DICT.':name In attached_tables Using @vm Setting pos then
+            attached_tables = Delete(attached_tables, 1, pos,'')
+         End          
+      End else
+          all_attached = false$
+      end
+  end
+While mark
+while all_attached
+repeat
+
+* determine the current state
+tablesAttached = any_attached and all_attached
+Begin case
+  Case u2_mappednames = ''  
+       tableText = 'Server Refresh Needed'   
+  Case Not(any_attached)
+       tableText = 'Attach Needed'  
+   Case not(all_attached) 
+      tableText = 'Detach / ReAttach needed'
+  Case otherwise$
+       tableText = 'Attached' 
+End case
+
+return
+
+GetConnectionStatus:
+*----
+* Determine If we are connected To the server
+* Default To false, Set true If we have a live connection To the server For this volume
+*----
+bConnected = false$
+
+* Do I think I am connected?
+* u2_sessionid is position In Array
+* ic_handle is actual handle From U2
+Locate volumeId in U2_Sessions@<VM_SESSION_NAMES$> using @VM setting u2_sessionid then
+   ic_handle = U2_Sessions@<VM_SESSION_IDS$, u2_sessionid>
+end else
+   u2_sessionid = 0
+   ic_handle = 0
+end
+
+*---
+* Do I need To switch the current session?
+* Intercall keeps one connection active.
+* If you use multiple U@ connections you ned To toggle among them
+*---
+If ( U2_CurSession@ <> u2_sessionid ) And  ( ic_handle > 0 ) then
+   U2_StatCd = 0  
+   IC_SETSESSION( ic_handle, U2_StatCd )
+   If u2_Statcd <> 0 then   
+     * Failed To reconnect
+      ic_handle = 0     
+   end
+end
+
+* If I think I am connected, is the connection still active?
+* Session info will tell us. IK_STATUS$ Should Return 1 If connected, 0 If Not.
+If ic_handle > 0 then
+   ret_len = 0
+   ret_code = 0
+   buffer = space(255)
+   blen = Len(buffer)
+   *Call ic_session_info(IK_STATUS$, buffer, blen, ret_len, ret_code)
+   *info = buffer[1,ret_len]
+   *If info <> 1 then
+   *  * Session is dead
+   *  ic_handle = 0
+   *end  
+   
+   ret_len = 0
+   ret_code = 0
+   buffer = space(50)
+   call ic_timedate(buffer, len(buffer), ret_len, ret_Code)
+   If ret_code # 0 Then
+      ic_handle = 0
+   end
+end   
+
+If ic_handle > 0 then
+   * Hooray, I'm connected!   
+      bConnected = true$
+End else
+   bConnected = false$
+   If u2_sessionid then
+      U2_Sessions@<VM_SESSION_IDS$, u2_sessionid> = 0
+   end
+end
+
+return
+
+
+
+ErrorProcessing:
+
+U2_StatTxt = ""
+STATUS   = FALSE$
+
+return

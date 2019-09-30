@@ -1,0 +1,16 @@
+Function RUN_OESOCKET_TEST(Param1, Param2, Param3)
+
+If Unassigned(Param1) Then Param1 = ""
+If Unassigned(Param2) Then Param2 = ""
+If Unassigned(Param3) Then Param3 = ""
+
+If Param1 EQ 'ECHO' Then
+
+	Return 'You said: ' : Param2
+	
+End 
+
+Return 'Hello World from OI'
+
+
+

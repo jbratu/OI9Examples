@@ -1,0 +1,13 @@
+
+*
+*================================ BLOCK -100 ==================================
+* Cursor/ Error Codes
+EQU SQL_INVALID_CURSOR_ERR$     TO -100  ;* Invalid Cursor State (Usually not open)
+EQU SQL_CURSOR_MOVE_ERR$        TO -101  ;* Error repositioning cursor (SELECT.SEEK)
+EQU SQL_FETCH_ORIENT_BAD_ERR$   TO -102  ;* Non-numeric position for Relative or Absolute
+EQU SQL_FETCH_ORIENT_ZERO_ERR$  TO -103  ;* Zero position for Relative and Absolute not allowed
+EQU SQL_NO_MORE_CURSORS_ERR$    TO -104  ;* No more cursors to allocate at runtime (max 6)
+EQU SQL_NO_MORE_SQBUFFS_ERR$    TO -105  ;* No more sub-query buffers
+
+
+* Source Date: 16:42:24  12 JAN 1993  Build ID: OI*1.0.10  Level: 2.0

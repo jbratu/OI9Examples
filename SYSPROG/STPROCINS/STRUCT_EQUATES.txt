@@ -1,0 +1,84 @@
+compile insert Struct_Equates
+
+*****************************************************************************
+*
+* Product    : OpenInsight for Workgroups
+* Name       : Struct_Equates
+*
+* Description: labelled common and equates for structure manipulation routines
+*
+* History    : (date, initials, notes)
+*   11/21/94  cp   Original programmer.
+*   01/28/96  cp   Updated for Hoffa project
+*   10/15/97  cp   Updated for 3.5
+*
+*****************************************************************************
+
+* structure functions
+declare function   Struct_Def    ;* def = Struct_Def(name)
+declare subroutine Struct_Flush  ;* Struct_Flush(name) or Struct_Flush()
+declare function   Struct_Len    ;* len = Struct_Len(name)
+declare function   Blank_Struct  ;* struct = Blank_Struct(name)
+declare function   Build_Struct  ;* struct = Build_Struct(name, ...)
+declare subroutine Parse_Struct  ;* Parse_Struct(struct, name, ...)
+declare function   Var_To_Struct ;* struct = Var_To_Struct(var, name)
+declare function   Struct_To_Var ;* var = Struct_To_Var(struct, name)
+declare function   Define_Struct ;* ret = Define_Struct(instruction, ...)
+declare subroutine Define_Struct ;* Define_Struct(instruction, ...)
+
+* supporting DLL functions
+declare subroutine Float_To_String
+declare subroutine Double_To_String
+declare subroutine String_To_Float
+declare subroutine String_To_Double
+
+common /struct_com/ struct_key%, struct_rec%, struct_com_unused_1%, struct_com_unused_2%
+
+* fields in each structure record
+equ STRUCT_TOT_LEN$     to 1    ;* length (in bytes) of the structure 
+equ STRUCT_FLD_CNT$     to 2    ;* number of fields in the structure
+equ STRUCT_FLD_DEF$     to 3    ;* types of each field (@vm delim)
+equ STRUCT_FLD_LEN$     to 4    ;* lengths of each field (@vm delim)
+equ STRUCT_TMP_DEF$     to 5    ;* mangled on load; types without @vm delim
+
+* structure definition codes
+equ T_SIGNED_CHAR$      to 0
+equ T_UNSIGNED_CHAR$    to 1
+equ T_SIGNED_SHORT$     to 2
+equ T_UNSIGNED_SHORT$   to 3
+equ T_SIGNED_LONG$      to 4
+equ T_UNSIGNED_LONG$    to 5
+equ T_FLOAT$            to 6
+equ T_DOUBLE$           to 7
+equ T_POINTER$          to 8
+equ T_CHAR_ARRAY$       to 9   ;* size of array is stored in "struct_fld_len$"
+
+* define struct
+equ DS_ENUM$            to 1   ;* list    = Define_Struct(DS_ENUM$)
+equ DS_PUT$             to 2   ;* success = Define_Struct(DS_PUT$, name, def)
+equ DS_DELETE$          to 3   ;* success = Define_Struct(DS_DELETE$, name)
+equ DS_REINDEX$         to 4   ;* success = Define_Struct(DS_REINDEX$)
+equ DS_DIALOG$          to 5   ;* Define_Struct(DS_DIALOG$) (default)
+equ DS_DLG_CREATE$      to 6   ;* reserved
+equ DS_DLG_CLOSE$       to 7   ;* reserved
+equ DS_DLG_GETDEF$      to 8   ;* reserved
+equ DS_DLG_PUTDEF$      to 9   ;* reserved
+equ DS_DLG_READ$        to 10  ;* reserved
+equ DS_DLG_SAVE$        to 11  ;* reserved
+equ DS_DLG_NEW$         to 12  ;* reserved
+equ DS_DLG_COPY$        to 13  ;* reserved
+equ DS_DLG_DELETE$      to 14  ;* reserved
+equ DS_DLG_CHANGEKEY$   to 15  ;* reserved
+equ DS_DLG_ETINSERT$    to 16  ;* reserved
+equ DS_DLG_ETDELETE$    to 17  ;* reserved
+equ DS_DLG_ETOPTIONS$   to 18  ;* reserved
+equ DS_DLG_ETGOTFOCUS$  to 19  ;* reserved
+equ DS_DLG_ETPOSCHANGE$ to 20  ;* reserved
+equ DS_DLG_ETLOSTFOCUS$ to 21  ;* reserved
+
+* miscellaneous
+equ STRUCT_FILE$        to "SYSOBJ"
+equ STRUCT_KEY_PREFIX$  to "STRUCT_"
+equ STRUCT_INDEX$       to "!STRUCT"
+equ STRUCT_DIALOG$      to "DEFINE_STRUCT"
+

@@ -1,0 +1,194 @@
+function Inet_FormWrite (Request)
+*********************************************************************
+*
+* This program is proprietary and is not to be used by or disclosed
+* to others, nor is it to be copied without written permission from
+* Revelation Technologies, Inc.
+*
+* Product    :  OI/WG
+* Project    :  OpenInsight for Internet
+* Release    :  3.5
+*
+* Name       :  Inet_FormWrite
+* Description:  HTML version of generic WRITE event
+*
+* Parameters:
+*   Request  [in] -- HTTP request with following parameters:
+*                    FORM_ID - form name
+*   ret     [out] -- HTML script with a form cleared or re-filled
+*
+* History (Date, Initials, Notes)
+*   10/15/97  gg   Original programmer
+*********************************************************************
+
+$insert fserrors_100
+$insert syserrors_1000
+$insert logical
+$insert oiwin_equates
+
+equ FORM_ID$ to 'FORM_ID'
+equ CR$      to \0D\
+equ LF$      to \0A\
+
+declare function   Inet_QueryParam, Inet_Msg, Web_GetKey, Web_FormLoad
+declare function   FormRead, in.value, Get_Property, Get_Status
+declare subroutine Start_oiwin, FormUpdate, Oiwin_FormUnlock, End_Window, Set_Status
+
+	formId = Inet_QueryParam(Request, FORM_ID$)
+
+	if len(formId) else
+		return Inet_Msg(Request, '', 'INET_INVALIDPARAM', FORM_ID$)
+	end
+
+	convert @lower.case to @upper.case in formId
+	winId = formId :'*': Get_Property('SYSTEM', 'COUNTER')
+
+	Start_oiwin(winId)
+
+	if Get_Status(statCode) then
+		Set_Status(FALSE$)
+		return Inet_Msg(Request, '', 'INETFORM_NOTFOUND', formId)
+	end
+
+	$insert oiwin_comm_init
+
+	htmlDoc = ''
+
+	keyVal = Web_GetKey(Request, winId)
+
+	if len(keyVal) else
+		htmlDoc = Inet_Msg(Request, '', 'INETFORM_NULLKEYERR', forId)
+	end
+
+	if len(htmlDoc) else
+		origRow = formRead(winId, keyVal)
+
+		bNewRecord = FALSE$
+
+		if Get_Status(statCode) then
+			Set_Status(FALSE$)
+
+			if statCode<1, 1> = 'FS':FS_REC_DNE$ then
+				* new record
+				bNewRecord = TRUE$
+			end else
+				* some other error
+				htmlDoc = Inet_Msg(Request, '', 'INETFORM_IOERR', statCode)
+			end
+		end
+	end
+
+	if len(htmlDoc) else
+		gosub CollectResultRow
+	end
+
+	if len(htmlDoc) else
+		FormUpdate(winID, origRow, resultRow, FALSE$)
+
+		if get_status(statCode) then
+			Set_Status(FALSE$)
+			htmlDoc = Inet_Msg(Request, '', 'INETFORM_IOERR', statCode)
+		end
+	end
+
+	if len(htmlDoc) else
+		if controlSemantics@<1, CS_COLUMN$, FIO_WRITECLEAR$> then
+			* leave the data
+			bNewRecord = FALSE$
+		end else
+			* clear the form
+			resultRow = ''
+			bNewRecord = TRUE$
+		end
+
+		htmlDoc = Web_FormLoad(Request, winId, resultRow, bNewRecord)
+	end
+
+	Oiwin_FormUnlock(winId)
+	End_Window(winId)
+
+	return htmlDoc
+
+*****************************
+* collect the values from the incoming "save" request
+* and validate them (borrowed from Data_Validation function)
+*
+* Parameters:
+*   Request    [in] -- HTTP request with
+*   origRow    [in] -- original row
+*   htmlDoc   [out] -- NULL if success, error otherwise
+*   resultRow [out] -- result row
+*
+
+CollectResultRow:
+
+	fieldCount = count(masterRowMap@, @fm) + 1
+
+	resultRow = origRow
+	for nF = 1 to fieldCount
+		ctlId    = masterRowMap@<nF, MRMAP_CONTROL$>
+		ctlPos   = masterRowMap@<nF, MRMAP_CTLPOS$>
+		ctlCol   = 1 ;* we don't support edit-tables yet
+
+		ctlValid = controlSemantics@<ctlPos, CS_VALID$,    ctlCol>
+		ctlConv  = controlSemantics@<ctlPos, CS_CONV$,     ctlCol>
+		ctlReq   = controlSemantics@<ctlPos, CS_REQUIRED$, ctlCol>
+
+		ctlName = ctlId[-1, 'B.']
+		convert char(250) to @vm in ctlValid
+		convert char(250) to @vm in ctlConv
+
+		ctlData = Inet_QueryParam(Request, ctlName)
+		convert LF$:CR$ to @tm in ctlData
+
+		*** check if required
+		if ctlReq = 1 then
+			ctlDataTmp = ctlData
+			convert @tm:' ' to '' in ctlDataTmp
+			if len(ctlDataTmp) else
+				htmlDoc = Inet_Msg(Request, '', 'INETFORM_REQERR', ctlName)
+				return
+			end
+		end
+
+		*** check if data has changed -- only then perform validation/conversion
+		ctlDataOrig = origRow<nF>
+
+		if len(ctlDataOrig) = len(ctlData) then
+			if ctlDataOrig = ctlData then
+				* no change -- nothing farther
+				goto continue
+			end
+		end
+
+		convData = ctlData
+
+		if len(ctlValid) and (ctlValid <> "<<None>>") then
+			validFlag = TRUE$
+			convData = in.value(ctlData, ctlValid, validFlag)
+			if validFlag else
+				htmlDoc = Inet_Msg(Request, '', 'INETFORM_VALIDERR', ctlName :@fm: ctlData :@fm: ctlValid)
+				return
+			end
+		end
+
+		if len(ctlConv) and (ctlConv # "<<None>>") then
+			if convData = ctlData then
+				convData = iconv(ctlData, ctlConv)
+
+				if status() = 2 then
+					* if the pattern is bad - then wink
+					* This will cover when R#, C#, L#... FMT() patterns are used
+					convData = ctlData
+				end
+			end
+
+			convData = oconv(convData, ctlConv)
+		end
+
+		resultRow<nF> = convData
+continue:
+	next nF
+
+	return
+

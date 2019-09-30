@@ -1,0 +1,333 @@
+{
+    "style-sheet-id": "",
+    "name": "NEWENTITY",
+    "icon-name": "",
+    "title": "New",
+    "size": {
+        "x": 108,
+        "y": 157,
+        "y-ext": null,
+        "width": 239,
+        "height": 139
+    },
+    "style": [
+        "WS_POPUP",
+        "WS_CLIPCHILDREN",
+        "WS_BORDER",
+        "WS_DLGFRAME",
+        "WS_SYSMENU"
+    ],
+    "style-ex": [],
+    "ps-style": [
+        "PSS_WIN_HASMENU",
+        "PSS_DIALOGBOX",
+        "PSS_WIN_MULTIINSTANCE"
+    ],
+    "background": "#00FFFFFF",
+    "script-events": [],
+    "quick-events": [
+        {
+            "name": "CREATE",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**NEWENTITY",
+            "parameters": [
+                "4",
+                "@PARAM1"
+            ],
+            "return-id": "",
+            "return-property": ""
+        }
+    ],
+    "tables": [],
+    "io-options": {
+        "optimistic-locking": false,
+        "locking-behavior": "Exclusive",
+        "coordinate-with-file-locks": false,
+        "ignore-self-locks": false,
+        "ignore-subrow-locks": false,
+        "no-clear-on-write": false,
+        "commit-after-data-set": null,
+        "rollback-if-commit-fails": null,
+        "auto-rollback-on-clear": null,
+        "enforce-required-fields-before-save": null
+    },
+    "joined-tables": {
+        "primary": null,
+        "joined": null
+    },
+    "form-designer-flags": [
+        "0x7FFFE",
+        "0xF001E988"
+    ],
+    "background-image": "",
+    "icon": "",
+    "page-count": 1,
+    "controls": [
+        {
+            "name": "LB_ITEM",
+            "icon-literal": "",
+            "type": "LISTBOX",
+            "parent": "NEWENTITY",
+            "size": {
+                "x": 6,
+                "y": 6,
+                "y-ext": null,
+                "width": 133,
+                "height": 102
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_BORDER",
+                "WS_VSCROLL",
+                "LBS_NOTIFY",
+                "LBS_USETABSTOPS",
+                "LBS_NOINTEGRALHEIGHT"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_INITIALFOCUS",
+                "PSSX_LB_ENTERASDBLCLK"
+            ],
+            "tab-stop": 1,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "DBLCLK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**NEWENTITY",
+                    "parameters": [
+                        "5"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016208"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 0,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "CB_OK",
+            "icon-literal": "",
+            "type": "PUSHBUTTON",
+            "parent": "NEWENTITY",
+            "size": {
+                "x": 146,
+                "y": 5,
+                "y-ext": null,
+                "width": 80,
+                "height": 25
+            },
+            "text": "OK",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_PUSHBUTTON"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_DEFAULTBUTTON",
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 2,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**NEWENTITY",
+                    "parameters": [
+                        "6"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016408"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "CB_CANCEL",
+            "icon-literal": "",
+            "type": "PUSHBUTTON",
+            "parent": "NEWENTITY",
+            "size": {
+                "x": 146,
+                "y": 36,
+                "y-ext": null,
+                "width": 80,
+                "height": 25
+            },
+            "text": "Cancel",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_PUSHBUTTON"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CANCELBUTTON",
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 3,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**NEWENTITY",
+                    "parameters": [
+                        "7"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016408"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        }
+    ],
+    "menu": null,
+    "menu-script-events": [],
+    "menu-quick-events": []
+}

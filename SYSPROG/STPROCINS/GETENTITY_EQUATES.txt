@@ -1,0 +1,67 @@
+compile insert GetEntity_Equates
+
+******************************************************************************
+*
+* This program is proprietary and is not to be used by or disclosed
+* to others, nor is it to be copied without written permission from
+* Revelation Technologies, Inc.
+*
+* Product    :  OpenInsight for Workgroups
+* Client     :  Revelation Software
+* Version    :  3.1
+*
+* History    :  (date, initials, notes)
+*   01/12/96  cp   Re-doing
+*	  01/02/07  spf  Add GE_OPT_HEADTEXT$ and GE_OPT_SUBHEADTEXT$
+******************************************************************************
+
+declare function   GetEntity
+declare subroutine GetEntity
+
+* Item = GetEntity(Mode, TypeDesc, bFilter, Display, ItemLabel, ListLabel, DefaultSelection, DefaultType, Options)
+*
+* Parameters:
+*
+*   Mode         - specifies the mode of entry
+*                    GE_MODE_OPEN$
+*                    GE_MODE_SAVE$
+*
+*   TypeDesc     - @fm-delim'd array of human-readable selection criteria (filters), ie: "Messages"
+*
+*   bFilter      - @fm-delim'd array of bool (corresponding to TypeDesc), TRUE$ signifies that
+*                  Display<i> contains a "TYPE*CLASS" repository filter, FALSE$ signifies that
+*                  Display<i> contains an @vm-delim'd list of items to display
+*
+*   Display      - @fm-delim'd array of display information (corresponding to TypeDesc), each either
+*                  a "TYPE*CLASS" repository filter or an @vm-delim'd list of items (see bFilter)
+*
+*   ItemLabel    - (optional) @fm-delim'd array of labels that replace "Entity Name:" (for filters)
+*                  or "Item Name" (for lists)
+*
+*   ListLabel    - (optional) @fm-delim'd array of labels that replace "List Entities of Type:" (for
+*                  filters) or "List Items of Type:" (for lists)
+*
+*   DefaultItem  - (optional) default item name, defaults to NULL
+*
+*   DefaultType  - (optional) index into TypeDesc, defaults to 1
+*
+*   Options      - (optional) additional options
+*                    GE_OPT_TITLE$    - text string to replace window default title ("Open" and "Save As")
+*                    GE_OPT_HIDE_CHK$ - TRUE$ hides the "Show Inherited" checkbox
+*
+* Return value:
+*
+*   Item         - index:@fm:name, where the index specifies the filter/list number (position within
+*                  TypeDesc) and the name is either a fully qualified entity id (if bFilter<index> is
+*                  TRUE$) or the item selected from the list
+
+* entry modes
+equ GE_MODE_OPEN$     to 0
+equ GE_MODE_SAVE$     to 1
+
+* additional options
+equ GE_OPT_TITLE$     to 1
+equ GE_OPT_HIDE_CHK$  to 2
+Equ GE_OPT_HEADTEXT$ To 3
+Equ GE_OPT_SUBHEADTEXT$ To 4
+

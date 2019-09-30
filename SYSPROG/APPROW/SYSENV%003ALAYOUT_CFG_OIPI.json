@@ -1,0 +1,13 @@
+{
+    "record1": {
+        "<1>": "Select original (OIPI) or new (OIPI.NET) print processor",
+        "<2>": {
+            "<2,1>": "Set field 1 to VSPRINTER to use OIPI, or VSPRINTER2 to use OIPI.NET",
+            "<2,2>": "Optionally set field 2 to 1 to cache this selection",
+            "<2,3>": "",
+            "<2,4>": "Note: If selection is cached, and you wish to change field 1, please run REFRESH_VSPRINTER to clear the cached value"
+        },
+        "<3>": "Selected Print Processor{OPTIONS OIPI/VSPRINTER|OIPI.NET/VSPRINTER2}{DEFAULT VSPRINTER}",
+        "<4>": "Cache this selection?{OPTIONS No/0|Yes/1}{DEFAULT 0}"
+    }
+}

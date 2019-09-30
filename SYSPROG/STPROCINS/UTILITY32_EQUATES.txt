@@ -1,0 +1,33 @@
+Compile Insert Utility32_Equates
+
+******************************************************************************
+*
+* Product    :  OpenInsight for Workgroups
+* Version    :  3.74
+*
+* History    :  (date, initials, notes)
+*
+* 03/01  		rjc       created
+*
+******************************************************************************
+
+* Sysenv
+
+equ CFG_UTILITY32$ to "CFG_UTILITY32"		; * Key to sysenv rec holding default settings.  Edit that record to permanently change defaults
+equ CFG_UTILITY32_SECTION$ 			to 1	; * position of Default Ini section to use for communication	
+equ CFG_UTILITY32_KEY$ 				to 2	; * position of Default Ini key to use for communication
+equ CFG_UTILITY32_APPLICATION$ 		to 3	; * position of Default Ini File to use for communication
+equ CFG_UTILITY32_SCRIPTLOCATION$ 	to 4	; * position of Default directory for storing scripts
+equ CFG_UTILITY32_SCRIPTENGINE$ 	to 5	; * position of Default program to call for starting scripts
+equ CFG_UTILITY32_SCRIPTTEST$ 		to 6	; * position of Default file to look for in scriptdir.
+
+
+
+EQU UT32_BUFFERSIZE$ to 2048 ; * Allocate this many characters for privateprofilestring message size
+
+* Modes for Utility_FileDlg
+equ DLG_MODE_OPEN$ 			to 0
+equ DLG_MODE_SAVE$ 			to 1
+equ DLG_MODE_LONG_TO_SHORT$ to 2
+equ DLG_MODE_SHORT_TO_LONG$ to 3
+

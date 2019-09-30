@@ -1,0 +1,39 @@
+Compile Insert U2_LogEquates
+
+/* tokens indicating trace values in @user4 */
+* TRACE and TRACE_ERROR must be "_" diff -- syntax uses index to turn on trace
+equ VM_NOTRACE_TOKEN$     to ""
+equ VM_TRACE_TOKEN$       to "VMTRACE"
+equ VM_TRACE_ERROR_TOKEN$ to "VM_TRACE_ERROR"
+
+/* equates for log file structure */
+* key fields
+equ PROCESS_NAME$ to 1
+equ TIMESTAMP$    to 2
+
+* record structure
+equ PROCESS_ID$   to 1
+equ ERROR_ID$     to 2
+equ SERVER_ID$    to 3
+equ USER_ID$      to 4
+equ API_CODE$     to 5
+equ SCRIPT$       to 6
+equ MSG_TYPE$     to 7
+equ MSG_NO$       to 8
+equ MSG_TEXT$     to 9
+equ MSG_DETAIL$   to 10
+
+* log types and corresponding structures
+equ NEWSESSION$   to 1
+    * U2_cursession@, U2_statcd
+equ SETSESSION$   to 2
+    * U2_cursession@, U2_statcd, U2_sessionid
+equ CLOSESESSION$ to 3
+    * U2_cursession@, U2_statcd
+equ ERROR$        to 4
+    * U2_cursession@, U2_statcd, U2_error
+equ EXECUTE$      to 5
+    * U2_cursession@, U2_statcd, U2_cmd
+equ INFORMATIONAL$ to 6
+    * U2_cursession@, text
+* Source Date: 14:03:38  13 JUN 1994  Build ID: U2*1.0.18  Level: 1.0

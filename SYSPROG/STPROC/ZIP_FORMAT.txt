@@ -1,0 +1,76 @@
+COMPILE SUBROUTINE ZIP_FORMAT(CHARSTR CONV, CHARSTR ANS, CHARSTR BRANCH, CHARSTR RETURN_DATA)
+*
+*   ZIP_FORMAT is an example of a developer's custom prompt formatting
+*   routine using the square brackets call.
+*
+*   It should be placed in square brackets, like this:
+*
+*                   [ZIP_FORMAT]
+*
+* This subroutine should be used as the first and only "Input Validation" in
+* a window prompt.  Placed in "Output Format", it properly formats any
+* reasonable string of numbers and characters into a consistent US Zip or
+* Canadian Postal Code format.
+*
+*  Subroutine declarations
+DECLARE FUNCTION MSG
+
+*  Local Equates
+*  The STATUS() variable is used to indicated the error condition of the
+*  pattern. They are:
+
+EQU VALID$         TO 0    ;* Successful
+EQU INVALID_MSG$   TO 1    ;* Bad Data       -   Print error message window
+EQU INVALID_CONV$  TO 2    ;* Bad Conversion -          "         "
+EQU INVALID_NOMSG$ TO 3    ;* Bad but do not print the error message window
+
+*  Begin Conversion
+*
+
+BEGIN CONDITION
+PRE:
+POST:
+END CONDITION
+  
+  RETURN_DATA = ""
+  IF ANS NE "" THEN
+    ZIP = ANS
+    ANS = ""
+    STATUS() = VALID$
+
+    CONVERT " -" TO "" IN ZIP
+
+    LENGTH = LEN( ZIP )
+    * A case statement is used to validate all possible types of Postal Codes.
+    * If a new format is required, simply add another case.
+    * The fall-through (CASE 1) traps invalid conversions.
+    BEGIN CASE
+      CASE LENGTH = 5 AND NUM( ZIP )
+        * standard five digit US zip code.
+        RETURN_DATA = ZIP
+      CASE LENGTH = 9 AND NUM( ZIP )
+        * standard nine digit US zip code.
+        IF CONV = "OCONV" THEN
+          RETURN_DATA = FMT( ZIP, "L#####-####" )
+        END ELSE
+          RETURN_DATA = ZIP
+        END
+      CASE LENGTH = 6 AND  ZIP MATCHES "1A1N1A1N1A1N"
+        * Canadian-style Postal Code.
+        IF CONV = "OCONV" THEN
+          RETURN_DATA = FMT( ZIP, "L### ###" )
+        END ELSE
+          RETURN_DATA = ZIP
+        END
+      CASE 1
+        * No pattern matches met.  If called from an input pattern, display
+        * error message.
+        IF CONV = "ICONV" THEN
+            RESP = MSG( '', ZIP:" is not a valid Zip code. Please enter a five or nine digit number in any format, or a Canadian-style Postal Code." )
+        END
+        STATUS() = INVALID_NOMSG$
+    END CASE
+  END
+  RETURN
+*
+* Source Date: 17:02:51  23 APR 1993  Build ID: OI*1.0.144  Level: 2.0

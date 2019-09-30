@@ -1,0 +1,48 @@
+function Inet_Trace_ex(Request)
+*********************************************************************
+*
+* Product    :  OI/WG
+* Project    :  OpenInsight for Internet
+* Release    :  3.3
+*
+* Name       :  Inet_Trace
+* Description:  Generates the trace for HTTP request
+*
+* Parameters:
+*   Request  [in] -- HTTP request 
+*   ret     [out] -- HTML script with a trace 
+*
+* History (Date, Initials, Notes)
+*********************************************************************
+
+$insert inet_equates
+
+html = "Content-type: text/plain":\0A0A\
+html <-1> = "Yhis is the test Program"
+
+html <-1> = "CONTENT_LENGTH = "    : request<CONTENT_LENGTH$>
+html <-1> = "CONTENT_TYPE = "      : request<CONTENT_TYPE$>
+html <-1> = "GATEWAY_INTERFACE = " : request<GATEWAY_INTERFACE$>
+html <-1> = "HTTPS = "             : request<HTTPS$>
+html <-1> = "HTTP_ACCEPT = "       : request<HTTP_ACCEPT$>
+html <-1> = "HTTP_COOKIE = "       : request<HTTP_COOKIE$>
+html <-1> = "HTTP_FROM = "         : request<HTTP_FROM$>
+html <-1> = "HTTP_REFERER = "      : request<HTTP_REFERER$>
+html <-1> = "HTTP_USER_AGENT = "   : request<HTTP_USER_AGENT$>
+html <-1> = "PATH_INFO = "         : request<PATH_INFO$>
+html <-1> = "PATH_TRANSLATED = "   : request<PATH_TRANSLATED$>
+html <-1> = "QUERY_STRING = "      : request<QUERY_STRING$>
+html <-1> = "REMOTE_ADDR = "       : request<REMOTE_ADDR$>
+html <-1> = "REMOTE_HOST = "       : request<REMOTE_HOST$>
+html <-1> = "REMOTE_IDENT = "      : request<REMOTE_IDENT$>
+html <-1> = "REMOTE_USER = "       : request<REMOTE_USER$>
+html <-1> = "REQUEST_METHOD = "    : request<REQUEST_METHOD$>
+html <-1> = "SCRIPT_NAME = "       : request<SCRIPT_NAME$>
+html <-1> = "SERVER_NAME = "       : request<SERVER_NAME$>
+html <-1> = "SERVER_PORT = "       : request<SERVER_PORT$>
+html <-1> = "SERVER_PROTOCOL = "   : request<SERVER_PROTOCOL$>
+html <-1> = "SERVER_SOFTWARE = "   : request<SERVER_SOFTWARE$>
+html <-1> = "SERVER_URL = "        : request<SERVER_URL$>
+
+return html
+

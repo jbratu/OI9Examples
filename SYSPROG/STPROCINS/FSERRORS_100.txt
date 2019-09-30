@@ -1,0 +1,97 @@
+compile insert fserrors_100
+*----------------------------------------------------------------------------
+* Block 100
+*
+* Advanced Revelation System BFS error codes.
+*
+* June 1,  1989    Begun
+* July 11, 1989    Pat added error code 107 & 124
+* July 19, 1989    Pat added error code 109, 134 & 160
+* July 28, 1989    Pat added error code 150, 151 & 152
+* Aug.  2, 1989    Pat added error code 171, 172, 173, 174 ,175 & 176.
+* Apr   9, 1990    MKI Added error codes 180 - 184
+* Oct  15, 1990    JED Added error codes 190 - 196
+* Oct  22, 1990    MKI Added error codes 185 - 189
+* Mar  09, 1998    cp  Added error code 112 (from Swap_Database)
+*                                     STATUS                         ; params
+EQUATE FS_REC_DNE$             TO 100  ;* 0  record does not exist on read or delete ;
+EQUATE FS_WRITE_FILE_DNE$      TO 101  ;* 2  Write error: file does not exist / bad DOS name.
+EQUATE FS_WRITE_READONLY$      TO 102  ;* 0  Write error: attempt to write to read-only file / access to file denied by DOS.
+EQUATE FS_WRITE_VOL_FULL$      TO 103  ;* 1  Write error: disk volume full.
+EQUATE FS_WRITE_ERR$           TO 104  ;* 2  Write error: nature unknown.
+EQUATE FS_READ_FILE_DNE$       TO 105  ;* 1  Read error: file does not exist / bad DOS name.
+EQUATE FS_READ_DENIED$         TO 106  ;* 1  Read error: OS denied access to file.
+EQUATE FS_READ_ERR$            TO 107  ;* 2  Read error: nature unknown.
+
+EQUATE FS_INVALID_MAP_QUALIFIER$ TO 109 ;* 1  Invalid map qualifier ; map_qualifier
+EQUATE FS_INVALID_MAP_HANDLE$  TO 110  ;* 1  Invalid map handle ; map_handle
+EQUATE FS_READNEXT_DONE$       TO 111  ;* 0  Normal condition of termination of readnext. ; no paramters
+EQUATE FS_SYS_CANNOT_INSTALL$  TO 112
+EQUATE FS_INSTALL_LH_ERR$      TO 113  ;* 2  Install error,used in RTP59
+EQUATE FS_INSTALL_MEM_RES_ERR$ TO 114  ;* 2  Used in RTP50
+EQUATE FS_INSTALL_VOLUME_ERR$  TO 115  ;* 2  Used in RTP50
+EQUATE FS_INSTALL_FILES_ERR$    TO 116  ;* 2  Used in RTP50
+
+EQUATE FS_GFE_RETRY_ERR$       TO 124  ;* 2  Group format (lhread.c) error retry again to read next group but failed
+EQUATE FS_GFE_REC_TRUNC$       TO 125  ;* 2  Group format error record truncated across frame boundaries.
+EQUATE FS_GFE_LINK_ERR$        TO 126  ;* 2  Group format error wrong ov frame linked to group.
+EQUATE FS_GFE_REC_TERM_ERR$    TO 127  ;* 2  Group format error no @fm term. record (possibly record length corrupted)
+EQUATE FS_LHE_LNP_ERR$         TO 128  ;* 2  Linear Hash error (LNP incorrect due to modulo corruption)
+EQUATE FS_LHE_GROUP_ERR$       TO 129  ;* 2  Linear Hash error (Group calculation error - CHECK_HASH)
+EQUATE FS_NOT_IMPL$            TO 130  ;* 1  BFS code not implemented ; code ; BFS name
+EQUATE FS_UNDEFINED_ERROR$     TO 133  ;* 2  Undefined OS error ; error code:@FM:filename:@VM:status()
+EQUATE FS_OMNI_BFS$            TO 134  ;* 0  for basic query (un)intelligent BFS, used when FMC is 1, for conform to 2.0 error handling.
+EQUATE FS_SERVER_ERR$          TO 135  ;* 0  Basic Server Bond ; Server name, Server error #, Script sent, other info ...
+
+EQUATE FS_TOOMANY_FIELDS$      TO 140  ;* 0  Unable to create file %1% ; too many fields
+EQUATE FS_MISSING_FIELD$       TO 141  ;* 0  Field no. %2% is missing from the dictionary of file %1%
+EQUATE FS_ILLEGAL_DATA$        TO 142  ;* 0  Illegal data writing record %2% on file %1%
+EQUATE FS_MISSING_DICT$        TO 143  ;* 0  The dictionary is missing for file %1%
+EQUATE FS_MISSING_RECORD$      TO 144  ;* 0  Record %2% is missing from file %1%
+EQUATE FS_FILE_NOT_EXIST$      TO 145  ;* 0  File %1% doesn't exist
+EQUATE FS_FILE_ALREADY_EXISTS$ TO 146  ;* 0  File %1% already exists
+EQUATE FS_ILLEGAL_FILE_ATTRIBUTES$  TO 147  ;* 0 Illegal file attribute - unable to create file %1%
+EQUATE FS_ILLEGAL_KEY$         TO 148  ;* 0 %2% is an illegal key for file %1%
+EQUATE FS_FILE_DELETE_PROTECTED$ TO 149 ;* 1 File %1% is delete-protected
+EQUATE FS_DOS_REC_TOO_LONG$    TO 150  ;* 1 %1% is too long to manipulate - used in OSREAD/WRITE.
+EQUATE FS_ROS_REC_TOO_LONG$    TO 151  ;* 1 %1% is too long to manipulate - used in OSREAD/WRITE.
+EQUATE FS_CONTROL_REC_TOO_LONG$ TO 152  ;* 1 %1% is too long maintain, usually used by %RECORDS%, %FIELD%.
+
+EQUATE FS_LH_MEM_ERR$             TO 160  ;* 2  Failed to allocate enough string space, string space format error.
+EQUATE FS_LH_LOCK_TAB_OVERFLOW$   TO 161  ;* LH lock table overflow, rev_stop will be called.
+EQUATE FS_WRITE_DENIED_LICENSING$   TO 162  ;* wRITE DENIED due to licensing restrictions
+
+* The following are for the INSTALL call to the underlying engine.  They
+* are mainly used in netid()* for each different fsnet module.  Note that one
+* can still continue session but no locking will be provided.
+* Pat Aug. 2, 89
+
+EQUATE FS_INSTALL_DOS_WRONG_VER$            TO 171  ;* 0  wrong DOS version (3.1 and above) to support network version AREV.
+EQUATE FS_INSTALL_OPEN_LOCKFILE_FAILED$     TO 172  ;* 0  can not open REVBOOT for doing byte range locking x3dc0.
+EQUATE FS_INSTALL_GET_MACHINE_NAME_FAILED$  TO 173  ;* 0  can't get name in int21 call x5e00 .
+EQUATE FS_INSTALL_DRV_LOCAL_NO_CONFIG$      TO 174  ;* 0 used in byte range & banyan network, either no driver configured (BYN) int 60 x0A or drive is local x4409.
+EQUATE FS_INSTALL_BYN_INT_TABLE_ENTRY_NULL$ TO 175 ;* 0 interrupt vector table is not loaded with addr available for banyan shell call.
+EQUATE FS_INSTALL_NOVELL_LOG_STATION_NULL$  TO 176;* 0 return 0 means network is not active.
+
+* FS180 through FS184 are generated in the OS/2 network drivers.
+EQUATE FS_INSTALL_NOVELL_NO_NET$            TO 180  ;* 0 not logged in or server inactive
+EQUATE FS_INSTALL_NOVELL_NO_NET_NO_LOCKING$ TO 181  ;* 0 same as 180 plus no local locking
+EQUATE FS_INSTALL_LANMAN_NO_LOCKING$        TO 182  ;* 0 no locking
+EQUATE FS_INSTALL_LANMAN_NO_NET$            TO 183  ;* 0 no computername or no network
+EQUATE FS_INSTALL_LANMAN_NO_NET_NO_LOCKING$ TO 184  ;* 182 and 183 combined
+
+* FS185 through FS188 are initialization errors for multitasking network drivers
+EQUATE FS_INSTALL_LOCAL_ONLY_ERR$           TO 185  ;* Will only work locally
+EQUATE FS_INSTALL_NO_LOCKFILE$              TO 186  ;* Lockfile not found
+EQUATE FS_INSTALL_NO_STN_ID$                TO 187  ;* Station ID not found
+EQUATE FS_INSTALL_NO_SHARE_EXE$             TO 188  ;* Share.exe not loaded
+EQUATE FS_INSTALL_LOCALLOCKS_NOT_SUPPORTED$ TO 189  ;* local locking not supported
+
+EQUATE FS_INSTALL_BANYAN_NO_INT$            TO 190  ;* The Banyan VINES Service Interrupt was not found
+EQUATE FS_INSTALL_BANYAN_NO_TSR$            TO 191  ;* The "BANCOM" TSR was not found
+EQUATE FS_INSTALL_BANYAN_NO_STREETTALK$     TO 192  ;* The user's VINES StreetTalk name was not found
+EQUATE FS_INSTALL_BANYAN_SOCK_ERR$          TO 193  ;* An error was encountered while opening the VINES Communications Socket
+EQUATE FS_INSTALL_BANYAN_INIT_ERR$          TO 194  ;* An error was encountered while initializing the network driver
+EQUATE FS_INSTALL_BANYAN_NO_SERVICES$       TO 195  ;* No lock services are connected
+EQUATE FS_INSTALL_BANYAN_CONN_ERR$          TO 196  ;* An error was encountered while connecting the lock service for drive %1%
+

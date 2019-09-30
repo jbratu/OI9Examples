@@ -1,0 +1,492 @@
+Function TEST_EDITTABLE_DND_EVENTS(CtrlEntID,Event,Param1,Param2,Param3,Param4,Param5,Param6, Param7, Param8)
+*
+* Subroutine Name :TEST_EDITTABLE_DND_EVENTS
+*
+* Description : Commuter Module for TEST_EDITTABLE_DND
+*
+* Date : 04/03/2009
+*
+* Author : SYSPROG
+*
+* OI Version : 9.0.1
+*
+* Comments : mtr for mp (original code by CP)
+*
+*** RTI Generated Commuter Module ***
+*
+********************************************************
+*
+*
+Declare Subroutine MSG
+
+Declare Function MSG,GET_PROPERTY,SET_STATUS,GET_STATUS,SET_PROPERTY
+Declare Function POPUP,REPOSITORY,SEND_MESSAGE,SEND_EVENT,UNASSIGNED
+Declare Function UTILITY,CONTEXTMENU
+
+$INSERT MSG_EQUATES
+$Insert Logical
+$INSERT POPUP_EQUATES
+
+If Unassigned(CtrlEntID) Then CtrlEntID = ''
+If Unassigned(Event) Then Event = ''
+If Unassigned(Param1) Then Param1 = ''
+If Unassigned(Param2) Then Param2 = ''
+If Unassigned(Param3) Then Param3 = ''
+If Unassigned(Param4) Then Param4 = ''
+If Unassigned(Param5) Then Param5 = ''
+If Unassigned(Param6) Then Param6 = ''
+If Unassigned(Param7) Then Param7 = ''
+If Unassigned(Param8) Then Param8 = ''
+*
+*
+If index(CtrlEntID,".",1) then
+	WinName = Field(CtrlEntID,'.',1)
+	Control = Field(CtrlEntID,'.',2)
+End else
+	WinName = CtrlEntID
+	Control = WinName
+End
+*
+Parent = @window
+Frame = Get_Property(Parent,'MDIFRAME')
+If len(Frame) then Parent = Frame
+*
+Retval = 1
+*
+Begin Case
+	Case Control = "TEST_EDITTABLE_DND"
+		Begin Case
+			Case Event = "CREATE"
+				CreateParam = Param1
+				
+				
+				void = set_property(@window:'.E1','ENABLEDROP',1)
+				void = set_property(@window:'.E2','ENABLEDROP',1)
+				
+				void = set_property(@window:'.T1','ENABLEDROP',1)
+				void = set_property(@window:'.T2','ENABLEDROP',1)
+				
+				void = set_property(@window:'.E1','ENABLEDRAG',1)
+				void = set_property(@window:'.E2','ENABLEDRAG',1)
+				void = set_property(@window:'.T1','ENABLEDRAG',1)
+				void = set_property(@window:'.T2','ENABLEDRAG',1)
+				
+				void = set_property(@window:'.T1','ENABLEDRAGROWS',1)
+				void = set_property(@window:'.T2','ENABLEDRAGROWS',1)
+				
+				void = set_property(@window:'.E1','ENABLEDROPSCROLL',1)
+				void = set_property(@window:'.E2','ENABLEDROPSCROLL',1)
+				void = set_property(@window:'.T1','ENABLEDROPSCROLL',1)
+				void = set_property(@window:'.T2','ENABLEDROPSCROLL',1)
+				
+				
+				tblList = ""
+				
+				for rowNo = 1 to 20
+					if ( rowNo > 1 ) then
+						tblList := @fm
+					end
+					for colNo = 1 to 4
+						if ( colNo > 1 ) then
+							tblList := @vm
+						end
+						tblList := "Upper Table, C" : colNo : ":R" : rowNo
+					next
+				next
+				
+				STATX@=SET_PROPERTY(@WINDOW:".T1","LIST", tblList)
+				
+				tblList = ""
+				for rowNo = 1 to 20
+					if ( rowNo > 1 ) then
+						tblList := @fm
+					end
+					for colNo = 1 to 4
+						if ( colNo > 1 ) then
+							tblList := @vm
+						end
+						tblList := "Lower Table, C" : colNo : ":R" : rowNo
+					next
+				next
+				
+				STATX@=SET_PROPERTY(@WINDOW:".T2","LIST", tblList)
+				
+				
+				Retval = 0
+		End Case
+	Case Control = "T1"
+		Begin Case
+			Case Event = "DRAGDROP"
+				DATAFORMAT = Param1
+				DROPTYPE = Param2
+				DROPX = Param3
+				DROPY = Param4
+				CTRLKEY = Param5
+				SHIFTKEY = Param6
+				ALTKEY = Param7
+				MOUSEBUTTON = Param8
+				/*
+				Author : Captain C
+				Date : April 2007
+				Purpose : DRAGDROP event to show simple handling of dragging
+				and dropping row-style data.
+				*/
+				
+				
+				* // I'm assuming that the DRAGOVER event validated the drag
+				* // data for us so we should be OK
+				
+				* // We need the row number where we dropped which we can get
+				* // from the passed mouse coordinates
+				
+				rowNo = send_Message( ctrlEntID, "POS_BY_CLIENT_CURSOR", dropX, dropY )<2>
+				data = send_Message( ctrlEntID, "GETDRAGDATA", dataFormat )
+				dropOK = TRUE$
+				
+				begin case
+					case ( dataFormat = "OI_EDT_ROWLIST" )
+						call send_Message( ctrlEntID, "INSERT", rowNo, data )
+						
+						* // In the case of a MOVE you should delete the rows
+						* // from the source edit table if it's from *this*
+						* // instance of OI
+						
+						if ( dropType = "MOVE" ) then
+							edtID = get_property( "SYSTEM", "DRAGSOURCE" )
+							if len( edtID ) then
+								* // TODO: Delete the source rows
+							end
+						end
+						
+						dropOK = TRUE$
+						
+					case ( dataFormat = "TEXT" )
+						swap \0D0A\ with @fm in data
+						convert \09\ to @vm in data
+						call send_Message( ctrlEntID, "INSERT", rowNo, data )
+						
+					case OTHERWISE$
+						dropOK = FALSE$
+						
+				end case
+				
+				* // Setting the DROPRESULT property tells OI not to do any
+				* // further processing - you're telling OI you've handled it
+				* // all ...
+				if dropOK then
+					call set_Property( ctrlEntID, "DROPRESULT", dropType )
+				end
+				
+				return 1
+			Case Event = "DRAGOVER"
+				DRAGEVENT = Param1
+				MOUSEX = Param2
+				MOUSEY = Param3
+				CTRLKEY = Param4
+				SHIFTKEY = Param5
+				ALTKEY = Param6
+				MOUSEBUTTON = Param7
+				
+				/*
+				Author : Captain C
+				Date : April 2007
+				Purpose : DRAGOVER event to show simple handling of dragging
+				and dropping row-style data.
+				*/
+			
+				
+				objxArray = ctrlEntID
+				propArray = "DRAGFORMATLIST"
+				
+				dataArray = get_Property( objxArray, propArray )
+				
+				dragFmts = dataArray[1,@rm]
+				
+				dropOK = FALSE$
+				dropFmt = ""
+				
+				* // Row data dragged from an edit table is dragged in several
+				* // formats:
+				* //
+				* // @fm-@vm delimited list is identified by a dragdata type of
+				* //
+				* // OI_EDT_ROWLIST
+				* //
+				* // with the name of the originating edit table in the drag data
+				* // type of
+				* //
+				* // OI_EDIT_ID
+				
+				locate "OI_EDT_ROWLIST" in dragFmts using @fm setting pos then
+					
+					* // We know data rows are being dragged from an edit table. We
+					* // can check to see which table they are being dragged from
+					* // and which instance of OI in case someone is running
+					* // multiple systems
+					
+					* // Use the SYSTEM DRAGSOURCE property to get the name of the
+					* // current drag source - if it's not null them we know it's
+					* // an edit table from *this* instance of OI
+					
+					edtID = get_Property( "SYSTEM", "DRAGSOURCE" )
+					
+					if ( edtID = "" ) then
+						* // See if it's a matching edit table from another OI instance
+						* // on the desktop
+						edtID = send_Message( ctrlEntID, "GETDRAGDATA","OI_EDT_ID" )
+					end
+					
+					if ( edtID = @window : ".T2" ) then
+						dropOK = TRUE$
+						dropFmt = "OI_EDT_ROWLIST"
+					end
+					
+				end else
+					
+					* // See if we are dragging text...
+					
+					locate "TEXT" in dragFmts using @fm setting pos then
+						* // OK we'll accept it - though we could check to see what
+						* // format the text is actually in ....
+						txtData = send_Message( ctrlEntID, "GETDRAGDATA", "TEXT" )
+						/*
+TODO: Check to see if the text is OK ...
+						*/
+						dropOK = TRUE$
+						dropFmt = "TEXT"
+					end
+				end
+				
+				if dropOK then
+					* // One further this we could do here is check to see where
+					* // we are dragging over - e.g. we could allow the drop if
+					* // we're over the row buttons for example ...
+				end
+				
+				if dropOK else
+					if ( dragEvent = "ENTER" ) then
+						* // Shortcut - no more DRAGOVER messages will be sent to the
+						* // control until the dragged data is dragged in again - use
+						* // this for optimization.
+						* //
+						* // DON'T use this if you need to keep checking every DRAGOVER
+						* // message - e.g. some drop operations are dependant on where
+						* // the mouse actually is over the drop target control!
+						
+						call set_Property( ctrlEntID, "DROPACCEPT", dropOK )
+						return 0
+						
+					end
+				end
+				
+				* // Set DROPCOPY and DROPMOVE to true if it's OK to drop right now.
+				* // We can also set the preferred format so that we know what we're
+				* // going on the DRAGDROP event (though we could check the drag data
+				* // to see what's in there at drop-time too via the GETDRAGDATA
+				* // message ...
+				
+				objxArray = ctrlEntID
+				propArray = "DROPCOPY"
+				dataArray = dropOK
+				
+				objxArray := @rm : ctrlEntID
+				propArray := @rm : "DROPMOVE"
+				dataArray := @rm : dropOK
+				
+				objxArray := @rm : ctrlEntID
+				propArray := @rm : "DROPFORMATLIST"
+				dataArray := @rm : dropFmt
+				
+				call set_Property( objxArray, propArray, dataArray )
+				
+				return 1
+		End Case
+	Case Control = "T2"
+		Begin Case
+			Case Event = "DRAGDROP"
+				DATAFORMAT = Param1
+				DROPTYPE = Param2
+				DROPX = Param3
+				DROPY = Param4
+				CTRLKEY = Param5
+				SHIFTKEY = Param6
+				ALTKEY = Param7
+				MOUSEBUTTON = Param8
+				/*
+				Author : Captain C
+				Date : April 2007
+				Purpose : DRAGDROP event to show simple handling of dragging
+				and dropping row-style data.
+				*/
+			
+				
+				* // I'm assuming that the DRAGOVER event validated the drag
+				* // data for us so we should be OK
+				
+				* // We need the row number where we dropped which we can get
+				* // from the passed mouse coordinates
+				
+				rowNo = send_Message( ctrlEntID, "POS_BY_CLIENT_CURSOR", dropX, dropY )<2>
+				data = send_Message( ctrlEntID, "GETDRAGDATA", dataFormat )
+				dropOK = TRUE$
+				
+				begin case
+					case ( dataFormat = "OI_EDT_ROWLIST" )
+						call send_Message( ctrlEntID, "INSERT", rowNo, data )
+						
+						* // In the case of a MOVE you should delete the rows
+						* // from the source edit table if it's from *this*
+						* // instance of OI
+						
+						if ( dropType = "MOVE" ) then
+							edtID = get_property( "SYSTEM", "DRAGSOURCE" )
+							if len( edtID ) then
+								* // TODO: Delete the source rows
+							end
+						end
+						
+						dropOK = TRUE$
+						
+					case ( dataFormat = "TEXT" )
+						swap \0D0A\ with @fm in data
+						convert \09\ to @vm in data
+						call send_Message( ctrlEntID, "INSERT", rowNo, data )
+						
+					case OTHERWISE$
+						dropOK = FALSE$
+						
+				end case
+				
+				* // Setting the DROPRESULT property tells OI not to do any
+				* // further processing - you're telling OI you've handled it
+				* // all ...
+				if dropOK then
+					call set_Property( ctrlEntID, "DROPRESULT", dropType )
+				end
+				
+				return 1
+			Case Event = "DRAGOVER"
+				DRAGEVENT = Param1
+				MOUSEX = Param2
+				MOUSEY = Param3
+				CTRLKEY = Param4
+				SHIFTKEY = Param5
+				ALTKEY = Param6
+				MOUSEBUTTON = Param7
+				/*
+				Author : Captain C
+				Date : April 2007
+				Purpose : DRAGOVER event to show simple handling of dragging
+				and dropping row-style data.
+				*/
+				
+				
+				objxArray = ctrlEntID
+				propArray = "DRAGFORMATLIST"
+				
+				dataArray = get_Property( objxArray, propArray )
+				
+				dragFmts = dataArray[1,@rm]
+				
+				dropOK = FALSE$
+				dropFmt = ""
+				
+				* // Row data dragged from an edit table is dragged in several
+				* // formats:
+				* //
+				* // @fm-@vm delimited list is identified by a dragdata type of
+				* //
+				* // OI_EDT_ROWLIST
+				* //
+				* // with the name of the originating edit table in the drag data
+				* // type of
+				* //
+				* // OI_EDIT_ID
+				
+				locate "OI_EDT_ROWLIST" in dragFmts using @fm setting pos then
+					
+					* // We know data rows are being dragged from an edit table. We
+					* // can check to see which table they are being dragged from
+					* // and which instance of OI in case someone is running
+					* // multiple systems
+					
+					* // Use the SYSTEM DRAGSOURCE property to get the name of the
+					* // current drag source - if it's not null them we know it's
+					* // an edit table from *this* instance of OI
+					
+					edtID = get_Property( "SYSTEM", "DRAGSOURCE" )
+					
+					if ( edtID = "" ) then
+						* // See if it's a matching edit table from another OI instance
+						* // on the desktop
+						edtID = send_Message( ctrlEntID, "GETDRAGDATA","OI_EDT_ID" )
+					end
+					
+					if ( edtID = @window : ".T1" ) then
+						dropOK = TRUE$
+						dropFmt = "OI_EDT_ROWLIST"
+					end
+					
+				end else
+					
+					* // See if we are dragging text...
+					
+					locate "TEXT" in dragFmts using @fm setting pos then
+						* // OK we'll accept it - though we could check to see what
+						* // format the text is actually in ....
+						txtData = send_Message( ctrlEntID, "GETDRAGDATA", "TEXT" )
+						/*
+TODO: Check to see if the text is OK ...
+						*/
+						dropOK = TRUE$
+						dropFmt = "TEXT"
+					end
+				end
+				
+				if dropOK then
+					* // One further this we could do here is check to see where
+					* // we are dragging over - e.g. we could allow the drop if
+					* // we're over the row buttons for example ...
+				end
+				
+				if dropOK else
+					if ( dragEvent = "ENTER" ) then
+						* // Shortcut - no more DRAGOVER messages will be sent to the
+						* // control until the dragged data is dragged in again - use
+						* // this for optimization.
+						* //
+						* // DON'T use this if you need to keep checking every DRAGOVER
+						* // message - e.g. some drop operations are dependant on where
+						* // the mouse actually is over the drop target control!
+						
+						call set_Property( ctrlEntID, "DROPACCEPT", dropOK )
+						return 0
+						
+					end
+				end
+				
+				* // Set DROPCOPY and DROPMOVE to true if it's OK to drop right now.
+				* // We can also set the preferred format so that we know what we're
+				* // going on the DRAGDROP event (though we could check the drag data
+				* // to see what's in there at drop-time too via the GETDRAGDATA
+				* // message ...
+				
+				objxArray = ctrlEntID
+				propArray = "DROPCOPY"
+				dataArray = dropOK
+				
+				objxArray := @rm : ctrlEntID
+				propArray := @rm : "DROPMOVE"
+				dataArray := @rm : dropOK
+				
+				objxArray := @rm : ctrlEntID
+				propArray := @rm : "DROPFORMATLIST"
+				dataArray := @rm : dropFmt
+				
+				call set_Property( objxArray, propArray, dataArray )
+				
+				return 1
+		End Case
+End Case
+*
+return retval

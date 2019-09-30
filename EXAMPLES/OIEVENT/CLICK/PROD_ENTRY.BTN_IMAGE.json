@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "\r\ndeclare function Dialog_Box\r\n\r\nid=.id->text\r\ndesc = .description->text\r\nbmp = .image_filename->text\r\n\r\ntitle = 'Image for product ':id:', ':desc\r\n\r\nx = dialog_Box('IMAGE_WINDOW', @window, bmp:@fm:title)\r\n\r\nRETURN 0"
+    }
+}

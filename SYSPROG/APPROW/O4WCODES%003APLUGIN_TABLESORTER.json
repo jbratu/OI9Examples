@@ -1,0 +1,10 @@
+{
+    "record1": {
+        "<1>": "../stylesheet/blueskinstyle.css",
+        "<2>": {
+            "<2,1>": "../plugins/tablesorter/jquery.tablesorter.min.js",
+            "<2,2>": "../plugins/tablesorter/jquery.tablesorter.pager.js"
+        },
+        "<3>": ""
+    }
+}

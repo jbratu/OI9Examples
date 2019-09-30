@@ -1,0 +1,421 @@
+function Popup_Year(Options, Instruction, Param)
+
+******************************************************************************
+*
+* Product    :  OpenInsight Works!
+* Release    :  3.4
+*
+* Procedure  :  Popup_Year
+* Description:  Displays a year calendar to facilitate date entry.  Note that
+*               the Year calendar is only easily used with a mouse.
+*
+* Usage      :  Popup_Year can be called as a Stored Procedure using a
+*               QuickEvent.  For example, call Popup_Year on the OPTIONS
+*               event of controls used for entry of dates that will probably
+*               be within the current year.
+*
+* See Also   :  Popup_Month
+*
+* History
+*   05/05/97  cp   Original programmer, based on Popup_Month.
+*
+******************************************************************************
+
+declare function   Get_Property, Send_Message, Dialog_Box, Utility
+declare subroutine Set_Property, Send_Message, End_Dialog, Utility, Popup_Year
+declare subroutine SendMessage, GetWindowRect
+
+$insert Logical
+$insert Colors
+$insert PS_Equates
+
+equ FIRST_YEAR$  to 1980
+equ LAST_YEAR$   to 2050
+equ DAY_COUNT$   to "31,28,31,30,31,30,31,31,30,31,30,31"
+
+equ DTM_READCELLRECT$ to 1079
+equ DTA_CURRENT$      to 1
+
+
+if assigned(Default    ) else Default     = ""
+if assigned(Instruction) else Instruction = ""
+if assigned(Param      ) else Param       = ""
+
+Ret = ""
+if len(Instruction) and num(Instruction) then
+  on Instruction gosub Create, Unused, Year_Changed, Day_DblClk, Day_GotFocus, Day_PosChanged, OK_Click, Cancel_Click
+end else
+  gosub StartWindow
+end
+return Ret
+
+***********************
+* display year calendar
+***********************
+StartWindow:
+  Utility("CURSOR", "H")
+
+ * determine the control to do the lookup for
+  Ctrl = Get_Property(@window, "FOCUS")
+
+  Ctrls = @window: @rm: Ctrl: @rm: Ctrl: @rm: Ctrl
+  Props = "MDIFRAME,TYPE,HANDLE,SELPOS"
+  gosub GetProps
+  Frame    = field(Vals, @rm, 1)
+  Type     = field(Vals, @rm, 2)
+  Handle   = field(Vals, @rm, 3)
+  SelPos   = field(Vals, @rm, 4)
+
+  Parent = @window
+  if len(Frame) then
+    Parent = Frame
+  end
+
+  Table = (Type = "EDITTABLE")
+  if Table else
+    SelPos = ""
+  end
+
+  Default = Get_Property(Ctrl, "INVALUE", SelPos)
+
+  if len(Default) else
+    Default = date()
+  end
+
+  Rect = str(\00\, 8)
+  if Table then
+   * get x,y of edit table
+    GetWindowRect(Handle, Rect)
+    xDlg = seq(Rect [1,1]) + (seq(Rect [2,1]) * 256)
+    yDlg = seq(Rect [3,1]) + (seq(Rect [4,1]) * 256)
+
+   * add x,y+h of cell
+    SendMessage(Handle, DTM_READCELLRECT$, DTA_CURRENT$, GetPointer(Rect))
+    xDlg += seq(Rect [1,1]) + (seq(Rect [2,1]) * 256)
+    yDlg += seq(Rect [7,1]) + (seq(Rect [8,1]) * 256)
+  end else
+   * get x,y+h of control
+    GetWindowRect(Handle, Rect)
+    xDlg = seq(Rect [1,1]) + (seq(Rect [2,1]) * 256)
+    yDlg = seq(Rect [7,1]) + (seq(Rect [8,1]) * 256)
+  end
+
+  Ans = Dialog_Box("POPUP_YEAR", Parent, Default: @fm: Ctrl: @fm: xDlg: @fm: yDlg: @fm: Options)
+  if len(Ans) then
+    Set_Property(Ctrl, "INVALUE", Ans, SelPos)
+  end
+
+  Utility("CURSOR", "A")
+return
+
+******************************
+* create event for year dialog
+******************************
+Create:
+  Default   = Param<1>
+  Ctrl      = Param<2>
+  xDlg      = Param<3>
+  yDlg      = Param<4>
+  FirstYear = Param<5>
+  LastYear  = Param<6>
+
+  if len(Default) else
+    Default = date()
+  end
+
+  if len(FirstYear) else
+    FirstYear = FIRST_YEAR$
+  end
+  if len(LastYear) else
+    LastYear = LAST_YEAR$
+  end
+
+  Day      = fmt(Default, "DJS")
+  CurYear  = Day [1,4]
+  CurMonth = Day [6,2]
+  CurDay   = Day [9,2]
+
+ * build list of years
+  List = ""
+  for i = FirstYear to LastYear
+    List<-1> = i
+  next i
+
+  if CurYear >= FIRST_YEAR$ and CurYear <= LAST_YEAR$ then
+    Pos = CurYear - FIRST_YEAR$ + 1
+  end else
+    Pos = 1
+  end
+
+  Ctrls = "@.LB_YEAR,@.LB_YEAR"
+  Props = "LIST,SELPOS"
+  Vals  = List: @rm: Pos
+
+ * build list of month names
+  List = ""
+  for i = 1 to 12
+    List<i> = i: "/1"
+  next i
+  List = iconv(List, "DH")
+  List = oconv(List, "DHL")
+  for i = 1 to 12
+    Ctrls := ",@.EB_MONTH_": i
+    Props := ",TEXT"
+    Vals  := @rm: List<i> [1," "]
+  next i
+  gosub SetProps
+
+ * signal that year changed
+  Popup_Year("", 3, CurMonth: @fm: CurDay)
+
+ * close tab loop and set focus to current month
+  Ctrls := ",@.ET_DAY_12,@.LB_YEAR,SYSTEM,@.ST_TITLE,@.ST_TITLE"
+  Props := ",NEXT,PREVIOUS,FOCUS,DUMMYCAPTION,BACKCOLOR"
+  Vals  := @rm: @window: ".LB_YEAR": @rm: @window: ".ET_DAY_12": @rm: @window: ".ET_DAY_": int(CurMonth): @rm: TRUE$: @rm: COLOR_ACTIVECAPTION$
+  gosub SetProps
+
+ * hide extra column (which must exist to allow cell selection)
+  for i = 1 to 12
+    Style = Send_Message(@window: ".ET_DAY_": i, "COLSTYLE", 8, "")
+    Send_Message(@window: ".ET_DAY_": i, "COLSTYLE", 8, bitor(Style, 32))
+  next i
+
+ * position dialog, verify on-screen
+  Ctrls = "SYSTEM,@"
+  Props = "SIZE,SIZE"
+  gosub GetProps
+  Screen = field(Vals, @rm, 1)
+  Size   = field(Vals, @rm, 2)
+
+  if len(xDlg) and num(xDlg) and len(yDlg) and num(yDlg) then
+    Size<1> = xDlg
+    Size<2> = yDlg
+  end
+
+  if Size<1> + Size<3> > Screen<1> then
+    Size<1> = Screen<1> - Size<3>
+  end
+  if Size<2> + Size<4> > Screen<2> then
+    Size<2> = Screen<2> - Size<4>
+  end
+  Set_Property(@window, "SIZE", Size)
+
+  Utility("CURSOR", "A")
+return
+
+*******************************
+*
+*******************************
+Unused:
+return
+
+********************************
+* display the days in each month
+********************************
+* Param [in] - (optional)
+*              <1> Month
+*              <2> Day
+Year_Changed:
+  PrevCursor = Utility("CURSOR", "H")
+
+  DftMonth = Get_Property(@window, "MISC")<1>
+  Ctrl     = @window: ".ET_DAY_": DftMonth
+
+  Ctrls = "@.LB_YEAR,@.LB_YEAR": str(@rm: Ctrl, 2)
+  Props = "TEXT,@PREV,TEXT,SELPOS"
+  gosub GetProps
+
+  Year      = field(Vals, @rm, 1)
+  PrevYear  = field(Vals, @rm, 2)
+  DftDay    = field(Vals, @rm, 3)
+  Row       = field(Vals, @rm, 4) <2>
+
+  if len(Year) and Year # PrevYear then
+    if len(Param) then
+      DftMonth = int(Param<1>)
+      DftDay   = int(Param<2>)
+    end else
+      if Row > 1 and num(DftDay) and len(DftDay) else
+        DftMonth = 1
+        DftDay   = 1
+      end
+    end
+    if DftDay < 1 or DftDay > field(DAY_COUNT$, ",", DftMonth) then
+      DftDay = 1
+    end
+
+   * get list of days (S,M,T,W,T,F) from the edit table column labels
+    Days = Get_Property(@window: ".ET_DAY_1", "ORIG_STRUCT")<1,PSPOS_LABEL$>
+    convert @svm to @vm in Days
+    
+    for iMonth = 1 to 12
+      List = Days
+      Ctrl = @window: ".ET_DAY_": iMonth
+
+     * what day is the first on?
+      First = iconv(Year: "-": iMonth: "-01", "DJS")
+      Col   = mod(First, 7) + 1
+
+     * how many days in the month?
+      cDays = field(DAY_COUNT$, ",", iMonth)
+      if iMonth = 2 then
+        if mod(Year, 4) = 0 and (mod(Year, 100) or mod(Year, 400) = 0) then
+          cDays += 1
+        end
+      end
+
+     * fill in the days
+      List := @fm: str(@vm, Col - 1)
+      cRows = 2
+      for iDay = 1 to cDays
+        if Col > 7 then
+          List := @fm
+          Col = 1
+          cRows += 1
+        end
+        List := iDay: @vm
+
+       * for months other than the current, default to day 1
+        if iDay = 1 then
+          DftRow  = cRows
+          DftCol  = Col
+        end
+
+       * is this the day to default to for the selected month?
+        if iMonth = DftMonth and iDay = DftDay then
+          DftRow  = cRows
+          DftCol  = Col
+        end
+
+        Col += 1
+      next iDay
+
+      if cRows < 7 then
+        List := @fm
+      end
+
+      Ctrls := @rm: Ctrl: @rm: Ctrl
+      Props := ",LIST,SELPOS"
+      Vals  := @rm: List: @rm: DftCol: @fm: DftRow
+    next iMonth
+    gosub SetProps
+
+   * set day-of-week headers to blue
+    for iMonth = 1 to 12
+      Send_Message(@window: ".ET_DAY_": iMonth, "COLOR_BY_POS", 0, 1, @fm: BLUE$)
+    next iMonth
+  end
+
+  Utility("CURSOR", PrevCursor)
+return
+
+***********************
+* edit table poschanged
+***********************
+Day_GotFocus:
+Day_PosChanged:
+  Ctrl  = Param
+  Month = Ctrl [-1,"B_"]
+
+  Ctrls = "@,@": str(@rm: Ctrl, 3)
+  Props = "FOCUS,MISC,TEXT,SELPOS,@PREV"
+  gosub GetProps
+
+  Focus    = field(Vals, @rm, 1)
+  Prev     = field(Vals, @rm, 2)
+  Day      = field(Vals, @rm, 3)
+  Pos      = field(Vals, @rm, 4)
+  PrevPos  = field(Vals, @rm, 5)
+
+  isDate = (Pos<2> > 1 and num(Day) and len(Day))
+
+  if isDate then
+    Set_Property(Ctrl, "@PREV", Pos)
+    if Focus [1,len("ET_DAY_")] # "ET_DAY_" and Month = Prev<1> then
+     * select current day (if year is being changed)
+      Send_Message(Ctrl, "COLOR_BY_POS", Pos<1>, Pos<2>, BLACK$: @fm: WHITE$)
+    end
+  end
+
+ * is it "the" month?
+  if Ctrl = Focus then
+    if isDate then
+      if len(Prev) then
+       * reset previously selected day
+        Send_Message(@window: ".ET_DAY_": Prev<1>, "COLOR_BY_POS", Prev<2>, Prev<3>, WHITE$: @fm: BLACK$)
+      end
+
+     * select current day
+      Send_Message(Ctrl, "COLOR_BY_POS", Pos<1>, Pos<2>, BLACK$: @fm: WHITE$)
+
+      Set_Property(@window, "MISC", Month: @fm: Pos)
+    end else
+      Set_Property(Ctrl, "SELPOS", PrevPos)
+
+     * determine tabbing direction
+      if Pos<2> <= 2 then
+        Prop = "PREVIOUS"
+      end else
+        Prop = "NEXT"
+      end
+
+     * find the first enabled control in that direction
+      Focus = Ctrl
+      loop
+        Focus = Get_Property(Focus, Prop)
+      until Get_Property(Focus, "ENABLED")
+      repeat
+
+      Set_Property("SYSTEM", "FOCUS", Focus)
+    end
+
+    Set_Property(@window: ".CB_OK", "ENABLED", isDate)
+  end
+return
+
+*********************
+* date chosen by user
+*********************
+Day_DblClk:
+OK_Click:
+  Month = Get_Property(@window, "MISC")<1>
+  Ctrl  = @window: ".ET_DAY_": Month
+
+  Ctrls = "@.LB_YEAR,": Ctrl: @rm: Ctrl
+  Props = "TEXT,TEXT,SELPOS"
+  gosub GetProps
+
+  Year   = field(Vals, @rm, 1)
+  Day    = field(Vals, @rm, 2)
+  Row    = field(Vals, @rm, 3)<2>
+
+  if Row > 1 and num(Day) and len(Day) then
+    Date = iconv(Year: "-": Month: "-": Day, "DJS")
+    End_Dialog(@window, Date)
+  end
+return
+
+*****************************
+* user cancels date selection
+*****************************
+Cancel_Click:
+  End_Dialog(@window, "")
+return
+
+
+***************** internal subroutines ******************
+
+GetProps:
+  swap "@" with @window in Ctrls
+  convert "," to @rm in Ctrls
+  convert "," to @rm in Props
+  Vals = Get_Property(Ctrls, Props)
+return
+
+SetProps:
+  swap "@" with @window in Ctrls
+  convert "," to @rm in Ctrls
+  convert "," to @rm in Props
+  Set_Property(Ctrls, Props, Vals)
+return
+

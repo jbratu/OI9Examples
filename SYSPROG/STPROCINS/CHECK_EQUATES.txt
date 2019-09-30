@@ -1,0 +1,63 @@
+compile insert Check_Equates
+******************************************************************************
+*
+* Product    :  OpenInsight
+* Client     :  RTI
+* Version    :  3.1
+* Description:  Check-out/check-in equates
+*
+* History    :  (date, initials, notes)
+******************************************************************************
+
+* Column equates
+EQU CK_STATUS$               TO 1
+EQU CK_HEADLINETEXT$         TO 2
+EQU CK_DETAILTEXT$           TO 3
+EQU CK_ENTITYLIST$           TO 4
+EQU CK_ENTITYSTATUS$         TO 5
+EQU CK_ENTITYTEXT$           TO 6
+EQU CK_LOCKFLAG$             TO 7
+EQU CK_COPYTYPE$             TO 8
+EQU CK_LOCATION$             TO 9
+EQU CK_FORMAT$               TO 10
+EQU CK_LASTERR$              TO 11
+
+* Overall checkout statuses
+EQU NEW_CHECKOUT$            TO 0
+EQU CHECKED_OUT$             TO 1
+EQU CHECKED_IN$              TO 2
+EQU CHECKOUT_ERR$            TO -1
+EQU PARTIAL_CHECKOUT_ERR$    TO -2
+EQU CHECKIN_ERR$             TO -3
+EQU PARTIAL_CHECKIN_ERR$     TO -4
+
+* Entity statuses
+EQU CHECK_NOLOCK$            TO 0
+EQU CHECK_LOCKED$            TO 1
+EQU CHECK_CHECKOUT$          TO 2
+EQU CHECK_CHECKIN$           TO 3
+EQU CHECK_REMOVE$            TO 4
+EQU CHECK_LOCK_ERR$          TO -1
+EQU CHECK_CHECKOUT_ERR$      TO -2
+EQU CHECK_CHECKIN_ERR$       TO -3
+
+* Copy-type and format
+EQU CHECK_NOCOPY$            TO 0
+EQU CHECK_COPY_FROM$         TO 1
+EQU CHECK_COPY_TO$           TO 2
+EQU CHECK_EXTRACT$           TO 3
+EQU CHECK_INSTALL$           TO 4
+
+EQU NO_FORMAT$               TO 0
+EQU HOT_FORMAT$              TO 1    ;* Complete active repository
+EQU COLD_FORMAT$             TO 2    ;* temp format for checkout
+EQU WARM_FORMAT$             TO 3    ;* temp format for deployment
+
+EQU COLD_LABEL$              TO "OI_TEMP_REPOSITORY"
+EQU CHECK_APPEND$            TO "_TEMP"
+
+* Tables used for DBCOLUMNs, APPROWs, and DBTABLEs in cold-formats
+EQU SYSREPOSCOLUMNS$         TO "SYSREPOSCOLUMNS"
+EQU SYSREPOSROWS$            TO "SYSREPOSROWS"
+EQU SYSREPOSTABLES$          TO "SYSREPOSTABLES"
+

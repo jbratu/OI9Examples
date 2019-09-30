@@ -1,0 +1,18 @@
+{
+    "record1": {
+        "<1>": "MSSQL;MYSQL;POSTGRES;ORACLE;DB2;AS400;SQLLITE",
+        "<2>": "DSBFS_SCHEMA_MSSQL;DSBFS_SCHEMA_MYSQL;DSBFS_SCHEMA_POSTGRES;DSBFS_SCHEMA_ORACLE;DSBFS_SCHEMA_DB2;DSBFS_SCHEMA_AS400;DSBFS_SCHEMA_SQLLITE",
+        "<3>": "",
+        "<4>": "",
+        "<5>": "",
+        "<6>": "",
+        "<7>": "",
+        "<8>": "",
+        "<9>": "",
+        "<10>": "",
+        "<11>": "# This record tells the SQL connector (DSBFS) which sql vendors are supported, and which vendor specific SCHEMA parser to use",
+        "<12>": "# If no parser is specified, the connector will use DSBFS_SCHEMA_BASE, which is optimised for MSSQL",
+        "<13>": "# <1> = semicolon delimited list of Databases.  This is the dropdown in the DSBFS_CONNECTION_WIZARD and CONNECTION_INFO",
+        "<14>": "# <2> = semicolon delimited list of associated schema programs.  DSBFS will default to  DSBFS_SCHEMA_BASE"
+    }
+}

@@ -1,0 +1,49 @@
+Compile Insert CompDoc_Equates
+
+*****************************************************************************
+*
+* Product    :  OI/WG
+* Poject     :  OI/CS
+* Release    :  2.7
+*
+* Name       :  CompDoc() Equates
+* Description:  Instructions and return values for the CompDoc() function
+*
+* History (Date, Initials, Notes)
+*   06/27/95  cp   Original programmer
+*
+*****************************************************************************
+
+declare function CompDoc   ;* Flag = CompDoc(Instruction, Doc, Name, SubDoc)
+
+
+* Instruction values:
+equ CD_LISTDOCS$  to 1
+ * Doc    [in]  - the compound document
+ * Name   [out] - an @vm delimited list of sub-document names
+
+equ CD_PUTDOC$    to 2
+ * Doc    [i/o] - the compound document
+ * Name   [in]  - the name of the sub-document to put
+ * SubDoc [in]  - the body of the sub-document to put
+ * Error returned if the compound document would exceed 64k limit
+
+equ CD_GETDOC$    to 3
+ * Doc    [in]  - the compound document
+ * Name   [in]  - the name of the sub-document to extract
+ * SubDoc [out] - the extracted sub-document
+ * Error returned if the sub-document is not found
+
+equ CD_DELDOC$    to 4
+ * Doc    [i/o] - the compound document
+ * Name   [in]  - the name of the sub-document to delete
+ * Error returned if the sub-document is not found
+
+
+* Flag values
+equ CD_ERROR$     to 0
+equ CD_SUCCESS$   to 1
+
+* Compound Document header
+equ CD_STAMP$     to "%CD%"
+

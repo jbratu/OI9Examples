@@ -1,0 +1,258 @@
+Function TEST_U2_PROMPTS( CtrlEntId, Method, Param1, Param2, Param3, Param4, Param5, Param6)
+/*
+** Event pump for window of same name
+** 
+** 07Feb2005   rjc  Created
+*/
+
+
+ declare function retStack, isEventContext, utility, Get_Current_Event
+ declare function get_Property, set_Property, send_Event
+ Declare Function U2_ExecProc
+ declare subroutine set_property
+ 
+   $Insert Msg_Equates
+   $insert logical
+   
+   $Insert U2_Volume_Equates
+   
+     
+   if assigned( CtrlEntId ) else CtrlEntId = ""
+   if assigned( method ) else method = ""
+   if assigned( param1 ) else param1 = ""
+   if assigned( param2 ) else param2 = ""
+   if assigned( param3 ) else param3 = ""
+   if assigned( param4 ) else param4 = ""
+   if assigned( param5 ) else param5 = ""
+   if assigned( param6 ) else param6 = ""
+   
+   convert @lower.case to @UPPER.CASE in CtrlEntId
+   convert @lower.case to @UPPER.CASE in method
+   
+   errorText = ""
+   abort     = FALSE$
+   atSelf    = retStack()<1>
+   retVal    = ""
+   
+   
+   atWindow  = CtrlEntId[1,"."][1,'*']
+   CtrlName = Field(CtrlEntId, '.',2,len(CtrlEntId))  
+   
+   
+   If method _eqc '@EVENT' then
+      method = Get_Current_Event()
+   end
+
+retval = 0
+
+Equ methods To 'CREATE CLICK LOSTFOCUS OPTIONS VSCROLL RUN'
+Locate method In methods Using ' ' Setting pos Then
+   On Pos Gosub Create, Click, LostFocus, Options, Vscroll, Run
+End
+
+Return retval
+
+Create:
+
+Open "","SYSPTRS" to SysPtrsHandle Then
+	VolumeList = Null$
+	Select SysPtrsHandle
+	Eof = False$
+	Loop
+		Readnext SysPtrsId Else Eof = True$
+	Until Eof DO
+		Readv BFSType from SysPtrsHandle, SysPtrsId,2 Then
+			If BFSType = 'U2_BFS' Then
+				Locate SysPtrsId in VolumeList by "AL" using @Fm Setting Pos Else
+					VolumeList = Insert(VolumeList,Pos,0,0,SysPtrsId)
+				End
+			End
+		End
+	Repeat
+	
+	Ctrls = AtWindow:".CMB_VOLUMENAME" : @Rm : AtWindow:".CMB_VOLUMENAME"
+	Props = 'LIST' : @Rm : 'SELPOS'
+	Vals = VolumeList : @RM : 1
+	
+	Set_Property(Ctrls, Props,Vals)
+end
+
+Return
+
+Click:
+
+Begin Case
+  Case CtrlName = 'TABCONTROL_1'       
+       value = Get_Property(CtrlEntID, 'VALUE')
+       Set_Property(AtWindow, 'VPOSITION', value)
+       
+  case CtrlName[1,'.'] = 'RDO_LOCALE'
+  
+       * Did they Change the Locale?  Reformat the date
+       
+       locale = Get_Property(CtrlEntId, 'VALUE')
+       
+       start_date = Get_Property(AtWindow:'.START_DATE', 'TEXT')
+       end_date = Get_Property(AtWindow:'.END_DATE', 'TEXT')
+       
+       conv =  Get_Property(AtWindow:'.START_DATE', 'CONV')
+       iStart = Iconv(Start_Date, conv)
+       iEnd =  Iconv(End_Date, conv)
+       
+       conv = '[LOCALE_DATE_FORMAT,':locale:']'
+       Set_Property(AtWindow:'.START_DATE', 'CONV', conv)
+       Set_Property(AtWindow:'.END_DATE', 'CONV', conv)
+       Set_Property(AtWindow:'.START_DATE', 'VALID', conv)
+       Set_Property(AtWindow:'.END_DATE', 'VALID', conv)
+       
+       start_date = Oconv(iStart, conv)
+       End_date = Oconv(iEnd, conv)
+       Set_Property(AtWindow:'.START_DATE', 'TEXT', start_Date)
+       Set_Property(AtWindow:'.END_DATE', 'TEXT', end_Date)
+       
+       Set_Property(AtWindow:'.START_DATE', 'CONV', conv)
+       
+       
+       
+   
+  Case CtrlName = 'BTN_RUN'
+       Gosub Run
+       
+End Case
+
+
+Return
+
+LostFocus:
+    
+    gf_val = get_Property(CtrlEntID, 'GOTFOCUS_VALUE')
+    lf_val = get_Property(CtrlEntID, 'TEXT')
+    is_Changed = ( lf_val # gf_val ) 
+    
+    Begin Case
+       case CtrlName = 'CMB_VOLNAME'
+            if is_Changed then               
+                  call Attach_Table('CONNECTION', '', '')
+            end
+        
+    end case
+
+   
+    
+Return
+
+Options:
+    Set_Property(CtrlEntId, 'FOCUS', 1)
+    call Popup_Month()
+    
+Return
+
+Vscroll:    
+    Set_Property(AtWindow:'.TABCONTROL_1', 'VALUE', P1 )
+return
+
+Run:
+
+   start_Date = Get_Property(AtWindow:'.START_DATE', 'TEXT')
+   end_Date   = Get_Property(AtWindow:'.END_DATE', 'TEXT')
+   conv       = Get_Property(AtWindow:'.START_DATE', 'CONV')
+   
+   if len(end_date) else
+      End_Date = start_Date
+      Set_Property(AtWindow:'.END_DATE', 'TEXT', end_Date)
+      
+   end
+   
+   
+   iStart = Iconv(start_date, conv)
+   iEnd = Iconv(end_Date, conv)
+   
+   errText = ''
+   begin case
+   case not(iStart)
+       errText = 'Please Enter a valid start date'
+       Set_Property(AtWindow:'.START_DATE', 'FOCUS', 1)
+       Set_Property(AtWindow:'.START_DATE', 'SELECTION', 1:@FM:len(start_date) )
+   case iStart > iEnd
+       errText = 'End date is later than start_Date'
+       Set_Property(AtWindow:'.END_DATE', 'FOCUS', 1)
+       Set_Property(AtWindow:'.END_DATE', 'SELECTION', 1:@FM:len(end_date) )
+   end case
+   
+   if len(errText) then
+      def = ''
+      def<mCaption$> = 'Data Error'
+      def<mText$> = errText
+      def<mIcon$> = '!'
+      call Msg( AtWindow, def)
+      Return
+   end      
+
+   procname = ''
+   connection = 'U2_BOB_TEST'
+   If TableExists('VOC') else
+      call Attach_Table(Connection, '', '')
+   end
+   
+   subname = 'TEST_OI_PROMPT'
+   *If RowExists('VOC', subname) else
+      Gosub Build_Program
+   *end
+   
+   sOutBuf = ''
+   sReplies = start_Date : @fm :end_Date
+   bInteractive = false$
+   
+   call U2_ExecProc( Connection, subname, sOutBuf, sReplies, bInteractive  )
+   Set_Property(AtWindow:'.RESULTS', 'TEXT', sOutBuf)
+   Set_Property(AtWindow, 'VPOSITION', 2)
+   Set_Property(AtWindow:'.TABCONTROL_1', 'VALUE', 2)
+
+Return
+
+
+Build_Program:
+
+head = 'SUBROUTINE ':subname
+body = '* Call me from Oi'
+body<-1> ='PROMPT ""'
+body<-1> ='CLEAR'
+body<-1> ='INPUT FIELD1'
+body<-1> ='INPUT FIELD2'
+body<-1> ='PRINT "Field 1 = " :FIELD1'
+body<-1> ='PRINT "Field 1 = " :FIELD2'
+body<-1> ='PRINT ""'
+body<-1> ='PRINT "This program demonstrates an OI window"'
+body<-1> ='PRINT "to collect parameters, send them as response to"'
+body<-1> ='PRINT "U2 Input prompts"'
+body<-1> ='PRINT ""'
+
+body<-1> ='PRINT "In real life this would be a report" '
+body<-1> ='PRINT "for values in the date range " : FIELD1 : " TO " : FIELD2'
+body<-1> ='END'
+
+script = head : @fm : body
+
+call Write_Row('BP', subname, script, 0)
+
+* Compile It
+results = ''
+command  = 'BASIC BP ': subname
+stat = U2_ExecProc( connection, command, results )
+call send_dyn(Results)
+
+* Catalog It
+command = 'CATALOG BP ': subname
+stat = U2_ExecProc( connection, command, results )
+call send_dyn(Results)
+
+*subname = subname
+*stat = U2_ExecProc( connection, command, results )
+*call send_dyn(Results)
+
+return
+
+
+Return
+
+

@@ -1,0 +1,196 @@
+Function OESocketServer_Example(void)
+/*
+**  Remote Engine Example using Socket Server
+* Note OeSocketServer's protocol is similiar To JD3, an Open Source project for communicating with D3
+* See JD3 protocol at http://sourceforge.net/docman/display_doc.php?docid=2430&group_id=16418
+*
+* To Start SocketServer
+* from CMD prompt in OI directory
+* >java -jar OeSocketServer.jar
+* To see diagnostics , >java -jar OeSocketServer.jar /D=2
+*/
+
+declare function socket_functions
+Declare Subroutine Set_Status
+
+$Insert Msg_Equates
+$Insert Logical
+
+Equ delim$ To \01\
+Equ cLOGIN$        To "1"
+Equ cLOGOFF$       To "2"
+Equ cCALL$         To "3"
+Equ cQuery$        To "-1"
+Equ cResetGentle$  To "-2"
+Equ cResetForce$   To "-3"
+Equ valid_codes$ To "1 2 3 -1 -2 -3"
+
+
+*------
+* Main
+*------
+
+isOk = true$
+isLoggedIn = false$
+
+
+SocketServerIp = "localhost"
+SocketServerPort = "8088"
+
+
+* Open A socket connection to Socketserver
+* similar to CreateEngine
+
+url = SocketServerIp : ":" : SocketServerPort
+Gosub Connect
+isOk = ( connection > 0 )
+
+* Login
+* Similar To CreateQueue
+* Setting the dispatch routine is important
+* The socket server will hand your commands to the dispatch function
+* In this example, I use RUN_OECGI_REQUEST as the dispatcher
+
+if isOk then
+   UserName = 'SYSPROG'
+   Database = 'SYSPROG'
+   Password = ''
+   ServerName = ''
+   DispatchFuncName = 'RUN_OECGI_REQUEST'
+   Gosub Login
+   isOk = ( ResultCode = 0 )
+end
+
+*
+
+* In this example, becuase RUN_OECGI_REQUEST is the dispatch routine, I build what looks like an INET request
+* I am calling these In Blocking mode, so this example would be best For moving work From a client To a server.
+* To implement an ansynch example, 
+* Take a look at an ole component like SocketWrench ( http://www.catalyst.com/products/socketwrench/index.html )
+*
+
+* Make 100 calls to show how the socketserver can handle it
+
+
+
+For i = 1 To 100
+While isOk
+   
+   * My Inet request
+   * Inet equates only needed for this example
+   $Insert INET_EQUATES
+   Declare function GetTickCount
+   request  =""
+   request<QUERY_STRING$> = "i=" : i :"&ticks =" : GetTickCount()
+   request<PATH_INFO$> = "/INET_TRACE"
+   
+   * Package the request in JD3 protocol
+   sMsg  = cCall$
+   sMsg := delim$:request
+   sMsg := delim$
+   
+   * Send it
+   Gosub SendMessage   
+   
+   * Oi Has control here
+   Call Send_Dyn('Processing ...')
+   
+   * With Blocking sockets your program will wait when you check for the response   
+   Gosub GetResponse
+
+   * Echo the Query_string
+   Token = "QUERY_STRING ="
+   skip = Index(results, token,1)
+   results = results[skip,\0A\]
+   call send_dyn(results)
+next
+
+Gosub DisConnect
+
+
+Return
+******
+
+Connect:
+
+* In: Url
+* Out: Connection
+* Connection < 1 on failure
+If Assigned(url) Else url = ''
+connection = ''
+ret = Socket_functions(connection,'CONNECT',url)
+
+Return
+
+DisConnect:
+
+* In: Connection
+* Out: Connection
+If Assigned(connection) else connection = ''
+If connection > 0 else return
+
+* Send Logout Command
+sResult = ''
+sMsg = cLOGOFF$: DELIM$
+Gosub SendMessage
+Gosub GetResponse
+
+* Close Socket
+ret = Socket_functions(connection,'DISCONNECT')
+
+Return
+
+Login:
+
+sMsg = ""
+sResult = ""
+sMsg = cLOGIN$
+sMsg := DELIM$ : UserName
+sMsg := DELIM$ : Password
+sMsg := DELIM$ : Database
+sMsg := DELIM$ : "2"
+sMsg := DELIM$ : ServerName
+sMsg := DELIM$ : DispatchFuncName
+sMsg := DELIM$
+
+Gosub SendMessage
+Gosub GetResponse
+isLoggedIn = ( Results[1, 1] = "0" )
+
+Return
+
+SendMessage:
+*---
+* Length Encode, send message
+*---
+numOutgoing = Len(sMsg)
+If Len(numOutgoing) > 8 Then
+   err = "String Overflow"
+   Set_Status(-1,err)
+   Return
+End
+sRealMsg = fmt(numOutgoing, "R(0)#8"):sMsg
+ret = socket_functions( connection, 'DOWRITE', sRealMsg )
+return
+
+
+GetResponse:
+
+ResultCode = ''
+Results = ''
+* Wait for the 8 character packet size;
+Results = ''
+resultlen = ''
+ret = socket_functions(connection, 'DOREAD', 8, resultLen)
+
+* Read indicated length
+If resultlen Then
+   ret = socket_functions(connection, 'DOREAD', resultLen, Results)
+End
+
+* trim off leading code,delim, And trailing delimiter
+ResultCode = Results[1,1]
+Results[1,2] = ''
+Results[-1,1] = ''
+
+return

@@ -1,0 +1,13 @@
+function get_inv_nos(dummy)
+
+@ans = ''
+keys = ''
+open 'DICT.INVOICES' to d_invoices then
+srch_string = 'CUST_NO':@vm:4:@fm
+table = 'INVOICES'
+dictvar = d_invoices
+call Btree.Extract(srch_string, table, dictvar, keys)
+end
+@ans = keys
+
+return @ans

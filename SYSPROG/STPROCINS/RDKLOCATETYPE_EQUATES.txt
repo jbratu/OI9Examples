@@ -1,0 +1,3 @@
+/* RDKLocateType equates */
+EQU RDKTYPEBYDESC$			TO 0
+EQU RDKTYPEBYNAME$			TO 1

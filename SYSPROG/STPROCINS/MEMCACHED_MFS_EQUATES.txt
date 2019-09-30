@@ -1,0 +1,11 @@
+compile insert memcached_mfs_Equates
+
+Equ MCD_MFS_TABLES$      To "MCD_MFS_TABLES"
+
+*
+* Table specific definitions
+*
+Equ MCD_TABLE_CONNECTION$   To 1  ; 
+Equ MCD_TABLE_PREFIX$       To 2  ;
+Equ MCD_TABLE_NOSTORE$      To 3  ; * True if the MFS should not store info.  Implements a pure in_memory
+

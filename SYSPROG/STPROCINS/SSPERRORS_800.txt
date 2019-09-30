@@ -1,0 +1,8 @@
+/* 800 series of stored procedure error equates */
+
+EQU SSP_FOLDER_EXISTS$    TO "SSP0800" ;* The folder %1% already exists.
+EQU SSP_FOLDER_DNE$       TO "SSP0801" ;* The folder %1% does not exist.
+EQU SSP_SUBFOLDERS_EXIST$ TO "SSP0802" ;* The folder has subfolders, unable to delete.
+EQU SSP_CORRUPTED_OBJ$    TO "SSP0803" ;* The object code for %1% appears to be corrupted.
+EQU SSP_NO_INFOSHEET$     TO "SSP0804" ;* The information sheet for %1% is missing.
+* Source Date: 16:42:29  12 JAN 1993  Build ID: OI*1.0.10  Level: 2.0

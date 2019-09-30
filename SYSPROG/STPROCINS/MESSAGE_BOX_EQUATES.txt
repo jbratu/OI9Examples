@@ -1,0 +1,35 @@
+compile insert MESSAGE_BOX_EQUATES
+
+* button arrangement
+equ MSG_BTN_OK$        to 0
+equ MSG_BTN_OKCAN$     to 1
+equ MSG_BTN_ABORT$     to 2
+equ MSG_BTN_YESNOCAN$  to 3
+equ MSG_BTN_YESNO$     to 4
+equ MSG_BTN_RETRYCAN$  to 5
+
+* default button
+equ MSG_DEFAULT1$      to 0
+equ MSG_DEFAULT2$      to 256
+equ MSG_DEFAULT3$      to 512
+
+* message icon
+equ MSG_ICON_NONE$     to 0
+equ MSG_ICON_STOP$     to 16
+equ MSG_ICON_QUESTION$ to 32
+equ MSG_ICON_EXCLAM$   to 48
+equ MSG_ICON_INFO$     to 64
+
+* return values
+equ MSG_RET_OK$        to 1
+equ MSG_RET_CAN$       to 2
+equ MSG_RET_ABORT$     to 3
+equ MSG_RET_RETRY$     to 4
+equ MSG_RET_IGNORE$    to 5
+equ MSG_RET_YES$       to 6
+equ MSG_RET_NO$        to 7
+
+* new line (carriage return/line feed)
+equ MSG_NL$            to \0D0A\
+
+* Source Date: 18:30:59  26 APR 1995  Build ID: OINOTES*2.5.45  Level: 2.5

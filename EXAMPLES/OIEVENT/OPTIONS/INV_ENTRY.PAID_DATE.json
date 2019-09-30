@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "declare function Dialog_Box\r\n\r\ndateChosen = Dialog_Box('OLE_CALENDAR_FORM',@window,'')\r\n\r\nif len(dateChosen) then\r\n.paid_date->TEXT = dateChosen\r\nend\r\n\r\nRETURN 0"
+    }
+}

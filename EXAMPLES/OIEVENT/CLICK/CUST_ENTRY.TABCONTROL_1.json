@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "\r\nval = @CtrlEntID->value\r\n@@Window->vposition=val\r\n\r\nRETURN 1"
+    }
+}

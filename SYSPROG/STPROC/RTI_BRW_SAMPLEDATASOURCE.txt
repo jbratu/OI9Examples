@@ -1,0 +1,48 @@
+Function RTI_BRW_SAMPLEDATASOURCE(ACTION, PARAM1, PARAM2, PARAM3)
+
+If Assigned(ACTION) Else ACTION = ""
+If Assigned(PARAM1) Else PARAM1 = ""
+If Assigned(PARAM2) Else PARAM2 = ""
+If Assigned(PARAM3) Else PARAM3 = ""
+
+RSLT = ""
+Begin Case
+	Case ACTION _EQC "FIELDS"
+		* return:
+		* <1> Field Name]
+		* <2> Field #]
+		* <3> conv code]
+		* <4> MVFlag (0/1)]
+		* <6> Association]
+		RSLT<1> = "ID":@vm:"F1":@VM:"F2":@VM:"F3"
+		RSLT<2> = "0":@VM:"1":@VM:"2":@VM:"3"
+		RSLT<3,4> = "D4/"
+
+	Case action _eqc "DATATYPE"
+		whichField = param1
+		If WHICHFIELD = "F3" Then
+			RSLT = "DATE"
+		End Else
+			RSLT = "VARCHAR"
+		END
+
+	Case ACTION _EQC "KEYS"
+		* return:
+		* <1-n> key
+		selstmt = param1
+		RSLT = "A":@FM:"B":@FM:"C":@FM:"D":@FM:"E"
+		
+	Case ACTION _EQC "READ"
+		id = param1
+		RSLT = "THIS IS RECORD ":ID:@FM:"HELLO F2":@FM:DATE()
+		
+	Case ACTION _EQC "WRITE"
+		id = param2
+		rec = param3
+	
+	Case ACTION _EQC "DELETE"
+		id = param1
+		
+End Case
+
+Return RSLT

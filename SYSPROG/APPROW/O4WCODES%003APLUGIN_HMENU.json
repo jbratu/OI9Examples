@@ -1,0 +1,6 @@
+{
+    "record1": {
+        "<1>": "../plugins/clickmenu/clickmenu.css",
+        "<2>": "../plugins/clickmenu/jquery.clickmenu.pack.js"
+    }
+}

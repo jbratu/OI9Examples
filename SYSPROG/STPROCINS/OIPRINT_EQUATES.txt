@@ -1,0 +1,168 @@
+compile insert OIPRINT_EQUATES
+/*-----[ Font Weights ]-----*/
+equ FW_NORMAL  to 0
+equ FW_BOLD    to 1
+
+
+/*-----[ Pen Styles ]-----*/
+equ PS_SOLID        to 0
+equ PS_DASH         to 1
+equ PS_DOT          to 2
+equ PS_DASHDOT      to 3
+equ PS_DASHDOTDOT   to 4
+equ PS_NULL         to 5
+equ PS_INSIDEFRAME  to 6
+
+/*-----[ Brush Styles ]-----*/
+equ BS_SOLID       to 0
+equ BS_HOLLOW      to 1
+equ HS_HORIZONTAL  to 2
+equ HS_VERTICAL    to 3
+equ HS_FDIAGONAL   to 4
+equ HS_BDIAGONAL   to 5
+equ HS_CROSS       to 6
+equ HS_DIAGCROSS   to 7
+
+/*-----[ Table Border Styles ]-----*/
+equ TB_NONE         to 0
+equ TB_BOTTOM       to 1
+equ TB_TOP          to 2
+equ TB_TOP_BOTTOM   to 3
+equ TB_BOX          to 4
+equ TB_COLUMNS      to 5
+equ TB_COLUMNS_TOP_BOTTOM  to 6
+equ TB_ALL          to 7
+equ TB_BOX_ROWS     to 8
+equ TB_BOX_COLUMNS  to 9
+
+/*-----[ Page Sizes ]-----*/
+equ LETTER              to 1   ;* Letter, 8 1/2 x 11 in. 
+equ LETTERSMALL         to 2   ;* Letter Small, 8 1/2 x 11 in. 
+equ TABLOID             to 3   ;* Tabloid, 11 x 17 in. 
+equ LEDGER              to 4   ;* Ledger, 17 x 11 in. 
+equ LEGAL               to 5   ;* Legal, 8 1/2 x 14 in. 
+equ STATEMENT           to 6   ;* Statement, 5 1/2 x 8 1/2 in. 
+equ EXECUTIVE           to 7   ;* Executive, 7 1/2 x 10 1/2 in. 
+equ A3                  to 8   ;* A3, 297 x 420 mm 
+equ A4                  to 9   ;* A4, 210 x 297 mm 
+equ A4SMALL             to 10  ;* A4 Small, 210 x 297 mm 
+equ A5                  to 11  ;* A5, 148 x 210 mm 
+equ B4                  to 12  ;* B4, 250 x 354 mm 
+equ B5                  to 13  ;* B5, 182 x 257 mm 
+equ FOLIO               to 14  ;* Folio, 8 1/2 x 13 in. 
+equ QUARTO              to 15  ;* Quarto, 215 x 275 mm 
+equ S10X14              to 16  ;* 10 x 14 in. 
+equ S11X17              to 17  ;* 11 x 17 in. 
+equ NOTE                to 18  ;* Note, 8 1/2 x 11 in. 
+equ ENV9                to 19  ;* Envelope #9, 37/8 x 87/8 in. 
+equ ENV10               to 20  ;* Envelope #10, 41/8 x 9 1/2 in. 
+equ ENV11               to 21  ;* Envelope #11, 4 1/2 x 10 3/8 in. 
+equ ENV12               to 22  ;* Envelope #12, 4 1/2 x 11 in. 
+equ ENV14               to 23  ;* Envelope #14, 5 x 11 1/2 in. 
+equ CSHEET              to 24  ;* C size sheet 
+equ DSHEET              to 25  ;* D size sheet 
+equ ESHEET              to 26  ;* E size sheet 
+equ ENVDL               to 27  ;* Envelope DL, 110 x 220 mm 
+equ ENVC3               to 28  ;* Envelope C3, 324 x 458 mm 
+equ ENVC4               to 29  ;* Envelope C4, 229 x 324 mm 
+equ ENVC5               to 30  ;* Envelope C5, 162 x 229 mm 
+equ ENVC6               to 31  ;* Envelope C6, 114 x 162 mm 
+equ ENVC65              to 32  ;* Envelope C65, 114 x 229 mm 
+equ ENVB4               to 33  ;* Envelope B4, 250 x 353 mm 
+equ ENVB5               to 34  ;* Envelope B5, 176 x 250 mm 
+equ ENVB6               to 35  ;* Envelope B6, 176 x 125 mm 
+equ ENVITALY            to 36  ;* Envelope, 110 x 230 mm 
+equ ENVMONARCH          to 37  ;* Envelope Monarch, 37/8 x 7 1/2 in. 
+equ ENVPERSONAL         to 38  ;* Envelope, 35/8 x 6 1/2 in. 
+equ FANFOLDUS           to 39  ;* U.S. Standard Fanfold, 147/8 x 11 in. 
+equ FANFOLDSTDGERMAN    to 40  ;* German Standard Fanfold, 8 1/2 x 12 in. 
+equ FANFOLDLGLGERMAN    to 41  ;* German Legal Fanfold, 8 1/2 x 13 in. 
+equ ISO_B4              to 42  ;* B4 (ISO) 250 x 353 mm
+equ JAPANESE_POSTCARD   to 43  ;* Japanese Postcard 100 x 148 mm
+equ PS9X11              to 44  ;* 9 x 11 in
+equ PS10X11             to 45  ;* 10 x 11 in
+equ PS15X11             to 46  ;* 15 x 11 in
+equ ENV_INVITE          to 47  ;* Envelope Invite 220 x 220 mm
+equ RESERVED_48         to 48  ;* RESERVED--DO NOT USE
+equ RESERVED_49         to 49  ;* RESERVED--DO NOT USE
+equ LETTER_EXTRA        to 50  ;* Letter Extra 9 \275 x 12 in
+equ LEGAL_EXTRA         to 51  ;* Legal Extra 9 \275 x 15 in
+equ TABLOID_EXTRA       to 52  ;* Tabloid Extra 11.69 x 18 in
+equ A4_EXTRA            to 53  ;* A4 Extra 9.27 x 12.69 in
+equ LETTER_TRANSVERSE   to 54  ;* Letter Transverse 8 \275 x 11 in
+equ A4_TRANSVERSE       to 55  ;* A4 Transverse 210 x 297 mm
+equ LETTER_EXTRA_TRANSVERSE to 56 ;* Letter Extra Transverse 9\275 x 12 in
+equ A_PLUS              to 57  ;* SuperA/SuperA/A4 227 x 356 mm
+equ B_PLUS              to 58  ;* SuperB/SuperB/A3 305 x 487 mm
+equ LETTER_PLUS         to 59  ;* Letter Plus 8.5 x 12.69 in
+equ A4_PLUS             to 60  ;* A4 Plus 210 x 330 mm
+equ A5_TRANSVERSE       to 61  ;* A5 Transverse 148 x 210 mm
+equ B5_TRANSVERSE       to 62  ;* B5 (JIS) Transverse 182 x 257 mm
+equ A3_EXTRA            to 63  ;* A3 Extra 322 x 445 mm
+equ A5_EXTRA            to 64  ;* A5 Extra 174 x 235 mm
+equ B5_EXTRA            to 65  ;* B5 (ISO) Extra 201 x 276 mm
+equ A2                  to 66  ;* A2 420 x 594 mm
+equ A3_TRANSVERSE       to 67  ;* A3 Transverse 297 x 420 mm
+equ A3_EXTRA_TRANSVERSE to 68  ;* A3 Extra Transverse 322 x 445 mm
+equ USER                to 256 ;* User-defined
+
+/*----[ Paper Bins ]-----*/
+equ UPPER         to 1  ;* Use paper from the upper bin
+equ LOWER         to 2  ;* Use paper from the lower bin
+equ MIDDLE        to 3  ;* Use paper from the middle bin
+equ MANUAL        to 4  ;* Wait for manual insertion of each sheet of paper
+equ ENVELOPE      to 5  ;* Use envelopes from the envelope feeder
+equ ENVMANUAL     to 6  ;* Use envelopes from feeder, but wait for manual insertion
+equ AUTO          to 7  ;* (Default) Use paper from the current default bin
+equ TRACTOR       to 8  ;* Use paper fed from the tractor feeder
+equ SMALLFMT      to 9  ;* Use paper from the small paper feeder
+equ LARGEFMT      to 10 ;* Use paper from the large paper bin
+equ LARGECAPACITY to 11 ;* Use paper from the large capacity feeder
+equ CASSETTE      to 12 ;* Use paper from the attached cassette cartridge
+
+/*-----[ Duplex Modes ]-----*/
+equ DUPLEX_SIMPLE     to 1 ;* Simplex: Single-sided printing with the current orientation setting
+equ DUPLEX_HORIZONTAL to 2 ;* Horizontal: Double-sided printing using a horizontal page turn
+equ DUPLEX_VERTICAL   to 3 ;* Vertical: Double-sided printing using a vertical page turn
+
+/*-----[ Colors ]-----*/
+equ BLACK      to 0
+equ WHITE      to 16777215
+equ GRAY       to 12632256
+equ DKGRAY     to 8421504
+equ RED        to 192
+equ GREEN      to 49152
+equ BLUE       to 12582912
+equ CYAN       to 12632064
+equ MAGENTA    to 12583104
+equ YELLOW     to 49344
+equ DKRED      to 128
+equ DKGREEN    to 32768
+equ DKBLUE     to 8388608
+equ DKCYAN     to 8421376
+equ DKMAGENTA  to 8388736
+equ DKYELLOW   to 32896
+
+/*-----[ Misc Equates ]-----*/
+equ NULL_TERM$  to char(0)
+equ CRLF$       to char(13):char(10)
+
+/*-----[ Export Formats ]-----*/
+Equ EF_NONE		To 0
+Equ EF_RTF		To 1
+Equ EF_HTML		To 2
+Equ EF_PDF		To 6
+Equ EF_CSV_HDR	To 7
+Equ EF_CSV		To 8
+Equ EF_TXT		To 9
+Equ EF_OIPI		To 10
+Equ EF_XLS		To 101
+Equ EF_XLSX		To 102
+Equ EF_DOCX		To 103
+Equ EF_JPG		To 104
+Equ EF_GIF		To 105
+Equ EF_BMP		To 106
+Equ EF_TIFF		To 107
+Equ EF_PNG		To 108
+Equ EF_EMF		To 109
+

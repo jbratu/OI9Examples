@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "\r\n*---\r\n* some fields are required, but we'll let the user tab by them and just check for \r\n* required fields on the Write Event.\r\n* the IOOPTIONS property handles that for us.\r\n*---\r\n\r\noptions = @@Window->iooptions\r\n\r\noptions<10> = 1\r\n\r\n@@Window->iooptions = options\r\n\r\nRETURN 0"
+    }
+}

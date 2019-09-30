@@ -1,0 +1,411 @@
+      function CUST_ENTRY(CtrlEntId,Event,Param1,Param2,Param3,Param4,Param5,Param6,Param7,Param8)
+
+* 20071024
+
+$INSERT PS_EQUATES
+      DECLARE SUBROUTINE FORWARD_EVENT,SET_PROPERTY,UTILITY,SEND_EVENT
+      DECLARE FUNCTION SET_PROPERTY,GET_PROPERTY,UNASSIGNED,POPUP,SHELLEXECUTE,DIALOG_BOX,REPOSITORY
+      EQU FALSE$ TO 0
+      EQU FIX_SUFFIX$    TO  "_FIX"
+      EQU TAB_PREFIX$    TO  "PAGE_"
+      EQU TAB_SUFFIX$    TO  "_TAB"
+      EQU TRUE$  TO 1
+
+      if unassigned(Param1) then Param1 = ""
+      if unassigned(Param2) then Param2 = ""
+      if unassigned(Param3) then Param3 = ""
+      if unassigned(Param4) then Param4 = ""
+      if unassigned(Param5) then Param5 = ""
+      if unassigned(Param6) then Param6 = ""
+      if unassigned(Param7) then Param7 = ""
+      if unassigned(Param8) then Param8 = ""
+
+      ReturnResult = ""
+      Window = CtrlEntId[1,"F."]
+      Ctrl = CtrlEntId[-1,"B."]
+
+      begin case
+         case Ctrl = "BUTTON_3_FIX"
+            gosub BUTTON_3_FIX
+         case Ctrl = "BUTTON_5"
+            gosub BUTTON_5
+         case Ctrl = "CUST_ENTRY"
+            gosub CUST_ENTRY
+         case Ctrl = "EMAIL_BTN"
+            gosub EMAIL_BTN
+         case Ctrl = "INVOICES"
+            gosub INVOICES
+         case Ctrl = "STATE"
+            gosub STATE
+         case Ctrl = "TABCONTROL_1"
+            gosub TABCONTROL_1
+         case 1
+            call msg(@window,Window:".":Ctrl:" was not recognised.")
+      end case
+
+      return ReturnResult
+
+BUTTON_3_FIX:
+
+      begin case
+         case Event = "CLICK"
+            * Quick/Post Event
+            gosub BUTTON_3_FIX.CLICK
+         case 1
+            call msg(@window,Window:".":Ctrl:".":Event:" was not recognised.")
+      end case
+
+      return
+
+
+BUTTON_3_FIX.CLICK:
+
+* Quick/Post Event
+
+      CtrlClassId = "PUSHBUTTON"
+
+      
+*      repos_key = @appid<1>:'*POPUP**CUSTOMER_ID_POPUP'
+*      keys = Repository('EXECUTE', repos_key, @WINdow)
+      keys = popup(@window,'','CUSTOMER_ID_POPUP')
+      		
+      if keys then
+      SetProperty_ReturnValue = Set_Property("CUST_ENTRY.ID_FIX","TEXT",keys)
+      	Call Send_Event(@window, 'READ')
+      End
+      		
+      ReturnResult = 0 ; return
+
+BUTTON_5:
+
+      begin case
+         case Event = "CLICK"
+            * Quick/Post Event
+            gosub BUTTON_5.CLICK
+         case 1
+            call msg(@window,Window:".":Ctrl:".":Event:" was not recognised.")
+      end case
+
+      return
+
+
+BUTTON_5.CLICK:
+
+* Quick/Post Event
+
+      CtrlClassId = "PUSHBUTTON"
+
+      
+      website = Get_Property("CUST_ENTRY.WEBSITE","TEXT")
+      hwnd = Get_Property(@Window, "HANDLE")
+      showCmd = 0
+      rv = ShellExecute(hwnd, "open":\00\, website:\00\, "":\00\, "":\00\, showCmd)
+      ReturnResult = 0 ; return
+
+CUST_ENTRY:
+
+      begin case
+         case Event = "CREATE"
+            * Quick/Post Event
+            gosub CUST_ENTRY.CREATE
+         case Event = "PAGE"
+            * Quick/Post Event
+            gosub CUST_ENTRY.PAGE
+         case 1
+            call msg(@window,Window:".":Ctrl:".":Event:" was not recognised.")
+      end case
+
+      return
+
+
+
+CUST_ENTRY.CREATE:
+
+* Quick/Post Event
+
+      CtrlClassId = "WINDOW"
+      CreateParam = Param1
+
+      
+      
+      
+      
+      * tab controls must start with "PAGE_" and end with "_TAB" with a number in
+      * between representing the page number associated with the tab
+      
+      * any control that should appear on all pages should end with "_FIX"
+      
+      * put up hourglass during processing
+      Utility("CURSOR", "H")
+      
+      * build list of properties to set; setting multiple properties at once is
+      * faster than setting them individually
+      Ctrls = ""
+      Props = ""
+      Vals  = ""
+      
+      * get list of all controls on the window
+      CtrlList = Get_Property(@window, "CTRLMAP")
+      cCtrls   = count(CtrlList, @fm) + (CtrlList # "")
+      TabList  = ""
+      
+      for iCtrl = 1 to cCtrls
+        Ctrl = CtrlList<iCtrl>
+      
+       * is the control "fixed"?  (ie. should it appear on every page)
+        if Ctrl [neg(len(FIX_SUFFIX$)), len(FIX_SUFFIX$)] = FIX_SUFFIX$ then
+         * by setting the list of pages to "-1", the control will appear on each page
+          Ctrls := Ctrl      : @rm
+          Props := "PAGELIST": @rm
+          Vals  := -1        : @rm
+        end
+      
+       * is the control a tab?
+        if Ctrl [index(Ctrl, ".", 1) + 1, len(TAB_PREFIX$)] = TAB_PREFIX$ and Ctrl [neg(len(TAB_SUFFIX$)), len(TAB_SUFFIX$)] = TAB_SUFFIX$ then
+         * build a list of tabs (all tab processing is done later)
+          TabList<-1> = Ctrl
+        end
+      next iCtrl
+      
+      * get control structures and tab order for each of the tabs
+      convert @fm to @rm in TabList
+      cTabs      = count(TabList, @rm) + (TabList # "")
+      List       = Get_Property(TabList: @rm: TabList: @rm: TabList, str("ORIG_STRUCT": @rm, cTabs): str("PREVIOUS": @rm, cTabs): str(@rm: "NEXT", cTabs) [2,9999])
+      StructList = field(List, @rm, 1, cTabs)
+      PrevList   = field(List, @rm, cTabs + 1, cTabs)
+      NextList   = field(List, @rm, cTabs * 2 + 1, cTabs)
+      convert @rm to @fm in TabList
+      convert @rm to @fm in StructList
+      convert @rm to @fm in PrevList
+      convert @rm to @fm in NextList
+      
+      * page tab processing
+      for iTab = 1 to cTabs
+        Tab = TabList<iTab>
+      
+       * page tabs require two pieces of work to be done:
+       * (1) the tab is placed on the form as a check-box; a check-box has an
+       *     "up" (off) and a "down" (on) state but it is not related to any
+       *     other controls (the other tabs); to relate the tabs such that only
+       *     one can be "down" at a time, each tab must be destroyed and recreated
+       *     as a radio button (only one radio button can be selected at a time);
+       * (2) each page has a circular tab order; this means that you tab from the
+       *     page tab to the first control on the page through the last control on
+       *     the page and back to the page tab; since you can not set up multiple
+       *     separate tab orders using the form designer, you must specify the tab
+       *     order in the form designer in the following manner:  page-tab 1,
+       *     controls on page 1, page-tab 2, controls on page 2, etc.; this event
+       *     handler will then dynamically rearrange the tabs
+      
+       * destroy checkbox
+        Utility("DESTROY", Tab)
+      
+       * change structure to specify radio button
+        StructList<iTab,PSPOS_TYPE$>  = PSCTL_RADIOBMP$
+        StructList<iTab,PSPOS_VALUE$> = (iTab = 1)
+      
+       * after the new tab (radio button) is created, set it to clip its image,
+       * draw the tab "label", and appear on every page
+        Ctrls := Tab        : @rm: Tab       : @rm: Tab       : @rm
+        Props := "IMAGECLIP": @rm: "DRAWTEXT": @rm: "PAGELIST": @rm
+        Vals  := 1          : @rm: 1         : @rm: -1        : @rm
+      
+       * re-arrange tab order
+       * the first control on page n (where n is the page represented by the tab
+       * control being processed) is the NEXT property of the tab; the last control
+       * on page (n-1) is the PREVIOUS property of the tab except if n=1 then the
+       * PREVIOUS property represents the last control on the last page of the form
+        if iTab = cTabs then
+          NextPage = 1
+        end else
+          NextPage = iTab + 1
+        end
+      
+       * circularly link the tabs with their pages
+        Ctrls := Tab               : @rm: Tab           : @rm
+        Props := "PREVIOUS"        : @rm: "NEXT"        : @rm
+        Vals  := PrevList<NextPage>: @rm: NextList<iTab>: @rm
+      next iTab
+      
+      * create radio buttons to replace checkboxes
+      Utility("CREATE", StructList)
+      
+      * set min-scroll pos equal to max scroll pos to hide scroll bar
+      VPos = 1: @fm: 1: @fm: 1
+      
+      * hide the scroll bar, make the window visible, and start on the first page
+      Ctrls := @window    : @rm: @window  : @rm: "SYSTEM"
+      Props := "VPOSITION": @rm: "VISIBLE": @rm: "FOCUS"
+      Vals  := VPos       : @rm: TRUE$    : @rm: TabList<1>
+      
+      * set all properties at once
+      Set_Property(Ctrls, Props, Vals)
+      
+      * restore cursor
+      Utility("CURSOR", "A")
+      
+      *---
+      * some fields are required, but we'll let the user tab by them and just check for
+      * required fields on the Write Event.
+      * the IOOPTIONS property handles that for us.
+      *---
+      options = Get_Property("CUST_ENTRY.WINDOW","IOOPTIONS")
+      options<10> = 1
+      SetProperty_ReturnValue = Set_Property("CUST_ENTRY.WINDOW","IOOPTIONS",options)
+      
+      * Set Focus on key field
+      win_name = CtrlEntId[1,'.']
+      idField = win_name:'.ID_FIX'
+      Send_Event(idField,'GOTFOCUS',CtrlEntId)
+      SetProperty_ReturnValue = Set_Property("CUST_ENTRY.ID_FIX","FOCUS",1)
+      
+      ReturnResult = 0 ; return
+      
+
+CUST_ENTRY.PAGE:
+
+* Quick/Post Event
+
+      CtrlClassId = "WINDOW"
+      PageAction = Param1
+
+      
+      
+      
+      
+      * tab controls must start with "PAGE_" and end with "_TAB" with a number in
+      * between representing the page number associated with the tab
+      
+      
+      * handle the page event
+      Forward_Event(PageAction)
+      
+      * radio buttons do not auto-check on gotfocus so explicitly set the check
+      Set_Property(@window: ".": TAB_PREFIX$ : Get_Property(@window, "VPOSITION") <1>: TAB_SUFFIX$, "CHECK", TRUE$)
+      
+      ReturnResult = 0 ; return
+
+
+EMAIL_BTN:
+
+      begin case
+         case Event = "CLICK"
+            * Quick/Post Event
+            gosub EMAIL_BTN.CLICK
+         case 1
+            call msg(@window,Window:".":Ctrl:".":Event:" was not recognised.")
+      end case
+
+      return
+
+
+EMAIL_BTN.CLICK:
+
+* Quick/Post Event
+
+      CtrlClassId = "PUSHBUTTON"
+
+      EMAIL = Get_Property(@WINDOW:'.EMAIL',"TEXT")
+      ADDR = ' MAILTO:':EMAIL
+      call Utility("RUNWIN","cmd /c start " : addr ,'1')
+      
+      ReturnResult = 0 ; return
+
+INVOICES:
+
+      begin case
+         case Event = "DBLCLK"
+            * Quick/Post Event
+            gosub INVOICES.DBLCLK
+         case 1
+            call msg(@window,Window:".":Ctrl:".":Event:" was not recognised.")
+      end case
+
+      return
+
+
+INVOICES.DBLCLK:
+
+* Quick/Post Event
+
+      CtrlClassId = "EDITTABLE"
+      CtrlKey = Param1
+      ShiftKey = Param2
+      MouseButton = Param3
+
+      
+      thisWindow = CtrlEntID[1,'.']
+      
+      selPos = Get_Property("CUST_ENTRY.INVOICES","SELPOS")
+      selCol = selPos<1>
+      selRow = selPos<2>
+      
+      allInvoices = Get_Property("CUST_ENTRY.INVOICES","ARRAY")
+      thisInvoice = allInvoices<1,selRow>
+      
+      if len(thisInvoice) then
+      	retVal = Dialog_Box('INV_ENTRY',thisWindow,thisInvoice)
+      end
+      
+      ReturnResult = 0 ; return
+
+STATE:
+
+      begin case
+         case Event = "OPTIONS"
+            * Quick/Post Event
+            gosub STATE.OPTIONS
+         case 1
+            call msg(@window,Window:".":Ctrl:".":Event:" was not recognised.")
+      end case
+
+      return
+
+
+
+STATE.OPTIONS:
+
+* Quick/Post Event
+
+      CtrlClassId = "EDITFIELD"
+
+      
+      * Call the States popup and place the result in the STATE control
+      
+      
+      state = popup(@window,'','STATES_POPUP')
+      
+      if len(state) then
+      SetProperty_ReturnValue = Set_Property("CUST_ENTRY.STATE","TEXT",state)
+      end
+      
+      ReturnResult = 0 ; return
+
+
+TABCONTROL_1:
+
+      begin case
+         case Event = "CLICK"
+            * Quick/Post Event
+            gosub TABCONTROL_1.CLICK
+         case 1
+            call msg(@window,Window:".":Ctrl:".":Event:" was not recognised.")
+      end case
+
+      return
+
+
+
+TABCONTROL_1.CLICK:
+
+* Quick/Post Event
+
+      CtrlClassId = "TABCONTROL"
+
+      
+      val = Get_Property("CUST_ENTRY.TABCONTROL_1","VALUE")
+      SetProperty_ReturnValue = Set_Property("CUST_ENTRY.WINDOW","VPOSITION",val)
+      
+      ReturnResult = 1 ; return
+
+

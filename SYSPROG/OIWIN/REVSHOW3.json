@@ -1,0 +1,450 @@
+{
+    "style-sheet-id": "",
+    "name": "REVSHOW3",
+    "icon-name": "",
+    "title": "ListView Example",
+    "size": {
+        "x": 230,
+        "y": 135,
+        "y-ext": null,
+        "width": -739,
+        "height": -442
+    },
+    "style": [
+        "WS_POPUP",
+        "WS_VISIBLE",
+        "WS_CLIPSIBLINGS",
+        "WS_BORDER",
+        "WS_DLGFRAME",
+        "WS_SYSMENU",
+        "WS_THICKFRAME",
+        "WS_MINIMIZEBOX",
+        "WS_MAXIMIZEBOX"
+    ],
+    "style-ex": [],
+    "ps-style": [
+        "PSS_WIN_BACKGROUNDCOLOR"
+    ],
+    "background": "#00C08000",
+    "script-events": [],
+    "quick-events": [
+        {
+            "name": "CREATE",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**REVSHOW3_COMMUTER_MODULE",
+            "parameters": [
+                "@SELF",
+                "@EVENT",
+                "@PARAM1",
+                "@PARAM2",
+                "@PARAM3",
+                "@PARAM4",
+                "@PARAM5",
+                "@PARAM6"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "SIZE",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**REVSHOW3_COMMUTER_MODULE",
+            "parameters": [
+                "@SELF",
+                "@EVENT",
+                "@PARAM1"
+            ],
+            "return-id": "",
+            "return-property": ""
+        }
+    ],
+    "tables": [],
+    "io-options": {
+        "optimistic-locking": false,
+        "locking-behavior": "Exclusive",
+        "coordinate-with-file-locks": false,
+        "ignore-self-locks": false,
+        "ignore-subrow-locks": false,
+        "no-clear-on-write": false,
+        "commit-after-data-set": null,
+        "rollback-if-commit-fails": null,
+        "auto-rollback-on-clear": null,
+        "enforce-required-fields-before-save": null
+    },
+    "joined-tables": {
+        "primary": null,
+        "joined": null
+    },
+    "form-designer-flags": [
+        "0x7FFFE",
+        "0xF001E808"
+    ],
+    "background-image": "",
+    "icon": "",
+    "page-count": 1,
+    "controls": [
+        {
+            "name": "DOTNET",
+            "icon-literal": "",
+            "type": "OLECONTROL.RevDotNet.Invoker",
+            "parent": "REVSHOW3",
+            "size": {
+                "x": 28,
+                "y": 28,
+                "y-ext": null,
+                "width": -27,
+                "height": -70
+            },
+            "text": "RevDotNet.Invoker",
+            "style": [
+                "WS_CHILD",
+                "WS_CLIPCHILDREN"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_INITIALFOCUS",
+                "PSS_AUTOSIZE_W",
+                "PSS_AUTOSIZE_H"
+            ],
+            "tab-stop": 1,
+            "background": "#00C08000",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "Tahoma",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 3,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "OLE",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**REVSHOW3_COMMUTER_MODULE",
+                    "parameters": [
+                        "@SELF",
+                        "@EVENT",
+                        "@PARAM1",
+                        "@PARAM2"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0014000"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": "0001000000FFFFFFFF010000000000000004010000001C53797374656D2E436F6C6C656374696F6E732E486173687461626C65070000000A4C6F6164466163746F720756657273696F6E08436F6D70617265721048617368436F646550726F7669646572084861736853697A65044B6579730656616C756573000003030005050B081C53797374656D2E436F6C6C656374696F6E732E49436F6D70617265722453797374656D2E436F6C6C656374696F6E732E4948617368436F646550726F766964657208EC51383F050000000A0A0B0000000902000000090300000010020000000500000006040000000453697A6506050000000C417373656D626C794E616D65060600000008546162496E6465780607000000084C6F636174696F6E0608000000044E616D651003000000050000000609000000083638342C20333434060A00000000060B0000000130060C00000004302C2030060D00000015436F6E74726F6C4178536F757263696E67536974650B",
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "BUTTON_OK",
+            "icon-literal": "",
+            "type": "PUSHBUTTON",
+            "parent": "REVSHOW3",
+            "size": {
+                "x": -359,
+                "y": -44,
+                "y-ext": null,
+                "width": 112,
+                "height": 32
+            },
+            "text": "OK",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_PUSHBUTTON",
+                "BS_MULTILINE"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_TRANSPARENT_BMP",
+                "PSS_CLIPONLY",
+                "PSS_AUTOSIZE_X",
+                "PSS_AUTOSIZE_Y"
+            ],
+            "tab-stop": 2,
+            "background": "#00C08000",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "Tahoma",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 3,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**REVSHOW3_COMMUTER_MODULE",
+                    "parameters": [
+                        "@SELF",
+                        "@EVENT",
+                        "@PARAM1"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0014008"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "BUTTON_CANCEL",
+            "icon-literal": "",
+            "type": "PUSHBUTTON",
+            "parent": "REVSHOW3",
+            "size": {
+                "x": -223,
+                "y": -44,
+                "y-ext": null,
+                "width": 108,
+                "height": 32
+            },
+            "text": "Cancel",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_PUSHBUTTON",
+                "BS_MULTILINE"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_TRANSPARENT_BMP",
+                "PSS_CLIPONLY",
+                "PSS_AUTOSIZE_X",
+                "PSS_AUTOSIZE_Y"
+            ],
+            "tab-stop": 3,
+            "background": "#00C08000",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "Tahoma",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 3,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Event",
+                    "message": "CLOSE",
+                    "entity-id": "@WINDOW",
+                    "parameters": [],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0014008"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "BUTTON_CHANGE",
+            "icon-literal": "",
+            "type": "PUSHBUTTON",
+            "parent": "REVSHOW3",
+            "size": {
+                "x": -70,
+                "y": -42,
+                "y-ext": null,
+                "width": 52,
+                "height": 24
+            },
+            "text": "Change!",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_PUSHBUTTON",
+                "BS_MULTILINE"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_TRANSPARENT_BMP",
+                "PSS_CLIPONLY",
+                "PSS_AUTOSIZE_X",
+                "PSS_AUTOSIZE_Y"
+            ],
+            "tab-stop": 4,
+            "background": "#00C08000",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "Tahoma",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 3,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**REVSHOW3_COMMUTER_MODULE",
+                    "parameters": [
+                        "@SELF",
+                        "@EVENT",
+                        "@PARAM1"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0014008"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        }
+    ],
+    "menu": null,
+    "menu-script-events": [],
+    "menu-quick-events": []
+}

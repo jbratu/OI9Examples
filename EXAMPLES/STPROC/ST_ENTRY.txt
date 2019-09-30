@@ -1,0 +1,60 @@
+      function ST_ENTRY(CtrlEntId,Event,Param1,Param2,Param3,Param4,Param5,Param6,Param7,Param8)
+
+* 20071024
+
+      DECLARE FUNCTION SET_PROPERTY,GET_PROPERTY,UNASSIGNED,REPOSITORY,POPUP
+
+      if unassigned(Param1) then Param1 = ""
+      if unassigned(Param2) then Param2 = ""
+      if unassigned(Param3) then Param3 = ""
+      if unassigned(Param4) then Param4 = ""
+      if unassigned(Param5) then Param5 = ""
+      if unassigned(Param6) then Param6 = ""
+      if unassigned(Param7) then Param7 = ""
+      if unassigned(Param8) then Param8 = ""
+
+      ReturnResult = ""
+      Window = CtrlEntId[1,"F."]
+      Ctrl = CtrlEntId[-1,"B."]
+
+      begin case
+         case Ctrl = "SEARCH_BUTTON_3"
+            gosub SEARCH_BUTTON_3
+         case 1
+            call msg(@window,Window:".":Ctrl:" was not recognised.")
+      end case
+
+      return ReturnResult
+
+SEARCH_BUTTON_3:
+
+      begin case
+         case Event = "CLICK"
+            * Quick/Post Event
+            gosub SEARCH_BUTTON_3.CLICK
+         case 1
+            call msg(@window,Window:".":Ctrl:".":Event:" was not recognised.")
+      end case
+
+      return
+
+
+
+SEARCH_BUTTON_3.CLICK:
+
+* Quick/Post Event
+
+      CtrlClassId = "PUSHBUTTON"
+
+      	
+      keys = popup(@window,'','STATES_POPUP')
+*      		repos_key = @appid<1>:'*POPUP**STATES_POPUP'
+*      		keys = Repository('EXECUTE', repos_key, @WINdow)
+      		if keys then
+      SetProperty_ReturnValue = Set_Property("ST_ENTRY.ID","TEXT",keys)
+      			Call Send_Event(@window, 'READ')
+      		End
+      		
+      ReturnResult = 0 ; return
+
+

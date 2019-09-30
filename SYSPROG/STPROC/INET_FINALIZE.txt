@@ -1,0 +1,25 @@
+subroutine INET_Finalize(Request, Response)
+
+***************************************************************************
+* Project    : OpenInsight for Internet
+*
+* Name       : INET_Finalize
+* Description: Finalization of response to a request.
+*
+* Parameters:
+*              Request    [in/out] -- HTTP request (see INET_EQUATES)
+*              Response   [in/out] -- Response to request
+*
+***************************************************************************
+
+$insert Logical
+$insert Inet_Equates
+
+* put your response finalization code here
+* ...
+
+  *NewHead = "Content-Type: application/text ":Char(10)
+   *     NewHead := "Content-Length: ":Len(Response):" "
+    *    Response = NewHead:Char(10):Char(10):Response
+
+Return

@@ -1,0 +1,79 @@
+compile insert SYSTABLE_NAMES
+
+equ sysdict_file$            to "SYSDICT"
+equ sysenv_file$             to "SYSENV"
+equ syslists_file$           to "SYSLISTS"
+equ syslogins_file$          to "SYSLOGINS"
+equ sysobj_file$             to "SYSOBJ"
+equ sysprocs_file$           to "SYSPROCS"
+equ sysptrs_file$            to "SYSPTRS"
+equ systables_file$          to "SYSTABLES"
+equ sysviews_file$           to "SYSVIEWS"
+equ sysvolumes_file$         to "SYSVOLUMES"
+equ systypes_file$           to "SYSTYPES"
+equ systypemaps_file$        to "SYSTYPEMAPS"
+equ sysprocindex_file$       to "SYSPROCINDEX"
+equ syscolumns_file$         to "SYSCOLUMNS"
+equ accessible_columns$      to "ACCESSIBLE_COLUMNS"
+equ syslhgroup_file$         to "SYSLHGROUP"
+equ syslhverify_file$        to "SYSLHVERIFY"
+equ importexport_file$       to "IMPORTEXPORT"
+equ OsFile$                  to "WINDOWS"
+equ LogFile$                 to "LOG"
+
+
+equ SYSREPOS_FILE$              to "SYSREPOS"
+equ SYSREPOS_TEMP_FILE$         to "SYSREPOS_TEMP"
+equ SYSREPOSTYPES_FILE$         to "SYSREPOSTYPES"
+equ SYSAPPS_FILE$               to "SYSAPPS"
+equ SYSREPOSLOCKS_FILE$         to "SYSREPOSLOCKS"
+equ SYSREPOSLOG_FILE$           to "SYSREPOSLOG"
+equ SYSREPOSWINS_FILE$          to "SYSREPOSWINS"
+equ SYSREPOSWINEXES_FILE$       to "SYSREPOSWINEXES"
+equ SYSREPOSEVENTS_FILE$        to "SYSREPOSEVENTS"
+equ SYSREPOSEVENTEXES_FILE$     to "SYSREPOSEVENTEXES"
+equ SYSREPOSCLASSES_FILE$       to "SYSREPOSCLASSES"
+equ SYSREPOSPOPUPS_FILE$        to "SYSREPOSPOPUPS"
+equ SYSREPOSMESSAGES_FILE$      to "SYSREPOSMESSAGES"
+equ SYSREPOSAPPNOTES_FILE$      to "SYSREPOSAPPNOTES"
+equ SYSREPOSREPORTS_FILE$       to "SYSREPOSREPORTS"
+equ SYSREPOSRELEASES_FILE$      to "SYSREPOSRELEASES"
+equ SYSREPOSVIEWS_FILE$         to "SYSREPOSVIEWS"
+equ SYSREPOSSTORAGE_FILE$       to "SYSREPOSSTORAGE"
+equ SYSREPOSTYPEFAMILIES_FILE$  to "SYSREPOSTYPEFAMILIES"
+Equ SysTempFile$             	To "SYSTEMP"
+equ SYSREPOSDATASOURCES_FILE$   to "SYSREPOSDATASOURCES"
+equ SYSREPOSDBCOMPONENTS_FILE$  to "SYSREPOSDBCOMPONENTS"
+equ SYSREPOSDBCOMPONENTEXES_FILE$ to "SYSREPOSDBCOMPONENTEXES"
+equ sysreposxml_file$				to "SYSREPOSXML"
+equ sysreposlanguage_file$				to "SYSREPOSLANGUAGE"
+EQU SYSREPOSMENUCONTEXT_FILE$	TO 'SYSREPOSMENUCONTEXT'
+Equ SYSCODETEMPLATES_FILE$		To 'SYSCODETEMPLATES'
+
+EQU AVERYLABELS_FILE$			TO 'AVERYLABELS'
+equ U2_CODES_FILE$				TO 'U2_CODES'
+* mtr 3-19-07
+Equ precompiled_FILE$	TO 'OI_PRECOMPILED_CODE'
+Equ md_master_file$		To 'MD_MASTER'
+
+* MTR 12-6-06 FOR aREV32
+Equ DefaultSysAliasFile$     To "SYSALIAS"
+Equ SysAliasesFile$          To "SYSALIASES"
+Equ SysPopupsFile$           To "SYSPOPUPS"
+Equ SysPopupsFileStar$       To "SYSPOPUPS*"
+Equ SysColumnsFile$          To "SYSCOLUMNS"
+Equ SysPrintersFile$         To "SYSPRINTERS"
+Equ SysWindowsFile$          To "SYSWINDOWS"
+Equ SysTextFile$             To "SYSTEXT"
+Equ SysConfigureFile$        To "SYSENV"
+Equ MessagesFile$            To "MESSAGES"
+Equ SysMessagesFile$         To "SYSMESSAGES"
+Equ ImportExportFile$        To "IMPORTEXPORT"
+Equ BatchUpdateFile$         To "BATCHUPDATE"
+Equ DictBatchUpdateFile$     To "DICT.BATCHUPDATE"
+Equ DictImportExportFile$    To "DICT.IMPORTEXPORT"
+Equ SysWindowsFileAt$        To "@SYSWINDOWS@"
+Equ WindowsFile$             To "WINDOWS"
+Equ ReportsFile$             To "REPORTS"
+
+* Source Date: 10:20:52  22 SEP 2003  Build ID: OI*7.0.0  Level: 2.61

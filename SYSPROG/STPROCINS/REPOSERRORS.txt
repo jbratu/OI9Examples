@@ -1,0 +1,97 @@
+compile insert REPOSERRORS
+
+/* Repository base method general error codes */
+EQU REP_NO_METHOD_ERR$           TO "REP100" /* no method for entity (entityid, message) */
+EQU REP_2FEW_ARG_ERR$            TO "REP101"    /* at least two args required for methods */
+EQU REP_NO_FORWARD_ERR$          TO "REP102" /* cannot forward message - no more parent class levels */
+EQU REP_ENT_EXISTS_ERR$          TO "REP110" /* cannot add entity - it already exists */
+EQU REP_REF_MISSING$             TO "REP111" /* Reference is missing - referential error ( ref entityid ) */
+EQU REP_REF_APP_ERR$             TO "REP112" /* reference crosses application lines (entityid) */
+EQU REP_ENT_INVALID_ID$          TO "REP113" /* Invalid entid (too many '*') */
+EQU REP_TYPE_EXISTS_ERR$         TO "REP117" /* cannot add type - it already exists */
+EQU REP_APP_EXISTS_ERR$          TO "REP118" /* cannot add type - it already exists */
+EQU REP_APP_ILLEGAL_RIGHTS_ERR$  TO "REP119" /* user %1% does not have rights to perform operation %2% against entity %3% */
+EQU REP_APP_INHERIT_MOD_ERR$     TO "REP120" /* inherited entity %1% cannot be modified */
+EQU REP_BAD_FLAG_OPT_ERR$        TO "REP121" /* invalid flag option code ( option ) */
+EQU REP_BAD_FLAG_OP_ERR$         TO "REP122" /* invalid flag operator code */
+EQU REP_COMPONENT_NOEXISTS_ERR$  TO "REP123" /* cannot find associated component %2% of entity %1% */
+EQU REP_ILLEGAL_METHOD_ERR$      TO "REP124" /* message %2% is not supported by the entity type/class %1% */
+EQU REP_APP_MISSING_ERR$         TO "REP125" /* app body missing in SYSAPPS */
+EQU REP_DBSYNCH_LOCK_ERR$        TO 'REP126' /* repository is being synchronized with the Database from another station */
+EQU REP_CHECKCOPY_ERR$           TO "REP127" /* Error copy entity %1% component %2% in checkout or extraction */
+EQU REP_CHECKTOKEN_ERR$          TO "REP128" /* Illegal location token used on hot format checkout */
+
+EQU REP_NO_EVENT_ERR$            TO "REP200" /* No event found (controlid, controlclass, event )  */
+EQU REP_BAD_WINNAME_ERR$         TO "REP201" /* %1% is not a valid window, or is not currently running */
+
+EQU REP_ENT_NOEXISTS_ERR$        TO "REP300" /* Entity %1% does not exist in the repository */
+EQU REP_UNKNOWN_EVENT_TOKEN$     TO "REP303"
+EQU    REP_WIN_OBJ_DNE$          TO "REP305"    /* Window Executable %1% was not found in this application */
+
+/* REP310 - 320  reserved for OIWIN_COMPILE_EQUATES */
+
+EQU REP_JMAP_TABLE_MISSING$      TO "REP310" /* compile error: join information for table "%1%" has not been specified for the form */
+EQU REP_JMAP_COLUMN_ERROR$       TO "REP311"    /* compile error: The column %2% is not found in table %1% */
+EQU REP_JMAP_CONTROL_ERROR$      TO "REP312" /* compile error: The join control %1% is not found in the form */
+EQU REP_OIWIN_MENUCOMP_ERR$      TO "REP313" /* menu compile error: nesting error */
+EQU REP_JMAP_KEYPART_ERROR$      TO "REP314" /* Incomplete key:  Control for key part %1% is missing. */
+
+EQU REP_ENT_MISMATCH_ERR$        TO "REP333"
+EQU REP_UPDATE_PTR_ENTITY_ERR$   TO "REP389"
+
+/* ----- 500 -------------------- */
+EQU REP_WINEXEC_ERR$             TO "REP500" /* Winexec Error #%1% */
+
+/* OIEVENT error codes start from 700  -------------------- */
+EQU REP_OIEVENT_NOSUPER$         TO "REP700" /* OIEVENT must have a super-control ( full-entid ) */
+EQU REP_OIEVENT_ENT_DIFF$        TO "REP701" /* POEVENT need to have entitid same */
+EQU REP_OIEVENT_INVALID_CLASSID$ TO "REP703" /* invalid classid as token */
+
+/* Collaborative development -- 800 */
+EQU REP_ENT_SHORTLOCK_ERR$       TO "REP800" ;* "Entity %1% locked by another session and could not be locked."
+EQU REP_ENT_OWNLOCK_ERR$         TO "REP801"   ;* "Entity %1% is already locked by this session."
+EQU REP_ENT_LONGLOCK_ERR$        TO "REP802"  ;* "Entity %1% is checked out by %2% and could not be locked."
+EQU REP_ENT_OWNLONGLOCK_ERR$     TO "REP803" ;* "Entity %1% is checked out by current user."
+
+EQU REP_ENT_SHORTLOCK_TRANS_ERR$ TO "REP804"  ;* "Remote entity %1% locked by another session and could not be locked."
+EQU REP_ENT_OWNLOCK_TRANS_ERR$   TO "REP805"   ;* "Remote entity %1% is already locked by this session."
+EQU REP_ENT_LONGLOCK_TRANS_ERR$  TO "REP806"  ;* "Remote entity %1% is checked out by %2% and could not be locked."
+EQU REP_ENT_OWNLONGLOCK_TRANS_ERR$  TO "REP807" ;* "Remote entity %1% is checked out by current user."
+
+/* Repository mirroring -- 900 */
+equ REP_MIRROR_CREATEFILE_ERR$   to "REP900"    ;* "Error creating mirror file %1%; status %2"
+equ REP_MIRROR_DELETEFILE_ERR$   to "REP901"    ;* "Error deleting mirror file %1%; status %2"
+equ REP_MIRROR_FILE_EXISTS_ERR$  to "REP902"    ;* "A repository mirror file exists at location %1%."
+equ REP_MIRROR_INSTALLED_ERR$    to "REP903"    ;* "A repository mirror is already installed in this system."
+equ REP_MIRROR_NOTINSTALLED_ERR$ to "REP904"    ;* "A repository mirror is not installed in this system."
+equ REP_MIRROR_COMPARE_ERR$      to "REP905"    ;* "Row %1% shows differences."
+equ REP_MIRROR_REPOS_LOCKED_ERR$ to "REP906"    ;* "The Repository is in a state of error.  Access to the repository is denied until a system administrator remedies the error condition."
+
+/* Check-in/check-out errors. */
+EQU CHK_DIR_CREATE_ERR$          TO "CHK100"  ;* Could not create directory %1%.
+EQU CHK_INVALID_STATUS$          TO "CHK101"  ;* Status %1% cannot be processed.
+EQU CHK_CREATE_REPOS_HOT_ERR$    TO "CHK102"     ;* Could not create hot repository on "%1%".
+EQU CHK_CREATE_REPOS_COLD_ERR$   TO "CHK103"  ;* Could not create cold repository on "%1%".
+EQU CHK_CREATE_VOL_EXIST_ERR$    TO "CHK104"  ;* Volume "%1%" already exists.  Repository could not be created.
+EQU CHK_INVALID_FORMAT$          TO "CHK105"  ;* Invalid repository format "%1%".
+
+/* Popup Error codes */
+
+EQU POPUP_BADFILE$               to "POP101"  ;* File %1% does not exist!
+EQU POPUP_BADFIELD$              to "POP102"  ;* Field %1% set to null when a value expected!
+EQU POPUP_BADKEY$                to "POP103"  ;* Invalid key %1% in file %2%!
+EQU POPUP_MODETYPE_CONFLICT$     to "POP104"  ;* Mode %1% is incompatible with type %2%!
+EQU POPUP_BADTYPE$               to "POP105"  ;* Type %1% is invalid!
+EQU POPUP_BADMODE$               to "POP106"  ;* Mode %1% is invalid!
+EQU POPUP_NODICT$                to "POP107"  ;* Dictionary does not exist for file %1%!
+EQU POPUP_NONNUM_FIELD$          to "POP108"  ;* Non-numeric field name %1% in format argument not allowed with mode F!
+EQU POPUP_BADFORMAT$             to "POP109"  ;* Format argument not allowed to be null!
+
+/* MSG Error codes */
+
+EQU MSG_CREATION_ERROR$          to "MSG101"  ;* Out of memory, or could not create MSG Dialog Box!
+EQU MSG_BADPARAMS_ERROR$         to "MSG102"  ;* One or more parameters were invalid, or @fm's found in text!
+
+EQU INDEXLOOKUP_NODICT$          to "IDX101"  ;* Dictionary does not exist for file %1%!
+EQU INDEXLOOKUP_BADFILE$         to "IDX102"  ;* File %1% does not exist!
+

@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "\r\n\r\ndeclare function Send_Message\r\n\r\n*---\r\n* have the list appear compressed as a default\r\n*---\r\n\r\nlistitem = Send_Message(@WINDOW:'.LIST_1', \"EXPAND\", 0)\r\n\t\r\n\t\r\nRETURN 0"
+    }
+}

@@ -1,0 +1,47 @@
+compile insert rdkerrors
+/* ======================================================================== */
+/* RDK Error codes. */
+
+EQU RDK_SYSLISTS_DNE$         TO "RDK100" /* SYSLISTS table not attached! */
+
+EQU RDK_APPID_REQUIRED$       TO "RDK101" /* APPID argument required */
+EQU RDK_APP_DNE$              TO "RDK102" /* specified application (APPID) does not exist */
+EQU RDK_ENT_DNE$              TO "RDK103" /* specified entity does not exist (but should ) */
+
+EQU RDK_SYSREPOSVIEWS_DNE$    TO "RDK104" /* SYSREPOSVIEWS table not attached */
+EQU RDK_VIEWEXISTS$           TO "RDK105" /* View Exists collision */
+
+EQU RDK_ADDLOGIC_ERR$         TO "RDK106" /* Some logical error in add */
+EQU RDK_REMOVELOGIC_ERR$      TO "RDK107" /* Some logical error in remove */
+
+EQU RDK_VIEWDEF_DNE$          TO "RDK108" /* View definition does not exist */
+
+EQU RDK_NULLTARGET_ERR$       TO "RDK110" /* Target directory not specified */
+EQU RDK_RDKSPEC_DNE$          TO "RDK111" /* RDK deploy spec record in SYSENV is missing */
+EQU RDK_SYSTABCOPY_ERR$       TO "RDK112" /* Error copying table %1% to target dir %2% */
+EQU RDK_SYSTABCREATE_ERR$     TO "RDK113" /* Error creating table %1% on target dir %2% */
+EQU RDK_SYSRECCOPY_ERR$       TO "RDK114" /* Error copying record %2% into table %1% */
+ 
+EQU RDK_USERCANCEL$           TO "RDK115" /* User canceled operation */
+EQU RDK_LISTLEN_OVERFLOW$     TO "RDK116" /* List exceeded maximum length */
+EQU RDK_OSDELETE_ERR$         TO "RDK117" /* Error deleting file */
+
+EQU RDK_RETAIN_OVERRIDE$      TO "RDK118" /* Could not retain path %1% for table %2%, moved to default data volume %3% */
+EQU RDK_NO_DEF_DATA_VOL$      TO "RDK119" /* A default data volume is necessary for extraction */
+EQU RDK_CANNOT_CREATE_DIR$    TO "RDK120" /* Cannot create non-relative directory %1% */
+EQU RDK_CANNOT_CREATE_RELDIR$ TO "RDK121" /* Error creating relative directory %1% */
+
+EQU RDK_EXTRACT_DIR_NG$       TO "RDK122" /* Extraction directory %1% is invalid */
+EQU RDK_EXTRACT_DIR_FULL$     TO "RDK123" /* There is a repository in extract dir */
+EQU RDK_EXTRACT_DIR_LH$       TO "RDK124" /* There are LH files in extraction dir */
+EQU RDK_EXTRACT_DIR_CV$       TO "RDK125" /* Operating system error. Cannot validate extraction directory */
+
+EQU RDK_INSTDEF_WRITE_ERR$    TO "RDK126" /* Error writing Install definition Record */
+EQU RDK_CREATE_USER_ERR$      TO "RDK127" /* Error creating user record */
+
+/* RDK Installation Error Codes  -------------------------------------- */
+
+EQU RDK_INST_INVALID_LOC$     TO "RDK200" /* Specified location "%1%" does not contain a valid install image */
+EQU RDK_INST_DEFREC_DNE$      TO "RDK201" /* Install definition record not found */
+EQU RDK_INST_APPID_REQUIRED$  TO "RDK202" /* User must provide appid at install time */
+

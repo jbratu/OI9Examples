@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "\r\nfocus = field(Message, '.', 2)\r\n\r\n\r\nif Focus[1, 4] = 'BTN_' then\r\n\t\r\n\tcontrols = @@Window->CtrlMap\r\n\tcol = ''\r\n\tloop\r\n\tremove control from controls at col setting flag\t\r\n\t\tbitmap = @Control->bitmap\r\n\t\to_bitmap = bitmap\r\n\t\tbitmap = bitmap[1, '_']\r\n\t\tname = field(control, '.', 2)\r\n\t\tif name[1, 4] = 'BTN_' then\r\n\t\t\tif name = Focus then\r\n\t\t\t\tbmp_name = bitmap:'_FOCUS.BMP'\r\n\t\t\tend else\r\n\t\t\t\tbmp_name = bitmap:'_NOFOCUS.BMP'\r\n\t\t\tend\r\n\t\t\t@Control->bitmap = bmp_name\r\n\t\tend\r\n\twhile flag\r\n\trepeat\r\nend\r\n\r\n\r\n\r\nRETURN 0"
+    }
+}

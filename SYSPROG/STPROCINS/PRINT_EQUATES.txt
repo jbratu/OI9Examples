@@ -1,0 +1,29 @@
+compile insert Print_Equates
+
+equ PS_SOLID$       to    0
+equ PS_DASH$        to    1
+equ PS_DOT$         to    2
+equ PS_DASHDOT$     to    3
+equ PS_DASHDOTDOT$  to    4
+equ PS_NULL$        to    5
+equ PS_INSIDEFRAME$ to    6
+
+
+* Brush Styles
+equ BS_SOLID$       to    0
+equ BS_NULL$        to    1
+equ BS_HOLLOW$      to    1
+equ BS_HATCHED$     to    2
+equ BS_PATTERN$     to    3
+equ BS_INDEXED$     to    4
+equ BS_DIBPATTERN$  to    5
+
+
+* Hatch Styles
+equ HS_HORIZONTAL$  to    0
+equ HS_VERTICAL$    to    1
+equ HS_FDIAGONAL$   to    2
+equ HS_BDIAGONAL$   to    3
+equ HS_CROSS$       to    4
+equ HS_DIAGCROSS$   to    5
+

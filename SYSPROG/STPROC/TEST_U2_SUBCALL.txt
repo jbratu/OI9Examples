@@ -1,0 +1,55 @@
+Subroutine Test_U2_Subcall( dummy )
+
+Declare Function Msg, u2_execproc, GET_STATUS
+
+* mtr 1-22-07 example program
+* Edit the volume id and program name to suit your needs
+
+VolumeID = 'RJC_20081105'; * as seen in the U2_Connection window
+Call Attach_table(VolumeId, '', '')
+
+
+* Let's write a program
+subname = 'OI_CLIENT'
+
+server_proc = 'SUBROUTINE ':subname:'(INPARAM, OUTPARAM)'
+server_proc<-1> = '* Test program to Demonstrate calling u2 from OI'
+server_proc<-1> = ''
+server_proc<-1> = 'OUTPARAM="YOU PASSED " : quote(INPARAM) : " " : STR(".", INPARAM)'
+server_proc<-1> = 'RETURN'
+Call Write_Row('BP', 'OI_CLIENT', server_proc, 0)
+
+* Compile it
+Command = 'BASIC BP ':subname
+
+buffer = ''
+pReplies = ''
+pInteractive = ''
+result = u2_execProc(VolumeID, Command, Buffer, pReplies, pInteractive )
+If result = -1 Then
+	*x = Get_Status(errs)
+	Call FSMsg()
+end
+
+* Catalog It
+result = u2_execProc(VolumeID, Command, Buffer, pReplies, pInteractive )
+If result = -1 Then
+	*x = Get_Status(errs)
+	Call FSMsg()
+end
+
+
+* Call It
+* Note that we need to pass in the correct param count
+ParamCount = 2
+p1 = '1000'
+P2 = '20'
+for i = 1 to 100
+	p1 = 10000*i
+	Call U2_Subcall(VolumeId, SubName, ParamCount, P1, P2)
+	x = get_status(err)
+	call Send_Dyn(i : " " : len(p2))
+next
+
+return
+

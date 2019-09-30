@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "declare function  Repository\r\n\t\r\n\t\trepos_key = @appid<1>:'*POPUP**STATES_POPUP'\r\n\t\tkeys = Repository('EXECUTE', repos_key, @WINdow)\r\n\t\tif keys then\r\n\t\t\t.id->text=keys\r\n\t\t\tCall Send_Event(@window, 'READ')\r\n\t\tEnd\r\n\t\t\r\nRETURN 0"
+    }
+}

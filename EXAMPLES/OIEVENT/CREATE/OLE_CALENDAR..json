@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "\r\ncall Forward_Event()\r\n\r\n\r\n/*\r\n*  Did they pass in a Url?\r\n*/\r\nurl = CreateParam\r\nif index(url, '\\', 1) then\r\n\turl='file://': url\r\nend\r\n\r\nif len(url) then\r\n call Send_Message(@Window: '.HTML', 'NAVIGATE2', url)\r\nend \r\n\r\nRETURN 0"
+    }
+}

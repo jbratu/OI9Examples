@@ -1,0 +1,1080 @@
+{
+    "style-sheet-id": "",
+    "name": "EXAMPLES_MAIN2",
+    "icon-name": "REPVIEW",
+    "title": "Examples Main",
+    "size": {
+        "x": 111,
+        "y": 124,
+        "y-ext": null,
+        "width": -786,
+        "height": -489
+    },
+    "style": [
+        "WS_POPUP",
+        "WS_CLIPCHILDREN",
+        "WS_BORDER",
+        "WS_DLGFRAME",
+        "WS_SYSMENU",
+        "WS_THICKFRAME",
+        "WS_MINIMIZEBOX",
+        "WS_MAXIMIZEBOX"
+    ],
+    "style-ex": [],
+    "ps-style": [
+        "PSS_WIN_HASMENU"
+    ],
+    "background": "#00FFFFFF",
+    "script-events": [],
+    "quick-events": [
+        {
+            "name": "CLOSE",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "EXAMPLES*STPROCEXE**EXAMPLES_MAIN",
+            "parameters": [
+                "@SELF",
+                "CLOSE",
+                "@PARAM1"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "CREATE",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "EXAMPLES*STPROCEXE**EXAMPLES_MAIN",
+            "parameters": [
+                "@SELF",
+                "CREATE",
+                "@PARAM1"
+            ],
+            "return-id": "",
+            "return-property": ""
+        }
+    ],
+    "tables": [],
+    "io-options": {
+        "optimistic-locking": false,
+        "locking-behavior": "Exclusive",
+        "coordinate-with-file-locks": false,
+        "ignore-self-locks": false,
+        "ignore-subrow-locks": false,
+        "no-clear-on-write": false,
+        "commit-after-data-set": null,
+        "rollback-if-commit-fails": null,
+        "auto-rollback-on-clear": null,
+        "enforce-required-fields-before-save": null
+    },
+    "joined-tables": {
+        "primary": null,
+        "joined": null
+    },
+    "form-designer-flags": [
+        "0x7FFFE",
+        "0xF001E808"
+    ],
+    "background-image": "",
+    "icon": "EXAMPLES*IMAGE*ICO*REPVIEW",
+    "page-count": 1,
+    "controls": [
+        {
+            "name": "STATUSLINE",
+            "icon-literal": "",
+            "type": "EDITFIELD",
+            "parent": "EXAMPLES_MAIN2",
+            "size": {
+                "x": 5,
+                "y": -24,
+                "y-ext": null,
+                "width": -397,
+                "height": 20
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_DISABLED",
+                "ES_AUTOHSCROLL"
+            ],
+            "style-ex": [
+                "WS_EX_CLIENTEDGE"
+            ],
+            "ps-style": [
+                "PSS_INITIALFOCUS",
+                "PSS_AUTOSIZE_Y",
+                "PSS_AUTOSIZE_W"
+            ],
+            "tab-stop": 1,
+            "background": "#8F000000",
+            "foreground": "#7FFFFFFF",
+            "font": {
+                "face-name": "Arial",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 3,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0010008"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "TEXT_2",
+            "icon-literal": "",
+            "type": "STATIC",
+            "parent": "EXAMPLES_MAIN2",
+            "size": {
+                "x": -396,
+                "y": -23,
+                "y-ext": null,
+                "width": 388,
+                "height": 16
+            },
+            "text": "<- An ordinary EditLine turned into a Status Line. See this window's Create Event",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_BORDER",
+                "SS_LEFT"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_AUTOSIZE_X",
+                "PSS_AUTOSIZE_Y"
+            ],
+            "tab-stop": 0,
+            "background": "#0095FFFF",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0014008"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "LISTBOX",
+            "icon-literal": "",
+            "type": "LISTBOX",
+            "parent": "EXAMPLES_MAIN2",
+            "size": {
+                "x": 0,
+                "y": 8,
+                "y-ext": null,
+                "width": -566,
+                "height": -37
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_BORDER",
+                "WS_VSCROLL",
+                "LBS_NOTIFY",
+                "LBS_OWNERDRAWFIXED",
+                "LBS_HASSTRINGS",
+                "LBS_USETABSTOPS",
+                "LBS_NOINTEGRALHEIGHT"
+            ],
+            "style-ex": [
+                "WS_EX_CLIENTEDGE"
+            ],
+            "ps-style": [
+                "PSS_TRANSPARENT_BMP",
+                "PSS_CLIPONLY",
+                "PSS_AUTOSIZE_W",
+                "PSS_AUTOSIZE_H",
+                "PSS_LB_HIERARCHY"
+            ],
+            "tab-stop": 2,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "Tahoma",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 3,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "DBLCLK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "EXAMPLES*STPROCEXE**EXAMPLES_MAIN",
+                    "parameters": [
+                        "LISTBOX",
+                        "DBLCLICK",
+                        "@SELF"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fff6",
+                "0xf001e208"
+            ],
+            "bitmap-id": "EXAMPLES*IMAGE*BMP*REPTYPES",
+            "icon-id": "",
+            "values": [
+                "1-1: Customers",
+                "2-2: Customers Entry",
+                "1-1: Products",
+                "2-2: Products Entry",
+                "2-2: Product Picture Entry",
+                "1-1: Orders",
+                "2-2: Orders Entry",
+                "1-1: Invoices",
+                "2-2: Invoices Entry",
+                "1-1: States",
+                "2-2: States Entry",
+                "1-1: Reports",
+                "2-2: All Reports",
+                "1-1: Fun",
+                "2-2: MP3 Player"
+            ],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 3,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "HSPLIT_1",
+            "icon-literal": "",
+            "type": "HSPLITBAR",
+            "parent": "EXAMPLES_MAIN2",
+            "size": {
+                "x": 0,
+                "y": -33,
+                "y-ext": null,
+                "width": 786,
+                "height": 4
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_PUSHBUTTON"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_TRANSPARENT_BMP",
+                "PSS_CLIPONLY",
+                "PSS_SCALEIMAGE",
+                "PSS_AUTOSIZE_Y",
+                "PSS_AUTOSIZE_W",
+                "PSS_SB_FIXEDPOSITION"
+            ],
+            "tab-stop": 0,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "Tahoma",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 3,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016408"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": {
+                "upper-bound": 4,
+                "lower-bound": 4,
+                "increment": ""
+            },
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "VSPLIT_1",
+            "icon-literal": "",
+            "type": "VSPLITBAR",
+            "parent": "EXAMPLES_MAIN2",
+            "size": {
+                "x": 220,
+                "y": 0,
+                "y-ext": null,
+                "width": 4,
+                "height": -33
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_PUSHBUTTON"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY",
+                "PSS_AUTOSIZE_H"
+            ],
+            "tab-stop": 0,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "Tahoma",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 3,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016408"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": {
+                "upper-bound": 4,
+                "lower-bound": 4,
+                "increment": ""
+            },
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "MDICLIENT",
+            "icon-literal": "RTIMDICLIENT",
+            "type": "MDICLIENT",
+            "parent": "EXAMPLES_MAIN2",
+            "size": {
+                "x": 229,
+                "y": 8,
+                "y-ext": null,
+                "width": 556,
+                "height": 444
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_CLIPSIBLINGS",
+                "WS_CLIPCHILDREN",
+                "WS_VSCROLL",
+                "WS_HSCROLL"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_AUTOSIZE_W",
+                "PSS_AUTOSIZE_H"
+            ],
+            "tab-stop": 0,
+            "background": "",
+            "foreground": "#00000000",
+            "font": null,
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "",
+            "o-conv": "",
+            "default": "",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf001c808"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        }
+    ],
+    "menu": {
+        "type": "MENU",
+        "name": "",
+        "text": "",
+        "disabled": false,
+        "checked": false,
+        "hidden": false,
+        "accelerator": "None",
+        "tooltip": "",
+        "flags": [],
+        "sub-menus": [
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "&File",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "File Options",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Save\tF9",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "F9",
+                        "tooltip": "Save this record",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Delete\tAlt+D",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Alt+D",
+                        "tooltip": "Delete this record",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Options\tAlt+Down",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Alt+Down",
+                        "tooltip": "Options",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "E&xit\tAlt+F4",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Alt+F4",
+                        "tooltip": "Exit to the Desk Top",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            },
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "&Customers",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "Customer Menus",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Customer Entry",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "Enter Customer Information",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            },
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "&Products",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "Product Menus",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Product Entry",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "Enter Product Information",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "PRODUCTS.PIC_ENTRY",
+                        "text": "Product Picture Entry",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "Use this screen to associate an image with a Product",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            },
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "&Orders",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "Order Menus",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Order Entry",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "Enter Orders",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            },
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "&Invoices",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "Invoice Menus",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Invoice Entry",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "Enter Invoices",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            },
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "&States",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "State Menus",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "State Entry",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "Entry States",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            },
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "Reports",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "Report Menus",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "All Reports",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "Canned and ad-hoc reports",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            },
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "&Window",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Cascade\tShift+F5",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Shift+F5",
+                        "tooltip": "Cascade the windows",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Tile\tShift+F4",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Shift+F4",
+                        "tooltip": "Tile the Windows",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Arrange &Icons",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "Arrange the Icons",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            },
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "&Help",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "HELP.UPDATES",
+                        "text": "Updates...",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "Displays the Updates dialog box",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "About",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            }
+        ]
+    },
+    "menu-script-events": [],
+    "menu-quick-events": [
+        {
+            "name": "FILE.SAVE",
+            "type": "Event",
+            "message": "WRITE",
+            "entity-id": "@MDIACTIVE",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.DELETE",
+            "type": "Event",
+            "message": "DELETE",
+            "entity-id": "@MDIACTIVE",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.OPTIONS",
+            "type": "Event",
+            "message": "OPTIONS",
+            "entity-id": "@FOCUS",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.EXIT",
+            "type": "Event",
+            "message": "CLOSE",
+            "entity-id": "@WINDOW",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "CUSTOMERS.CUSTOMER_ENTRY",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**START_MDICHILD",
+            "parameters": [
+                "CUST_ENTRY",
+                "@MDIFRAME"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "PRODUCTS.PRODUCT_ENTRY",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**START_MDICHILD",
+            "parameters": [
+                "PROD_ENTRY",
+                "@MDIFRAME"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "PRODUCTS.PIC_ENTRY",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**START_MDICHILD",
+            "parameters": [
+                "PROD_PIC_ENTRY",
+                "@MDIFRAME"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "ORDERS.ORDER_ENTRY",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**START_MDICHILD",
+            "parameters": [
+                "ORDER_ENTRY",
+                "@MDIFRAME"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "INVOICES.INVOICE_ENTRY",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**START_MDICHILD",
+            "parameters": [
+                "INV_ENTRY",
+                "@MDIFRAME"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "STATES.STATE_ENTRY",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**START_MDICHILD",
+            "parameters": [
+                "ST_ENTRY",
+                "@MDIFRAME"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "REPORTS.ALL_REPORTS",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**START_MDICHILD",
+            "parameters": [
+                "REPORTS",
+                "@MDIFRAME"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "WINDOW.CASCADE",
+            "type": "Event",
+            "message": "CASCADE",
+            "entity-id": "@WINDOW",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "WINDOW.TILE",
+            "type": "Event",
+            "message": "TILE",
+            "entity-id": "@WINDOW",
+            "parameters": [
+                "0"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "WINDOW.ARRANGE_ICONS",
+            "type": "Event",
+            "message": "ARRANGEICONS",
+            "entity-id": "@WINDOW",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "HELP.UPDATES",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "EXAMPLES*OIWINEXE**EXAMPLES_UPDATES",
+            "parameters": [
+                "CreateParam",
+                "@WINDOW"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "HELP.ABOUT",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "EXAMPLES*APPNOTE**ABOUT",
+            "parameters": [
+                "EXAMPLES_MAIN"
+            ],
+            "return-id": "",
+            "return-property": ""
+        }
+    ]
+}

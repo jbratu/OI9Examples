@@ -1,0 +1,134 @@
+Compile subroutine SRP_Utilities_Sample(VOID)
+/**********************************************************************************************************************\
+
+    Name        : SRP_Utilities_Sample
+
+    Description : The SRP_Utilities_Sample includes sample code, with debugs, demonstrating the	various functions
+                  included in the SRP Utilities library.
+
+    For best results, use the debugs provided. Some of them are placed after a call	so you can see how fast, in
+    milliseconds, the routine executed. The result is always in the ElapsedTime variable.
+
+\**********************************************************************************************************************/
+
+Declare function Rnd, GetTickCount
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// ARRAY FUNCTIONS
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Declare function SRP_Clean_Array, SRP_Join_Arrays, SRP_Reorder_Array, SRP_Rotate_Array, SRP_Sort_Array
+
+// make a big array with blanks and duplicates
+Array = ""
+NumRows = 10000
+For iRow = 1 to NumRows
+ 	If Rnd(3) then
+		Array := Int(iRow / 2):@FM
+ 	end else
+		Array := @FM
+ 	end
+Next iRow
+Array[-1, 1] = ""
+
+// clean it
+StartTime = GetTickCount()
+Array = SRP_Clean_Array(Array, @FM, "UNIQUE")
+ElapsedTime = GetTickCount() - StartTime:" ms"
+debug
+
+// make two big arrays, the first is every two numbers, the second is every three numbers
+LeftArray = ""
+RightArray = ""
+NumRows = 10000
+For iRow = 1 to NumRows
+	LeftArray := iRow * 2:@FM
+	RightArray := iRow * 3:@FM
+Next iRow
+LeftArray[-1, 1] = ""
+RightArray[-1, 1] = ""
+
+// join them two different ways
+ArrayIntersect = SRP_Join_Arrays(LeftArray, RightArray, @FM, 1)
+ArrayUnion = SRP_Join_Arrays(LeftArray, RightArray)
+debug
+
+// make a big array with random numbers
+Array = ""
+NumCols = 10
+NumRows = 10000
+StartTime = GetTickCount()
+For iCol = 1 to NumCols
+ 	If iCol GT 1 then Array := @FM
+ 	For iRow = 1 to NumRows
+		If iRow GT 1 then Array := @VM
+		Array := Rnd(10000) + 1
+ 	Next iRow
+Next iCol
+
+// reorder the columns (move col 5 to col 1, col 7 to col 2, and col 9 to col 3)
+StartTime = GetTickCount()
+Array = SRP_Reorder_Array(Array, 5:@FM:7:@FM:9)
+ElapsedTime = GetTickCount() - StartTime:" ms"
+debug
+
+// rotate the array, making it suitable for the LIST property
+StartTime = GetTickCount()
+Array = SRP_Rotate_Array(Array)
+ElapsedTime = GetTickCount() - StartTime:" ms"
+debug
+
+// sort the array. Unlike V119, we can leave the delimiters alone and sort in LIST format
+StartTime = GetTickCount()
+Array = SRP_Sort_Array(Array, "AR1", 1)
+ElapsedTime = GetTickCount() - StartTime:" ms"
+debug
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// CRYPTOGRAPHY FUNCTIONS
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Declare function SRP_Hash, SRP_Encode, SRP_Decode
+
+HashString = "My Hash"
+Encode = "HEX"
+
+debug
+Hash = SRP_Hash(HashString, "ADLER32", Encode)
+Hash = SRP_Hash(HashString, "CRC32", Encode)
+Hash = SRP_Hash(HashString, "MD2", Encode)
+Hash = SRP_Hash(HashString, "MD4", Encode)
+Hash = SRP_Hash(HashString, "MD5", Encode)
+Hash = SRP_Hash(HashString, "SHA", Encode)
+Hash = SRP_Hash(HashString, "SHA-1", Encode)
+Hash = SRP_Hash(HashString, "SHA-2", Encode)
+Hash = SRP_Hash(HashString, "SHA-224", Encode)
+Hash = SRP_Hash(HashString, "SHA-256", Encode)
+Hash = SRP_Hash(HashString, "SHA-384", Encode)
+Hash = SRP_Hash(HashString, "SHA-512", Encode)
+Hash = SRP_Hash(HashString, "RIPEMD", Encode)
+Hash = SRP_Hash(HashString, "RIPEMD-128", Encode)
+Hash = SRP_Hash(HashString, "RIPEMD-160", Encode)
+Hash = SRP_Hash(HashString, "RIPEMD-256", Encode)
+Hash = SRP_Hash(HashString, "RIPEMD-320", Encode)
+Hash = SRP_Hash(HashString, "TIGER", Encode)
+Hash = SRP_Hash(HashString, "WHIRLPOOL", Encode)
+Hash = SRP_Hash(HashString, "SHA-1", Encode)
+Hash = SRP_Hash(HashString, "", Encode)					; // default = SHA-1
+Hash = SRP_Hash(HashString, "asdf", Encode)				; // unrecognized = SHA-1
+
+debug
+EncodeString = "My String to Encode"
+EncodeString = SRP_Encode(EncodeString, "HEX")
+EncodeString = SRP_Decode(EncodeString, "HEX")
+EncodeString = SRP_Encode(EncodeString, "BASE32")
+EncodeString = SRP_Decode(EncodeString, "BASE32")
+EncodeString = SRP_Encode(EncodeString, "BASE64")
+EncodeString = SRP_Decode(EncodeString, "BASE64")
+EncodeString = SRP_Encode(EncodeString, "")				; // default = BASE64
+EncodeString = SRP_Decode(EncodeString, "")				; // default = BASE64
+EncodeString = SRP_Encode(EncodeString, "asdf")			; // unrecognized = BASE64
+EncodeString = SRP_Decode(EncodeString, "asdf")			; // unrecognized = BASE64
+
+Return

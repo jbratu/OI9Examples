@@ -1,0 +1,33 @@
+compile insert MP3_MP3OCX
+* Insert for the ImpulseMP3.ISMP3Player OLE Control
+
+
+* Control Name
+EQU MP3PLAYERCONTROL$ to ".MP3OCX"
+
+* Properties
+EQU FileName$ 	to "OLE.MPEGFileName"
+EQU Title$ 			to "OLE.ID3TagTitle"
+EQU Artist$ 		to "OLE.ID3TagArtist"
+EQU Album$ 			to "OLE.ID3TagAlbum"
+EQU Comments$ 	to "OLE.ID3TagComment"
+EQU Genre$ 			to "OLE.ID3TagGenre"
+EQU Year$ 			to "OLE.ID3TagYear"
+EQU Length$ 		to "OLE.MPEGLength"
+EQU Position$		to "OLE.MP3GetPositionMins"
+EQU GetVolume$  to "OLE.MP3GetVolume"
+
+
+* Methods
+EQU About$ 						to "About"
+EQU Play$							to "MP3Play"
+EQU Pause$						to "MP3Pause"
+EQU IsPlaying$				to "IsPlaying"
+EQU Stop$							to "MP3Stop"
+EQU Volume$						to "MP3SetVolume"
+EQU Open$							to "MP3Open"
+EQU ActTime$					to "ActTime"
+EQU Close$						to "MP3Close"
+
+* Events
+EQU FinishedPlaying$	to "ThreadEnded"

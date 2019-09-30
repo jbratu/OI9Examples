@@ -1,0 +1,15 @@
+{
+    "record1": {
+        "<1>": "O4W OpenID Support",
+        "<2>": "Allows O4W Users to log in using an OpenID provider and ID, and optionally associate that OpenID identity with an O4W permissions record.",
+        "<3>": "Enable OpenID Support? {OPTIONS No/0|Yes/1}{DEFAULT 0}",
+        "<4>": "Name of \"Generic\" OpenID permissions entry {DEFAULT OPENID}",
+        "<5>": "Login User Interface Layout {OPTIONS O4W Only/0|O4W then OpenID/1|OpenID then O4W/2|OpenID Only/-1}{DEFAULT 1}",
+        "<6>": {
+            "<6,1>": "Attempt to match OpenID identity with O4W permissions entry? {OPTIONS No/0|Yes/1}{DEFAULT 0}",
+            "<6,2>": "Allow creation of new O4W users entries for valid OpenID users? {OPTIONS No/0|Yes/1}{DEFAULT 0}"
+        },
+        "<7>": "Routine to match OpenID identity with O4W permissions entry {DEFAULT RTI_OPENID_SUPPORT}",
+        "<8>": "Optional debug record key"
+    }
+}

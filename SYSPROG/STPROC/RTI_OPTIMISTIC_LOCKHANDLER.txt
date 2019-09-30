@@ -1,0 +1,225 @@
+Function RTI_OPTIMISTIC_LOCKHANDLER(ACTION, THANDLE, ID, TEMPFILE, HANDLE, RECORD, OPTIONS)
+*#!Precompile
+/*
+*  This program is proprietary and is not to be used by or disclosed to others, nor is it to be copied without
+*  written permission from Revelation Technologies, Inc.
+!
+*
+*  VERSION    : 1.0
+*
+*
+*  AUTHOR     : Bryan Shumsky
+*
+*  CREATED    : May 20, 2011
+*
+*
+!
+*
+*  REVISION HISTORY           (Most CURRENT first) :
+*
+*    DATE       IMPLEMENTOR     FUNCTION
+*  --------     -----------     --------
+* 
+*
+*/
+*
+$Insert O4WLOCKEQUATES
+
+Declare Function Repository, RTI_GETPROTECTEDFIELDS, RTI_CREATEGUID
+Declare Subroutine Repository
+*
+If Assigned(action) Else
+	Return O4W_LOCKHANDLER_MISSING_ACTION$
+End
+If Assigned(THandle) Else
+	Return O4W_LOCKHANDLER_MISSING_THANDLE$
+End
+If Assigned(id) Else
+	Return O4W_LOCKHANDLER_MISSING_ID$
+End
+If Assigned(Options) Else Options = ""
+*
+rslt = O4W_LOCKHANDLER_OK$ ;* assume success
+error = ""
+Begin Case
+	Case action = O4W_LOCKHANDLER_ACTION_READ$
+		* read/lock
+		* Requires:	ACTION		(O4W_LOCKHANDLER_ACTION_READ$)
+		*			THANDLE		(handle to table for source record)
+		*			ID			(source record ID)
+		*			HANDLE		(ID for storage record - created if not specified)
+		*			TEMPFILE	(handle for storage table)
+		* Returns:	RECORD		(source record)
+		*
+		If THandle _eqc "REPOSITORY" Then
+			* use repository methods here
+			record = Repository("ACCESS", ID)
+			Call Set_Status(0)
+		End else
+			Read record From THandle, ID Else
+				record = ""
+				rslt = O4W_LOCKHANDLER_MISSING_RECORD$
+			end
+		End
+		If Assigned(handle) Else handle = ""
+		If handle = "" then
+			* generate unique ID for other record retrieval
+			handle = RTI_CREATEGUID("b")
+		end
+		Write record On TEMPFILE, handle
+	Case action = O4W_LOCKHANDLER_ACTION_LOCK$
+		* check if we can lock record
+		* Requires:	ACTION		(O4W_LOCKHANDLER_ACTION_LOCK$)
+		*			THANDLE		(handle to table for source record)
+		*			ID			(source record ID)
+		*
+		Gosub doLock
+		If error <> "" Then Return error
+	Case action = O4W_LOCKHANDLER_ACTION_CHECK$
+		* check if record is unchanged
+		* normally expects record to be locked, but can optionally lock 
+		* normally leave record locked, but can optionally unlock after checking
+		* Requires:	ACTION		(O4W_LOCKHANDLER_ACTION_CHECK$)
+		*			THANDLE		(handle to table for source record)
+		*			ID			(source record ID)
+		*			HANDLE		(ID for storage record)
+		*			TEMPFILE	(handle for storage table)
+		*			OPTIONS		(optional settings for locking/unlocking)
+		* Returns:	RECORD		(source record)
+		*
+		record = ""
+		If Assigned(handle) Else
+			Return O4W_LOCKHANDLER_MISSING_HANDLE$
+		End
+		If Index(options, O4W_LOCKHANDLER_OPTION_LOCK$, 1) then
+			Gosub doLock
+		end
+		If error = "" then
+			Gosub doCheck
+			record = currRecord ;* return 'real' record contents
+			If Index(options, O4W_LOCKHANDLER_OPTION_UNLOCK$, 1) Then
+				Gosub doUnlock
+			end
+		End
+		If error <> "" Then rslt = error
+	Case action = O4W_LOCKHANDLER_ACTION_WRITE$
+		* write record
+		* normally expects record to be locked, but can optionally lock record before update
+		* Requires:	ACTION		(O4W_LOCKHANDLER_ACTION_WRITE$)
+		*			THANDLE		(handle to table for source record)
+		*			ID			(source record ID)
+		*			HANDLE		(ID for storage record)
+		*			TEMPFILE	(handle for storage table)
+		*			OPTIONS		(optional settings for locking/unlocking)
+		*			RECORD		(updated record to write)
+		*
+		If Assigned(handle) Else
+			Return O4W_LOCKHANDLER_MISSING_HANDLE$
+		End
+		If Assigned(record) Else
+			Return O4W_LOCKHANDLER_MISSING_RECORD$
+		End
+		If Index(options, O4W_LOCKHANDLER_OPTION_LOCK$, 1) Then
+			Gosub doLock
+		End
+		If error <> "" Then
+			* couldn't get lock?
+			Return error
+		End
+		* bzs 110310 only re-do the check if we just locked the record - otherwise it's OK to assume it's ok
+		If Index(options, O4W_LOCKHANDLER_OPTION_LOCK$, 1) then
+			Gosub doCheck
+		end
+		If error <> "" Then
+			* record is different
+			Return error
+		end
+		If tHandle _eqc "REPOSITORY" Then
+			* use repository methods to update record
+			type = Field(ID, "*", 2)
+			Call Repository("NEW", ID, "", 1, 1, "", "", "", "", "", type, "")
+			CALL SET_STATUS(0)
+			Call Repository("WRITE", ID, "", 1, 1, "", "", "", "", "", type, record)
+			CALL SET_STATUS(0)
+			* Update our saved copy as well
+			curr.info = Repository("ACCESS", ID)
+			CALL SET_STATUS(0)
+			Write curr.INFO ON TEMPFILE, handle
+		End else
+			Write record On THandle, ID
+			* Update our saved copy as well
+			Read newRecord From THandle, ID Then
+				Write newRecord On TEMPFILE, handle
+			End
+		End
+		Gosub doUnlock
+	Case action = O4W_LOCKHANDLER_ACTION_UNLOCK$
+		* Requires:	ACTION		(O4W_LOCKHANDLER_ACTION_CHECK$)
+		*			THANDLE		(handle to table for source record)
+		*			ID			(source record ID)
+		*
+		Gosub doUnlock
+	Case 1
+		rslt = O4W_LOCKHANDLER_INVALID_ACTION$
+End case
+*
+Return rslt
+*
+*
+doLock: * Lock specified record
+error = ""
+If tHandle _eqc "REPOSITORY" Then
+	* use repository methods to lock
+	call set_status(0)
+	Call Repository("LOCK", ID)
+	If Get_Status(errCode) then
+		CALL SET_STATUS(0)
+		error = O4W_LOCKHANDLER_NO_LOCK$
+	End
+End Else
+	Lock THandle, ID Else
+		error = O4W_LOCKHANDLER_NO_LOCK$
+	End
+end
+Return
+*
+doCheck: * Check If record can be updated
+error = ""
+If tHandle _eqc "REPOSITORY" Then
+	* use repository methods to retrieve record
+	currRecord = Repository("ACCESS", ID)
+	CALL SET_STATUS(0)
+End Else
+	Read currRecord From THandle, ID Else currRecord = ""
+end
+Read saveRecord From TEMPFILE, handle Else saveRecord = ""
+skipList = RTI_GETPROTECTEDFIELDS(tHandle, 0)
+If skipList <> "" Then
+	numSkip = dcount(skipList, @FM)
+	currRecord2 = currRecord
+	saveRecord2 = saveRecord
+	* null out any fields that we don't want to compare in both records
+	For each.skip = 1 To numSkip
+		thisField = skipList<each.skip>
+		currRecord2<thisField> = ""
+		saveRecord2<thisField> = ""
+	Next each.skip
+	If currRecord2 <> saveRecord2 Then
+		error = O4W_LOCKHANDLER_ITEM_CHANGED$	
+	end
+End else
+	If currRecord <> saveRecord Then
+		error = O4W_LOCKHANDLER_ITEM_CHANGED$
+	End
+end
+Return
+*
+doUnlock: * Unlock specified record
+If tHandle _eqc "REPOSITORY" Then
+	Call Repository("UNLOCK", ID)
+	CALL SET_STATUS(0)
+End Else
+	Unlock THandle, ID
+End
+Return
+

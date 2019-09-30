@@ -1,0 +1,163 @@
+compile insert O4WREPORTEQUATES
+* O4WReportEquates
+*
+equ popupOptionValue$ to 1
+equ mobileOptionValue$ to 2
+equ normalOptionValue$ to 3
+
+Equ LastUpdated$ To 2
+Equ TableName$ To 3
+Equ BGColor$ To 4
+Equ BGImage$ To 5
+
+Equ TextColor$ To 6
+Equ LinkColor$ To 7
+Equ VisitedColor$ To 8
+Equ Title$ To 9
+Equ Banner$ To 10
+
+Equ Footer$ To 11
+Equ whichMV$ To 12
+Equ DetSupp$ To 13
+Equ DefaultReturnValue$ To 14
+Equ URL$ To 15
+
+Equ URLDesc$ To 16
+Equ GraphType$ To 17
+Equ GraphName$ To 18
+Equ ModuleList$ To 19
+	* value 1: modules using this report (and obj code of commuter module, if present)
+	* value 2: modules using the src code of commuter module
+	* value 3: modules using the debug record of commuter module
+
+Equ ReportDesc$ To 20
+
+Equ RptPermissions$ To 21
+Equ Align$ To 22
+Equ Paginator$ To 23
+Equ MinCount$ To 24
+Equ MenuName$ To 25
+
+Equ LinesPerPage$ To 26
+Equ ShowCount$ To 27
+Equ GrandTotalText$ To 28
+Equ GrandTotalColor$ To 29
+Equ Template_Name$ To 30
+
+Equ RunFirst$ To 31
+	* first value: RLIST statement to run, or stored procedure (preceded by @)
+	* second value: stored procedure to run to read each row
+Equ OtherTemplate_Name$ To 32
+     * first value: template to use when popup
+	 * second value: template to use when mobile
+Equ ZebraTable$ To 33
+Equ OtherLinesPerPage$ To 34
+    * first value: lines per page when popup
+	* second value: lines per page when mobile
+Equ TableBorder$ To 35
+
+Equ DownloadType$ To 36
+	Equ Download_CSV$ To 1
+	Equ Download_XML$ To 2
+	Equ Download_PDF$ To 3
+	
+Equ PopupShowCounter$ To 37
+*Equ RunRead$ To 38
+Equ CommuterModule$ To 38
+	* first value: stored procedure name of commuter module
+	* second value: @SVM list of 'events' to call
+		Equ PRERUN_EVENT$ To "SELECT"
+		Equ READ_EVENT$ To "PRE_READ"
+		Equ SEARCH_EVENT$ To "SEARCH"
+		Equ PREPAGE_EVENT$ To "PRE_DRAW"
+		Equ POSTPAGE_EVENT$ To "POST_DRAW"
+		Equ REPORT_CREATE_EVENT$ To "CREATE"
+		Equ REPORT_READY_EVENT$ To "READY"
+		Equ BUILD_COMMUTER$ To "BUILD"
+		Equ FULL_EVENT_LIST$ To REPORT_CREATE_EVENT$:@vm:PRERUN_EVENT$:@VM:READ_EVENT$:@VM:SEARCH_EVENT$:@VM:PREPAGE_EVENT$:@VM:POSTPAGE_EVENT$:@VM:REPORT_READY_EVENT$
+Equ StaticList$ To 39
+Equ SORT_FIELDS_START$ To 40
+Equ SortAttr$ To 40
+
+Equ SortDir$ To 41
+Equ SortExp$ To 42
+Equ SORT_FIELDS_END$ To 42
+Equ SELECT_FIELDS_START$ To 43
+Equ SelectionCase$ To 43
+Equ SelectionSkip$ To 44
+Equ SelectionAttr$ To 45
+
+Equ SelectionType$ To 46
+* SelectionType$, each.field, 1 = type
+* SelectionType$, each.field, 2 = multiple allowed? 1/0
+* SelectionType$, each.field, 3 = maximum number of items to display in listbox (if indexed field) (default ("") is all; negative number means do not show ANY if this value is exceeded)
+* SelectionType$, each.field, 4 = sort direction (1=reverse) (if indexed field)
+Equ SelectionPrompt$ To 47
+Equ SelectionMod$ To 48
+Equ SelectionConn$ To 49
+Equ SELECT_FIELDS_END$ To 49
+
+Equ DISPLAY_FIELDS_START$ To 50
+
+Equ DisplayField$ To 50
+
+Equ ColumnName$ To 51
+Equ DISPLAY_FIELD_ATTRIBUTES_START$ To 52
+Equ ColumnColor$ To 52
+Equ ColumnBGColor$ To 53
+Equ ColumnAlign$ To 54
+	* subvalue 1: column alignment (0/1/2 = left/center/right)
+	* subvalue 2: column width
+	
+Equ ColumnBold$ To 55
+
+Equ ColumnItalic$ To 56
+Equ ValueColor$ To 57
+Equ ValueBGColor$ To 58
+Equ ValueAlign$ To 59
+Equ ValueMod$ To 60
+Equ DISPLAY_FIELD_DISPLAY_ATTRIBUTES_END$ To 60
+
+Equ DISPLAY_FIELD_UNIQUE_ATTRIBUTES_START$ To 61
+Equ ValueLinkTo$ To 61
+Equ ValueLinkType$ To 62
+   * subvalue 1: link type
+   * subvalue 2: link target (default to "drilldown", "<<none>>" for none)
+   
+Equ ValueLinkImage$ To 63
+	* subvalue 1: imageURL
+	* subvalue 2: desired width
+	* subvalue 3: desired height
+Equ ValueModColor$ To 64
+Equ ValueModText$ To 65
+
+Equ ValueMultiColorPrompt$ To 66
+Equ ValueMultiColor$ To 67
+Equ ValueBrkMultiColorPrompt$ To 68
+Equ ValueBrkMultiColor$ To 69
+Equ DISPLAY_FIELD_UNIQUE_ATTRIBUTES_END$ To 69
+Equ ColumnFont$ To 70
+   * subvalue 1: font name
+   * subvalue 2: font size
+
+Equ ValueFont$ To 71
+   * subvalue 1: font name
+   * subvalue 2: font size
+Equ ColSortable$ To 72
+Equ ValueConv$ To 73
+Equ ValueNoSplit$ To 74
+Equ ColPerms$ To 75
+
+Equ DISPLAY_FIELDS_END$ To 75
+
+Equ SystemFlag$ To 100
+Equ MaxRecords$ to 101
+Equ RepeatTimer$ to 102
+   * first value: ignored
+   * second value: #seconds for mobile output
+   * third value: #seconds for normal output
+Equ NonColumnarOutput$ to 103
+   * first value: 1/0 for popup output
+   * second value: 1/0 for mobile output
+   * third value: 1/0 for normal output
+Equ ExtraPlugins$ To 104 

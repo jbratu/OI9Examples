@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "valueChosen = Get_Property(@window:'.OLE_CALENDAR_CTRL','value')\r\ncall End_Dialog(@window,valueChosen)\r\n\r\nRETURN 0"
+    }
+}

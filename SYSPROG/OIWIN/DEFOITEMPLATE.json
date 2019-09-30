@@ -1,0 +1,854 @@
+{
+    "style-sheet-id": "",
+    "name": "DEFOITEMPLATE",
+    "icon-name": "",
+    "title": "Untitled",
+    "size": {
+        "x": 426,
+        "y": 113,
+        "y-ext": null,
+        "width": -324,
+        "height": -42
+    },
+    "style": [
+        "WS_POPUP",
+        "WS_VISIBLE",
+        "WS_CLIPCHILDREN",
+        "WS_BORDER",
+        "WS_DLGFRAME",
+        "WS_SYSMENU",
+        "WS_THICKFRAME",
+        "WS_MINIMIZEBOX",
+        "WS_MAXIMIZEBOX"
+    ],
+    "style-ex": [],
+    "ps-style": [
+        "PSS_WIN_HASMENU"
+    ],
+    "background": "#00FFFFFF",
+    "script-events": [],
+    "quick-events": [],
+    "tables": [],
+    "io-options": {
+        "optimistic-locking": false,
+        "locking-behavior": "Exclusive",
+        "coordinate-with-file-locks": false,
+        "ignore-self-locks": false,
+        "ignore-subrow-locks": false,
+        "no-clear-on-write": false,
+        "commit-after-data-set": null,
+        "rollback-if-commit-fails": null,
+        "auto-rollback-on-clear": null,
+        "enforce-required-fields-before-save": null
+    },
+    "joined-tables": {
+        "primary": null,
+        "joined": null
+    },
+    "form-designer-flags": [
+        "0x7FFFE",
+        "0xF001EA08"
+    ],
+    "background-image": "",
+    "icon": "",
+    "page-count": 1,
+    "controls": [
+        {
+            "name": "BTN_OK",
+            "icon-literal": "",
+            "type": "PUSHBUTTON",
+            "parent": "DEFOITEMPLATE",
+            "size": {
+                "x": 52,
+                "y": 12,
+                "y-ext": null,
+                "width": 80,
+                "height": 24
+            },
+            "text": "&OK",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_PUSHBUTTON",
+                "BS_MULTILINE"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_INITIALFOCUS",
+                "PSS_TRANSPARENT_BMP",
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 1,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "Tahoma",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 3,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Event",
+                    "message": "WRITE",
+                    "entity-id": "@WINDOW",
+                    "parameters": [],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016088"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "BTN_CANCEL",
+            "icon-literal": "",
+            "type": "PUSHBUTTON",
+            "parent": "DEFOITEMPLATE",
+            "size": {
+                "x": 140,
+                "y": 12,
+                "y-ext": null,
+                "width": 80,
+                "height": 24
+            },
+            "text": "&Cancel",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_PUSHBUTTON",
+                "BS_CENTER",
+                "BS_LEFT",
+                "BS_RIGHT",
+                "BS_MULTILINE"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_TRANSPARENT_BMP"
+            ],
+            "tab-stop": 2,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "Tahoma",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 3,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Event",
+                    "message": "CLOSE",
+                    "entity-id": "@WINDOW",
+                    "parameters": [],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016c88"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        }
+    ],
+    "menu": {
+        "type": "MENU",
+        "name": "",
+        "text": "",
+        "disabled": false,
+        "checked": false,
+        "hidden": false,
+        "accelerator": "None",
+        "tooltip": "",
+        "flags": [],
+        "sub-menus": [
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "&File",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Read Row\tCtrl+R",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+R",
+                        "tooltip": "",
+                        "flags": [
+                            "PSIS_GROUPBEGIN",
+                            "PSIS_SKIPMENUEVENT",
+                            "PSIS_GENERATELOSTFOCUS"
+                        ],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Save Row\tCtrl+S",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+S",
+                        "tooltip": "",
+                        "flags": [
+                            "PSIS_GROUPBEGIN",
+                            "PSIS_SKIPMENUEVENT",
+                            "PSIS_GENERATELOSTFOCUS"
+                        ],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "C&lear Form\tF8",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "F8",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Delete Row\tF7",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "F7",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Close\tAlt+C",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Alt+C",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            },
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "&Edit",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Options\tAlt+Down",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Alt+Down",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            },
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "&View",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&First Page\tCtrl+Shift+Home",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+Shift+Home",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Previous Page\tCtrl+Shift+PgUp",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+Shift+PageUp",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Next Page\tCtrl+Shift+PgDn",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+Shift+Next",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Last Page\tCtrl+Shift+End",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+Shift+End",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            },
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "&QBF",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Initialize\tF11",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "F11",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Execute\tF6",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "F6",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "Load from External List",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Next\tF3",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "F3",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Previous\tF4",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "F4",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&First\tCtrl+F4",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+F4",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Last\tCtrl+F3",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+F3",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Absolute\tF12",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "F12",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Table",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Close",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            },
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "&Help",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Help\tF1",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "F1",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&QuickHelp\tCtrl+F1",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+F1",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            }
+        ]
+    },
+    "menu-script-events": [],
+    "menu-quick-events": [
+        {
+            "name": "FILE.READ_ROW",
+            "type": "Event",
+            "message": "READ",
+            "entity-id": "@WINDOW",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.SAVE_ROW",
+            "type": "Event",
+            "message": "WRITE",
+            "entity-id": "@WINDOW",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.CLEAR_FORM",
+            "type": "Event",
+            "message": "CLEAR",
+            "entity-id": "@WINDOW",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.DELETE_ROW",
+            "type": "Event",
+            "message": "DELETE",
+            "entity-id": "@WINDOW",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.CLOSE",
+            "type": "Event",
+            "message": "CLOSE",
+            "entity-id": "@WINDOW",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "EDIT.OPTIONS",
+            "type": "Event",
+            "message": "OPTIONS",
+            "entity-id": "@FOCUS",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "VIEW.FIRST_PAGE",
+            "type": "Event",
+            "message": "PAGE",
+            "entity-id": "@WINDOW",
+            "parameters": [
+                "1"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "VIEW.PREVIOUS_PAGE",
+            "type": "Event",
+            "message": "PAGE",
+            "entity-id": "@WINDOW",
+            "parameters": [
+                "-"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "VIEW.NEXT_PAGE",
+            "type": "Event",
+            "message": "PAGE",
+            "entity-id": "@WINDOW",
+            "parameters": [
+                "+"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "VIEW.LAST_PAGE",
+            "type": "Event",
+            "message": "PAGE",
+            "entity-id": "@WINDOW",
+            "parameters": [
+                "L"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "QBF.INITIALIZE",
+            "type": "Event",
+            "message": "QBFINIT",
+            "entity-id": "@WINDOW",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "QBF.EXECUTE",
+            "type": "Event",
+            "message": "QBFRUN",
+            "entity-id": "@WINDOW",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "QBF.LOAD_FROM_EXTERNAL_LIST",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**RTI_QBF_LOAD_FROM_EXTERNALLIST",
+            "parameters": [
+                "@WINDOW"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "QBF.NEXT",
+            "type": "Event",
+            "message": "QBFNEXT",
+            "entity-id": "@WINDOW",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "QBF.PREVIOUS",
+            "type": "Event",
+            "message": "QBFPREV",
+            "entity-id": "@WINDOW",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "QBF.FIRST",
+            "type": "Event",
+            "message": "QBFFIRST",
+            "entity-id": "@WINDOW",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "QBF.LAST",
+            "type": "Event",
+            "message": "QBFLAST",
+            "entity-id": "@WINDOW",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "QBF.ABSOLUTE",
+            "type": "Event",
+            "message": "QBFABS",
+            "entity-id": "@WINDOW",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "QBF.TABLE",
+            "type": "Event",
+            "message": "QBFTABLE",
+            "entity-id": "@WINDOW",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "QBF.CLOSE",
+            "type": "Event",
+            "message": "QBFCLOSE",
+            "entity-id": "@WINDOW",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "HELP.HELP",
+            "type": "Event",
+            "message": "HELP",
+            "entity-id": "@FOCUS",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        }
+    ]
+}

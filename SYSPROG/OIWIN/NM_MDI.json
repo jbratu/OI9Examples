@@ -1,0 +1,1285 @@
+{
+    "style-sheet-id": "",
+    "name": "NM_MDI",
+    "icon-name": "NOTEMAN",
+    "title": "Notes Manager",
+    "size": {
+        "x": 96,
+        "y": 68,
+        "y-ext": null,
+        "width": 533,
+        "height": 351
+    },
+    "style": [
+        "WS_POPUP",
+        "WS_VISIBLE",
+        "WS_CLIPCHILDREN",
+        "WS_BORDER",
+        "WS_DLGFRAME",
+        "WS_SYSMENU",
+        "WS_THICKFRAME",
+        "WS_MINIMIZEBOX",
+        "WS_MAXIMIZEBOX"
+    ],
+    "style-ex": [],
+    "ps-style": [
+        "PSS_WIN_HASMENU"
+    ],
+    "background": "#00C0C0C0",
+    "script-events": [
+        "CLOSE",
+        "OMNIEVENT"
+    ],
+    "quick-events": [
+        {
+            "name": "CREATE",
+            "type": "Event",
+            "message": "OMNIEVENT",
+            "entity-id": "@SELF",
+            "parameters": [
+                "CREATE"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "GOTFOCUS",
+            "type": "Event",
+            "message": "OMNIEVENT",
+            "entity-id": "@SELF",
+            "parameters": [
+                "GOTFOCUS"
+            ],
+            "return-id": "",
+            "return-property": ""
+        }
+    ],
+    "tables": [],
+    "io-options": {
+        "optimistic-locking": false,
+        "locking-behavior": "Exclusive",
+        "coordinate-with-file-locks": false,
+        "ignore-self-locks": false,
+        "ignore-subrow-locks": false,
+        "no-clear-on-write": false,
+        "commit-after-data-set": null,
+        "rollback-if-commit-fails": null,
+        "auto-rollback-on-clear": null,
+        "enforce-required-fields-before-save": null
+    },
+    "joined-tables": {
+        "primary": null,
+        "joined": null
+    },
+    "form-designer-flags": [
+        "0x7FFFE",
+        "0xF001E988"
+    ],
+    "background-image": "",
+    "icon": "SYSPROG*IMAGE*ICO*NOTEMAN",
+    "page-count": 1,
+    "controls": [
+        {
+            "name": "MDICLIENT",
+            "icon-literal": "RTISTATIC",
+            "type": "MDICLIENT",
+            "parent": "NM_MDI",
+            "size": {
+                "x": 0,
+                "y": 32,
+                "y-ext": null,
+                "width": 525,
+                "height": 252
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_CLIPSIBLINGS",
+                "WS_CLIPCHILDREN",
+                "WS_VSCROLL",
+                "WS_HSCROLL"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_AUTOSIZE_W",
+                "PSS_AUTOSIZE_H"
+            ],
+            "tab-stop": 0,
+            "background": "",
+            "foreground": "#00000000",
+            "font": null,
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "",
+            "o-conv": "",
+            "default": "",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf001c808"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "GRP_1",
+            "icon-literal": "",
+            "type": "GROUPBOX",
+            "parent": "NM_MDI",
+            "size": {
+                "x": 0,
+                "y": -6,
+                "y-ext": null,
+                "width": -1,
+                "height": 38
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_GROUPBOX"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_AUTOSIZE_W"
+            ],
+            "tab-stop": 0,
+            "background": "#00BFBFBF",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 700,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0014408"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "STLINE",
+            "icon-literal": "",
+            "type": "EDITFIELD",
+            "parent": "NM_MDI",
+            "size": {
+                "x": 3,
+                "y": -18,
+                "y-ext": null,
+                "width": -1,
+                "height": 17
+            },
+            "text": " ",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_DISABLED"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_INITIALFOCUS",
+                "PSS_AUTOSIZE_Y",
+                "PSS_AUTOSIZE_W"
+            ],
+            "tab-stop": 1,
+            "background": "#00C0C0C0",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0014008"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "OPNDB_BTN",
+            "icon-literal": "",
+            "type": "PUSHBMP",
+            "parent": "NM_MDI",
+            "size": {
+                "x": 4,
+                "y": 3,
+                "y-ext": null,
+                "width": 26,
+                "height": 27
+            },
+            "text": " Open Notes Database|Open Database",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 2,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 700,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Event",
+                    "message": "OMNIEVENT",
+                    "entity-id": "@WINDOW",
+                    "parameters": [
+                        "OPEN_DATABASE"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016000"
+            ],
+            "bitmap-id": "SYSPROG*IMAGE*BMP*OPNDB",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 2,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "HLP_BTN",
+            "icon-literal": "",
+            "type": "PUSHBMP",
+            "parent": "NM_MDI",
+            "size": {
+                "x": -31,
+                "y": 3,
+                "y-ext": null,
+                "width": 26,
+                "height": 25
+            },
+            "text": " Show the table of Contents|Help",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY",
+                "PSS_AUTOSIZE_X"
+            ],
+            "tab-stop": 3,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 700,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Event",
+                    "message": "HELP",
+                    "entity-id": "@FOCUS",
+                    "parameters": [],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016100"
+            ],
+            "bitmap-id": "SYSPROG*IMAGE*BMP*INFOR",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 3,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "SAVE_BTN",
+            "icon-literal": "",
+            "type": "PUSHBMP",
+            "parent": "NM_MDI",
+            "size": {
+                "x": 32,
+                "y": 3,
+                "y-ext": null,
+                "width": 26,
+                "height": 27
+            },
+            "text": " Save current note|Save",
+            "style": [
+                "WS_CHILD",
+                "WS_DISABLED",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 4,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 700,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Event",
+                    "message": "OMNIEVENT",
+                    "entity-id": "@WINDOW",
+                    "parameters": [
+                        "SAVE"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016000"
+            ],
+            "bitmap-id": "SYSPROG*IMAGE*BMP*SAVEF",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 3,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "DEL_BTN",
+            "icon-literal": "",
+            "type": "PUSHBMP",
+            "parent": "NM_MDI",
+            "size": {
+                "x": 59,
+                "y": 3,
+                "y-ext": null,
+                "width": 26,
+                "height": 27
+            },
+            "text": " Delete selected item|Delete",
+            "style": [
+                "WS_CHILD",
+                "WS_DISABLED",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 5,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 700,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Event",
+                    "message": "OMNIEVENT",
+                    "entity-id": "@WINDOW",
+                    "parameters": [
+                        "DELETE"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016000"
+            ],
+            "bitmap-id": "SYSPROG*IMAGE*BMP*TRASH",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 3,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "NEWF_BTN",
+            "icon-literal": "",
+            "type": "PUSHBMP",
+            "parent": "NM_MDI",
+            "size": {
+                "x": 102,
+                "y": 3,
+                "y-ext": null,
+                "width": 26,
+                "height": 26
+            },
+            "text": " Create a new Notes field | New Field",
+            "style": [
+                "WS_CHILD",
+                "WS_DISABLED",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 6,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 700,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Event",
+                    "message": "OMNIEVENT",
+                    "entity-id": "@WINDOW",
+                    "parameters": [
+                        "NEW_NOTE"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016000"
+            ],
+            "bitmap-id": "SYSPROG*IMAGE*BMP*NEWFLD",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 3,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "NEWC_BTN",
+            "icon-literal": "",
+            "type": "PUSHBMP",
+            "parent": "NM_MDI",
+            "size": {
+                "x": 129,
+                "y": 3,
+                "y-ext": null,
+                "width": 26,
+                "height": 27
+            },
+            "text": " Create a new Notes view column | New Column",
+            "style": [
+                "WS_CHILD",
+                "WS_DISABLED",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 7,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 700,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Event",
+                    "message": "OMNIEVENT",
+                    "entity-id": "@WINDOW",
+                    "parameters": [
+                        "NEW_NOTE"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016000"
+            ],
+            "bitmap-id": "SYSPROG*IMAGE*BMP*NEWCOL",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 3,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "NEWS_BTN",
+            "icon-literal": "",
+            "type": "PUSHBMP",
+            "parent": "NM_MDI",
+            "size": {
+                "x": 157,
+                "y": 3,
+                "y-ext": null,
+                "width": 26,
+                "height": 27
+            },
+            "text": " Create a new shared field|New Shared Field",
+            "style": [
+                "WS_CHILD",
+                "WS_DISABLED",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 8,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 700,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Event",
+                    "message": "OMNIEVENT",
+                    "entity-id": "@WINDOW",
+                    "parameters": [
+                        "NEW_NOTE"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016000"
+            ],
+            "bitmap-id": "SYSPROG*IMAGE*BMP*FLD_ED",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 3,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        }
+    ],
+    "menu": {
+        "type": "MENU",
+        "name": "",
+        "text": "",
+        "disabled": false,
+        "checked": false,
+        "hidden": false,
+        "accelerator": "None",
+        "tooltip": "",
+        "flags": [],
+        "sub-menus": [
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "&File",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Close\tCtrl+W",
+                        "disabled": true,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+W",
+                        "tooltip": " Close the active window",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Save\tCtrl+S",
+                        "disabled": true,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+S",
+                        "tooltip": " Save current note",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "FILE.OPEN_DATABASE",
+                        "text": "Open &Database...\tCtrl+O",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+O",
+                        "tooltip": " Open an existing database",
+                        "flags": [
+                            "PSIS_GROUPBEGIN"
+                        ],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "E&xit\tCtrl+F4",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+F4",
+                        "tooltip": " Exit the Notes Manager",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            },
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "&Edit",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "EDIT.FLD",
+                        "text": "New &Field...\tCtrl+F",
+                        "disabled": true,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+F",
+                        "tooltip": " Create a new Notes field",
+                        "flags": [
+                            "PSIS_GROUPBEGIN",
+                            "PSIS_SKIPMENUEVENT",
+                            "PSIS_GENERATELOSTFOCUS"
+                        ],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "EDIT.COL",
+                        "text": "New &Column...\tCtrl+C",
+                        "disabled": true,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+C",
+                        "tooltip": " Create a new Notes view column",
+                        "flags": [
+                            "PSIS_GROUPEND"
+                        ],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "EDIT.SH_FLD",
+                        "text": "New &Shared Field...\tCtrl+R",
+                        "disabled": true,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+R",
+                        "tooltip": " Create a new Notes shared field",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Delete\tCtrl+X",
+                        "disabled": true,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+X",
+                        "tooltip": " Delete selected item",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            },
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "&Window",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "CASCADE",
+                        "text": "&Cascade\tShift+F4",
+                        "disabled": true,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Shift+F4",
+                        "tooltip": " Arrange open windows diagonally",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "TILE",
+                        "text": "&Tile\tShift+F5",
+                        "disabled": true,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Shift+F5",
+                        "tooltip": " Arrange open windows vertically",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "ARNG",
+                        "text": "&Arrange Icons",
+                        "disabled": true,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            },
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "&Help",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "HELP.CONTENTS",
+                        "text": "&Contents...\tF1",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "F1",
+                        "tooltip": " Show the table of Contents",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "HELP.ABOUT",
+                        "text": "A&bout... ",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": " About Notes Manager",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            }
+        ]
+    },
+    "menu-script-events": [],
+    "menu-quick-events": [
+        {
+            "name": "FILE.CLOSE",
+            "type": "Event",
+            "message": "CLOSE",
+            "entity-id": "@MDIACTIVE",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.SAVE",
+            "type": "Event",
+            "message": "OMNIEVENT",
+            "entity-id": "@WINDOW",
+            "parameters": [
+                "SAVE"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.OPEN_DATABASE",
+            "type": "Event",
+            "message": "OMNIEVENT",
+            "entity-id": "@WINDOW",
+            "parameters": [
+                "OPEN_DATABASE"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.EXIT",
+            "type": "Event",
+            "message": "CLOSE",
+            "entity-id": "@WINDOW",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "EDIT.FLD",
+            "type": "Event",
+            "message": "OMNIEVENT",
+            "entity-id": "@WINDOW",
+            "parameters": [
+                "NEW_NOTE"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "EDIT.COL",
+            "type": "Event",
+            "message": "OMNIEVENT",
+            "entity-id": "@WINDOW",
+            "parameters": [
+                "NEW_NOTE"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "EDIT.SH_FLD",
+            "type": "Event",
+            "message": "OMNIEVENT",
+            "entity-id": "@WINDOW",
+            "parameters": [
+                "NEW_NOTE"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "EDIT.DELETE",
+            "type": "Event",
+            "message": "OMNIEVENT",
+            "entity-id": "@WINDOW",
+            "parameters": [
+                "DELETE"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "CASCADE",
+            "type": "Event",
+            "message": "CASCADE",
+            "entity-id": "@WINDOW",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "TILE",
+            "type": "Event",
+            "message": "TILE",
+            "entity-id": "@WINDOW",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "ARNG",
+            "type": "Event",
+            "message": "ARRANGEICONS",
+            "entity-id": "@WINDOW",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "HELP.ABOUT",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*MSG**NOTESMAN_ABOUT",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        }
+    ]
+}

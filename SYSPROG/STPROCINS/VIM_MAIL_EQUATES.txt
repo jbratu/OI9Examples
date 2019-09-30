@@ -1,0 +1,48 @@
+* compile insert VIM_MAIL_EQUATES
+
+/* values used by VIMOpenContainer() */
+
+equ VIM_MAIL_UNREAD$	to 1
+equ VIM_MAIL_ALL$		to 2
+
+/* values used by VIMReadMailItem() and VIMSendMail() as noted in parentheses (READ/SEND). 
+   These equates are used to specify mail items to retrieve/send */
+   
+equ VIM_ITEM_FROM$					to 1       /* The sender of the message (READ) */
+equ VIM_ITEM_SUBJECT$				to 2       /* The subject of the message (SEND/READ) */
+equ VIM_ITEM_DATE$					to 3       /* The time/date the mail was composed (READ) */
+equ VIM_ITEM_DELIVERY_DATE$			to 4       /* The time/date the mail was delivered (READ) */
+equ VIM_ITEM_EXPIRE_DATE$			to 5       /* The time/date this mail expires (SEND/READ) */	
+equ VIM_ITEM_PRIORITY$				to 6       /* The priority of the mail (see equates below) (SEND/READ) */
+equ VIM_ITEM_DELIVERY_REPORT$		to 7       /* Delivery report requested ? 1 or 0 (SEND/READ) */
+equ VIM_ITEM_NONDELIVERY_REPORT$	to 8       /* Non-delivery report requested ? 1 or 0 (SEND/READ) */
+equ VIM_ITEM_SIGN$					to 9       /* Mail signed ? 1 or 0 (SEND/READ) */
+equ VIM_ITEM_SENSITIVITY$			to 10      /* The sensitivity of the message (see equates below ) (SEND/READ) */
+equ VIM_ITEM_IN_REPLY_TO$			to 11      /* The Mail message ID this message is a response to (SEND) */
+equ VIM_ITEM_RESPOND_BY$			to 12      /* When this mail should be responded by (this is not enforced) (SEND/READ) */
+equ VIM_ITEM_RETURN_RECEIPT$		to 13      /* Return receipt requested ? 1 or 0 (SEND/READ) */
+equ VIM_ITEM_BODY$					to 14      /* The body of the message (SEND/READ) */
+equ VIM_ITEM_ATTACHMENTS$			to 15      /* A list of file attachments (SEND/READ) */
+equ VIM_ITEM_TO$					to 16      /* The "To:" list (READ) */
+equ VIM_ITEM_CC$					to 17      /* The "Cc:" list (READ) */
+equ VIM_ITEM_BCC$					to 18      /* The "Bcc:" list (READ) */
+equ VIM_ITEM_ENCRYPT$				to 19      /* Mail encrypted? 1 or 0 (SEND) */
+
+/* the following equates are possible values from VIMReadMailItem() when retrieving 
+   VIM_ITEM_PRIORITY$ */
+   
+equ VIM_LOW_PRIORITY$			to 0
+equ VIM_NORMAL_PRIORITY$		to 1
+equ VIM_HIGH_PRIORITY$			to 2
+
+/* the following equates are possible values from VIMReadMailItem() when retrieving 
+   VIM_ITEM_SENSITIVITY$ */
+   
+equ VIM_NORMAL_SENS$			to 0
+equ VIM_PRIVATE_SENS$			to 1
+equ VIM_PERSONAL_SENS$			to 2
+equ VIM_CO_CONFID_SENS$			to 3
+equ VIM_APP_DEFINED_SENS$		to 16384
+
+
+ 

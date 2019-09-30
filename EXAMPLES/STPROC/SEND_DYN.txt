@@ -1,0 +1,7 @@
+Function SEND_DYN(m)
+
+If Unassigned(m) Then m = ''
+
+OSWrite m To 'c:\temp\dyn.txt'
+
+return

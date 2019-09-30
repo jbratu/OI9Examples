@@ -1,0 +1,260 @@
+Function  Test_New_ET_Styles(parent,process)
+*
+* Subroutine Name :Test_New_ET_Styles
+*
+* Description : Sample program showing some EditTable features
+*
+* Date : 05/21/2009
+*
+* Author : Sean Fitzsimons/Mike Ruane/Carl Pates
+*
+* OI Version : 9.1
+*
+* Comments :
+*
+*** RTI Generated Commuter Module ***
+*
+********************************************************
+Declare function Send_Message, SendMessage, Get_Property, set_property
+
+
+EditTable = @Window:".TABLE_1"
+
+* shows some examples of the new styles
+
+equ DTCS_LEFT$               to 0x00000000
+equ DTCS_HEADLEFT$           to 0x00000000
+equ DTCS_RESIZE$             to 0x00000001
+equ DTCS_FIXED$              to 0x00000002
+equ DTCS_EDIT$               to 0x00000004
+equ DTCS_PROTECT$            to 0x00000008
+equ DTCS_UPPERCASE$          to 0x00000010
+equ DTCS_HIDDEN$             to 0x00000020
+equ DTCS_CENTER$             to 0x00000040
+equ DTCS_RIGHT$              to 0x00000080
+equ DTCS_HEADCENTER$         to 0x00000100
+equ DTCS_HEADRIGHT$          to 0x00000200
+equ DTCS_VSCROLL$            to 0x00000400 ; * // only for DTCS_MULTILINE$
+equ DTCS_HSCROLL$            to 0x00000800 ; * // only for DTCS_MULTILINE$
+equ DTCS_SKIPPED$            to 0x00001000
+equ DTCS_LOCKED$             to 0x00002000
+equ DTCS_SORTASC$            to 0x00004000
+equ DTCS_SORTDES$            to 0x00008000
+equ DTCS_CHECKBOX$           to 0x00010000
+equ DTCS_DROPDOWN$           to 0x00020000
+equ DTCS_MULTILINEHEAD$      to 0x00040000
+equ DTCS_CHECKBOXRIGHT$      to 0x00080000
+equ DTCS_VALIGNCENTER$       to 0x00100000
+equ DTCS_VALIGNBOTTOM$       to 0x00200000
+equ DTCS_DROPDOWNEDIT$       to 0x00400000
+equ DTCS_OPTIONSBUTTON$      to 0x00800000
+equ DTCS_ENABLEDROPDOWNDRAG$ to 0x01000000
+equ DTCS_MULTILINE$          to 0x02000000
+equ DTCS_AUTOVSCROLL$        to 0x04000000 ; * // only for DTCS_MULTILINE$
+equ DTCS_AUTOHSCROLL$        to 0x08000000 ; * // only for DTCS_MULTILINE$
+equ DTCS_ENABLEDRAG$         to 0x10000000
+equ DTCS_ENABLEDROP$         to 0x20000000
+
+Equ CrLF$ 					To char(13):char(10)
+
+equ DT_HEADINGHT$          to 3
+
+* I want to check every style
+
+Begin Case
+	Case process _eqc "Create" ; Gosub Create
+	Case process _eqc "VertStyles" ; Gosub VertStyles
+	Case process _eqc "DropDowns"; Gosub DropDowns
+	Case process _eqc "Opt_btn" ; Gosub options
+	Case process _eqc "UpperCase_Row" ; Gosub UpperCase_Row
+	Case process _eqc "Multiline_Processing"; gosub Multiline_Processing
+	Case process _eqc "Drop_Down_Edit" ; Gosub Drop_Down_Edit
+	Case process _eqc 'MULTI_LINE_HEADER' ; Gosub MULTI_LINE_HEADER
+	Case process _eqc 'MODIFY_ALL_ROW_LABELS'; Gosub MODIFY_ALL_ROW_LABELS
+	Case process _eqc 'MODIFY_SOME_ROW_LABELS'; Gosub MODIFY_SOME_ROW_LABELS
+End Case
+
+Return 0
+
+
+MODIFY_ALL_ROW_LABELS:
+
+Gosub RefreshStyles
+
+* SET THE COLUMN WIDTH for the rowlabel column
+ColWidth = Send_Message(EditTable, "COLWIDTH", -1, 80)
+dfltRowLabel = set_Property( EditTable, "ROWLABEL", "This is row %r%" )
+
+Return
+
+MODIFY_SOME_ROW_LABELS:
+
+Gosub RefreshStyles
+
+ColWidth = Send_Message(EditTable, "COLWIDTH", -1, 80)
+For i = 1 To 200 step 2
+	ColWidth = Send_Message(EditTable, "ROWLABEL", i, "This is row %r%" )
+Next i
+
+Return
+
+
+MULTI_LINE_HEADER:
+
+Gosub RefreshStyles
+
+* loop through all three columns
+For i = 1 To 3
+	ColStyle = Send_Message(EditTable, "COLSTYLE", i, '')
+	ColStyle = bitor(ColStyle, DTCS_MULTILINEHEAD$)
+	ColStyle = Send_Message(EditTable, "COLSTYLE", i, ColStyle)
+Next i
+
+* set the edittable header row height
+x = Set_PROperty(EditTable, 'HEADERHEIGHT', 48)
+
+* set the text
+new_label = Send_Message(EditTable, 'COLLABEL', 1, 'Hello': CrLf$ :'World')
+new_label = Send_Message(EditTable, 'COLLABEL', 3, 'This is a test showing the auto-wrap feature of column headings')
+
+RETURN
+
+Drop_Down_Edit:
+
+Gosub RefreshStyles
+
+// Column 3 is the column being set up as a drop down.
+
+// Flag the first column In an edit table as a drop down column.
+ColStyle = Send_Message(EditTable, "STYLE_BY_POS", 1, 0)
+ColStyle = bitor(ColStyle, DTCS_DROPDOWNEDIT$)
+ColStyle = Send_Message(EditTable, "STYLE_BY_POS", 1, 0, ColStyle)
+
+// Establish the list of values in the drop down.
+dropdownItems = "Gold" : @vM : "Silver" : @vM : "Bronze"
+// Populate the Drop Down values In the column
+ColFormat = Send_Message(EditTable, "COLDROPDOWNLIST", 1,  dropdownItems)
+
+ColFormat = Send_Message(EditTable, "DROPDOWNLIST_BY_POS", 1,  0, dropdownItems)
+
+Return
+
+VertStyles:
+* Vertical Alignment Styles within the Edit Table
+
+Gosub RefreshStyles
+// Set the first column's vertical alignment to Center
+origColStyle = Send_Message( EditTable, "STYLE_BY_POS", 1, 0  )
+newColStyle = bitor( origColStyle,  DTCS_VALIGNCENTER$ )
+ColStyle = Send_Message( EditTable, "STYLE_BY_POS", 1, 0, newColStyle )
+
+// Set the second column's vertical alignment to Bottom
+origColStyle = Send_Message( EditTable, "STYLE_BY_POS", 2, 0  )
+newColStyle = bitor( origColStyle,  DTCS_VALIGNBOTTOM$ )
+ColStyle = Send_Message( EditTable, "STYLE_BY_POS", 2, 0, newColStyle )
+
+// Set the third column's vertical alignment to Top
+// There is not a specific style to set the vertical alignment to Top.
+// This is accomplished by removing the VALIGNBOTTOM and VALIGNCENTER styles
+origColStyle = Send_Message( EditTable, "STYLE_BY_POS", 3, 0  )
+newColStyle = bitAnd( origColStyle, bitNot( DTCS_VALIGNBOTTOM$ ) )
+newColStyle = bitAnd( newColStyle, bitNot( DTCS_VALIGNCENTER$) )
+ColStyle = Send_Message( EditTable, "STYLE_BY_POS", 3, 0, newColStyle )
+* Set the RowHeight in order to confirm the alignment
+rowHeight = Send_Message( EditTable, "ROWHEIGHT", 0, 64)
+Return
+
+
+UpperCase_Row:
+Gosub RefreshStyles
+* Uppercase Row
+origColStyle = Send_Message( EditTable, "STYLE_BY_POS", 0, 2  )
+newColStyle = bitor( origColStyle,  DTCS_UPPERCASE$ )
+ColStyle = Send_Message( EditTable, "STYLE_BY_POS", 0, 2, newColStyle )
+
+return
+
+Multiline_processing:
+Gosub RefreshStyles
+* Multiline processing
+colStyle = Send_Message(EditTable, "COLSTYLE", 1)
+colStyle = bitOr(colStyle, DTCS_MULTILINE$)
+colStyle = bitOr(colStyle, DTCS_VSCROLL$)
+colStyle = bitOr(colStyle, DTCS_HSCROLL$)
+colStyle = bitOr(colStyle, DTCS_AUTOVSCROLL$)
+colStyle = bitOr(colStyle, DTCS_AUTOHSCROLL$)
+colStyle = Send_Message(EditTable, "COLSTYLE", 1, colStyle)
+
+multilineText = "This is an example of mulitline text within an edit table cell."  : char(13) : char(10)
+multilineText := "The lines are separated with cr/lf."  : char(13) : char(10)
+multilineText := "For maximum results set the RowHeight property of the edit table to handle more one line of text." : char(13) : char(10)
+
+multilineText := char(13) : char(10)
+multilineText := "Here is sample code for manipulating multilines in an edit table." : char(13) : char(10)
+multilineText := 'colStyle = Send_Message(EditTable, "COLSTYLE", 1)' : char(13) : char(10)
+multilineText := 'colStyle = bitOr(colStyle, DTCS_MULTILINE$)' : char(13) : char(10)
+multilineText := 'colStyle = bitOr(colStyle, DTCS_VSCROLL$)' : char(13) : char(10)
+multilineText := 'colStyle = bitOr(colStyle, DTCS_HSCROLL$)' : char(13) : char(10)
+multilineText := 'colStyle = bitOr(colStyle, DTCS_AUTOVSCROLL$)' : char(13) : char(10)
+multilineText := 'colStyle = bitOr(colStyle, DTCS_AUTOHSCROLL$)' : char(13) : char(10)
+multilineText := 'colStyle = Send_Message(EditTable, "COLSTYLE", 1, colStyle)' : char(13) : char(10)
+
+textByPos = Send_Message(EditTable, "TEXT_BY_POS", 1, 1, multilineText)
+rowHeight = Send_Message( EditTable, "ROWHEIGHT", 0, 132)
+
+return
+
+
+
+DropDowns:
+* DropDown
+Gosub RefreshStyles
+* Create a DropDown in the Cell at Column 2, Row 2
+origColStyle = Send_Message( EditTable, "STYLE_BY_POS", 2,2 )
+newColStyle = bitor( origColStyle,  DTCS_DROPDOWN$ )
+ColStyle = Send_Message( EditTable, "STYLE_BY_POS", 2, 2, newColStyle )
+dropDownList = "Yes" : @vm : "No"
+dropDown = Send_Message( EditTable, "DROPDOWNLIST_BY_POS", 2, 2, dropDownList )
+
+* Create a Drop Down across Row 2
+origColStyle = Send_Message(EditTable, "STYLE_BY_POS", 0,2)
+newColStyle = bitor(origColStyle,  DTCS_DROPDOWN$)
+ColStyle = Send_Message(EditTable, "STYLE_BY_POS", 0, 2, newColStyle)
+dropDownList = "Yes" : @vm : "No" : @vm : "Undetermined"
+dropDown = Send_Message( EditTable, "DROPDOWNLIST_BY_POS", 0, 2, dropDownList )
+
+* Create a Drop Down in column 1
+origColStyle = Send_Message(EditTable, "STYLE_BY_POS", 1, 0)
+newColStyle = bitor(origColStyle,  DTCS_DROPDOWN$)
+ColStyle = Send_Message(EditTable, "STYLE_BY_POS", 1, 0, newColStyle)
+dropDownList = "A" : @vm : "B" : @vm : "C"
+dropDown = Send_Message( EditTable, "DROPDOWNLIST_BY_POS", 1, 0, dropDownList )
+
+Return 
+
+
+Options:
+* Options Button
+Gosub RefreshStyles
+// This establishes the option button style for column two.
+ColStyle = Send_Message(EditTable, "COLSTYLE", 2)
+ColStyle = bitor(ColStyle,  DTCS_OPTIONSBUTTON$)
+ColStyle = Send_Message(EditTable, "COLSTYLE", 2, ColStyle)
+
+Return
+
+RefreshStyles:
+
+orig_Struct = Get_Property( @window, "@EDIT_STRUCT")
+Call Utility("DESTROY", editTable)
+Call Utility("CREATE", orig_struct)
+
+Return
+
+Create:
+
+orig_struct = Get_Property(EditTable, "ORIG_STRUCT")
+x = Set_Property( @window, "@EDIT_STRUCT", orig_Struct)
+
+
+return

@@ -1,0 +1,153 @@
+compile insert debugger_fetch_equates
+/*
+   Author   : Meester C
+   Date     : 15 October 2008
+   Purpose  : Constants for use with the Debugger_Fetch() 
+              stored procedure
+              
+   Comments
+   ========
+   
+   
+   Amended  Version  Date         Reason
+   =======  =======  ====         ======
+   
+*/
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+#ifndef _DEBUGGER_FETCH_EQUATES_
+#define _DEBUGGER_FETCH_EQUATES_
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+   equ COMMON_SIZEOF$                to 256 ; * // Size of a blank common
+                                              * // block - 256 descriptors
+                                              * // 
+                                              * // defined in rev_call.c
+   
+   equ VAR_TYPE_LINK                to 0
+   equ VAR_TYPE_UNASSIGNED$         to 1
+   equ VAR_TYPE_STRING$             to 2
+   equ VAR_TYPE_DIM_ARRAY$          to 3
+   equ VAR_TYPE_IDISPATCH$          to 4 ; * // OLE object
+   equ VAR_TYPE_LONG$               to 5 ; * // 32 bit int
+   equ VAR_TYPE_DOUBLE$             to 6 ; * // 64 bit real
+   
+   equ VAR_TYPE_DESC_LINK$          to "<link>"
+   equ VAR_TYPE_DESC_UNASSIGNED$    to "<unassigned>"
+   equ VAR_TYPE_DESC_STRING$        to "<string>"
+   equ VAR_TYPE_DESC_DIM_ARRAY$     to "<array>"
+   equ VAR_TYPE_DESC_IDISPATCH$     to "<idispatch>"
+   equ VAR_TYPE_DESC_LONG$          to "<integer>"
+   equ VAR_TYPE_DESC_DOUBLE$        to "<double>"
+   
+   equ VAR_TYPE_DESC$               to VAR_TYPE_DESC_LINK$       : "," : |
+                                       VAR_TYPE_DESC_UNASSIGNED$ : "," : |
+                                       VAR_TYPE_DESC_STRING$     : "," : |
+                                       VAR_TYPE_DESC_DIM_ARRAY$  : "," : |
+                                       VAR_TYPE_DESC_IDISPATCH$  : "," : |
+                                       VAR_TYPE_DESC_LONG$       : "," : |
+                                       VAR_TYPE_DESC_DOUBLE$                                       
+
+///////////////////////////////////////////////////////////////////////////////
+   
+   * // GetBreakFrame() equates - goes without saying if you change these 
+   * // you're going to have to change the function itself in rev_call.c
+   * //
+   * //  <1> Number of local variables in the break frame
+   * //  <2> Number of labelled common areas in the break frame
+   * //  <3> Number of variables in each labelled common area - there should
+   * //      be one value here for each labelled common area
+   * //  <4> "0" if no blank common area is associated with the break frame,
+   * //      or "256" if there is a common area associated with the break 
+   * //      frame
+   
+   declare function getBreakFrame
+   
+   equ DBGF_BREAKFRAME_POS_LOCAL$            to 1
+   equ DBGF_BREAKFRAME_POS_LCOMM$            to 2
+   equ DBGF_BREAKFRAME_POS_LCOMM_VAR$        to 3
+   equ DBGF_BREAKFRAME_POS_BCOMM$            to 4
+   
+   equ DBGF_BREAKFRAME_NULL_BCOMM$           to 0
+   equ DBGF_BREAKFRAME_DFLT_BCOMM$           to COMMON_SIZEOF$
+   
+///////////////////////////////////////////////////////////////////////////////
+   
+   * // Equates for use with the getBreakVarType and getBreakVarValue
+   * // functions (from rev_call.c)
+   * //
+   * // When accessing variables in the BreakFrame we need to specify the area
+   * // where the variable is stored. Local and Common areas are 
+   * // straightforward, but for Labelled Commons we need to pass the index
+   * // of the common area we are interested adding an offset of 1
+   
+   declare function getBreakVarType, getBreakVarValue
+   
+   equ DBGF_BREAKVAR_STORAGE_LOCAL$          to -1
+   equ DBGF_BREAKVAR_STORAGE_BCOMM$          to 1
+   equ DBGF_BREAKVAR_STORAGE_LCOMM_OFFSET$   to 1
+   
+///////////////////////////////////////////////////////////////////////////////
+   
+   equ DBGF_VARSYMTABLE_POS_NAME$            to 1
+   equ DBGF_VARSYMTABLE_POS_TYPE$            to 2
+   equ DBGF_VARSYMTABLE_POS_INDEX$           to 3
+   
+   equ DBGF_VARSYMTABLE_TYPE_LOCAL$          to -1
+   equ DBGF_VARSYMTABLE_TYPE_BCOMM$          to 1
+   equ DBGF_VARSYMTABLE_TYPE_LCOMM$          to 2
+   equ DBGF_VARSYMTABLE_TYPE_LCOMM_ID$       to 3  
+
+///////////////////////////////////////////////////////////////////////////////
+
+   * // LOCALLIST equates
+   
+   equ DBGF_LOCAL_PREFIX$                to "_local_"
+
+   equ DBGF_LOCAL_POS_NAME$              to 1
+   equ DBGF_LOCAL_POS_TYPE$              to 2
+   equ DBGF_LOCAL_POS_DIM$               to 3             
+
+///////////////////////////////////////////////////////////////////////////////
+
+   * // LCOMMLIST equates
+
+   equ DBGF_LCOMMID_PREFIX$              to "_lcid_"
+   equ DBGF_LCOMMVAR_PREFIX$             to "_lcomm_"
+   
+   equ DBGF_LCOMM_POS_COMMID$            to 1
+   equ DBGF_LCOMM_POS_NAME$              to 2
+   equ DBGF_LCOMM_POS_TYPE$              to 3
+   equ DBGF_LCOMM_POS_DIM$               to 4 
+   
+///////////////////////////////////////////////////////////////////////////////
+
+   * // COMMLIST equates
+   
+   equ DBGF_BCOMM_PREFIX$                to "_common_"
+   
+   equ DBGF_BCOMM_POS_NAME$              to 1
+   equ DBGF_BCOMM_POS_TYPE$              to 2
+   equ DBGF_BCOMM_POS_DIM$               to 3 
+   
+///////////////////////////////////////////////////////////////////////////////
+
+   equ DBGF_ETEXT_MISSING_VAR_IDX$       to "No variable index passed to the %S% %M% method"
+   equ DBGF_ETEXT_INVALID_VAR_IDX$       to "Invalid variable index '%P1%' passed to the %S% %M% method"
+   equ DBGF_ETEXT_INVALID_VAR_DIM1$      to "Invalid subscript primary index '%P2%' passed to the %S% %M% method"
+   equ DBGF_ETEXT_INVALID_VAR_DIM2$      to "Invalid subscript secondary index '%P3%' passed to the %S% %M% method"
+   equ DBGF_ETEXT_MISSING_LBL_IDX$       to "No common label index passed to the %S% %M% method"
+   equ DBGF_ETEXT_INVALID_LBL_IDX$       to "Invalid common label index '%P1%' passed to the %S% %M% method"
+   equ DBGF_ETEXT_INVALID_LBLVAR_IDX$    to "Invalid labelled common variable index '%P2%' passed to the %S% %M% method"
+   equ DBGF_ETEXT_INVALID_LBLVAR_DIM1$   to "Invalid subscript primary index '%P3%' passed to the %S% %M% method"
+   equ DBGF_ETEXT_INVALID_LBLVAR_DIM2$   to "Invalid subscript secondary index '%P4%' passed to the %S% %M% method"
+   equ DBGF_ETEXT_NOT_A_DIM_VAR$         to "Non-dimensioned array variable '%P1%' passed to the %S% %M% method"
+   equ DBGF_ETEXT_NOT_A_LBL_DIM_VAR$     to "Non-dimensioned labelled common array variable ['%P1%','%P2%'] passed to the %S% %M% method"
+   
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+#endif
+///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////  
+  

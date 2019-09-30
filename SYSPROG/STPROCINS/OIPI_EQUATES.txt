@@ -1,0 +1,81 @@
+compile insert oipi_equates
+
+* Print Setup Equates
+
+Equ Portrait$	To 0
+Equ Landscape$	To 1
+
+Equ Print_Style$ 			To 1
+Equ Print_Zoom$			To 2
+
+Equ Print_ToPrinter$		To 0
+Equ Display_PrintSetup$ To 1
+Equ Preview_Normal$ 		To 2
+Equ Print_Mazimized$		To 3
+
+Equ Display_AllButtons$		To 0
+Equ Hide_PrintButton$		To 1
+Equ Hide_PrintSetupButton$	To 2
+Equ Hide_AllButtons$			To 3
+
+
+* TableCell Properties equates - refer to the TABLECELL Help in the Programmer's Reference Manual for more details
+
+//Table Properties: These settings affect the entire table.
+
+Equ TcIndent$		To 0
+Equ TcRows$			To 1
+Equ TcCols$			To 2
+Equ TcInsertRow$	To 3
+Equ TcInsertCol$	To 4
+Equ TcDeleteRow$	To 5
+Equ TcDeleteCol$	To 6
+
+// Row Properties: These settings affect entire rows or row ranges.
+
+Equ TcRowHeight$			To 7
+Equ TcRowBorder$			To 8
+Equ TcRowData$				To 9
+Equ TcRowSource$			To 10
+Equ TcRowKeepWithNext$	To 11
+Equ TcRowIsSubHeader$	To 12
+Equ TcRowSpaceBefore$	To 34
+Equ TcRowSpaceAfter$		To 35
+Equ TcRowBorderAbove$	To 36
+Equ TcRowBorderBelow$	To 37
+Equ TcRowBorderColor$	To 38
+Equ TcRowNewPage$			To 39
+Equ TcRowKeepTogether$	To 40
+
+//Column Properties: These settings affect entire columns or column ranges.
+
+Equ TcColWidth$			To 13
+Equ TcColBorder$			To 14
+Equ TcColData$				To 15
+Equ TcColSource$			To 16
+Equ TcColAlign$			To 31
+Equ TcColNoWrap$			To 32
+Equ TcColSkipRepeats$	To 33
+Equ TcColBorderLeft$		To 43
+Equ TcColBorderRight$	To 44
+Equ TcColBorderColor$	To 45
+
+//Cell Properties: These settings affect individual cells or cell ranges.
+
+Equ TcColSpan$			To 17
+Equ TcText$				To 18
+Equ TcAlign$			To 19
+Equ TcBackColor$		To 20
+Equ TcForeColor$		To 21
+Equ TcFont$				To 22
+Equ TcFontName$		To 23
+Equ TcFontSize$		To 24
+Equ TcFontBold$		To 25
+Equ TcFontItalic$		To 26
+Equ TcFontUnderline$	To 27
+Equ TcFontStrikeout$	To 28
+Equ TcPicture$			To 29
+Equ TcPictureAlign$	To 30
+Equ TcRowSpan$			To 41
+Equ TcVertical$		To 42
+

@@ -1,0 +1,170 @@
+Compile insert MVBFS_EQUATES
+
+* 10-12-11   rjc/bzs  Created
+* 03-13-12   rjc      Added ReadU, WriteRelease
+* 04-26-12   rjc      Add scopes for credentials
+* 07-05-12   rjc      Add list_volumes
+
+Equ BFS$ To "MVBFS"
+
+* Property Caches ( RTI_HASHTABLE2 ) 
+equ MVBFS_TABLES$ to "MVBFS_TABLES"           ; * table specific properites, key is tablename 
+equ MVBFS_VOLUMES$ to "MVBFS_VOLUMES"         ; * volume specific properites, key is volname 
+equ MVBFS_Connections$ To "MVBFS_CONNECTIONS" ; * ado connection object for a volume, key is volname 
+
+* Structure of File handle 
+EQU MVBFS_HANDLE_REALHANDLE$   TO 1    ;* LH handle, populated for a dict, null for a data file
+EQU MVBFS_HANDLE_OINAME$       TO 2    ;* Native name
+EQU MVBFS_HANDLE_NATIVENAME$   TO 3    ;* Native name
+EQU MVBFS_HANDLE_VOLNAME$      TO 4    ;* volume name
+
+/*
+EQU MVBFS_HANDLE_OINAME$       TO 1    ;* oi name of the file
+EQU MVBFS_HANDLE_NATIVENAME$   TO 2    ;* Native name
+EQU MVBFS_HANDLE_VOLNAME$      TO 3    ;* volume name
+*/
+
+* Scopes
+Equ CREDENTIAL_SCOPE_APPUSER$ To "APP+USER"
+Equ CREDENTIAL_SCOPE_USER$ To "USER"
+Equ CREDENTIAL_SCOPE_APP$ To "APP"
+Equ CREDENTIAL_SCOPE_GLOBAL$ To "GLOBAL"
+Equ CREDENTIAL_SCOPES$ To "APP+USER USER APP GLOBAL"
+Equ USERNAME$    To "USERNAME"
+Equ PASSWORD$    To "PASSWORD"
+Equ RESOLVED_CREDENTIALS$  To "RESOLVED_CREDENTIALS"
+
+* Structure of credential info
+Equ credential_pos_id$ To 1
+Equ credential_pos_id_scope$ To 1
+Equ credential_pos_id_app$ To 2
+Equ credential_pos_id_user$ To 3
+Equ credential_pos_method$ To 2
+Equ credential_pos_value$ To 3
+
+
+
+
+* Methods
+Equ auth_method_literal$ To 'LITERAL'
+Equ auth_method_prompt$ To 'PROMPT'
+Equ auth_method_custom$ To 'CUSTOM'
+Equ auth_methods$ To 'LITERAL PROMPT CUSTOM'
+
+Equ MVBFS_rec_not_found$ To 202
+
+* Structure of cached info in table info
+* table info is just %fields% with some added NATIVE info
+*table_info = tableid:@fm:table_Name:@fm:is_dict:@fm:is_bang:@fm:handler:@fm:volname:@fm:oi_colnames:@fm:native_colnames:@fm:native_tablename
+Equ mvbfs_tbl_tableId$ To 1
+Equ mvbfs_tbl_tableName$ To 2
+Equ mvbfs_tbl_isDict$ To 3
+Equ mvbfs_tbl_isBang$ To 4
+Equ mvbfs_tbl_handler$ To 5
+Equ mvbfs_tbl_volname$ To 6
+Equ mvbfs_tbl_oiColnames$ To 7
+Equ mvbfs_tbl_nativeColnames$ To 8
+Equ mvbfs_tbl_nativeTablename$ To 9
+
+/*
+equ MVBFS_Vol_Name$	      to 30     ; * name of the volume that owns the table
+equ MVBFS_NATIVE_Name$	      to 31     ; * name of the NATIVE table
+equ MVBFS_NATIVE_ColNames$	  to 32     ; * name of the NATIVE table
+equ MVBFS_NATIVE_HANDLE$      To 33     ; * server handle assigned upon open
+*/
+* Structure of cached vol info
+*vol_info = vol_name:@fm:handler:@fm:platform:@fm:credentials
+Equ mvbfs_vol_volname$  To 1
+Equ mvbfs_vol_handler$  To 2
+Equ mvbfs_vol_platform$ To 3
+Equ mvbfs_vol_credentials$ To 4
+
+* ----
+* Layout of SYSPTR Volume definition
+* ----
+* items 1-6 are OI standard for any BFS, beyond that is BFS specific
+/*
+* Standard definitions used by RTP49
+EQU VOL_PTR_TOKEN$    TO 1
+EQU VOL_PTR_FS$       TO 2
+EQU VOL_PTR_LOCATION$ TO 3
+EQU VOL_PTR_CONTROL$  TO 4
+*/
+Equ MVBFS_Volume$            to 1  ; * the literal "VOLUME"
+Equ MVBFS_BfsType$           to 2  ; * the literal "MVBFS"
+Equ MVBFS_ControlLoc$        to 3  ; * <1,1> = SYSPTR ID; <1,2> = PLATFORM
+Equ MVBFS_Shadow_loc$        to 4  ; * Location of the shadow dictionaries
+Equ MVBFS_VolumeId$          to 5  ; * Name of the volume
+Equ MVBFS_ConnectParams$     to 6  ; * Associated sub-list of connection parameter values
+Equ MVBFS_RefreshTimeStamp$  to 13 ; * last time the list of tables was refreshed
+
+
+* controlLoc subfields
+Equ MVBFS_Ctl_Id$        To 1 ; * id of the sysptr record       
+Equ MVBFS_Ctl_Platform$  To 2 ; * platform
+
+
+
+
+* rjc  01-30-08
+* Dict Update Modes
+* Control whether the bond will automatically Write changes From Server dict To shadow dict Or vice versa
+* Notes: 
+* 1. Changes To symbolic columns In the shadow dict are never copied To the server
+* 2. When OI creates a new Shadow dict, it will always create columns regardless of settings
+* 3. CopyTable fs will copy colums To server regardless of settings
+* 
+equ MVBFS_ServerDict_UpdateMode$ to 10 ; * Do we update the server dict when shadow dict changes?
+equ MVBFS_ShadowDict_UpdateMode$ to 11 ; * Do we update the client dict when the server dict changes?
+
+Equ UpdateMode_InsertUpdate$ To 0 ; * New And changed columns replicated.  Overwrite existing columns
+Equ UpdateMode_InsertOnly$ To 1   ; * Only new columns replicated. Do not overwrite existing columns
+Equ UpdateMode_NoWrite$ To 2      ; * Do Not Write To foreign dict
+
+Equ MVBFS_Password_key$ to "RFGXRM3AD2AC0F0B5"
+
+* OMNISCRIPT calls - Some of the meta functions are implemented as omniscript calls
+* start the numbering at 100 to skip over other RTP57 uses of omniscript
+Equ mvbfs_OmniGetServerTables$       To 110   ; * List the tables on the server
+Equ mvbfs_OmniGetServerColumns$      To 111   ; * List the columns for a table on the server
+Equ mvbfs_OmniGetColumnProperties$   To 112   ; * Get properties of a column on the server
+Equ mvbfs_OmniSetVolSync$            To 113   ; * Set the Volume level synchronization info, e.g write all changes, write new cols ,write-none
+Equ mvbfs_OmniGetVolSync$            To 114   ; * Get the Volume level synchronization info
+Equ mvbfs_OmniSetTableSync$          To 115   ; * Set the Table level synchronization info, e.g. specific columns, or literal-only
+Equ mvbfs_OmniGetTableSync$          To 116   ; * Get the Volume level synchronization info
+Equ mvbfs_OmniGetPlatform$           To 117   ; * get the platform For this volume
+Equ mvbfs_OmniSetParam$              To 118   ; * add / update a username password pair in the session
+Equ mvbfs_OmniWriteParam$            To 119   ; * add / update a username password pair in the "wallet" ( and the session)
+Equ mvbfs_OmniLinkTable$             To 120   ; * Attach a table - creates the media pointers
+Equ mvbfs_OmniUnLinkTable$           To 121   ; * Detach a table - deletes the media pointers
+Equ mvbfs_OmniMakeShadowColumns$     To 122   ; * Map columns for a table
+Equ mvbfs_OmniGetVolumes$            To 123   ; * List the volumes defined for this bfs, optional filter on platform
+Equ mvbfs_OmniExecute$               To 124   ; * Execute a TCL command
+Equ mvbfs_OmniCallSub$               To 125   ; * Call a subrooutine
+Equ mvbfs_OmniCompileBasic$          To 126   ; * Compile a subroutine ( h = volname, n = filename, f= omniscript  r = rowId
+Equ mvbfs_OmniCalculate$             To 127   ; * Like CalculateEx.  Have the server calculate a column value.
+Equ mvbfs_OmniIconv$                 To 128   ; * Iconv at server
+Equ mvbfs_OmniOconv$                 To 129   ; * Oconv at server
+Equ mvbfs_OmniGetParam$              To 130   ; * get a connection string parameter
+Equ mvbfs_OmniReadUAllowed$          To 131   ; * Return true if ReadU / WriteRelease are supported
+Equ mvbfs_OmniReadU$                 To 132   ; * Native ReadU call
+Equ mvbfs_OmniWriteRelease$          To 133   ; * Native Write Call, will release the lock
+Equ mvbfs_OmniAddCredential$         To 134   ; * Add an oi To 1host user login
+Equ mvbfs_OmniRemoveCredential$      To 135   ; * Remove an oi To host user login
+Equ mvbfs_OmniTransactionBegin$      To 136   ; * Begin a transaction
+Equ mvbfs_OmniTransactionCommit$     To 137   ; * Commit a transaction
+Equ mvbfs_OmniTransactionRollBack$   To 138   ; * Roll back a transaction
+Equ mvbfs_OmniSetUser$               To 139   ; * Activate the credentials for the curent user.  Need to detach / attach if the credentials change
+Equ mvbfs_OmnigetUser$               To 140   ; * Activate the credentials for the curent user.  Need to detach / attach if the credentials change
+Equ mvbfs_OmniTransactionStatus$     To 141   ; * Get the current transaction status
+Equ mvbfs_OmniGetDatasections$       To 142   ; * Look up the names of multlevel data tables in the table
+Equ mvbfs_OmniListVolumes$           To 143   ; * Return an array of defined volumes and their connection status
+Equ mvbfs_OmniRelease$				 To 144   ; * Release a READU lock
+Equ mvbfs_OmniEnablePooling$		 To 145   ; * Enable pooling Connections
+Equ mvbfs_OmniDisablePooling$		 To 146   ; * Disable pooling Connections
+Equ mvbfs_OmniSetAdditionalProperty$ To 147   ; * pass-through a property setting.  User is responsible for setting a valid property. ( e.g.  Timeout)
+Equ mvbfs_OmniGetAdditionalProperty$ To 148   ; * pass-through a property setting.  User is responsible for setting a valid property. ( e.g.  Timeout)
+
+common /mvbfs_Com/volCache%, tableCache%, selected_ids%,select_bys%,paramcache%, connCache%,extra3%
+
+Declare Subroutine MVBFS

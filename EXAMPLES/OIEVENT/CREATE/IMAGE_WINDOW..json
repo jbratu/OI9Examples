@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "\r\nbmp  = CreateParam<1>\r\ndesc = CreateParam<2>\r\n\r\n.bitmap->bitmap=bmp\r\n.bitmap->visible=1\r\n@@Window->text = desc\r\n\r\nRETURN 1"
+    }
+}

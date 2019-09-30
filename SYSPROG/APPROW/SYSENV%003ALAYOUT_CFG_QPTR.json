@@ -1,0 +1,30 @@
+{
+    "record1": {
+        "<1>": "Control Q-POINTER (dynamic table access) behavior",
+        "<2>": {
+            "<2,1>": "This record controls Q-POINTER (dynamic table access) behavior",
+            "<2,2>": "Set cache flag (field 1)",
+            "<2,3>": "",
+            "<2,4>": "--",
+            "<2,5>": "Cache flag Description",
+            "<2,6>": "--",
+            "<2,7>": "Cache flag = \"0\" (or \"\" or invalid) ==> Always resolve q-pointer record information, do not cache tables when found",
+            "<2,8>": "Cache flag = \"1\"         ==> Once resolved, retain resolved information in cache for increased performance",
+            "<2,9>": "",
+            "<2,10>": "---",
+            "<2,11>": "Notes",
+            "<2,12>": "--",
+            "<2,13>": "- The config record information is only accessed when the application starts up; changes to this record will not take effect until the user exits and re-enters OI",
+            "<2,14>": "- If no CFG_QPTR records are found OI will behave as if cache flag = 0",
+            "<2,15>": "- When cache flag is \"0\":",
+            "<2,16>": "-- OI will resolve the q-pointer each time the q-pointer is accessed",
+            "<2,17>": "-- Any changes to any q-pointer will be immediately seen when the q-pointer is next accessed",
+            "<2,18>": "- When cache flag is \"1\":",
+            "<2,19>": "-- OI will resolve the q-pointer only when the q-pointer is first accessed",
+            "<2,20>": "-- Any changes to a previously-accessed q-pointer will NOT be reflected when the q-pointer is next accessed - the previously-resolved table will continue to be used",
+            "<2,21>": "-- To see any changes to a previously-accessed q-pointer, you must either exit and re-enter OI,",
+            "<2,22>": "-- or run DETACH_TABLE on the q-pointer table (for example, \"DETACH_TABLE QPTR\")"
+        },
+        "<3>": "Cache Flag{OPTIONS Enable Caching/1|Disable Caching/0}{DEFAULT 0}"
+    }
+}

@@ -1,0 +1,34 @@
+compile insert O4WCOMMON
+
+COMMON /O4WCOMMON/ O4WSuffixHandler%, |
+O4WHtmlBody%, O4WHtmlHead%, O4WHtmlScripts%, O4WHtmlSheets%, O4WHtmlStyles%, O4WXml%, O4WHtml%,|
+O4WCacheId%, O4WPlugins%, O4WHaveInput%, O4WHtmlFooter%
+
+COMMON /O4WTABLES/ O4WCurrTable%, O4WHtmlBodyBackup%, O4WHtmlTable%, O4WTableBackup%, O4WTableRow%, O4WTableCol%, O4WTableHead%, O4WTableRowDetails%, O4WTableColDetails%
+
+common /O4WDIV/ O4WSaveInput%, O4WCurrDiv%, O4WSaveDiv%, O4WSaveResponse%
+
+common /O4WINPUTS/ O4WControls%, O4WSelectInfo%, O4WCurrListBoxName%, O4WDialogs%
+
+common /O4WRESPONSE/ O4WInResponse%, O4WResponseBody%
+
+common /O4WLISTS/ O4WCurrList%, O4WSaveList%
+
+common /O4W/ O4WInit%, O4WCntr%, O4WCurrStream%, O4WEntity%
+
+common /O4WGRAPHS/ O4WGraphInfo%, O4WGraphValues%, O4WTickMarks%
+
+common /O4WMISC/ O4WDispatchRoutine%, O4WVersion%, jQueryParentTheme%, O4WGenericErrors%, O4WRequestFields%, O4WExtra5%, O4WExtra6%, O4WExtra7%, O4WExtra8%, O4WExtra9%
+
+* Internal functions and subroutines
+Declare Function O4WI_StyleParse, O4WI_Validate, O4WI_HANDLETABOX, O4WI_SetValue, O4WI_CLEANNAME, o4wi_linksub, o4wi_customattrextract
+Declare Function O4WI_LoadTemplate, O4WI_StyleAdd, O4WI_AttrExtract, O4WI_AddValidate, O4WI_POPUP2RPT, O4WI_RELOADOBJECT, O4WI_UPDATEO4WFORM, o4wi_openidhelper
+Declare Subroutine O4WI_WrapupInput, O4WI_ClearCommon, O4WI_UncrossStreams, O4WI_LinkSub, O4WI_ADDVALIDATE
+Declare Subroutine O4WI_HANDLEUPLOAD, O4WI_SETSESSIONINFO, O4WI_UPDATEO4WFORM
+
+validTypes = "date":@VM:"time":@VM:"cc":@VM:"zip":@VM:"phone":@VM:"state":@VM:"ss":@VM:"num":@VM:"alpha":@VM:"alphanum":@VM:"range":@VM:"length":@VM:"daterange":@VM:"reset":@vm:"email":@VM:"url":@vm:"verifile":@vm:"user":@vm:"required":@vm:"pattern"
+validTypes<2> = "D":@VM:"T":@VM:"C":@VM:"Z":@VM:"P":@VM:"ST":@VM:"S":@VM:"N":@VM:"A":@VM:"AN":@VM:"R":@VM:"L":@VM:"DR":@VM:"RESET":@VM:"E":@VM:"U":@VM:"F":@VM:"SU":@VM:"RQ":@VM:"PA"
+validTypes<3> = "Date":@VM:"Time":@VM:"Credit Card":@VM:"Zip Code":@VM:"Phone":@VM:"State":@VM:"Social Security Number":@VM:"Numeric":@VM:"Alphabetic":@VM:"Alphanumeric":@VM:"Range":@VM:"Length":@VM:"Date Range":@VM:"Reset":@vm:"Email":@VM:"URL":@VM:"Table Lookup":@VM:"User Procedure":@VM:"Required":@VM:"Conversion Pattern"
+validTypes<4> = "1":@VM:"1":@VM:"1":@VM:"1":@VM:"1":@VM:"1":@VM:"1":@VM:"1":@VM:"1":@VM:"1":@VM:"1":@VM:"1":@VM:"1":@VM:"0":@VM:"1":@VM:"1":@VM:"1":@VM:"1":@VM:"0":@VM:"1"
+validTypes<5> = "0":@VM:"0":@VM:"0":@VM:"0":@VM:"0":@VM:"0":@VM:"0":@VM:"0":@VM:"0":@VM:"0":@VM:"2":@VM:"2":@VM:"2":@VM:"0":@VM:"0":@VM:"0":@VM:"1":@VM:"1":@VM:"0":@VM:"0"
+

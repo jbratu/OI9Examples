@@ -1,0 +1,25 @@
+Subroutine Debugger_Example(void)
+
+Declare Function Msg
+
+Open 'CUSTOMERS' To f_customers Else
+	x = Msg(@Window, 'Unable to open the customers file')
+	Return ''
+End
+
+ClearSelect
+Call Rlist('SELECT CUSTOMERS BY @ID', 5, '', '', '')
+debug
+done = ''
+Loop
+Readnext id Else done = 1
+Until done
+	Read record From f_customers, id then
+		*
+	End else
+		x = Msg(@Window, 'Unable to read Customers record ':id)
+	end
+Repeat
+
+x = Msg(@Window, 'Process has completed')
+

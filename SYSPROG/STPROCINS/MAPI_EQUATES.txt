@@ -1,0 +1,50 @@
+compile insert MAPI_EQUATES
+
+EQU MAPI_LOGON_UI$          to     1 ;* Display logon dialog
+EQU MAPI_NEW_SESSION$       to     2 ;* Do not use default session
+EQU MAPI_DIALOG$            to     8 ;* Display a send note dialog
+EQU MAPI_UNREAD_ONLY$       to    32 ;* Only unread messages
+EQU MAPI_ENVELOPE_ONLY$     to    64 ;* Only header information
+EQU MAPI_PEEK$              to   128 ;* Do not mark as read 
+EQU MAPI_GUARANTEE_FIFO$    to   256 ;* Retain date order
+EQU MAPI_BODY_AS_FILE$      to   512 ;* Attach body as file 
+EQU MAPI_AB_NOMODIFY$       to  1024 ;* Do not update address book
+EQU MAPI_SUPPRESS_ATTACH$   to  2048 ;* Do not return files
+EQU MAPI_FORCE_DOWNLOAD$    to  4096 ;* Download new mail
+
+EQU MAPI_UNREAD$            to     1 ;* Message has not been read
+EQU MAPI_RECEIPT_REQUESTED$ to     2 ;* Notify when message has been received
+EQU MAPI_SENT$              to     4 ;* Message has been sent       
+
+* Maximum length of message id
+EQU MAX_ID$ TO 64
+
+* Maximum length of message parts returned
+EQU MAX_SUBJECT$   TO   256
+EQU MAX_FROM$      TO   256
+EQU MAX_TO$        TO  1024
+EQU MAX_CC$        TO  1024
+EQU MAX_BCC$       TO  1024
+EQU MAX_DATE$      TO    32
+EQU MAX_TEXT$      TO 32767
+EQU MAX_CLASS$     TO   256
+EQU MAX_FLAGS$     TO    16
+EQU MAX_FILES$     TO  1024
+EQU MAX_PATHS$     TO  4096
+EQU MAX_POSITIONS$ TO  1024
+
+* Position in structure of message parts returned
+EQU POS_SUBJECT$   TO  1
+EQU POS_FROM$      TO  2
+EQU POS_TO$        TO  3
+EQU POS_CC$        TO  4
+EQU POS_BCC$       TO  5
+EQU POS_DATE$      TO  6
+EQU POS_TEXT$      TO  7
+EQU POS_TYPE$      TO  8
+EQU POS_CLASS$     TO  8
+EQU POS_FLAGS$     TO  9
+EQU POS_FILES$     TO 10
+EQU POS_PATHS$     TO 11
+EQU POS_POSITIONS$ TO 12
+* Source Date: 17:49:07  31 JAN 1996  Build ID: OINOTES*3.1.40  Level: 3.1

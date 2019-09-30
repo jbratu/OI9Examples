@@ -1,0 +1,160 @@
+compile insert RTI_MEMCACHED_EQUATES
+*Compile Insert RTI_MEMCACHED_EQUATES
+
+* Magic Values for request. response, this protocol
+Equ MCB_MAGIC_REQUEST$ To 0x80
+Equ MCB_MAGIC_RESPONSE$ To 0x81
+
+* Response Status
+Equ MCB_OK$                To 0x0000 ; * No error
+Equ MCB_KEY_NOT_FOUND$     To 0x0001 ; * Key not found
+Equ MCB_KEY_EXISTS$        To 0x0002 ; * Key exists
+Equ MCB_VALUE_TOO_LARGE$   To 0x0003 ; * Value too large
+Equ MCB_INVALID_ARGS$      To 0x0004 ; * Invalid arguments
+Equ MCB_NOT_STORED$        To 0x0005 ; * Item not stored
+Equ MCB_NON_NUMERIC$       To 0x0006 ; * Incr/Decr on non-numeric value
+Equ MCB_UNKNOWN$           To 0x0081 ; * Unknown command
+Equ MCB_OUT_OF_MEM$        To 0x0082 ; * Out of memory
+Equ MCB_SOCKET_ERROR$      To 0x0101 ; * Socket Error - this an OI specific error, so leave a gap in error numbers
+Equ MCB_INVALID_HANDLE$    To 0x0102 ; * Invalid connection handle
+Equ MCB_CLIENT_ERROR$      To 0x0103 ; * Invalid connection handle
+Equ MCB_SERVER_ERROR$      To 0x0104 ; * Invalid connection handle
+
+* Commands
+Equ Mcb_cmd_cnt$ To 5
+
+Equ mcb_get$ To 1
+Equ mcb_set$ To 2
+Equ mcb_delete$ To 3
+Equ mcb_flush$ To 4
+Equ mcb_quit$ To 5
+
+Equ mcb_binary_Get$ to \00\
+Equ mcb_binary_Set$ to \01\
+Equ mcb_binary_Add$ to \02\
+Equ mcb_binary_Replace$ to \03\
+Equ mcb_binary_Delete$ to \04\
+Equ mcb_binary_Increment$ to \05\
+Equ mcb_binary_Decrement$ to \06\
+Equ mcb_binary_Quit$ to \07\
+Equ mcb_binary_Flush$ to \08\
+Equ mcb_binary_GetQ$ to \09\
+Equ mcb_binary_No_op$ to \0A\
+Equ mcb_binary_Version$ to \0B\
+Equ mcb_binary_GetK$ to \0C\
+Equ mcb_binary_GetKQ$ to \0D\
+Equ mcb_binary_Append$ to \0E\
+Equ mcb_binary_Prepend$ to \0F\
+Equ mcb_binary_Stat$ to \10\
+Equ mcb_binary_SetQ$ to \11\
+Equ mcb_binary_AddQ$ to \12\
+Equ mcb_binary_ReplaceQ$ to \13\
+Equ mcb_binary_DeleteQ$ to \14\
+Equ mcb_binary_IncrementQ$ to \15\
+Equ mcb_binary_DecrementQ$ to \16\
+Equ mcb_binary_QuitQ$ to \17\
+Equ mcb_binary_FlushQ$ to \18\
+Equ mcb_binary_AppendQ$ to \19\
+Equ mcb_binary_PrependQ$ to \1A\
+
+Equ mcb_ascii_Get$ To "get"
+Equ mcb_ascii_Set$ To "set"
+Equ mcb_ascii_Add$ to "add"
+Equ mcb_ascii_Replace$ to "replace"
+Equ mcb_ascii_Delete$ To "delete"
+Equ mcb_ascii_Increment$ to "increment"
+Equ mcb_ascii_Decrement$ to "decrement"
+Equ mcb_ascii_Quit$ To "quit"
+Equ mcb_ascii_Flush$ To "flush-all"
+Equ mcb_ascii_GetQ$ to "getq"
+Equ mcb_ascii_No_op$ to "no_op"
+Equ mcb_ascii_Version$ to "version"
+Equ mcb_ascii_GetK$ to "getk"
+Equ mcb_ascii_GetKQ$ to "getkq"
+Equ mcb_ascii_Append$ to "append"
+Equ mcb_ascii_Prepend$ to "prepend"
+Equ mcb_ascii_Stat$ to "stat"
+Equ mcb_ascii_SetQ$ to "setq"
+Equ mcb_ascii_AddQ$ to "addq"
+Equ mcb_ascii_ReplaceQ$ to "replaceq"
+Equ mcb_ascii_DeleteQ$ to "deleteq"
+Equ mcb_ascii_IncrementQ$ to "incrementq"
+Equ mcb_ascii_DecrementQ$ to "decrementq"
+Equ mcb_ascii_QuitQ$ to "quitq"
+Equ mcb_ascii_FlushQ$ to "flushq"
+Equ mcb_ascii_AppendQ$ to "appendq"
+Equ mcb_ascii_PrependQ$ to "prependq"
+
+
+* Data Types
+Equ RawBytes$ To 0x00
+
+* 
+Equ MCB_BINARY_EXPIRE_NEVER$      To \00000000\ ; * Expire in 0 seconds
+Equ MCB_BINARY_EXPIRE_DAILY$      To \00015180\ ; * Expire in one day (86400 seconds )
+Equ MCB_BINARY_NULL_FLAGS$        To \00000000\ ; * four null bytes for no flags
+
+Equ MCB_ASCII_EXPIRE_NEVER$      To 0 ; * Expire in 0 seconds
+Equ MCB_ASCII_EXPIRE_DAILY$      To 86400 ; * Expire in one day (86400 seconds )
+Equ MCB_ASCII_NULL_FLAGS$        To 0 
+
+
+* Packaging
+Equ headerSize$ To 24
+Equ keyLenSize$ To 2
+Equ flagSize$   To 4
+Equ expirationSize$ To 4
+Equ valLenSize$ To 4
+
+Equ nil$ To \00\
+
+
+* Local (RTI_HASHTABLE2) property bags.
+Equ RTI_MCB_SOCKS$  To "RTI_MEMCACHED_SOCKS"    ; * Socket handles by servername
+Equ RTI_MCB_PROPS$  To "RTI_MEMCACHED_PROPS"    ; * properties by connection, such see MCB_PROPS_XXX below
+
+Equ MCB_PROPS_SERVERLIST$         To 1  ; * list of ipaddress:port, ipaddress2:port2, ipaddress3:port3 for available servers
+Equ MCB_PROPS_WRITEFLAGS$         To 2  ; * Any flags For SET, defaults To null
+Equ MCB_PROPS_GETSERVER_PROCNAME$ To 3  ; * Name of a Function that calculates the server For a key
+Equ MCB_PROPS_EXPIRATION$         To 4  ; * Default Expiration time ( In seconds) For this cache ; default To 1 day
+Equ MCB_PROPS_MODE$               To 5  ; * Transmit mode, default to Binary
+Equ MCB_PROPS_NOSTORE$            To 6  ; * Flag used by mfs; true if data is cache-only, should not be written to dic
+
+
+Equ MCB_MODE_BINARY$ To 0
+Equ MCB_MODE_ASCII$ To 1
+
+/*
+'X'
+type
+serverlist
+write_flags
+getserver_procname
+default_expiration
+transmitmode
+mfs_nostore_Flag
+
+*/
+
+Equ MCB_CFG_UNUSED$              To 1  ; * Dict rec is always X
+Equ MCB_CFG_type$                To 2
+Equ MCB_CFG_serverlist$          To 3
+Equ MCB_CFG_write_flags$         To 4
+Equ MCB_CFG_getserver_procname$  To 5
+Equ MCB_CFG_default_expiration$  To 6
+Equ MCB_CFG_transmitmode$        To 7
+Equ MCB_CFG_mfs_nostore_Flag$    To 8
+
+
+Equ MCB_CFG_type_table_specific$ To 1
+Equ MCB_CFG_type_Application$    To 2
+Equ MCB_CFG_type_Global$         To 3
+Equ MCB_CFG_type_Custom$         To 4
+
+
+Equ MCB_GS_GetOne$ To 1
+Equ MCB_GS_Get$ To 2
+Equ MCB_GS_GetServerList$ To 3
+Equ MCB_GS_New$ to 4
+Equ MCB_GS_Add_Server$ To 5
+Equ MCB_GS_Remove_Server$ To 6

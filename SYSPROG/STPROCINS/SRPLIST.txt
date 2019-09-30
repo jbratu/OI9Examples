@@ -1,0 +1,5 @@
+Compile Insert SRPLIST
+
+Declare function SRP_List, SRP_List_Create, SRP_List_CreateFromFastArray, SRP_List_Count, SRP_List_GetVariable, SRP_List_GetAt
+Declare function SRP_List_Locate, SRP_List_Match, SRP_List_Reduce
+Declare subroutine SRP_List, SRP_List_Release, SRP_List_Add, SRP_List_InsertAt, SRP_List_SetAt, SRP_List_RemoveAt

@@ -1,0 +1,40 @@
+compile insert PrintSetup_Equates
+
+******************************************************************************
+*
+* Product    :  OpenInsight
+* Version    :  3.1
+*
+* Description:  Insert record for the PrintSetup() utility
+*
+* History    :  (date, initials, notes)
+*   01/23/96  cp   Original programmer
+*
+******************************************************************************
+
+declare function   PrintSetup
+declare subroutine PrintSetup
+
+* To call the printer setup dialog:
+*
+*     PrintSetup()
+*
+* To get a list of installed printer models, connected printers, and the
+* default printer:
+*
+*     PrinterCount = PrintSetup(PRN_GET$, Models, Printers, Default)
+*
+* To set the default printer:
+*
+*     Success      = PrintSetup(PRN_SET$, Default)
+
+equ PRN_DLG$             to 1     ;* call printer setup dialog (default)
+equ PRN_GET$             to 2     ;* get list of printers
+equ PRN_SET$             to 3     ;* set current (ie. default) printer
+equ PRN_DLG_CREATE$      to 4     ;* reserved
+equ PRN_DLG_SETDEFAULT$  to 5     ;* reserved
+equ PRN_DLG_OPTIONS$     to 6     ;* reserved
+equ PRN_DLG_HELP$        to 7     ;* reserved
+equ PRN_DLG_SELCHANGE$   to 8     ;* reserved
+
+

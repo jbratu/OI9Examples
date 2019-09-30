@@ -1,0 +1,23 @@
+compile insert OI_DATACONV_COMMON
+/*	----------------------------------------------------------------------------
+	Author	: David Goddard
+	Date	: 1 May 2007
+	Version	: 1.0
+	Purpose : 
+	
+	Modification Info: 
+	----------------------------------------------------------------------------
+	Date		Who		Notes
+	----------------------------------------------------------------------------
+	
+	Parameters:
+	----------------------------------------------------------------------------
+
+	Returns:
+	----------------------------------------------------------------------------
+	
+	--------------------------------------------------------------------------*/
+
+//common /oidata_conv/ format@,file@,filev@,file.fields@,fields@,fields.valid@,fields.oconv@,oidata@,idlist@,savelist@,,html.attributes@,html.table.attributes@,html.row.attributes@,html.cell.attributes@
+common /oidata_conv/ format@,file@,filev@,file.fields@,fields@,fields.valid@,fields.oconv@,oidata@,idlist@,savelist@,attributes@
+

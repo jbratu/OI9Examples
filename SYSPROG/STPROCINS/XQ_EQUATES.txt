@@ -1,0 +1,17 @@
+compile insert XQ_Equates
+
+declare function   XQ
+declare subroutine XQ
+
+* Success = XQ(XQ_LOGTRAN$, TableName, RecordKey)
+equ XQ_LOGTRAN$     to 1
+
+* Success = XQ(XQ_GETTRAN$, TableName, PurgeID /* out */, CutOffDateTime, DestCursor)
+equ XQ_GETTRAN$     to 2
+
+* Success = XQ(XQ_PURGETRAN$, TableName, PurgeID)
+equ XQ_PURGETRAN$   to 3
+
+* Success = XQ(XQ_PURGEALL$, TableName)
+equ XQ_PURGEALL$    to 4
+

@@ -1,0 +1,21 @@
+Subroutine SEND_INFO_TO(m)
+* Proxy version of SEND_INFO subroutine that redirects the message to a file
+
+Declare Subroutine SEND_INFO_STOCK
+
+Common /SEND_INFO_TO/ sitFile@
+
+If Unassigned(sitFile@) Then sitFile@ = ''
+If Unassigned(m) Then m = ''
+
+*Send this to the stock SEND_INFO function
+Send_Info_Stock(M)
+
+If sitFile@ NE '' Then
+	*Target file active, redirect output there
+	NewMsg = TimeDate() : ' ' : m
+	OSWrite NewMsg To sitFile@
+End
+
+Return ''
+

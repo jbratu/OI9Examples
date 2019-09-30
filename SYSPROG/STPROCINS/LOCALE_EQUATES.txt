@@ -1,0 +1,103 @@
+compile insert locale_equates
+ 
+* Windows Constants used in the GetLocaleInfo function
+
+Equ LOCALE_USER_DEFAULT$ To 0x400		;* user locale
+Equ LOCALE_ILANGUAGE$ to 0x1         ;*  language id
+equ LOCALE_SLANGUAGE$ to 0x2         ;*  localized name of language
+equ LOCALE_SENGLANGUAGE$ to 0x1001      ;*  English name of language
+equ LOCALE_SABBREVLANGNAME$ to 0x3         ;*  abbreviated language name
+equ LOCALE_SNATIVELANGNAME$ to 0x4         ;*  native name of language
+equ LOCALE_ICOUNTRY$ to 0x5         ;*  country code
+equ LOCALE_SCOUNTRY$ to 0x6         ;*  localized name of country
+equ LOCALE_SENGCOUNTRY$ to 0x1002      ;*  English name of country
+equ LOCALE_SABBREVCTRYNAME$ to 0x7         ;*  abbreviated country name
+equ LOCALE_SNATIVECTRYNAME$ to 0x8         ;*  native name of country
+equ LOCALE_IDEFAULTLANGUAGE$ to 0x9         ;*  default language id
+equ LOCALE_IDEFAULTCOUNTRY$ to 0xA         ;*  default country code
+equ LOCALE_IDEFAULTCODEPAGE$ to 0xB         ;*  default code page
+
+equ LOCALE_SLIST$ to 0xC         ;*  list item separator
+equ LOCALE_IMEASURE$ to 0xD         ;*  0 to metric, 1 to US
+
+equ LOCALE_SDECIMAL$ to 0xE         ;*  decimal separator
+equ LOCALE_STHOUSAND$ to 0xF         ;*  thousand separator
+equ LOCALE_SGROUPING$ to 0x10        ;*  digit grouping
+equ LOCALE_IDIGITS$ to 0x11        ;*  number of fractional digits
+equ LOCALE_ILZERO$ to 0x12        ;*  leading zeros for decimal
+equ LOCALE_SNATIVEDIGITS$ to 0x13        ;*  native ascii 0-9
+
+equ LOCALE_SCURRENCY$ to 0x14        ;*  local monetary symbol
+equ LOCALE_SINTLSYMBOL$ to 0x15        ;*  intl monetary symbol
+equ LOCALE_SMONDECIMALSEP$ to 0x16        ;*  monetary decimal separator
+equ LOCALE_SMONTHOUSANDSEP$ to 0x17        ;*  monetary thousand separator
+equ LOCALE_SMONGROUPING$ to 0x18        ;*  monetary grouping
+equ LOCALE_ICURRDIGITS$ to 0x19        ;*  # local monetary digits
+equ LOCALE_IINTLCURRDIGITS$ to 0x1A        ;*  # intl monetary digits
+equ LOCALE_ICURRENCY$ to 0x1B        ;*  positive currency mode
+equ LOCALE_INEGCURR$ to 0x1C        ;*  negative currency mode
+
+equ LOCALE_SDATE$ to 0x1D        ;*  date separator
+equ LOCALE_STIME$ to 0x1E        ;*  time separator
+equ LOCALE_SSHORTDATE$ to 0x1F        ;*  short date format string
+equ LOCALE_SLONGDATE$ to 0x20        ;*  long date format string
+equ LOCALE_STIMEFORMAT$ to 0x1003      ;*  time format string
+equ LOCALE_IDATE$ to 0x21        ;*  short date format ordering
+equ LOCALE_ILDATE$ to 0x22        ;*  long date format ordering
+equ LOCALE_ITIME$ to 0x23        ;*  time format specifier
+equ LOCALE_ICENTURY$ to 0x24        ;*  century format specifier
+equ LOCALE_ITLZERO$ to 0x25        ;*  leading zeros in time field
+equ LOCALE_IDAYLZERO$ to 0x26        ;*  leading zeros in day field
+equ LOCALE_IMONLZERO$ to 0x27        ;*  leading zeros in month field
+equ LOCALE_S1159$ to 0x28        ;*  AM designator
+equ LOCALE_S2359$ to 0x29        ;*  PM designator
+
+equ LOCALE_SDAYNAME1$ to 0x2A        ;*  long name for Monday
+equ LOCALE_SDAYNAME2$ to 0x2B        ;*  long name for Tuesday
+equ LOCALE_SDAYNAME3$ to 0x2C        ;*  long name for Wednesday
+equ LOCALE_SDAYNAME4$ to 0x2D        ;*  long name for Thursday
+equ LOCALE_SDAYNAME5$ to 0x2E        ;*  long name for Friday
+equ LOCALE_SDAYNAME6$ to 0x2F        ;*  long name for Saturday
+equ LOCALE_SDAYNAME7$ to 0x30        ;*  long name for Sunday
+equ LOCALE_SABBREVDAYNAME1$ to 0x31        ;*  abbreviated name for Monday
+equ LOCALE_SABBREVDAYNAME2$ to 0x32        ;*  abbreviated name for Tuesday
+equ LOCALE_SABBREVDAYNAME3$ to 0x33        ;*  abbreviated name for Wednesday
+equ LOCALE_SABBREVDAYNAME4$ to 0x34        ;*  abbreviated name for Thursday
+equ LOCALE_SABBREVDAYNAME5$ to 0x35        ;*  abbreviated name for Friday
+equ LOCALE_SABBREVDAYNAME6$ to 0x36        ;*  abbreviated name for Saturday
+equ LOCALE_SABBREVDAYNAME7$ to 0x37        ;*  abbreviated name for Sunday
+equ LOCALE_SMONTHNAME1$ to 0x38        ;*  long name for January
+equ LOCALE_SMONTHNAME2$ to 0x39        ;*  long name for February
+equ LOCALE_SMONTHNAME3$ to 0x3A        ;*  long name for March
+equ LOCALE_SMONTHNAME4$ to 0x3B        ;*  long name for April
+equ LOCALE_SMONTHNAME5$ to 0x3C        ;*  long name for May
+equ LOCALE_SMONTHNAME6$ to 0x3D        ;*  long name for June
+equ LOCALE_SMONTHNAME7$ to 0x3E        ;*  long name for July
+equ LOCALE_SMONTHNAME8$ to 0x3F        ;*  long name for August
+equ LOCALE_SMONTHNAME9$ to 0x40        ;*  long name for September
+equ LOCALE_SMONTHNAME10$ to 0x41        ;*  long name for October
+equ LOCALE_SMONTHNAME11$ to 0x42        ;*  long name for November
+equ LOCALE_SMONTHNAME12$ to 0x43        ;*  long name for December
+equ LOCALE_SABBREVMONTHNAME1$ to 0x44        ;*  abbreviated name for January
+equ LOCALE_SABBREVMONTHNAME2$ to 0x45        ;*  abbreviated name for February
+equ LOCALE_SABBREVMONTHNAME3$ to 0x46        ;*  abbreviated name for March
+equ LOCALE_SABBREVMONTHNAME4$ to 0x47        ;*  abbreviated name for April
+equ LOCALE_SABBREVMONTHNAME5$ to 0x48        ;*  abbreviated name for May
+equ LOCALE_SABBREVMONTHNAME6$ to 0x49        ;*  abbreviated name for June
+equ LOCALE_SABBREVMONTHNAME7$ to 0x4A        ;*  abbreviated name for July
+equ LOCALE_SABBREVMONTHNAME8$ to 0x4B        ;*  abbreviated name for August
+equ LOCALE_SABBREVMONTHNAME9$ to 0x4C        ;*  abbreviated name for September
+equ LOCALE_SABBREVMONTHNAME10$ to 0x4D        ;*  abbreviated name for October
+equ LOCALE_SABBREVMONTHNAME11$ to 0x4E        ;*  abbreviated name for November
+equ LOCALE_SABBREVMONTHNAME12$ to 0x4F        ;*  abbreviated name for December
+equ LOCALE_SABBREVMONTHNAME13$ to 0x100F
+
+equ LOCALE_SPOSITIVESIGN$ to 0x50        ;*  positive sign
+equ LOCALE_SNEGATIVESIGN$ to 0x51        ;*  negative sign
+equ LOCALE_IPOSSIGNPOSN$ to 0x52        ;*  positive sign position
+equ LOCALE_INEGSIGNPOSN$ to 0x53        ;*  negative sign position
+equ LOCALE_IPOSSYMPRECEDES$ to 0x54        ;*  mon sym precedes pos amt
+equ LOCALE_IPOSSEPBYSPACE$ to 0x55        ;*  mon sym sep by space from pos amt
+equ LOCALE_INEGSYMPRECEDES$ to 0x56        ;*  mon sym precedes neg amt
+equ LOCALE_INEGSEPBYSPACE$ to 0x57        ;*  mon sym sep by space from neg amt
+

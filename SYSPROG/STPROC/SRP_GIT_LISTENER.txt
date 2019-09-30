@@ -1,0 +1,28 @@
+Compile function SRP_Git_Listener(Message,OrigEntid,Arg1,Arg2,Arg3,Arg4,Arg5,Arg6,Arg7,Arg8,Arg9,Arg10,Arg11,Arg12,Arg13,Arg14,Arg15,Arg16,Arg17,Arg18,Arg19,Arg20)
+#pragma precomp SRP_PreCompiler
+    
+Declare function   SRP_Git_Services, SRP_Git_Redirect, Status
+Declare subroutine SRP_Git_Serializer, Set_Status
+    
+    Name = OrigEntId[-1, "B*"]
+    If Name[1, 16] _NEC "SRP_EDITOR_TEMP_" AND Name[-14, 14] _NEC "__SRP_GIT_TEMP" then
+        Begin Case
+            
+            Case Message _EQC 'WRITE' OR Message _EQC 'NEW' OR Message _EQC 'UPDATE'
+
+                If SRP_Git_Services("IsEnabled") then
+                    SRP_Git_Serializer('Write', OrigEntId, Arg10, SRP_Git_Services("GetRepoPath"))
+                end
+                
+            Case Message _EQC 'DESTROY'
+                
+                If SRP_Git_Services("IsEnabled") then
+                    SRP_Git_Serializer('Delete', SRP_Git_Services("GetRepoPath"))
+                end            
+                
+        End Case
+    end
+    
+    Ans = SRP_Git_Redirect(Message,OrigEntid,Arg1,Arg2,Arg3,Arg4,Arg5,Arg6,Arg7,Arg8,Arg9,Arg10,Arg11,Arg12,Arg13,Arg14,Arg15,Arg16,Arg17,Arg18,Arg19,Arg20)
+    
+Return Ans

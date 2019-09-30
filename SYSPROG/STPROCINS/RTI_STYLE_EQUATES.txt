@@ -1,0 +1,208 @@
+Compile Insert RTI_Style_Equates
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  Copyright (c) 2011 Revelation Software - All Rights Reserved
+//
+//  Author   -  Erik Smith
+//  Date     -  January 2011
+//  Purpose  -  Various Values For Window And Control Styles.
+//  Notes    -  Released In 9.2.1. Derived From STYLE_EQUATES. Credit To Carl Pates At Sprezzatura For
+//              Portions of this Code. They can be downloaded as part of the Sprezzatura API Library at
+//              http://sprezzblog.blogspot.com/2010/06/sprezzatura-windows-api-library.html
+//  Warnings -  This Is Not a Complete List Of Styles. Please Visit Microsoft MSDN for a more complete List.
+//              ANY CHANGES TO THIS PROGRAM MAY BE OVERWRITTEN IN SUBSEQUENT RELEASES!
+//
+//  Version  -  1.0
+//
+//  Amended        Date                                           Reason
+//  =======      ========       ============================================================================
+//
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Window Styles -------------------------------------------------------------------------------------------
+Equ WS_OVERLAPPED$               To 0x00000000
+Equ WS_POPUP$                    To 0x80000000
+Equ WS_CHILD$                    To 0x40000000
+Equ WS_MINIMIZE$                 To 0x20000000
+Equ WS_VISIBLE$                  To 0x10000000
+Equ WS_DISABLED$                 To 0x08000000
+Equ WS_CLIPSIBLINGS$             To 0x04000000
+Equ WS_CLIPCHILDREN$             To 0x02000000
+Equ WS_MAXIMIZE$                 To 0x01000000
+Equ WS_CAPTION$                  To 0x00C00000
+Equ WS_BORDER$                   To 0x00800000
+Equ WS_DLGFRAME$                 To 0x00400000
+Equ WS_VSCROLL$                  To 0x00200000
+Equ WS_HSCROLL$                  To 0x00100000
+Equ WS_SYSMENU$                  To 0x00080000
+Equ WS_THICKFRAME$               To 0x00040000
+Equ WS_GROUP$                    To 0x00020000
+Equ WS_TABSTOP$                  To 0x00010000
+Equ WS_MINIMIZEBOX$              To 0x00020000
+Equ WS_MAXIMIZEBOX$              To 0x00010000
+
+// Extended Window Styles ----------------------------------------------------------------------------------
+Equ WS_EX_DLGMODALFRAME$         To 0x00000001
+Equ WS_EX_DRAGOBJECT$            To 0x00000002
+Equ WS_EX_NOPARENTNOTIFY$        To 0x00000004
+Equ WS_EX_TOPMOST$               To 0x00000008
+Equ WS_EX_ACCEPTFILES$           To 0x00000010
+Equ WS_EX_TRANSPARENT$           To 0x00000020
+
+// Button Styles -------------------------------------------------------------------------------------------
+Equ BS_PUSHBUTTON$               To 0x00000000
+Equ BS_DEFPUSHBUTTON$            To 0x00000001
+Equ BS_CHECKBOX$                 To 0x00000002
+Equ BS_AUTOCHECKBOX$             To 0x00000003
+Equ BS_RADIOBUTTON$              To 0x00000004
+Equ BS_3STATE$                   To 0x00000005
+Equ BS_AUTO3STATE$               To 0x00000006
+Equ BS_GROUPBOX$                 To 0x00000007
+Equ BS_USERBUTTON$               To 0x00000008
+Equ BS_AUTORADIOBUTTON$          To 0x00000009
+Equ BS_PUSHBOX$                  To 0x0000000A
+Equ BS_OWNERDRAW$                To 0x0000000B
+Equ BS_LEFTTEXT$                 To 0x00000020
+
+// Static Styles -------------------------------------------------------------------------------------------
+Equ SS_LEFT$                     To 0x00000000
+Equ SS_CENTER$                   To 0x00000001
+Equ SS_RIGHT$                    To 0x00000002
+Equ SS_ICON$                     To 0x00000003
+Equ SS_BLACKRECT$                To 0x00000004
+Equ SS_GRAYRECT$                 To 0x00000005
+Equ SS_WHITERECT$                To 0x00000006
+Equ SS_BLACKFRAME$               To 0x00000007
+Equ SS_GRAYFRAME$                To 0x00000008
+Equ SS_WHITEFRAME$               To 0x00000009
+Equ SS_USERITEM$                 To 0x0000000A
+Equ SS_SIMPLE$                   To 0x0000000B
+Equ SS_LEFTNOWORDWRAP$           To 0x0000000C
+Equ SS_OWNERDRAW$                To 0x0000000D
+
+// ListBox Styles ------------------------------------------------------------------------------------------
+Equ LBS_NOTIFY$                  To 0x00000001
+Equ LBS_SORT$                    To 0x00000002
+Equ LBS_NOREDRAW$                To 0x00000004
+Equ LBS_MULTIPLESEL$             To 0x00000008
+Equ LBS_OWNERDRAWFIXED$          To 0x00000010
+Equ LBS_OWNERDRAWVARIABLE$       To 0x00000020
+Equ LBS_HASSTRINGS$              To 0x00000040
+Equ LBS_USETABSTOPS$             To 0x00000080
+Equ LBS_NOINTEGRALHEIGHT$        To 0x00000100
+Equ LBS_MULTICOLUMN$             To 0x00000200
+Equ LBS_WANTKEYBOARDINPUT$       To 0x00000400
+Equ LBS_EXTENDEDSEL$             To 0x00000800
+Equ LBS_DISABLENOSCROLL$         To 0x00001000
+Equ LBS_NODATA$                  To 0x00002000
+Equ LBS_NOSEL$                   To 0x00004000
+
+// ComboBox Styles -----------------------------------------------------------------------------------------
+Equ CBS_SIMPLE$                  To 0x00000001
+Equ CBS_DROPDOWN$                To 0x00000002
+Equ CBS_DROPDOWNLIST$            To 0x00000003
+Equ CBS_OWNERDRAWFIXED$          To 0x00000010
+Equ CBS_OWNERDRAWVARIABLE$       To 0x00000020
+Equ CBS_AUTOHSCROLL$             To 0x00000040
+Equ CBS_OEMCONVERT$              To 0x00000080
+Equ CBS_SORT$                    To 0x00000100
+Equ CBS_HASSTRINGS$              To 0x00000200
+Equ CBS_NOINTEGRALHEIGHT$        To 0x00000400
+Equ CBS_DISABLENOSCROLL$         To 0x00000800
+Equ CBS_UPPERCASE$               To 0x00002000
+Equ CBS_LOWERCASE$               To 0x00004000
+
+// ScrollBar Styles ----------------------------------------------------------------------------------------
+Equ SBS_HORZ$                    To 0x00000000
+Equ SBS_VERT$                    To 0x00000001
+Equ SBS_TOPALIGN$                To 0x00000002
+Equ SBS_LEFTALIGN$               To 0x00000002
+Equ SBS_BOTTOMALIGN$             To 0x00000004
+Equ SBS_RIGHTALIGN$              To 0x00000004
+Equ SBS_SIZEBOXTOPLEFTALIGN$     To 0x00000002
+Equ SBS_SIZEBOXBOTTOMRIGHTALIGN$ To 0x00000004
+Equ SBS_SIZEBOX$                 To 0x00000008
+Equ SBS_SIZEGRIP$                To 0x00000010
+
+// EditTable Styles ----------------------------------------------------------------------------------------
+Equ DTS_EDIT$                    To 0x00000004
+Equ DTS_RESIZE$                  To 0x00000008
+Equ DTS_NONE$                    To 0x00000000
+Equ DTS_NUMBERS$                 To 0x00000010
+Equ DTS_LETTERS$                 To 0x00000020
+Equ DTS_OWNERDEF$                To 0x00000030
+Equ DTS_HGRID$                   To 0x00000040
+Equ DTS_VGRID$                   To 0x00000080
+Equ DTS_ROWSELECT$               To 0x00000100
+Equ DTS_MULTIROW$                To 0x00000200
+Equ DTS_COLSELECT$               To 0x00000400
+Equ DTS_MULTICOL$                To 0x00000800
+Equ DTS_SMALLDATA$               To 0x00000000
+Equ DTS_LARGEDATA$               To 0x00001000
+Equ DTS_ROWBUTTONS$              To 0x00002000
+Equ DTS_ROWNUMBERS$              To 0x00004000
+Equ DTS_DROPDOWN$                To 0x00008000
+Equ DTS_AUTODROPDN$              To 0x00008002
+Equ DTS_VIRTUALMEM$              To 0x00000001
+
+// EditTable Column Styles ---------------------------------------------------------------------------------
+Equ DTCS_LEFT$                   To 0x00000000
+Equ DTCS_HEADLEFT$               To 0x00000000
+Equ DTCS_RESIZE$                 To 0x00000001
+Equ DTCS_FIXED$                  To 0x00000002
+Equ DTCS_EDIT$                   To 0x00000004
+Equ DTCS_PROTECT$                To 0x00000008
+Equ DTCS_UPPERCASE$              To 0x00000010
+Equ DTCS_HIDDEN$                 To 0x00000020
+Equ DTCS_CENTER$                 To 0x00000040
+Equ DTCS_RIGHT$                  To 0x00000080
+Equ DTCS_HEADCENTER$             To 0x00000100
+Equ DTCS_HEADRIGHT$              To 0x00000200
+Equ DTCS_VSCROLL$                To 0x00000400
+Equ DTCS_HSCROLL$                To 0x00000800
+Equ DTCS_SKIPPED$                To 0x00001000
+Equ DTCS_LOCKED$                 To 0x00002000
+Equ DTCS_SORTASC$                To 0x00004000
+Equ DTCS_SORTDES$                To 0x00008000
+Equ DTCS_CHECKBOX$               To 0x00010000
+Equ DTCS_DROPDOWN$               To 0x00020000
+Equ DTCS_MULTILINEHEAD$          To 0x00040000
+Equ DTCS_CHECKBOXRIGHT$          To 0x00080000
+Equ DTCS_VALIGNCENTER$           To 0x00100000
+Equ DTCS_VALIGNBOTTOM$           To 0x00200000
+Equ DTCS_DROPDOWNEDIT$           To 0x00400000
+Equ DTCS_OPTIONSBUTTON$          To 0x00800000
+Equ DTCS_ENABLEDROPDOWNDRAG$     To 0x01000000
+Equ DTCS_MULTILINE$              To 0x02000000
+Equ DTCS_AUTOVSCROLL$            To 0x04000000
+Equ DTCS_AUTOHSCROLL$            To 0x08000000
+Equ DTCS_ENABLEDRAG$             To 0x10000000
+Equ DTCS_ENABLEDROP$             To 0x20000000
+Equ DTCS_CHECKBOXCENTER$         To 0x40000000
+
+// Tab Control Styles ----------------------------------------------------------------------------------
+Equ TCS_SCROLLOPPOSITE$          To 0x00000001
+Equ TCS_BOTTOM$                  To 0x00000002
+Equ TCS_RIGHT$                   To 0x00000002
+Equ TCS_MULTISELECT$             To 0x00000004
+Equ TCS_FLATBUTTONS$             To 0x00000008
+Equ TCS_FORCEICONLEFT$           To 0x00000010
+Equ TCS_FORCELABELLEFT$          To 0x00000020
+Equ TCS_HOTTRACK$                To 0x00000040
+Equ TCS_VERTICAL$                To 0x00000080
+Equ TCS_TABS$                    To 0x00000000
+Equ TCS_BUTTONS$                 To 0x00000100
+Equ TCS_SINGLELINE$              To 0x00000000
+Equ TCS_MULTILINE$               To 0x00000200
+Equ TCS_RIGHTJUSTIFY$            To 0x00000000
+Equ TCS_FIXEDWIDTH$              To 0x00000400
+Equ TCS_RAGGEDRIGHT$             To 0x00000800
+Equ TCS_FOCUSONBUTTONDOWN$       To 0x00001000
+Equ TCS_OWNERDRAWFIXED$          To 0x00002000
+Equ TCS_TOOLTIPS$                To 0x00004000
+Equ TCS_FOCUSNEVER$              To 0x00008000
+
+// Tab Control Extended Styles -------------------------------------------------------------------------
+Equ TCS_EX_FLATSEPARATORS$       To 0x00000001
+Equ TCS_EX_REGISTERDROP$         To 0x00000002

@@ -1,0 +1,12 @@
+Compile Insert U2_SessionEquates
+
+/*
+   equates for U2 session information
+*/
+
+equ VM_SESSION_NAMES$ to 1   ; * names of sessions opened to server
+equ VM_SESSION_IDS$   to 2   ; * corresponding session handles
+
+
+equ MINSESSIONID$ to 1
+

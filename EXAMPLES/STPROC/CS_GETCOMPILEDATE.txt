@@ -1,0 +1,59 @@
+Function CS_GetCompileDate(Routine)
+*
+* Read a compiled routine and extract the last compiled date and time stamp.
+*
+* Params:
+* Routine - Name of the routine in the current OI application 
+*
+* Returns:
+* Displays the date time in a message box. Also returns the value.
+*
+* Last Revised: 2016-04-17
+
+Declare Function Read_Row, Index
+
+*Name of the compiled routine. Assumes current application.
+Convert @LOWER_CASE To @UPPER_CASE In Routine
+Key = '$' : Routine : '*' : @APPID<1>
+
+*Table containing compiled routines
+OBJTableName = "SYSOBJ"
+
+Open OBJTableName To Table Else 
+	Call FSMsg()
+	Return ''
+End
+
+Read ObjCode From Table, Key Else 
+	Call Msg("Unable to read " : KEY : " from " : OBJTableName)
+	Return ''
+End
+
+ObjCodeLen = Len(ObjCode)
+
+*Extract a chunk off the end of the routine
+ChunkLen = 50
+Chunk = ObjCode[(ObjCodeLen - ChunkLen),ObjCodeLen]
+
+*Look for the code segment end marker that precedes the initials and date/time
+SearchToken = \00\ : \00\ : \14\ : \00\
+EndCodePos = Index(Chunk, SearchToken,1)
+
+*Trim the chunk down, start at the character after the search token.
+*Resulting chunk has compiled initials and date/time
+Chunk = Chunk[(EndCodePos + Len(SearchToken)), ObjCodeLen]
+
+CompiledBy = Chunk<1>
+TimeChunk = Chunk<2>
+
+*Look for a NULL character at the end of the time chunk so we know where DateTime value ends
+EndDelimPos = Index(TimeChunk, \00\, 1)
+
+*Internal DateTime value ends 2 bytes before the end of the null char
+DateTimeI = TimeChunk[1, (EndDelimPos - 2)]
+
+*Convert to internal for display
+DateTimeO = OConv(DateTimeI,'DT2/^H')
+
+Call Msg("Progam last compiled " : DateTimeO : " by " : CompiledBy)
+Return DateTimeO

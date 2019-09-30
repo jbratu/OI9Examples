@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "\r\ndeclare function IndexLookup, repository, Msg\r\n\r\nselpos = @CtrlEntID->selpos\r\n\r\ncol = selpos<1>\r\nrow = selpos<2>\r\n\r\nif col = 1 then\r\n\tmess = ''\r\n\tmess<1> = 'Search by keyword, or entire product Listing?'\r\n\tmess<2> = 'BKeyword,Listing'\r\n\tresp = msg(@window, mess)\r\n\r\n\tif resp = 2 then\r\n\t\trepos_key = @appid<1>:'*POPUP**PRODUCT_POPUP'\r\n\t\tkeys = Repository('EXECUTE', repos_key, @WINdow)\r\n\t\tif keys then\r\n\t\t\tarray = @CtrlEntID->array\r\n\t\t\tarray<1, row> = keys\r\n\t\t\t@CtrlEntID->Array = array\r\n\t\t\t@CtrlEntID->selpos = col+2 :@fm: row\r\n\t\tEnd\r\n\tend else\r\n\t\tOwnerWindow = @Window\r\n\t\ttable = 'PRODUCTS'\r\n\t\tIndexedFields = 'DESCRIPTION_XREF'\r\n\t\tDISPLAYedfIELDS = 'ID':@VM:'DESCRIPTION'\r\n\t\tmode = 'SINGLE'\r\n\t\tpopupname = ''\r\n\t\tkeys = IndexLookup(ownerwindow, table, indexedfields, displayedfields, mode, popupname)\r\n\t\tif len(keys) then\r\n\t\t\t@CtrlEntId->text=keys\r\n\t\t\t@CtrlEntID->selpos = col+2 :@fm: row\r\n\t\tEnd\r\n\tend\r\n\t\r\nend\r\n\r\nRETURN 0"
+    }
+}

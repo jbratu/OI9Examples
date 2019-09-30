@@ -1,0 +1,135 @@
+function TEST_RTI_READU(void)
+/*
+**  RTI_READU, RTI_WRITEU, RTI_WRITERELEASE mimic the Pick READU, WRITEU and WRITE
+**
+** If the table is connected using the MVBFS, these functions call the native functions at the server
+** Else, they use OI locking to obtain the same results
+
+
+*   READU
+**  resultCode = RTI_READU(TableNameOrHandle, key, record) ;
+**       * resultCode = 1  ; success, key is locked , record parameter contains the record
+**       * resultCode = 0  ; failed, took the else branch on the read, use get_Status()
+**       * resultcode = -1 ; failed, record already locked
+**       * resultcode = -9 ; failed, error calling bfs
+*   WRITEU
+* resultCode = RTI_WRITEU(TableNameOrHandle, key, record) ;
+* resultCode = 1  ; success record has beed written, not unlocked
+* resultCode = 0  ; failed, took the else branch on the write, use get_Status()
+
+*   WriteRelease
+* resultCode = RTI_WRITERELEASE(TableNameOrHandle, key, record) ;
+* resultCode = 1  ; success record has beed written and unlocked
+* resultCode = 0  ; failed, took the else branch on the write, use get_Status()
+
+* rjc  03-16-12    Created
+*/
+
+
+Declare Function Get_Status, rti_readu, rti_writeu, rti_writerelease
+Declare Subroutine Set_Status
+
+
+$Insert Msg_Equates
+$Insert logical
+
+EQU STATUS_READ_OK$ TO 1
+EQU STATUS_READ_ELSE$ TO 0
+EQU STATUS_READ_LOCKED$ TO -1
+EQU STATUS_READ_ERR$ TO -99
+
+
+Set_Status(0)
+err = ''
+
+* For this example, use QM database, BOOKS table
+* Change this to fit your application
+volname = 'QM_DEMO'
+tablename = 'BOOKS'
+
+
+Call Attach_table(volname, '', '', '')
+is_ok = ( Get_Status(err) ) eq 0
+If is_ok Else
+	Convert @fm To @vm In err
+	errText =  'Unable to attach ' : volname  : err
+End
+
+If is_ok then
+	Open tablename To f_table Else
+		unused = Get_Status(err)
+		Convert @fm To @vm In err
+		errText =  'Unable to open ': Quote(tablename) : @vm : err
+		is_ok = false$
+	End
+End
+
+If is_ok Then
+	Call Rlist('SELECT ' : tablename, 5, '', '', '')
+	done = false$
+	Loop
+		Readnext id Else done = true$
+	Until done Or Not(is_ok)
+		* can pass in table name or handle
+		record = ''
+		locked = false$
+		statCode = rti_readu(tableName, id, record )
+		Begin Case
+			Case  statCode EQ STATUS_READ_OK$
+			    * normal case - I got the lock
+				locked = true$
+				
+			Case  statCode EQ STATUS_READ_LOCKED$
+				* Someone has lock - prompt user
+				* Same as Pick "Locked" clause
+				def = ''
+				def<mCaption$> = 'Record Locked'
+				def<mText$> = 'Record ' : Quote(id): ' is locked' : @vm : ' Try again, abort process or skip this record?'
+				def<mIcon$> = '?'
+				def<mTYpe$> = 'BARI'
+				Loop
+					msg_Ret = Msg(@window, def)
+					retry = true$
+					Begin Case
+						Case msg_ret eq RET_RETRY$
+							statCode = rti_readu(tableName, id, record )
+							locked = (statCode EQ STATUS_READ_OK$)
+							is_ok = (statCode EQ STATUS_READ_LOCKED$ )
+						Case msg_ret eq RET_ABORT$
+							is_ok = false$
+							errText = 'Process Aborted'
+						Case msg_ret eq RET_IGNORE$
+							is_ok = true$
+							retry = false$
+					End Case
+				While is_ok And retry And Not(locked)
+				Repeat
+				
+			Case otherwise$
+			    * Error
+				is_ok = false$
+				unused = Get_Status(err)
+				Convert @fm To @vm In err
+				errText =  'Unable to read ': Quote(id) : @vm : err
+				is_ok = false$
+		End Case
+		
+		If is_ok And locked then
+			* do that thing you do to change the record ....
+			NULL
+			
+			* write it back
+			statCode = rti_writeRelease(tableName, id, record )
+		end
+	repeat
+end
+
+
+If is_ok Then
+	Msg(@window, 'Process Completed')
+end Else
+	Msg(@window, errText)
+end
+
+
+

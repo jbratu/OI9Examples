@@ -1,0 +1,662 @@
+{
+    "style-sheet-id": "",
+    "name": "POPUP",
+    "icon-name": "",
+    "title": "",
+    "size": {
+        "x": 10,
+        "y": 107,
+        "y-ext": null,
+        "width": 355,
+        "height": 274
+    },
+    "style": [
+        "WS_POPUP",
+        "WS_CLIPCHILDREN",
+        "WS_BORDER",
+        "WS_DLGFRAME",
+        "WS_SYSMENU"
+    ],
+    "style-ex": [],
+    "ps-style": [
+        "PSS_WIN_HASMENU",
+        "PSS_DIALOGBOX"
+    ],
+    "background": "#00828282",
+    "script-events": [],
+    "quick-events": [
+        {
+            "name": "CLOSE",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**POPUP",
+            "parameters": [
+                "",
+                "",
+                "",
+                "15"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "CREATE",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**POPUP_SUB",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        }
+    ],
+    "tables": [],
+    "io-options": {
+        "optimistic-locking": false,
+        "locking-behavior": "Exclusive",
+        "coordinate-with-file-locks": false,
+        "ignore-self-locks": false,
+        "ignore-subrow-locks": false,
+        "no-clear-on-write": false,
+        "commit-after-data-set": null,
+        "rollback-if-commit-fails": null,
+        "auto-rollback-on-clear": null,
+        "enforce-required-fields-before-save": null
+    },
+    "joined-tables": {
+        "primary": null,
+        "joined": null
+    },
+    "form-designer-flags": [
+        "0x0",
+        "0x0"
+    ],
+    "background-image": "",
+    "icon": "",
+    "page-count": 1,
+    "controls": [
+        {
+            "name": "CB_OK",
+            "icon-literal": "",
+            "type": "PUSHBUTTON",
+            "parent": "POPUP",
+            "size": {
+                "x": 256,
+                "y": 18,
+                "y-ext": null,
+                "width": 80,
+                "height": 25
+            },
+            "text": "&OK",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_DEFPUSHBUTTON"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_DEFAULTBUTTON",
+                "PSS_INITIALFOCUS",
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 1,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP",
+                    "parameters": [
+                        "",
+                        "",
+                        "",
+                        "7"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x0",
+                "0x0"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "CB_CANCEL",
+            "icon-literal": "",
+            "type": "PUSHBUTTON",
+            "parent": "POPUP",
+            "size": {
+                "x": 256,
+                "y": 62,
+                "y-ext": null,
+                "width": 80,
+                "height": 25
+            },
+            "text": "&Cancel",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_PUSHBUTTON"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CANCELBUTTON",
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 2,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP",
+                    "parameters": [
+                        "",
+                        "",
+                        "",
+                        "8"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x0",
+                "0x0"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "CB_CLEAR",
+            "icon-literal": "",
+            "type": "PUSHBUTTON",
+            "parent": "POPUP",
+            "size": {
+                "x": 254,
+                "y": 105,
+                "y-ext": null,
+                "width": 80,
+                "height": 25
+            },
+            "text": "C&lear",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_PUSHBUTTON"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 3,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP",
+                    "parameters": [
+                        "",
+                        "",
+                        "",
+                        "9"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x0",
+                "0x0"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "CB_ALL",
+            "icon-literal": "",
+            "type": "PUSHBUTTON",
+            "parent": "POPUP",
+            "size": {
+                "x": 255,
+                "y": 151,
+                "y-ext": null,
+                "width": 80,
+                "height": 25
+            },
+            "text": "Select &All",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_PUSHBUTTON"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 4,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP",
+                    "parameters": [
+                        "",
+                        "",
+                        "",
+                        "10"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x0",
+                "0x0"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "CB_FIND",
+            "icon-literal": "",
+            "type": "PUSHBUTTON",
+            "parent": "POPUP",
+            "size": {
+                "x": 256,
+                "y": 195,
+                "y-ext": null,
+                "width": 80,
+                "height": 25
+            },
+            "text": "&Search...",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_PUSHBUTTON"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 5,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP",
+                    "parameters": [
+                        "",
+                        "",
+                        "",
+                        "11"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x0",
+                "0x0"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "ET_POPUP",
+            "icon-literal": "",
+            "type": "EDITTABLE",
+            "parent": "POPUP",
+            "size": {
+                "x": 11,
+                "y": 14,
+                "y-ext": null,
+                "width": 221,
+                "height": 219
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_BORDER",
+                "DTS_OWNERDEF",
+                "DTS_EDIT",
+                "DTS_RESIZE",
+                "DTS_HGRID",
+                "DTS_VGRID",
+                "DTS_ROWSELECT",
+                "DTS_ROWNUMBERS"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 6,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP",
+                    "parameters": [
+                        "",
+                        "",
+                        "",
+                        "12"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                },
+                {
+                    "name": "DBLCLK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP",
+                    "parameters": [
+                        "",
+                        "",
+                        "",
+                        "13"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "",
+            "o-conv": "",
+            "default": "",
+            "form-designer-flags": [
+                "0x7e7fe",
+                "0xc0016e08"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": 40,
+            "columns": [
+                {
+                    "data-width": 80,
+                    "width": 180,
+                    "label": "Column Header",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_RESIZE",
+                        "DTCS_FIXED",
+                        "DTCS_EDIT",
+                        "DTCS_UPPERCASE",
+                        "DTCS_CENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                }
+            ],
+            "image-count": null,
+            "row-limit": 0,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        }
+    ],
+    "menu": null,
+    "menu-script-events": [],
+    "menu-quick-events": []
+}

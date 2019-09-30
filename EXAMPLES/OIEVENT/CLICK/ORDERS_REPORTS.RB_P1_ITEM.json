@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "Declare Function Get_property, Set_Property\r\nWin_Name = CtrlEntId[1,'.']\r\nRetVal = Get_Property(CtrlEntId, 'DEFPROP')\r\nBegin Case\r\n      Case RetVal = 1\r\n           Text = \"This selection will give a report of the Order File by Customer.\"  \r\n      Case RetVal = 2\r\n           Text = \"This selection will give a report of the Order File by Product.\"\r\n      Case RetVal = 3\r\n           Text = \"This selection will give a report of the Orders File by Date.\"\r\nEnd Case\r\nx = Set_Property(Win_Name:\".ST_P1_DESC2\", \"DEFPROP\",TEXT)\r\nRETURN 0"
+    }
+}

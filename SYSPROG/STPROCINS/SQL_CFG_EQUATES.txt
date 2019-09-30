@@ -1,0 +1,6 @@
+COMPILE Insert SQL_CFG_EQUATES
+
+Equ X_COORD$ To 1
+Equ Y_COORD$ To 2
+Equ W_COORD$ To 3
+Equ H_COORD$ To 4

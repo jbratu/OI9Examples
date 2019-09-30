@@ -1,0 +1,292 @@
+Subroutine RTI_CACHE_MFS(CODE, BFS, HANDLE, NAME, FMC, RECORD, STATUS)
+
+/* Name : RTI_CACHE_MFS
+* Description:
+* Cache records in memory
+*
+* Open --  Instantiate a HashTable for this file.
+* Read &Reado - Read from cache else Read from filing system, add to cache
+* Note that cached records expire after a number of seconds, default is 600 ( ten minutes)
+
+* write  - remove from cache, so next read is from disk incase other mfs will alter records on save
+* lock   - remove that record from cache, so lock and read always pull from disk
+* delete - remove from cache
+* Select, Select.Index, Flush or delete table -- Clear the Cache
+
+* This is sample code, not tested for interaction with other mfses.
+
+* 03-15-12  rjc  Created
+
+**/
+
+$insert Logical
+$Insert vol_table_equates
+$insert FSErrors_100
+$Insert FILE.SYSTEM.EQUATES
+
+Declare Function rti_hashtable2, base64EnCode, base64Decode
+Declare Subroutine rti_hashtable2
+
+common /cache_mfs_Common/init%,lifetime_seconds%, read_is_reado%
+If Assigned(init%) Else init% = ''
+If init% else
+	lifetime_seconds$ = 600
+	read_is_reado% = true$
+	init% = true$
+End
+
+$Insert File.System.OnGoSub
+
+Return
+
+* -------------- Main Subs -----------------
+/*
+** Read behvior controlled by 'read is reado' flag
+** default is that read acts like reado - read from cache
+** Note that lock will clear cache, so lock/read will always read from disk.
+*/
+READ.RECORD:
+
+status = true$
+Record = ''
+hcache = base64Encode(handle)
+cacheKey = base64Encode(Name)
+If read_is_reado% then
+	isCached = rti_HashTable2(hcache, 'Contains', cacheKey)
+End Else
+	isCached = false$
+end
+now = time()
+if isCached Then
+	work = rti_HashTable2(hcache,'Get', cacheKey)
+	savedAt = work[1,@fm,1]
+	cacheRecord = work[bcol2()+1,@fm,1]
+	expired = abs( now - savedAt ) le lifetime_seconds%
+	isCached = Not(expired) And cacheRecord # ''
+End
+if isCached  Then
+	Record = base64Decode(cacheRecord)
+End else
+	* Read it, Cache for next time
+	GoSub Next.Mfs
+	if status Then
+		cacheRecord = now:@fm:base64Encode(record)
+		rti_HashTable2(hcache, 'Add', cacheKey, cacheRecord)
+	end
+end
+Return
+
+
+
+READO.RECORD:
+
+status = true$
+Record = ''
+hcache = base64Encode(handle)
+cacheKey = base64Encode(Name)
+isCached = rti_HashTable2(hcache, 'Contains', cacheKey)
+now = time()
+if isCached Then
+	work = rti_HashTable2(hcache,'Get', cacheKey)
+	savedAt = work[1,@fm,1]
+	cacheRecord = work[bcol2()+1,@fm,1]
+	expired = abs( now - savedAt ) le lifetime_seconds%
+	isCached = Not(expired) And cacheRecord # ''
+End
+if isCached  Then
+	Record = base64Decode(cacheRecord)
+End else
+	* Read it, Cache for next time
+	GoSub Next.Mfs
+	if status Then
+		cacheRecord = now:@fm:base64Encode(record)
+		rti_HashTable2(hcache, 'Add', cacheKey, cacheRecord)
+	end
+end
+Return
+
+WRITE.RECORD:
+
+GoSub Next.Mfs
+
+* cache for next read
+if status then
+	hcache = base64Encode(handle)
+	cacheKey = base64Encode(Name)
+	cacheRecord = time():@fm:base64Encode(record)
+	rti_HashTable2(hcache, 'Add', cacheKey, cacheRecord)
+end
+Return
+
+DELETE.RECORD:
+GoSub Next.Mfs
+cacheKey = base64Encode(Name)
+hcache = base64Encode(handle)
+isCached = rti_HashTable2(hcache, 'Contains', cacheKey)
+If isCached then
+	x = rti_HashTable2(hcache, 'Remove', cacheKey)
+end
+Return
+
+CLEARFILE:
+GoSub Next.Mfs
+hcache = base64Encode(handle)
+rti_HashTable2(hcache, 'Clear')
+
+Return
+
+DELETE.FILE:
+GoSub Next.Mfs
+hcache = base64Encode(handle)
+rti_HashTable2(hcache, 'Close')
+Return
+
+* ---------------------------------------
+* non-chained filing system calls
+* ---------------------------------------
+Flush:
+* Called if we detach this table / attach another with the same name
+* Clear out the Cache, so next round of reads will agree with the filing system
+hcache = base64Encode(handle)
+rti_HashTable2(hcache, 'Clear')
+Status = TRUE$
+Return
+
+
+Unlock.All:
+Record = ""
+Status = TRUE$
+Return
+
+Install:
+Status = TRUE$
+Return
+* ---------------------------------------
+* ---------------------------------------
+* Chained Filing System Calls
+* ---------------------------------------
+LOCK.RECORD:
+
+GoSub Next.Mfs
+
+* If they lock it, assume they want the latest copy
+cacheKey = base64Encode(Name)
+hcache = base64Encode(handle)
+isCached = rti_HashTable2(hcache, 'Contains', cacheKey)
+If isCached then
+	x = rti_HashTable2(hcache, 'Remove', cacheKey)
+end
+
+
+Return
+UNLOCK.RECORD:
+GoSub Next.Mfs
+Return
+*--------------------------------------------------
+SELECT:
+
+* Beginning a new select? Clear the file
+If @list.active else
+	hcache = base64Encode(handle)
+	rti_HashTable2(hcache, 'Clear')
+end
+GoSub Next.Mfs
+
+Return
+
+
+READNEXT:
+CLEARSELECT:
+RECORD.COUNT:
+* ---------------------------------------
+CREATE.INDEX:
+DELETE.INDEX:
+UPDATE.INDEX:
+GoSub Next.Mfs
+Return
+
+SELECT.INDEX:
+* Beginning a new select? Clear the file
+If @list.active else
+	hcache = base64Encode(handle)
+	rti_HashTable2(hcache, 'Clear')
+end
+GoSub Next.Mfs
+Return
+
+READNEXT.INDEX:
+
+GoSub Next.Mfs
+return
+
+* ---------------------------------------
+Omni.Script:
+
+Begin Case
+		
+	Case fmc _eqc 'SET_LIFETIME'
+		* set expiration different than default 10 minutes
+		lifetime_seconds% = record
+	Case fmc _eqc 'GET_LIFETIME'
+		record = lifetime_seconds%
+		
+	Case fmc _eqc 'SET_READ_IS_READO'
+		* set expiration different than default 10 minutes
+		lifetime_seconds% = record
+	Case fmc _eqc 'GET_LIFETIME'
+		record = lifetime_seconds%
+	Case fmc _eqc 'Clear_Cache'
+		* force a file to clear it cache
+		* handle = filename or handle portion of opened file handle
+		Locate handle In @tables Using @fm Setting pos Then
+			hCache = Base64Encode(@tables(tab_handle$)<pos>)
+		End Else
+			hcache = Base64Encode(handle)
+		end
+		rti_HashTable2(hcache, 'Clear')
+		
+	Case otherwise$
+		GoSub Next.Mfs
+End case
+Return
+Reserved:
+* there is a critical error if this line is reached
+Status = FALSE$
+Return
+* ---------------------------------------
+OPEN.FILE:
+
+GoSub Next.Mfs
+if status then
+	hcache = base64Encode(record)
+	rti_HashTable2(hcache, 'New', '', 1)
+End
+Return
+
+CREATE.FILE:
+RENAME.FILE:
+MOVE.FILE:
+REMAKE.FILE:
+* ----------------------------------------
+Open.Media:
+CREATE.MEDIA:
+READ.MEDIA:
+WRITE.MEDIA:
+Close.Media:
+GoSub Next.Mfs
+Return
+
+
+* ---------- End of Subroutine
+* ==================================
+* execute filing system chain
+* ==================================
+Next.MFS:
+
+* Strips this MFS leaving the next fs as first element in array
+FSList = delete(BFS, 1, 1, 1)
+NextFS = FSList<1,1,1>
+if len(NextFS) then
+	call @NextFS(Code, FSList, Handle, Name, Fmc, Record, Status)
+End
+Return

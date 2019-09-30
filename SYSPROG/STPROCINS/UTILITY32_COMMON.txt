@@ -1,0 +1,7 @@
+Compile Insert Utility32_Common
+
+* Common Variables used by UTILITY_FileDlg, Utility_CopyFile32, etc
+
+Common /UTILITY32/U32_SECTION%, U32_KEY%, U32_APPLICATION%, U32_SCRIPTLOCATION%, U32_SCRIPTENGINE%, U32_P6%, U32_P7%, U32_P8%, U32_P9%, U32_P10%
+
+

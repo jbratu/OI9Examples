@@ -1,0 +1,102 @@
+Subroutine test_rti_membfs(void)
+/*
+**
+** RTI_MEMBFS is an in-memory filing system useful for creating temporary reporting tables
+** Note that dict and data tables disappear when OI closes.
+** You will want to load dicts from a permanent copy
+** This program provides example of using RTI_MEMBFS
+** to creating a in-memory table from an existing LH table
+
+**
+*/
+
+$Insert MSG_EQUATES
+Equ true$ To 1
+Equ false$ To 0
+
+* Change this to your own table
+lh_Table = 'BOOKS'
+Call attach_Table('DATAVOL', lh_table, '')
+stat = ''
+Call Set_Status(0)
+
+* Start the membfs Volume
+* 
+volname = 'TEST_RTIMEM'
+If rowExists('SYSPTRS', volname) Then
+   Call DETACH_VOLUME(volname, '')
+   Call Delete_Row('SYSPTRS', 'VOLNAME', 0 )
+End
+
+Call create_volume(volname, 'RTI_MEMBFS', "MEMORY_RESIDENT", '', stat)
+
+
+* make data and dict in mem bfs
+mem_table = 'MEM_' : lh_table : '_': time()
+Call create_Table(volname, mem_Table,true$, '', '', '')
+Call create_Table(volname, mem_Table,false$, '', '', '')
+
+* Throw SYSLISTS in memory?
+Call create_Table(volname, 'SYSLISTS',false$, '', '', '')
+Call ATTACH_Table(volname, 'SYSLISTS', '')
+
+Open 'DICT.':lh_table To d_lh Else d_lh = ''
+Open lh_table To f_lh Else f_lh = ''
+
+Open 'DICT.':mem_table To d_mem Else
+	d_mem = ''
+	Msg(@window, 'Dict  Mem Open failed')
+	Return ''
+End
+
+Open mem_table To f_mem Else
+    f_mem = ''
+	Msg(@window, 'Open Mem failed')
+	Return ''
+end	
+
+* Copy the dict, remove indexing on the way
+Call Rlist('SELECT DICT.':lh_table:' WITHOUT @ID CONTAINS "%"', 5, '', '', '')
+done = false$
+cmd = 'LIST ' : mem_table
+Loop
+	Readnext id Else done = true$
+Until done
+	Read rec From d_lh, id Then
+		* remove indexing
+		rec<6> = ''
+		For i = 20 To 27
+			rec<i> = ''
+		Next
+		* Add f-type fields to the report
+		If rec<1> eq 'F' Then
+			cmd := ' ' : id
+		end
+		Write rec On d_mem, id Else
+			Msg(@window, 'Dict Write failed')
+			Return ''
+		End
+	end
+repeat
+
+
+* copy the data from lh to mem
+Select f_lh
+done = false$
+loop
+	Readnext id Else done = true$
+Until done
+	Read rec From f_lh, id Then
+		Write rec On f_mem, id Else
+			Msg(@window, 'Write failed')
+			Return ''
+		End
+	End
+	Call WinYield()
+repeat
+
+* Run a tcl statement
+Call run_report('', cmd, '' )
+
+return
+

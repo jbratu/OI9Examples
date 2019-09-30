@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "\r\n$insert rev_bp, rdk_designer_equates\r\n\r\nFlag = RDKRepViewEdit( RDKRVE_CREATE$, CreateParam )\r\n\r\nReturn 0\r\n"
+    }
+}

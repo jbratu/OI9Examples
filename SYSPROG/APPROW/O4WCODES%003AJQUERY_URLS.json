@@ -1,0 +1,14 @@
+{
+    "record1": {
+        "<1>": {
+            "<1,1>": "Google CDN",
+            "<1,2>": "Local O4W Directory",
+            "<1,3>": "Custom URL"
+        },
+        "<2>": {
+            "<2,1>": "//ajax.googleapis.com/ajax/libs/jqueryui/",
+            "<2,2>": "../jquery/",
+            "<2,3>": "custom"
+        }
+    }
+}

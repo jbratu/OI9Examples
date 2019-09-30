@@ -1,0 +1,45 @@
+Subroutine O4W_CS_TEST_DIALOG_HELLO_WORLD(CtrlEntId, Event, Request)
+
+$Insert O4WEquates
+$Insert O4WCommon
+
+BEGIN Case
+    CASE EVENT _EQC "CREATE"
+		
+		O4WForm()
+		O4WHeader("Hello World Example")
+				
+		O4WSectionStart("mainSection")
+		O4WText("Hello world example. Click the button to see the greeting.")
+		O4WBreak()
+		O4WButton("Hello World", "BTN_HELLO_WORLD")
+		O4WQualifyEvent("BTN_HELLO_WORLD", "CLICK")		
+		
+		O4WSectionEnd("mainSection")
+		
+		O4WSectionStart('DialogSection')
+		O4WSectionEnd('DialogSection')
+			
+	CASE EVENT _EQC "CLICK"
+	
+		Begin Case
+				Case ctrlentid _eqc 'BTN_HELLO_WORLD'
+				
+					
+					O4WSectionStart('DialogSection', O4WResponseOptions())
+					O4WText("Nice to meet you.")
+					O4WBreak()
+					O4WButton('OK','DIALOG_OK_BTN')
+					O4WQualifyeVENT('DIALOG_OK_BTN','CLICK') ;
+					O4WSectionEnd('DialogSection')
+								
+					O4WDialog('DialogSection', 'Hello World')
+					
+				Case ctrlentid _eqc 'DIALOG_OK_BTN'
+					O4WDialog('DialogSection')
+
+		End Case
+		
+END Case
+
+RETURN 0

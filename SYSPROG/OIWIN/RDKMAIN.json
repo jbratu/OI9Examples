@@ -1,0 +1,1292 @@
+{
+    "style-sheet-id": "",
+    "name": "RDKMAIN",
+    "icon-name": "OIRDK",
+    "title": "OpenInsight Runtime Deployment Kit",
+    "size": {
+        "x": 126,
+        "y": 97,
+        "y-ext": null,
+        "width": 561,
+        "height": 416
+    },
+    "style": [
+        "WS_POPUP",
+        "WS_CLIPCHILDREN",
+        "WS_BORDER",
+        "WS_DLGFRAME",
+        "WS_SYSMENU",
+        "WS_THICKFRAME",
+        "WS_MINIMIZEBOX",
+        "WS_MAXIMIZEBOX"
+    ],
+    "style-ex": [],
+    "ps-style": [
+        "PSS_WIN_HASMENU"
+    ],
+    "background": "#00C0C0C0",
+    "script-events": [],
+    "quick-events": [
+        {
+            "name": "CREATE",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**RDKMAIN",
+            "parameters": [
+                "5"
+            ],
+            "return-id": "",
+            "return-property": ""
+        }
+    ],
+    "tables": [],
+    "io-options": {
+        "optimistic-locking": false,
+        "locking-behavior": "Exclusive",
+        "coordinate-with-file-locks": false,
+        "ignore-self-locks": false,
+        "ignore-subrow-locks": false,
+        "no-clear-on-write": false,
+        "commit-after-data-set": null,
+        "rollback-if-commit-fails": null,
+        "auto-rollback-on-clear": null,
+        "enforce-required-fields-before-save": null
+    },
+    "joined-tables": {
+        "primary": null,
+        "joined": null
+    },
+    "form-designer-flags": [
+        "0x7FFFE",
+        "0xF001E988"
+    ],
+    "background-image": "",
+    "icon": "SYSPROG*IMAGE*ICO*OIRDK",
+    "page-count": 1,
+    "controls": [
+        {
+            "name": "MDICLIENT",
+            "icon-literal": "RTISTATIC",
+            "type": "MDICLIENT",
+            "parent": "RDKMAIN",
+            "size": {
+                "x": 1,
+                "y": 28,
+                "y-ext": null,
+                "width": 551,
+                "height": 318
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_CLIPSIBLINGS",
+                "WS_CLIPCHILDREN",
+                "WS_BORDER",
+                "WS_VSCROLL",
+                "WS_HSCROLL"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_AUTOSIZE_W",
+                "PSS_AUTOSIZE_H"
+            ],
+            "tab-stop": 0,
+            "background": "",
+            "foreground": "#00000000",
+            "font": null,
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "",
+            "o-conv": "",
+            "default": "",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf001c808"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "STATUS_OUTLINE",
+            "icon-literal": "",
+            "type": "STATIC",
+            "parent": "RDKMAIN",
+            "size": {
+                "x": 1,
+                "y": -21,
+                "y-ext": null,
+                "width": -1,
+                "height": 20
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "SS_LEFT"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_AUTOSIZE_Y",
+                "PSS_AUTOSIZE_W"
+            ],
+            "tab-stop": 0,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016008"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "STATUSLINE",
+            "icon-literal": "",
+            "type": "STATIC",
+            "parent": "RDKMAIN",
+            "size": {
+                "x": 2,
+                "y": -20,
+                "y-ext": null,
+                "width": -2,
+                "height": 18
+            },
+            "text": " ",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "SS_LEFT"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_AUTOSIZE_Y",
+                "PSS_AUTOSIZE_W"
+            ],
+            "tab-stop": 0,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016008"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "PB_HELP",
+            "icon-literal": "",
+            "type": "PUSHBMP",
+            "parent": "RDKMAIN",
+            "size": {
+                "x": -25,
+                "y": 4,
+                "y-ext": null,
+                "width": 24,
+                "height": 22
+            },
+            "text": "Context sensitive help|Help",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_INITIALFOCUS",
+                "PSS_CLIPONLY",
+                "PSS_AUTOSIZE_X"
+            ],
+            "tab-stop": 1,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**RDKMAIN",
+                    "parameters": [
+                        "11"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016000"
+            ],
+            "bitmap-id": "SYSPROG*IMAGE*BMP*RDKHELP",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 3,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "PB_REFRESH",
+            "icon-literal": "",
+            "type": "PUSHBMP",
+            "parent": "RDKMAIN",
+            "size": {
+                "x": 114,
+                "y": 4,
+                "y-ext": null,
+                "width": 24,
+                "height": 22
+            },
+            "text": "Refresh outline|Refresh",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_DISABLED",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 2,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Event",
+                    "message": "DBLCLK",
+                    "entity-id": "@MDIACTIVE.SEARCH_TYPES",
+                    "parameters": [],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016000"
+            ],
+            "bitmap-id": "SYSPROG*IMAGE*BMP*RDKRFRSH",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 3,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "PB_EXTRACT",
+            "icon-literal": "",
+            "type": "PUSHBMP",
+            "parent": "RDKMAIN",
+            "size": {
+                "x": 91,
+                "y": 4,
+                "y-ext": null,
+                "width": 24,
+                "height": 22
+            },
+            "text": "Extraction Definition|Extract",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_DISABLED",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 3,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Event",
+                    "message": "OMNIEVENT",
+                    "entity-id": "@MDIACTIVE",
+                    "parameters": [
+                        "EXTRACT"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016000"
+            ],
+            "bitmap-id": "SYSPROG*IMAGE*BMP*RDKEXTRC",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 3,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "PB_SAVE",
+            "icon-literal": "",
+            "type": "PUSHBMP",
+            "parent": "RDKMAIN",
+            "size": {
+                "x": 51,
+                "y": 4,
+                "y-ext": null,
+                "width": 24,
+                "height": 22
+            },
+            "text": "Save changes to existing Deployment Definition or Repository View|Save",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_DISABLED",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 4,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Event",
+                    "message": "OMNIEVENT",
+                    "entity-id": "@MDIACTIVE",
+                    "parameters": [
+                        "SAVE"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016000"
+            ],
+            "bitmap-id": "SYSPROG*IMAGE*BMP*RDKSAVE",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 3,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "PB_OPEN",
+            "icon-literal": "",
+            "type": "PUSHBMP",
+            "parent": "RDKMAIN",
+            "size": {
+                "x": 28,
+                "y": 4,
+                "y-ext": null,
+                "width": 24,
+                "height": 22
+            },
+            "text": "Open existing Deployment Definition or Repository View|Open",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 5,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**RDKMAIN",
+                    "parameters": [
+                        "7"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016000"
+            ],
+            "bitmap-id": "SYSPROG*IMAGE*BMP*RDKOPEN",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 3,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "PB_NEW",
+            "icon-literal": "",
+            "type": "PUSHBMP",
+            "parent": "RDKMAIN",
+            "size": {
+                "x": 5,
+                "y": 4,
+                "y-ext": null,
+                "width": 24,
+                "height": 22
+            },
+            "text": "Create new Deployment Definition or new Repository View|New",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_OWNERDRAW"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 6,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**RDKMAIN",
+                    "parameters": [
+                        "6"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffc",
+                "0xf0016000"
+            ],
+            "bitmap-id": "SYSPROG*IMAGE*BMP*RDKNEW",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 3,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        }
+    ],
+    "menu": {
+        "type": "MENU",
+        "name": "",
+        "text": "",
+        "disabled": false,
+        "checked": false,
+        "hidden": false,
+        "accelerator": "None",
+        "tooltip": "",
+        "flags": [],
+        "sub-menus": [
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "&File",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "Deployment Definition, Repository View commands",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "FILE.NEW",
+                        "text": "&New...\tCtrl+N",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+N",
+                        "tooltip": "New Deployment Definition or Repository View",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "FILE.OPEN",
+                        "text": "&Open...\tCtrl+O",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Ctrl+O",
+                        "tooltip": "Open existing Deployment Definition or Repository View",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Close",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": true,
+                        "accelerator": "None",
+                        "tooltip": "Close active Deployment Definition or Repository View",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "FILE.SET_PUBLISHABLE",
+                        "text": "&Publishable Entities...",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "Toggle publishable flag of entities",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "E&xit\tAlt+F4",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "Alt+F4",
+                        "tooltip": "Exit Runtime Deployment Kit",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": true,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "1",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": true,
+                        "accelerator": "None",
+                        "tooltip": "Open Document",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "2",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": true,
+                        "accelerator": "None",
+                        "tooltip": "Open Document",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "3",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": true,
+                        "accelerator": "None",
+                        "tooltip": "Open Document",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "4",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": true,
+                        "accelerator": "None",
+                        "tooltip": "Open Document",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "5",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": true,
+                        "accelerator": "None",
+                        "tooltip": "Open Document",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "6",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": true,
+                        "accelerator": "None",
+                        "tooltip": "Open Document",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "7",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": true,
+                        "accelerator": "None",
+                        "tooltip": "Open Document",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "8",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": true,
+                        "accelerator": "None",
+                        "tooltip": "Open Document",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "9",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": true,
+                        "accelerator": "None",
+                        "tooltip": "Open Document",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            },
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "&View",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Refresh Outline",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            },
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "&Window",
+                "disabled": false,
+                "checked": false,
+                "hidden": true,
+                "accelerator": "None",
+                "tooltip": "Commands for arranging windows",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Cascade",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": true,
+                        "accelerator": "None",
+                        "tooltip": "Arrange windows",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Tile",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": true,
+                        "accelerator": "None",
+                        "tooltip": "Arrange windows",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&Arrange Icons",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": true,
+                        "accelerator": "None",
+                        "tooltip": "Arrange icons",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            },
+            {
+                "type": "POPUP",
+                "name": "",
+                "text": "&Help",
+                "disabled": false,
+                "checked": false,
+                "hidden": false,
+                "accelerator": "None",
+                "tooltip": "Commands for displaying RDK help",
+                "flags": [],
+                "sub-menus": [
+                    {
+                        "type": "ITEM",
+                        "name": "HELP.CONTENTS",
+                        "text": "&Contents...\tF1",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "F1",
+                        "tooltip": "Context sensitive help",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "",
+                        "text": "&How to Use Help",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "Help on using Windows help",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "SEPARATOR",
+                        "name": "",
+                        "text": "",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "",
+                        "flags": [],
+                        "sub-menus": []
+                    },
+                    {
+                        "type": "ITEM",
+                        "name": "HELP.ABOUT",
+                        "text": "&About...",
+                        "disabled": false,
+                        "checked": false,
+                        "hidden": false,
+                        "accelerator": "None",
+                        "tooltip": "About Runtime Deployment Kit",
+                        "flags": [],
+                        "sub-menus": []
+                    }
+                ]
+            }
+        ]
+    },
+    "menu-script-events": [],
+    "menu-quick-events": [
+        {
+            "name": "FILE.NEW",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**RDKMAIN",
+            "parameters": [
+                "6"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.OPEN",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**RDKMAIN",
+            "parameters": [
+                "7"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.CLOSE",
+            "type": "Event",
+            "message": "CLOSE",
+            "entity-id": "@MDIACTIVE",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.SET_PUBLISHABLE",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**DIALOG_BOX",
+            "parameters": [
+                "RDK_DEPLOY_OPTION",
+                "@WINDOW",
+                ""
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "FILE.EXIT",
+            "type": "Event",
+            "message": "CLOSE",
+            "entity-id": "@WINDOW",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "VIEW.REFRESH_OUTLINE",
+            "type": "Event",
+            "message": "DBLCLK",
+            "entity-id": "@MDIACTIVE.SEARCH_TYPES",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "WINDOW.CASCADE",
+            "type": "Event",
+            "message": "CASCADE",
+            "entity-id": "@WINDOW",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "WINDOW.TILE",
+            "type": "Event",
+            "message": "TILE",
+            "entity-id": "@WINDOW",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "WINDOW.ARRANGE_ICONS",
+            "type": "Event",
+            "message": "ARRANGEICONS",
+            "entity-id": "@WINDOW",
+            "parameters": [],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "HELP.CONTENTS",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**RDKMAIN",
+            "parameters": [
+                "11"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "HELP.HOW_TO_USE_HELP",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**RDKMAIN",
+            "parameters": [
+                "12"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "HELP.ABOUT",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**RDKMAIN",
+            "parameters": [
+                "13"
+            ],
+            "return-id": "",
+            "return-property": ""
+        }
+    ]
+}

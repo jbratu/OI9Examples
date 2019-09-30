@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "Declare Function TB_Child\r\n\r\n\tBegin Case\r\n\t\tCase Message = \"INSERTROW\"   \t\r\n\t\t\t \tVoid = Tb_Child(\"INSERT\", CtrlEntId:@fm:Param1)\r\n\t\tCase 1\t \t\r\n\tEnd Case\r\n\r\nRETURN 0\r\n"
+    }
+}

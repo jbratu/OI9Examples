@@ -1,0 +1,34 @@
+*
+*  Contains SQL Status codes.  These equates are suffixed by "_STAT$" and
+*  are >= 1000.
+
+*================================ BLOCK 1000 =================================
+* SQL Status codes.
+*
+EQUATE SQL_RESTART_STAT$           TO 1000     ;* Popup for the restart process
+EQUATE SQL_IGNORE_TRANS_STAT$      TO 1001     ;* A pending transaction exists and is being ignored
+EQUATE SQL_INVALID_RESTART_STAT$   TO 1002     ;* Invalid entry on the restart popup
+EQUATE SQL_TRANS_ALREADY_ON_STAT$  TO 1003     ;* This transaction is already on and doesn't have to be set.
+EQUATE SQL_TABLE_CREATED_STAT$     TO 1004     ;* Table created using CREATE TABLE ; Table name, Volume name
+
+EQUATE SQL_INSERT_KEY_MISSING_STAT$ TO 1100    ;* Interactive SQL insert keypart missing
+EQUATE SQL_VIEW_DROPPED_STAT$      TO 1101     ;* View Dropped by Drop Table.
+EQUATE SQL_INSERTED_ROWS_STAT$     TO 1102     ;* INSERT was successful; display number of inserted rows.
+EQUATE SQL_UPDATE_ROWS_STAT$       TO 1103     ;* UPDATE was successful; number of rows affected
+EQUATE SQL_DELETED_ROWS_STAT$      TO 1104     ;* DELETE was successful; # rows deleted.
+EQUATE SQL_TABLE_CLEARED_STAT$     TO 1105     ;* DELETE was successful entire table cleared; table name
+EQUATE SQL_TABLE_DROPPED_STAT$     TO 1106     ;* Base table Dropped by Drop Table.
+
+EQUATE SQL_EMB_PROCESS_STAT$       TO 1110     ;* Embedded preprocessor stripping...
+EQUATE SQL_EMB_GENERATING_OBJ_STAT$ TO 1111    ;* Generating object...
+EQUATE SQL_EMB_COMPILED_STAT$      TO 1112     ;* Compilation done
+
+
+EQUATE SQL_UPDATING_STAT$          TO 1120     ;* Interactive updating records...
+EQUATE SQL_INSERTING_STAT$         TO 1121     ;* Interactive inserting records...
+EQUATE SQL_DELETING_STAT$          TO 1122     ;* Interactive deleteing records...
+EQUATE SQL_NORMALIZING_STAT$       TO 1123     ;* Normalizing repeating data...
+EQUATE SQL_ORDERING_STAT$          TO 1124     ;* Ordering table...
+
+
+* Source Date: 16:42:27  12 JAN 1993  Build ID: OI*1.0.10  Level: 2.0

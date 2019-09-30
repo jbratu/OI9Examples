@@ -1,0 +1,147 @@
+Subroutine Test_TGBFS_Subcall( connection_name )
+/*
+**  Sample program showing how to interact with the server
+**  By writing a record
+**  Issuing a TCL command
+**  Calling a program
+**
+**  In this example we create the text for a D3 program
+**  Write the text in the BP file on the server using WRITE_ROW
+**  Issue commands to compile and catalog it using TGBFS_EXECPROC
+**  Call the subroutine on the server with parameters using TGBFS_SUBCALL
+**  02-10-11  rjc  Created
+*/
+
+$Insert msg_Equates
+$Insert logical
+$Insert vol_table_equates
+$Insert SSPERRORS_600
+Declare Function Msg, TGBFS_execproc, GET_STATUS
+
+
+call Set_Status(0)
+
+* Edit the volume id and program name to suit your needs
+* The volume id is the connection name in the TGBFS_CONNECTION_DETAILS window
+* If not passed in, for an existing connection
+If Assigned(connection_name) Else connection_name = ''
+If connection_name # '' Then
+	Call Attach_table(connection_name, '', '')
+End else
+	Locate 'TGBFS' In @volumes(vol_file_sys$) Using @fm Setting pos Then
+		connection_name = @volumes(vol_location$)<pos,1>
+	end
+	If connection_name = '' Then
+		Msg(@window, 'Unable to determine the connection to use, terminating')
+		Return ''
+	end
+end
+*---
+* Create an example program which will have two parameters
+* The program will accept a value in the first parameter
+* and return a modified value in the second parameter
+* In real life you will call an existing catalogued program
+* You can call any routine with 0 to 30 parameters
+* You can pass data in and or out of any parameter
+*---
+
+* the name of the program
+program_file = 'DEMO_BP' ; * I ASSUME you have a DEMO_BP file.  Change this to a different file as needed
+
+Open program_file to f_program_file Else
+    err = ''
+	Call Get_Status(err)
+	Msg(@window, err)
+	return
+End
+
+* OI name may be differnt from server name.  Parse it from the handle
+Equ handle.delim$ To \F7\ ; * double squiggly
+server_file_name = Field(f_program_file, handle.delim$, 2)
+program_name = 'OI_CLIENT' ;
+
+* Define it
+program_body = 'SUBROUTINE ':program_name:'(INPARAM, OUTPARAM)'
+program_body<-1> = '* Test program to Demonstrate calling D3 from OI'
+program_body<-1> = ''
+program_body<-1> = 'OUTPARAM="TODAY YOU PASSED *" : INPARAM : "*"'
+program_body<-1> = 'END'
+
+* Write it to the server, don't bother to lock the record
+lock_flag = 0
+ssp_response = ''
+Call Write_Row(program_file, program_name, program_body, lock_flag)
+Call Get_Status(ssp_response)
+Call Set_Status(0)
+If ssp_response<1,1> # SSP_ROW_WRITTEN_OK$  Then
+	Convert @fm To @vm In ssp_response
+	Msg(@window, 'Unable to write row ': @vm :  ssp_response)
+	Return ''
+end
+
+*---
+* Compile it at the server using Execproc
+* TGBFS_EXECPROC is very useful in other situations too
+* Note that you can use TGBFS_EXECPROC to send ANY tcl command and capture the reps
+* result_code = TGBFS_execProc(connection_name, command, captured, pReplies, pInteractive )
+* connection_name = connection name from the connection defintion window
+* captured = the output of the command, i.e. what would appear on the screen in a terminal session
+* pReplies = Similar to a DATA statement, you can supply an FM delimited list of answers to expected prompts
+* pInteractive = ''  ; * True if the you want OI to put up a message box if the server prompts for data
+*---
+
+command = 'BASIC ' :server_file_name : ' ' : program_name : ' (O'
+captured = ''
+pReplies = ''
+pInteractive = ''
+result_code = TGBFS_execProc(connection_name, command, captured, pReplies, pInteractive )
+If result_code eq -1 Then
+	Msg(@window, 'Unable to execute command ' : Quote(command) )
+	Return ''
+End Else
+    Convert @fm To @vm In captured
+	Msg(@window, captured)
+End
+
+
+*---
+* Cataloged it now using execproc
+* Note thst if you run the program multiple times D3 will prompt "Do you want to Overwrite (Y/N)"
+* So, pass a "Y" in pReplies, D3 will use it as the answer
+* If you expect multiple prompts, pass an @fm delimited string of answers
+*---
+command = 'CATALOG ' : server_file_name : ' ' : program_name
+pReplies = '' ; * Y' ; * provide a reply incase server prompts about overwriting
+result_code = TGBFS_execProc(connection_name, command, captured, pReplies, pInteractive )
+If result_code eq -1 Then
+	Msg(@window, 'Unable to execute command ' : Quote(command) )
+	Return ''
+End Else
+    Convert @fm To @vm In captured
+	Msg(@window, captured)
+End
+
+*----
+* Finally ...
+* Call The procedure using the TGBFS_SUBCALL subroutine
+* Usage:
+* subroutine TGBFS_SUBCALL(tconnection_name,tSubName,tParamCount,P1,P2,P3,P4,P5,...,P30)
+* IN   sconnection_name = D3 volume name or handle
+* IN   SubName = Name of subroutine to Execute
+* IN   ParamCount = Number of parameters expected by the subroutine  ( 0 - 30 )
+* IN/OUT P1 ... P30 ( Optional) parameter values, default to ''
+*
+* The called routine must be a cataloged subroutine on the server
+* if the called routine changes any parameter the calling routine can retrieve it
+* In this example we have 2 parameters, passing data in the first, getting response from the second
+*---
+
+ParamCount = 2         ; * our example uses 2 parameters
+inparam  = timedate()  ; * our example expects something in the first param
+outparam = ''          ; * our example expects nothing in the second param
+Call TGBFS_Subcall(connection_name, program_name, ParamCount, inparam, outparam)
+
+* echo the result
+call msg(@window, inparam : @vm : outparam )
+
+Return ''

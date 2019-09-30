@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "\r\ndeclare function Msg\r\n\r\nrec = ''\r\nrec = .table_1->array\r\nrec<3> =.keywords->array\r\nrec<4> = .prefix->text\r\nrec<5> = .storage->value\r\n\r\nopen 'SYSENV' to f_sysenv then\r\n\twrite rec on f_sysenv, 'XML_TYPES' else\r\n\t\tx = msg('','Unable to update SYSENV record XML_TYPES')\r\n\tend\r\nend else\r\n\tx = msg('','Unable to update SYSENV record XML_TYPES')\r\nend\r\n\r\nCall Send_Event(@window, 'CLOSE')\r\n\r\nRETURN 0"
+    }
+}

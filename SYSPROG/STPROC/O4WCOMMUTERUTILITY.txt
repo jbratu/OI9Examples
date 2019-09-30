@@ -1,0 +1,205 @@
+Function O4WCOMMUTERUTILITY(PFIELD, ACTION, OPARAM1, OPARAM2)
+*#!Precompile
+/*
+*  This program is proprietary and is not to be used by or disclosed to others, nor is it to be copied without
+*  written permission from Revelation Technologies, Inc.
+!
+*
+*  VERSION    : 1.0
+*
+*
+*  AUTHOR     : Bryan Shumsky
+*
+*  CREATED    : January 6, 2010
+*
+*
+!
+*
+*  REVISION HISTORY           (Most CURRENT first) :
+*
+*    DATE       IMPLEMENTOR     FUNCTION
+*  --------     -----------     --------
+*
+*
+*/
+*
+$Insert O4WCommon
+$Insert O4WEquates
+$Insert O4WFormEquates
+$Insert O4W_COMMUTER_COMMON
+*
+If Assigned(PFIELD) Else PFIELD = ""
+If Assigned(ACTION) Else ACTION = ""
+If Assigned(OPARAM1) Else OPARAM1 = ""
+If Assigned(OPARAM2) Else OPARAM2 = ""
+*
+RSLT = ""
+Begin Case
+	Case ACTION = O4WUTILITY_FIELDNAME$
+	   whichfield = pField
+		If oParam1 <> "" Then
+			whichField = oParam1
+		end
+		entryNumber = Field(whichField, '_', 2)
+		If Num(entryNumber) And entryNumber <> "" then
+			RSLT = formDef@<Attr$, entryNumber>
+		end
+		
+	Case ACTION = O4WUTILITY_TABLENAME$
+		* Derive name of table from current field
+	   whichfield = pField
+		If oParam1 <> "" Then
+			whichField = oParam1
+		end
+		entryNumber = Field(whichField, '_', 2)
+		* did they pass us a control, or a field name?
+		fNum = ""
+		Locate whichField In formDef@<attr$> Using @VM Setting dummy Then
+			fNum = dummy
+		End Else If Num(entryNumber) And entryNumber <> "" then
+			fNum = entryNumber
+		End
+		If fNum <> "" Then
+			num.parts = dcount(tabInfo@<2>, @VM)
+			For each.part = 1 To num.parts
+				num.assoc = dcount(tabInfo@<2, each.part>, @SVM)
+				For each.assoc = 1 To num.assoc Until rslt <> ""
+					Locate fNum In tabInfo@<4, each.part, each.assoc> Using @TM Setting loc Then
+						rslt = "tbl_":each.assoc:"_":each.part
+					End
+					Until rslt <> ""
+				Next each.assoc
+				Until rslt <> ""
+			Next each.part
+		end
+		
+	Case ACTION = O4WUTILITY_VALUE$
+	
+		entryNumber = Field(PField, '_', 2)
+		entryModifier = PField[COL2()+1, Len(PField)]
+		fieldName = ""
+		If oParam1 = "" then
+			fieldName = formDef@<Attr$, entryNumber>
+		End Else
+			* passed a field name to get the value from
+			Locate oParam1 In formDef@<Attr$> Using @VM Setting entryNumber Then
+				fieldName = oParam1
+			End
+		End
+		If fieldName <> "" Then
+			formelementName = 'FIELD_':entryNumber
+			rslt = O4WGetValue(formelementName:'_code', iFound)
+			If iFound = 0 then
+				rslt = O4WGetValue(formelementName)
+			End
+			valueNumber = entryModifier ;* bzs 041711
+			isDynamic = ""
+			If pField <> "" Then
+				* they passed in a 'parent' field - so maybe we're part of an association with it?  Or we _are_ the parent field, and we may be in an association ourselves...
+				isDynamic = O4WGetValue('o4wDynamicTable')
+			end
+			if isDynamic <> '' then
+				* add/insert/delete may apply - determine which value this really is
+				numDelims = dcount(isDynamic, '_')
+				tableOrient = field(isDynamic, '_', numDelims)
+				if tableOrient[1,1] = '1' then
+					* multivalued table - is it column x row, or row x column?
+					if tableOrient[2,1] = '0' then
+						* row x column - our values are in each column
+						valueNumber = o4wGetValue('o4wDynamicCol')
+					end else
+						* column x row - our values are in each row
+						valueNumber = o4wGetValue('o4wDynamicRow')
+					End
+				end
+			End
+			* bzs 041711 fix changed suffix
+			If valueNumber[1,6] = "O4WMV_" Then
+				valueNumber[1,6] = ""
+			End
+			* bzs end 041711
+			if valueNumber and num(valueNumber) then
+				rslt = rslt<1, valueNumber>
+			end
+		End
+		
+	Case action = O4WUTILITY_FORMELEMENT_LABEL_CELL$
+		prefix = "LABEL"
+		bMaybeMV = 0
+		Gosub buildFormElement
+		
+	Case action = O4WUTILITY_FORMELEMENT_CONTROL_CELL$
+		prefix = "VALUE"
+		bMaybeMV = 1
+		Gosub buildFormElement
+
+	Case action = O4WUTILITY_FORMELEMENT_LABEL_SECTION$
+		Prefix = "LABELCELL"
+		bMaybeMV = 0
+		Gosub buildFormElement
+				
+	Case action = O4WUTILITY_FORMELEMENT_CONTROL_SECTION$
+		prefix = "VALUECELL"
+		bMaybeMV = 1
+		Gosub buildFormElement
+		
+	Case action = O4WUTILITY_FORMELEMENT_CONTROL$
+		prefix = "FIELD"
+		bMaybeMV = 1
+		Gosub buildFormElement
+	
+	Case action = O4WUTILITY_FORMELEMENT_TEXT$
+		prefix = "LINK"
+		bMaybeMV = 1
+		Gosub buildFormElement
+
+	Case ACTION = O4WUTILITY_CONTROLTYPE$
+		rslt = Field(pField, "_", 1)
+		
+	Case ACTION = O4WUTILITY_CLASS_CONTROL_CELL$
+		prefix = "classCell"
+		Gosub buildClass
+		
+	Case ACTION = O4WUTILITY_CLASS_CONTROL_SECTION$
+		prefix = "valuecell"
+		Gosub buildClass
+		
+	Case ACTION = O4WUTILITY_CLASS_CONTROL$
+		prefix = "classInput"
+		Gosub buildClass
+		
+	Case ACTION = O4WUTILITY_CLASS_TEXT$
+		prefix = "classLink"
+		Gosub buildClass
+		
+End Case
+*
+Return RSLT
+*
+*
+buildFormElement: * build appropriate element ID based On passed-In info, prefix
+entryNumber = Field(PField, '_', 2)
+entryModifier = PField[COL2()+1, Len(PField)]
+* bzs 102910 If Count(PField, "_") = 0 And oParam1 <> "" Then
+If Count(PField, "_") = 0 And pField <> "" And oParam1 <> "" Then
+	* user-added row?
+	entryModifier = "o4wid_":PField
+end
+If oParam1 <> "" Then
+	Locate oParam1 In formDef@<Attr$> Using @VM Setting entryNumber Else entryNumber = ""
+End
+If entryNumber <> "" Then
+	rslt = prefix:"_":entryNumber
+	If entryModifier <> "" And bMaybeMV Then rslt := "_":entryModifier
+end
+Return
+
+buildClass: * build appropriate class name based On passed-In info, prefix
+entryNumber = Field(PField, '_', 2)
+If oParam1 <> "" Then
+	Locate oParam1 In formDef@<Attr$> Using @VM Setting entryNumber Else entryNumber = ""
+End
+If entryNumber <> "" Then
+	rslt = prefix:entryNumber
+end
+return

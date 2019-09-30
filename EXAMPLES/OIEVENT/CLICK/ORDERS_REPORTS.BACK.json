@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "Declare Function Get_property\r\nDeclare subroutine Orders_reports_Wizard\r\nWin_Name = CtrlEntId[1,'.']\r\nSelection_Type = Get_Property(CtrlEntId, 'DEFPROP')\r\nReport_Type = Get_Property(Win_Name:\".RB_P1_ITEM\", 'DEFPROP')\r\n\r\nOrders_reports_Wizard(\"Back\",Report_Type)\r\nRETURN 0"
+    }
+}

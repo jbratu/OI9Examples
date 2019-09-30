@@ -1,0 +1,1019 @@
+{
+    "style-sheet-id": "",
+    "name": "SRP_GIT_SETTINGS",
+    "icon-name": "SRP_GIT_ICON",
+    "title": "SRP Git Settings",
+    "size": {
+        "x": 249,
+        "y": 401,
+        "y-ext": null,
+        "width": -636,
+        "height": -174
+    },
+    "style": [
+        "WS_POPUP",
+        "WS_CLIPSIBLINGS",
+        "WS_BORDER",
+        "WS_DLGFRAME",
+        "WS_SYSMENU",
+        "WS_THICKFRAME"
+    ],
+    "style-ex": [],
+    "ps-style": [
+        "PSS_WIN_BACKGROUNDCOLOR"
+    ],
+    "background": "#00FFFFFF",
+    "script-events": [],
+    "quick-events": [
+        {
+            "name": "CLOSE",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**SRP_GIT_SETTINGS_EVENTS",
+            "parameters": [
+                "CLOSE",
+                "@SELF"
+            ],
+            "return-id": "",
+            "return-property": ""
+        },
+        {
+            "name": "CREATE",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**SRP_GIT_SETTINGS_EVENTS",
+            "parameters": [
+                "CREATE",
+                "@SELF"
+            ],
+            "return-id": "",
+            "return-property": ""
+        }
+    ],
+    "tables": [],
+    "io-options": {
+        "optimistic-locking": false,
+        "locking-behavior": "Exclusive",
+        "coordinate-with-file-locks": false,
+        "ignore-self-locks": false,
+        "ignore-subrow-locks": false,
+        "no-clear-on-write": false,
+        "commit-after-data-set": null,
+        "rollback-if-commit-fails": null,
+        "auto-rollback-on-clear": null,
+        "enforce-required-fields-before-save": null
+    },
+    "joined-tables": {
+        "primary": null,
+        "joined": null
+    },
+    "form-designer-flags": [
+        "0x7FFFE",
+        "0xF001E808"
+    ],
+    "background-image": "",
+    "icon": "SYSPROG*IMAGE*ICO*SRP_GIT_ICON",
+    "page-count": 1,
+    "controls": [
+        {
+            "name": "CHB_ENABLED",
+            "icon-literal": "",
+            "type": "CHECKBOX",
+            "parent": "SRP_GIT_SETTINGS",
+            "size": {
+                "x": 10,
+                "y": 6,
+                "y-ext": null,
+                "width": 90,
+                "height": 25
+            },
+            "text": "Git Enabled",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_AUTOCHECKBOX"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_INITIALFOCUS"
+            ],
+            "tab-stop": 1,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "Segoe UI Semilight",
+                "height": -13,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 3,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**SRP_GIT_SETTINGS_EVENTS",
+                    "parameters": [
+                        "CLICK",
+                        "@SELF"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016508"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": false,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "STA_REPO_LOC",
+            "icon-literal": "",
+            "type": "STATIC",
+            "parent": "SRP_GIT_SETTINGS",
+            "size": {
+                "x": 10,
+                "y": 41,
+                "y-ext": null,
+                "width": 170,
+                "height": 29
+            },
+            "text": "Git Repository Location:",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "SS_LEFT"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 0,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "Segoe UI Semilight",
+                "height": -13,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 3,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016c08"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "EDL_REPO_LOC",
+            "icon-literal": "",
+            "type": "EDITFIELD",
+            "parent": "SRP_GIT_SETTINGS",
+            "size": {
+                "x": 185,
+                "y": 38,
+                "y-ext": null,
+                "width": -7,
+                "height": 24
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "ES_AUTOHSCROLL"
+            ],
+            "style-ex": [
+                "WS_EX_CLIENTEDGE"
+            ],
+            "ps-style": [
+                "PSS_AUTOSIZE_W"
+            ],
+            "tab-stop": 2,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "Segoe UI Semilight",
+                "height": -13,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 3,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "LOSTFOCUS",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**SRP_GIT_SETTINGS_EVENTS",
+                    "parameters": [
+                        "LOSTFOCUS",
+                        "@SELF",
+                        "@PARAM1",
+                        "@PARAM2"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016408"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "STA_GIT_LOC",
+            "icon-literal": "",
+            "type": "STATIC",
+            "parent": "SRP_GIT_SETTINGS",
+            "size": {
+                "x": 10,
+                "y": 74,
+                "y-ext": null,
+                "width": 170,
+                "height": 19
+            },
+            "text": "Git Exe Location:",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "SS_LEFT"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 0,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "Segoe UI Semilight",
+                "height": -13,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 3,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016d08"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "EDL_GIT_LOC",
+            "icon-literal": "",
+            "type": "EDITFIELD",
+            "parent": "SRP_GIT_SETTINGS",
+            "size": {
+                "x": 185,
+                "y": 71,
+                "y-ext": null,
+                "width": -7,
+                "height": 24
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "ES_AUTOHSCROLL"
+            ],
+            "style-ex": [
+                "WS_EX_CLIENTEDGE"
+            ],
+            "ps-style": [
+                "PSS_AUTOSIZE_W"
+            ],
+            "tab-stop": 3,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "Segoe UI Semilight",
+                "height": -13,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 3,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "LOSTFOCUS",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**SRP_GIT_SETTINGS_EVENTS",
+                    "parameters": [
+                        "LOSTFOCUS",
+                        "@SELF",
+                        "@PARAM1",
+                        "@PARAM2"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016408"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "STA_GUI_LOC",
+            "icon-literal": "",
+            "type": "STATIC",
+            "parent": "SRP_GIT_SETTINGS",
+            "size": {
+                "x": 10,
+                "y": 107,
+                "y-ext": null,
+                "width": 170,
+                "height": 19
+            },
+            "text": "Git GUI Command (Optional):",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "SS_LEFT"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 0,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "Segoe UI Semilight",
+                "height": -13,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 3,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016d08"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "EDL_GUI_LOC",
+            "icon-literal": "",
+            "type": "EDITFIELD",
+            "parent": "SRP_GIT_SETTINGS",
+            "size": {
+                "x": 185,
+                "y": 104,
+                "y-ext": null,
+                "width": -7,
+                "height": 24
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "ES_AUTOHSCROLL"
+            ],
+            "style-ex": [
+                "WS_EX_CLIENTEDGE"
+            ],
+            "ps-style": [
+                "PSS_AUTOSIZE_W"
+            ],
+            "tab-stop": 4,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "Segoe UI Semilight",
+                "height": -13,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 3,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "LOSTFOCUS",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**SRP_GIT_SETTINGS_EVENTS",
+                    "parameters": [
+                        "LOSTFOCUS",
+                        "@SELF",
+                        "@PARAM1",
+                        "@PARAM2"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016408"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "OLE_SUBCLASS",
+            "icon-literal": "",
+            "type": "OLECONTROL.SRPUTIL.Subclass.1",
+            "parent": "SRP_GIT_SETTINGS",
+            "size": {
+                "x": 10,
+                "y": 230,
+                "y-ext": null,
+                "width": 146,
+                "height": 18
+            },
+            "text": "SRPUTIL.Subclass.1",
+            "style": [
+                "WS_CHILD"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 5,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "Tahoma",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 3,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "OLE",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**SRP_GIT_SETTINGS_EVENTS",
+                    "parameters": [
+                        "@PARAM1",
+                        "@SELF",
+                        "@PARAM2",
+                        "@PARAM3",
+                        "@PARAM4",
+                        "@PARAM5",
+                        "@PARAM6"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016000"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": "",
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "PUB_OK",
+            "icon-literal": "",
+            "type": "PUSHBUTTON",
+            "parent": "SRP_GIT_SETTINGS",
+            "size": {
+                "x": -269,
+                "y": -35,
+                "y-ext": null,
+                "width": 80,
+                "height": 25
+            },
+            "text": "&OK",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_PUSHBUTTON",
+                "BS_MULTILINE"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_DEFAULTBUTTON",
+                "PSS_CLIPONLY",
+                "PSS_AUTOSIZE_X",
+                "PSS_AUTOSIZE_Y"
+            ],
+            "tab-stop": 6,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "Tahoma",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 3,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**SRP_GIT_SETTINGS_EVENTS",
+                    "parameters": [
+                        "@EVENT",
+                        "@SELF",
+                        "@PARAM1",
+                        "@PARAM2",
+                        "@PARAM3",
+                        "@PARAM4",
+                        "@PARAM5",
+                        "@PARAM6"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016108"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "PUB_CANCEL",
+            "icon-literal": "",
+            "type": "PUSHBUTTON",
+            "parent": "SRP_GIT_SETTINGS",
+            "size": {
+                "x": -180,
+                "y": -35,
+                "y-ext": null,
+                "width": 80,
+                "height": 25
+            },
+            "text": "&Cancel",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_PUSHBUTTON",
+                "BS_MULTILINE"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CANCELBUTTON",
+                "PSS_TRANSPARENT_BMP",
+                "PSS_CLIPONLY",
+                "PSS_AUTOSIZE_X",
+                "PSS_AUTOSIZE_Y"
+            ],
+            "tab-stop": 7,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "Tahoma",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 3,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Event",
+                    "message": "CLOSE",
+                    "entity-id": "@WINDOW",
+                    "parameters": [],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016188"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "PUB_APPLY",
+            "icon-literal": "",
+            "type": "PUSHBUTTON",
+            "parent": "SRP_GIT_SETTINGS",
+            "size": {
+                "x": -90,
+                "y": -35,
+                "y-ext": null,
+                "width": 80,
+                "height": 25
+            },
+            "text": "&Apply",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_DISABLED",
+                "BS_PUSHBUTTON",
+                "BS_MULTILINE"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_TRANSPARENT_BMP",
+                "PSS_CLIPONLY",
+                "PSS_AUTOSIZE_X",
+                "PSS_AUTOSIZE_Y"
+            ],
+            "tab-stop": 8,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "Tahoma",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 3,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**SRP_GIT_SETTINGS_EVENTS",
+                    "parameters": [
+                        "@EVENT",
+                        "@SELF",
+                        "@PARAM1",
+                        "@PARAM2",
+                        "@PARAM3",
+                        "@PARAM4",
+                        "@PARAM5",
+                        "@PARAM6"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016108"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        }
+    ],
+    "menu": null,
+    "menu-script-events": [],
+    "menu-quick-events": []
+}

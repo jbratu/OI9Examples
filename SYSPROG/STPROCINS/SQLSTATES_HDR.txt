@@ -1,0 +1,37 @@
+*
+*  Contains basic SQL equates for the SQLSTATES variable.
+*
+*  Error codes are grouped by 100's.  Equates for each group of error codes
+*  can be found in the INCLUDE file under the record "SQLSTATES_" followed
+*  by the group #.  (e.g. SQLSTATES_100 - contains equates for errors
+*  numbered -100 to -199.)
+*
+
+*  Components of the SQLSTATE variable
+EQUATE SQLCODE$                   TO 1
+EQUATE DETAIL$                    TO 2
+EQUATE ROWS_EFF$                  TO 3
+EQUATE SUBCODE$                   TO 4
+EQUATE STATS$                     TO 5
+
+* Prefix used as the key in the MESSAGES file
+EQUATE SQL_MSG_PREFIX$             TO "SQL"
+
+*    _ERR$  : indicates an error condition ( negative SQLCODE )
+*    _WARN$ : indicates a non-failing warning ( positive SQLCODE )
+*    _STAT$ : indicates a non-failing status ( positive SQLCODE )
+*
+EQUATE SQL_OK_STAT$                TO 0
+
+*================================ BLOCK 100 ==================================
+* Cursor/Select Status and Warning Codes
+
+EQUATE SQL_NOMORE_ROWS_WARN$       TO 100      ;* Zero rows returned
+EQUATE SQL_SELECT_MULTI_DONE_WARN$ TO 101      ;* Multiple row Select return - all rows returned
+EQUATE SQL_SELECT_MULTI_MORE_WARN$ TO 102      ;* Multiple row Select return - not all rows returned - come back for more
+
+*================================ BLOCK 0 ====================================
+* General Runtime Errors
+EQUATE SQL_INVALID_PROCESS_NAME_ERR$ TO 50     ;* Invalid Process dispatch name used in call to SQL Module subroutine.
+                                                * Hard coded into SQL_COMPILE!!!
+* Source Date: 16:42:27  12 JAN 1993  Build ID: OI*1.0.10  Level: 2.0

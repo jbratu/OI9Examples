@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "declare function ShellExecute\r\n\r\nwebsite = .website->text\r\nhwnd = Get_Property(@Window, \"HANDLE\")\r\nshowCmd = 0\r\nrv = ShellExecute(hwnd, \"open\":\\00\\, website:\\00\\, \"\":\\00\\, \"\":\\00\\, showCmd)\r\nRETURN 0"
+    }
+}

@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "\r\ndeclare function Utility\r\n\r\n\r\nCFOpt = \"\"\r\nCFOpt<1> = 0\t\t;* open mode\r\nCFOpt<2> = \"Bitmaps (*.BMP)/*.BMP/Jpegs (*.JPG)/*.jpg/All Files (*.*)/*.*/\"\r\nCFOpt<3> = 1\t\t;* default type is the first one (bitmaps)\r\nCFOpt<6> = 'bmps'\r\n\r\nFile = Utility(\"CHOOSEFILE\", @window, CFOpt)\r\n\r\nif file then\r\n\t.pic_filename->text=file\r\nend\r\n\r\nreturn 0"
+    }
+}

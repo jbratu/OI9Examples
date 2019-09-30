@@ -1,0 +1,126 @@
+Compile insert DSBFS_EQUATES
+*
+* rjc 05-12-10   Added Catalog
+* rjc 06-09-10   Added s2o_xx items
+* rjc 08-02-10   Added scales, precisions
+* rjc 08-26-10   Added identity key support
+* -------------------------------------
+* Hash tables for caching properties
+equ DSBFS_TABLES$ to "DSBFS_TABLES"           ; * table specific properites, key is tablename 
+equ DSBFS_VOLUMES$ to "DSBFS_VOLUMES"         ; * volume specific properites, key is volname 
+equ DSBFS_Connections$ To "DSBFS_CONNECTIONS" ; * ado connection object for a volume, key is volname 
+
+* Structure of handle info
+EQU DSBFS_HANDLE_OINAME$       TO 1    ;* The foreign name of the file
+EQU DSBFS_HANDLE_DSNAME$       TO 2    ;* dataset name
+EQU DSBFS_HANDLE_VOLNAME$      TO 3    ;* volume name
+* NOT USED*EQU DSBFS_HANDLE_DELIM$        TO "/"  ;* A delimiter for our part of the handle
+
+
+*EQU HANDLE_FILE_NAME$       TO 1    ;* The foreign name of the file
+*EQU HANDLE_IC_OPEN_HANDLE$  TO 2    ;* Handle returned by an IC_OPEN call
+*EQU HANDLE_FDICT_FLAG$      TO 3    ;* Flag indicating that U2 file's a dict
+*EQU HANDLE_SESSION_ID$      TO 4    ;* The session id for this file
+
+
+* Structure of cached info in table info
+equ DSBFS_Key_Names$ 	       to  1     ; * list of sql key columns
+equ DSBFS_Key_Quotes$	       to  2     ; * associated flags, true if keys need quotes in where clause
+equ DSBFS_Data_Names$	       to  3     ; * list of non-key sql columns
+equ DSBFS_Data_Numbers$	       to  4     ; * associated OI column number ( @record<xxx> )  for each name
+equ DSBFS_Data_Quotes$	       to  5     ; * associated flags, true if values need quotes in where clause
+equ DSBFS_Sorted_Names$	       to  6     ; * sql names in sorted order?
+equ DSBFS_Key_OConvs$	       to  7     ; * conversion patterns for key fields, associated with key_names
+equ DSBFS_Key_Iconvs$	       to  8     ; * conversion patterns for data fields, associated with data_names
+equ DSBFS_cmdtype$             to  9     ; * EXEC or SELECT.  Defaults to SELECT
+equ DSBFS_Vol_Name$	           to 10     ; * name of the volume that owns the table
+equ DSBFS_DS_Name$	           to 11     ; * name of the dataset that created the table
+equ DSBFS_Key_AdoTypes$        to 12     ; * Ado type codes for keys, associated with key_names, pulled from GENERIC_DATA_TYPE$
+equ DSBFS_Data_AdoTypes$       to 13     ; * Ado type codes for data columns, associated with data_names pulled from FOREIGN_DATA_TYPE$
+Equ DSBFS_SQL_Join$            To 14     ; * the sql from clause, usually a table, but could be table, table inner join on ...
+Equ dsbfs_s2o_datanames$       To 15     ; * non-key sql colnames in the statement
+Equ dsbfs_s2o_fmcs$            To 16     ; * associated oi record position (fmc) for each non-key in the sql statement. Thus,  s2o_fmcs<1,sql_pos> = fmc
+Equ dsbfs_s2o_iconvs$          To 17     ; * associated oi Iconv to use with read_row, non-key columns only
+Equ dsbfs_s2o_oconvs$          To 18     ; * oi Oconv to use with write row, non-key columns only.
+Equ dsbfs_key_adocodes$        To 19     ; * adotypecode for making parameters in write_row
+Equ dsbfs_s2o_adocodes$        To 20     ; * adotypecode for making parameters in write_row
+Equ dsbfs_s2o_select_script$   To 21     ; * scripts for parameterised query
+Equ dsbfs_s2o_insert_script$   To 22     ; * 
+Equ dsbfs_s2o_update_script$   To 23     ; * 
+Equ dsbfs_s2o_delete_script$   To 24     ; * 
+Equ dsbfs_key_scales$          To 25     ; * list of numeric scale for each key column
+Equ dsbfs_key_precisions$      To 26     ; * list of numeric precision for each key
+Equ dsbfs_data_scales$         To 27     ; * list of numeric scale for each column
+Equ dsbfs_data_precisions$     To 28     ; * list of numeric precision for each column
+Equ dsbfs_data_Attributes$     To 29     ; * recordset attributes ( bit array, parse with bitand, see microsoft ado equates FieldAttributeEnum Values )
+Equ dsbfs_key_Attributes$      To 30     ; * recordset attributes ( bit array, parse with bitand, see microsoft ado equates FieldAttributeEnum Values )
+Equ dsbfs_key_identityFlags$   To 31     ; * true if the column is an identity type
+Equ dsbfs_data_readonlyFlags$  To 32     ; * true if the column is an readonly
+
+
+                                    ; * note conv "$,<" are stripped out, dates get special treatment to work with datetime
+** Volume Fields
+Equ DSBFS_Volume$            to 1  ; * the literal "VOLUME"
+Equ DSBFS_BfsType$           to 2  ; * the literal "DSBFS"
+Equ DSBFS_ControlLoc$        to 3  ; * RTP49 uses this to create the  volume ID.  Make it the same as the id of the record
+Equ DSBFS_LoginScr$          to 4  ; * Not used
+Equ DSBFS_Shadow_loc$        to 4  ; * Location of the shadow dictionaries
+Equ DSBFS_VolumeId$          to 5  ; * Name of the volume, same as the id of the record
+Equ DSBFS_ConnectInfo$       to 6  ; * A sub-list of cionnection parameters
+Equ DSBFS_DataSetList$       to 10 ; * list of datasets associated With this volume.  Controls which tables get attached
+Equ DSBFS_SqlTableList$      to 11 ; * associated group of tables used by the datasets
+Equ DSBFS_OiTableList$       to 12 ; * associated group of OI tables bonded to the datasets
+Equ DSBFS_RefreshTimeStamp$  to 13 ; * last time the list of tables was refreshed
+Equ DSBFS_Quote_Char$        To 14 ; * character to use to quote literal strings in queries
+Equ DSBFS_Quoted_Quote_Char$ To 15 ; * character to use to embed quotes in litertal strings
+Equ DSBFS_Null_String$       To 16 ; * null string to use in queries
+Equ DSBFS_Block_Max$         To 17 ; * max block size ( number of rows) for reading multiple records
+Equ DSBFS_Force_Commit$      To 18 ; * true to force a commit after writes
+Equ DSBFS_volOiDatatypes$    To 19 ; * list of oi data types, VARCHAR, INTEGER, etc.  Used fro be mapped to ado data types
+Equ DSBFS_volAdoDataTypes$   To 20 ; * associated list of ado data types for this volume.  Used by refresh_shadow_dict to set FOREIGN_DATA_TYPE$
+Equ DSBFS_Type_Quoted$       To 21 ; * associated flags - true if this data type needs to be quoted
+Equ DSBFS_Enable_Locking$    To 22 ; * allow locking of tables in this volume - true if you want to use rtp57 locks. Note - these are OI logical locks, not visible to non-oi clients
+Equ DSBFS_DbVendor$          To 23 ; * Brand name of the Server software, e.g. Oracle
+Equ DSBFS_DbCatalog$         To 24 ; * Initial Catalog / database, e.g Pubs - used by dsbfs_schema
+Equ DSBFS_EscapeDelimiters$   To 25 ; * True$ If the connection should Swap @vm With </vm>, etc.  defaults To true$  * added 03-04-15  rjc
+
+** Breakdown of the Control Information
+Equ DSBFS_Servername$ to 1    ; * ipaddress or name of server - Not used
+Equ DSBFS_LoginId$ to 2       ; * Username on SQL server, not needed for integrated security
+Equ DSBFS_Password$ to 3      ; * Password on SQL server , not needed for integrated security
+Equ DSBFS_Directory$ to 4     ; * not used 
+Equ DSBFS_ConnectionString$ to 5 ; * the ado connection string
+
+equ DSBFS_SYNCDICTFLAG$ to 6 ; * Unused?
+
+equ DSBFS_AttachListOption$ to 8 ; * rjc 01-02-08 All or Specific Tables.  
+equ DSBFS_RefreshOption$    to 9 ; * rjc 01-02-08 Automatic (upon attach)  or manual (upon request) resync of tables.
+Equ DSBFS_Authentication$   to 10; * true if we need to supply credentials, false if using integrated Windows authentication
+
+Equ DSBFS_Password_key$ to "RTI902K606C31E9T"
+
+* Structure of the config record SYSENV, CFG_DSBFS
+Equ cfg_vendors$      To 1   ; * semi colon delimited list of vendors 
+Equ cfg_schema_proc$  To 2   ; * Associated list of procedure names for Schema, leve blank to get default 
+Equ cfg_select_proc$  To 3   ; * Associated list of procedure names for DSBFS_SELECT, leave blank to get default 
+Equ cfg_IO_proc$      To 4   ; * Associated list of procedure names for DSBFS_IO, leave blank to get default 
+
+
+EQU LOCATION_PATH$ TO 1
+EQU LOCATION_FS$   TO 2
+EQU LOCATION_CONTROL$ TO 3
+
+EQU SRV_DBNAME$    TO 1
+EQU SRV_USER$      TO 2
+EQU SRV_PASSWD$    TO 3
+
+EQU VOL_PTR_TOKEN$    TO 1
+EQU VOL_PTR_FS$       TO 2
+EQU VOL_PTR_LOCATION$ TO 3
+EQU VOL_PTR_CONTROL$  TO 4
+/* bda 1/21/94 -------------------- */
+EQU VOL_PTR_OVERRIDE_LOCATION$	TO 5
+
+EQU VOL_PTR_SRVNAME$     TO 1
+EQU VOL_PTR_DBNAME$      TO 2
+

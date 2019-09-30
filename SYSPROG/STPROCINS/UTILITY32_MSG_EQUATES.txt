@@ -1,0 +1,61 @@
+compile Insert Utility32_Msg_Equates
+/*
+* Equates to use with the oi communication object
+*
+* These are mostly parameters to use with the Utility32_set_msg function
+* Utility32_Set_Msg(msg, parm1, parm2, parm3, parm4, parm5, parm6,method) 
+*/
+
+*--
+* Messages to Utility32_set_msg
+*--
+equ U32_START$ to "START"
+equ U32_STOP$ to "STOP"
+equ U32_METHOD_SEND$ to "SEND"	 ; * 
+equ U32_METHOD_POST$ to "POST"
+
+equ U32_TIMEOUT_DFLT$ to 30 ; * Default time to wait for a response, give up after this
+
+equ U32_OIRESPONSE$ to "OIRESPONSE"
+
+*--
+* Messages to the communication object via Utility32_set_msg
+* These are the values recognized for the "msg" argument
+* the contents of p1...p6 vary by message
+* Note p1...p6 cannot contain record marks
+*--
+
+equ U32_MSG_INIT$ 			to "OI_INIT"		; * Register OI with object.  Only used by OI_COMDLG
+equ U32_MSG_ECHO$ 			to "ECHO"		; * echo back  the message.  For testing
+equ U32_MSG_EVAL$ 			to "EVAL"			; * parm1 = script line suitable for eval,
+											; * parm2 = the scripting language , optional defaults to vbscript
+											; * result will be returned via oiresponse
+											
+equ U32_MSG_RUNSCRIPTFILE$ 	to "RUNSCRIPTFILE" ;* Read a script from a flat file, execute it immediately.
+											; * the script must have a least one public function or job that can be called
+											; * parm1 = fully quliafied name of a script file
+										 	; * parm2 = the name of the "job" to run in the file, optional, default to main
+										 	; * parm3 = fm delimited list of arguments for the function, optional
+										 	; * parm4 = scripting language, optional, defaults to vbscript
+ 
+equ U32_MSG_RUNSCRIPT$ 		to "RUNSCRIPT"	; * run a script immediately.
+											; *  parm1 is the vb or java script to executed
+											; * parm2 = the name of the "job" to run in the script, optional.  Not required unless you want to pass arguments
+										 	; * parm3 = fm delimited list of arguments for the job, optional
+										 	; * parm4 = scripting language, optional, defaults to vbscript
+											; *  result is returned immediately      
+equ U32_MSG_SETSCRIPT$ 		to "SETSCRIPT" 	; * park a script in a buffer to be run later
+											; * params same as runscript
+											
+equ U32_MSG_ASYNCHSCRIPT$ 	to "ASYNCSCRIPT" 	; * Used internally by httppost 
+equ U32_MSG_HTTPPOST$ 		to "HTTPPOST"	       	; * emulate a web form in 'POST' mode. See Zip_Code_Example
+equ U32_MSG_VERSION$ 		to "VERSION"	       	; * return the version of the vb object. No parameters
+equ U32_MSG_CLOSE$ 			to "CLOSE"	      	;* close the communication object.  No Parameters Normally used only by the OI_COMDLG when it closes
+
+
+* Return Values
+EQU U32_RET_BUSY$ TO "_BUSY_"
+
+* Error Messages
+EQU U32_ERROR_COMI_FAILED$ to "Unable to connect to RevComI"
+EQU U32_ERROR_SENDMESSAGE_FAILED$ to -999

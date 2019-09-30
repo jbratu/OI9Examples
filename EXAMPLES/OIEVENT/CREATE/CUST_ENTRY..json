@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "\r\ndeclare function   Get_Property\r\ndeclare subroutine Set_Property, Utility, Send_Event\r\n\r\n$insert PS_Equates\r\n$Insert Logical\r\n\r\n\r\n*---\r\n* some fields are required, but we'll let the user tab by them and just check for \r\n* required fields on the Write Event.\r\n* the IOOPTIONS property handles that for us. We show the shorthand below.\r\n*---\r\n\r\noptions = @@Window->iooptions\r\noptions<10> = 1\r\n@@Window->iooptions = options\r\n\r\n* Set Focus on key field\r\nwin_name = CtrlEntId[1,'.']\r\nidField = win_name:'.ID_FIX'\r\nSend_Event(idField,'GOTFOCUS',CtrlEntId)\r\n.id_fix->focus=1\r\n\r\nreturn 0\r\n"
+    }
+}

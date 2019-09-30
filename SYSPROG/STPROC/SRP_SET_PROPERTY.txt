@@ -1,0 +1,82 @@
+Compile Function SRP_Set_Property(CtrlList, PropList, ValueList, AuxList, Window, AllPropsPerCtrl, Delim)
+
+************************************************************************************************
+*
+* This program is proprietary and is not to be used by or disclosed to others, nor is it to
+* be copied without written permission from SRP Computer Solutions, Inc.
+*
+* Name       :  SRP_Set_Property
+*
+* Description:  Sets controls properties if one of three ways:
+*				- 1 to 1:		Sets one property to a single control
+*				- 1 to Many:	Sets multiple properties for each control
+*				- Many to 1:	Sets the same property for multiple controls
+*
+* Parameters:
+*	CtrlList		[in] -- The list of controls whose property(s) are to be set
+*	PropList		[in] -- The list of properties
+*	ValueList		[in] -- The list of property values
+*	AuxList			[in] -- The list of auxiliary values
+*	Window			[in] -- If not empty, then this is prepended to each control is the ctrl list: default = ""
+*	AllPropsPerCtrl	[in] -- If TRUE, the property list is applied to each control: default = 0
+*	Delim			[in] -- The lists delimiter: default = "~"
+*
+* Returns:
+*	The previous property value(s)
+*
+* History (Date, Initials, Notes)
+*	04/06/2004		KRF		Initial Programmer
+*
+************************************************************************************************
+
+Declare function Set_Property, FieldStore
+
+* Prepare input
+If Assigned(CtrlList) else CtrlList = ""
+If Assigned(PropList) else PropList = ""
+If Assigned(ValueList) else ValueList = ""
+If Assigned(AuxList) else AuxList = ""
+If Assigned(Window) else Window = ""
+If Assigned(AllPropsPerCtrl) else AllPropsPerCtrl = 0
+If Assigned(Delim) else Delim = "~"
+
+* Prepare lists
+Convert Delim to @RM in CtrlList
+Convert Delim to @RM in PropList
+Convert Delim to @RM in ValueList
+Convert Delim to @RM in AuxList
+
+* If "1 to Many" then alter the ctrl list to meet OI's Set_Property specs
+If AllPropsPerCtrl then
+	NumCtrls = Count(CtrlList, @RM) + (CtrlList NE "")
+	NumProps = Count(PropList, @RM) + (PropList NE "")
+	
+	* Expand the control list be repeating each control by the number of properties
+	OldCtrlList = CtrlList
+	CtrlList = ""
+	For i = 1 to NumCtrls
+		CtrlList := Str(Field(OldCtrlList, @RM, i):@RM, NumProps)
+		If i LT NumCtrls then CtrlList := @RM
+	next i
+	
+	* Expand the property list to repeat the list for each control
+	If NumCtrls GT 1 then
+		PropList = Str(PropList:@RM, NumCtrls)
+		PropList[-1, 1] = ""
+	end
+end
+
+* Prepend Window Name
+If Window then
+	Window := "."
+	NumCtrls = Count(CtrlList, @RM) + (CtrlList NE "")
+	For i = 1 to NumCtrls
+		CurrCtrl = Field(CtrlList, @RM, i)
+		CtrlList = FieldStore(CtrlList, @RM, i, 1, Window:CurrCtrl)
+	next i
+end
+
+* Call the Set_Property
+Ans = Set_Property(CtrlList, PropList, ValueList, AuxList)
+
+Return Ans

@@ -1,0 +1,84 @@
+compile Subroutine SSN_FORMAT( charstr CONV, charstr ANS, charstr BRANCH, charstr RETURN_DATA)
+*
+* SSN_FORMAT is an example of a developer's custom prompt formatting
+* routine using the square brackets call.
+*
+*  It should be placed in square brackets, like this:
+*
+*                   [SSN_FORMAT]
+*
+* This subroutine should be used as the first and only "Input Validation" in
+* a window prompt.  Placed in "Output Format", it properly formats any
+* reasonable string of numbers into a consistent US Social Security number format.
+*
+!
+begin condition
+pre:
+post:
+end condition
+
+*  Subroutine declarations
+
+$insert msg_equates
+
+declare function msg
+
+*  Local Equates
+*  The STATUS() variable is used to indicated the error condition of the
+*  pattern. They are:
+EQU VALID$         TO 0    ;* Successful
+EQU INVALID_MSG$   TO 1    ;* Bad Data       -   Print error message window
+EQU INVALID_CONV$  TO 2    ;* Bad Conversion -          "         "
+EQU INVALID_NOMSG$ TO 3    ;* Bad but do not print the error message window
+
+EQU THREEDGRAY$    TO 192
+
+*  Begin Conversion
+*
+  RETURN_DATA = ""
+  IF ANS NE "" THEN
+     SSN = ANS
+     ANS = ""
+     STATUS() = VALID$
+  
+     Convert " -()." TO "" IN SSN
+  
+     IF NUM( SSN ) THEN
+         LENGTH = LEN( SSN )
+         * Case statement to validate all possible types of Social Security numbers. If
+         * a new format is required simply add another case.
+         * The fall-through (CASE 1) traps invalid conversions.
+         BEGIN CASE
+           CASE LENGTH = 9
+              IF CONV EQ "OCONV" THEN
+                RETURN_DATA = FMT( SSN, "L###-##-####")
+              END ELSE
+                RETURN_DATA = SSN
+              END
+           CASE 1
+              IF CONV = "ICONV" THEN
+                  gosub DisplayError
+              END
+              STATUS() = INVALID_NOMSG$
+         END CASE
+     END ELSE
+         IF CONV = "ICONV" THEN
+             gosub DisplayError
+         END
+         STATUS() = INVALID_NOMSG$
+     END
+  END
+  RETURN
+*}
+
+DisplayError:              
+    msgrec            = ""
+    msgrec<MCAPTION$> = "Data Validation Error"
+    msgrec<MTEXT$>    = SSN : " is not a valid Social Security number. Please enter a nine digit number in any format."
+    msgrec<MBKCOLOR$> = THREEDGRAY$:@VM:THREEDGRAY$:@VM:THREEDGRAY$
+    msgrec<MJUST$>    = 'L'
+    result = msg( "", msgrec)
+Return
+
+* Source Date: 11:16:17  21 OCT 1991  Build ID: AREV*2.12.5  Level: 2.12
+

@@ -1,0 +1,342 @@
+      function INV_ENTRY(CtrlEntId,Event,Param1,Param2,Param3,Param4,Param5,Param6,Param7,Param8)
+
+* 20071024
+
+$INSERT MAPI_EQUATES
+      DECLARE SUBROUTINE SEND_EVENT,PRINT_INVOICE
+      DECLARE FUNCTION SET_PROPERTY,GET_PROPERTY,UNASSIGNED,DIALOG_BOX,REPOSITORY,SET_STATUS,GET_STATUS,MAPISENDMAIL,MAPILOGON,MAPILOGOFF,MSG
+      EQU CR$   TO \0D\
+      EQU CRLF$ TO \0D0A\
+      EQU LF$   TO \0A\
+      EQU TAB$  TO \09\
+
+      if unassigned(Param1) then Param1 = ""
+      if unassigned(Param2) then Param2 = ""
+      if unassigned(Param3) then Param3 = ""
+      if unassigned(Param4) then Param4 = ""
+      if unassigned(Param5) then Param5 = ""
+      if unassigned(Param6) then Param6 = ""
+      if unassigned(Param7) then Param7 = ""
+      if unassigned(Param8) then Param8 = ""
+
+      ReturnResult = ""
+      Window = CtrlEntId[1,"F."]
+      Ctrl = CtrlEntId[-1,"B."]
+
+      begin case
+         case Ctrl = "BTN_EMAIL"
+            gosub BTN_EMAIL
+         case Ctrl = "BTN_PRINT_INVOICE"
+            gosub BTN_PRINT_INVOICE
+         case Ctrl = "BTN_SEARCH"
+            gosub BTN_SEARCH
+         case Ctrl = "BUTTON_6"
+            gosub BUTTON_6
+         case Ctrl = "DUE_DATE"
+            gosub DUE_DATE
+         case Ctrl = "INVOICE_DATE"
+            gosub INVOICE_DATE
+         case Ctrl = "INV_ENTRY"
+            gosub INV_ENTRY
+         case Ctrl = "PAID_DATE"
+            gosub PAID_DATE
+         case 1
+            call msg(@window,Window:".":Ctrl:" was not recognised.")
+      end case
+
+      return ReturnResult
+
+BTN_EMAIL:
+
+      begin case
+         case Event = "CLICK"
+            * Quick/Post Event
+            gosub BTN_EMAIL.CLICK
+         case 1
+            call msg(@window,Window:".":Ctrl:".":Event:" was not recognised.")
+      end case
+
+      return
+
+
+BTN_EMAIL.CLICK:
+
+* Quick/Post Event
+
+      CtrlClassId = "PUSHBUTTON"
+
+      
+      
+      
+      
+      Txt   = "Below Find your Invoice Information" 	: CRLF$
+      Txt  := ""						          		: CRLF$
+      
+      details = Get_Property("INV_ENTRY.DETAILS","LIST")
+      id		= Get_Property("INV_ENTRY.ID","TEXT")
+      amount  = Get_Property("INV_ENTRY.AMOUNT","TEXT")
+      cust_no = Get_Property("INV_ENTRY.CUST_NO","TEXT")
+      
+      email_address = xlate('CUSTOMERS', Cust_no, 'EMAIL', 'X')
+      if len(email_address) else
+      	x = msg('','There is no email address entered for customer number ':cust_no:'.|Please enter one and try this process again')
+      	return 0
+      End
+      
+      inv_date = Get_Property("INV_ENTRY.INVOICE_DATE","TEXT")
+      convert @vm to tab$ in details
+      swap @fm with crlf$ in details
+      
+      txt:= 'Invoice Number ':tab$:id:crlf$
+      txt:= 'Invoice Date	':tab$: inv_date :crlf$
+      txt:= 'Invoice Amt	':tab$: amount :crlf$
+      txt:= 'SKU':tab$:tab$:'Description': tab$:tab$:tab$:'Qty':tab$: 'Cost' :tab$:'Price':crlf$
+      txt:= details: CRLF$
+      
+      Flags = MAPI_LOGON_UI$
+      
+      Message = ''
+      Message<POS_SUBJECT$> = "Your Invoice"
+      Message<POS_TO$     > = email_address
+      Message<POS_TEXT$   > = Txt
+      Message<POS_FLAGS$  > = Flags
+      Message<POS_TYPE$   > = "IPM.Microsoft Mail.Note"
+      
+      x = Set_Status(0)
+      check = MAPILogon(session_id, parent, '', '', flags)
+      if Get_Status(ErrCode) then
+      	Call FsMsg()
+      end
+      
+      if check then
+      	FLAGS = ''
+      	Flags = MAPI_LOGON_UI$ + MAPI_DIALOG$
+      	if MAPISendMail(session_id, 0, Flags, Message) then
+      		x = Msg(@window, "Message sent successfully!")
+      	end else
+      		x = Get_Status(ErrMsg)
+      		y = 'No email was sent!'
+      		x = Msg(@window, y:' Reason: ':ErrMsg)
+      	end
+      
+      End else
+      	x = Get_Status(ErrMsg)
+      	x = Msg(@window, ErrMsg)
+      End
+      
+      x = MapiLogoff(Session_id)
+      
+      ReturnResult = 0 ; return
+
+BTN_PRINT_INVOICE:
+
+      begin case
+         case Event = "CLICK"
+            * Quick/Post Event
+            gosub BTN_PRINT_INVOICE.CLICK
+         case 1
+            call msg(@window,Window:".":Ctrl:".":Event:" was not recognised.")
+      end case
+
+      return
+
+
+BTN_PRINT_INVOICE.CLICK:
+
+* Quick/Post Event
+
+      CtrlClassId = "PUSHBUTTON"
+
+      
+      winName = CtrlEntID[1,'.']
+      invoice = Get_Property(winName:'.ID','DEFPROP')
+      Print_Invoice(winName,invoice)
+      
+      ReturnResult = 0 ; return
+
+BTN_SEARCH:
+
+      begin case
+         case Event = "CLICK"
+            * Quick/Post Event
+            gosub BTN_SEARCH.CLICK
+         case 1
+            call msg(@window,Window:".":Ctrl:".":Event:" was not recognised.")
+      end case
+
+      return
+
+
+BTN_SEARCH.CLICK:
+
+* Quick/Post Event
+
+      CtrlClassId = "PUSHBUTTON"
+
+      	
+      repos_key = @appid<1>:'*POPUP**ORDER_POPUPS'
+      keys = Repository('EXECUTE', repos_key, @WINdow)
+      
+      if keys then
+      SetProperty_ReturnValue = Set_Property("INV_ENTRY.ORDER_NUMBER","TEXT",keys)
+      SetProperty_ReturnValue = Set_Property("INV_ENTRY.ORDER_NUMBER","FOCUS",1)
+      End
+      
+      ReturnResult = 0 ; return
+
+BUTTON_6:
+
+      begin case
+         case Event = "CLICK"
+            * Quick/Post Event
+            gosub BUTTON_6.CLICK
+         case 1
+            call msg(@window,Window:".":Ctrl:".":Event:" was not recognised.")
+      end case
+
+      return
+
+
+BUTTON_6.CLICK:
+
+* Quick/Post Event
+
+      CtrlClassId = "PUSHBUTTON"
+
+      	
+      repos_key = @appid<1>:'*POPUP**INVOICE_POPUP'
+      keys = Repository('EXECUTE', repos_key, @WINdow)
+      
+      if keys then
+      SetProperty_ReturnValue = Set_Property("INV_ENTRY.ID","TEXT",keys)
+      SetProperty_ReturnValue = Set_Property("INV_ENTRY.ORDER_NUMBER","FOCUS",1)
+      	call Send_Event(@WINDOW,'READ')
+      End
+      
+      ReturnResult = 0 ; return
+
+DUE_DATE:
+
+      begin case
+         case Event = "OPTIONS"
+            * Quick/Post Event
+            gosub DUE_DATE.OPTIONS
+         case 1
+            call msg(@window,Window:".":Ctrl:".":Event:" was not recognised.")
+      end case
+
+      return
+
+
+DUE_DATE.OPTIONS:
+
+* Quick/Post Event
+
+      CtrlClassId = "EDITFIELD"
+
+      
+      
+      call popup_month
+      
+      ReturnResult = 0 ; return
+
+INVOICE_DATE:
+
+      begin case
+         case Event = "OPTIONS"
+            * Quick/Post Event
+            gosub INVOICE_DATE.OPTIONS
+         case 1
+            call msg(@window,Window:".":Ctrl:".":Event:" was not recognised.")
+      end case
+
+      return
+
+
+INVOICE_DATE.OPTIONS:
+
+* Quick/Post Event
+
+      CtrlClassId = "EDITFIELD"
+
+      
+      call popup_month
+      
+      ReturnResult = 0 ; return
+
+INV_ENTRY:
+
+      begin case
+         case Event = "CREATE"
+            * Quick/Post Event
+            gosub INV_ENTRY.CREATE
+         case 1
+            call msg(@window,Window:".":Ctrl:".":Event:" was not recognised.")
+      end case
+
+      return
+
+
+
+INV_ENTRY.CREATE:
+
+* Quick/Post Event
+
+      CtrlClassId = "WINDOW"
+      CreateParam = Param1
+
+      *---
+      * some fields are required, but we'll let the user tab by them and just check for
+      * required fields on the Write Event.
+      * the IOOPTIONS property handles that for us.
+      *---
+      
+      options = Get_Property("INV_ENTRY.WINDOW","IOOPTIONS")
+      
+      options<10> = 1
+      
+      SetProperty_ReturnValue = Set_Property("INV_ENTRY.WINDOW","IOOPTIONS",options)
+      
+      *---
+      * if this window is created from the dialog_box function from the CUST_ENTRY screen it will pass in a key
+      * for a specific record to be displayed
+      *---
+      
+      if len(CreateParam) then
+      SetProperty_ReturnValue = Set_Property("INV_ENTRY.ID","DEFPROP",CreateParam)
+      	Send_Event(@window,"READ")
+      end
+      
+      ReturnResult = 1 ; return
+
+
+PAID_DATE:
+
+      begin case
+         case Event = "OPTIONS"
+            * Quick/Post Event
+            gosub PAID_DATE.OPTIONS
+         case 1
+            call msg(@window,Window:".":Ctrl:".":Event:" was not recognised.")
+      end case
+
+      return
+
+
+
+PAID_DATE.OPTIONS:
+
+* Quick/Post Event
+
+      CtrlClassId = "EDITFIELD"
+
+      
+      dateChosen = Dialog_Box('OLE_CALENDAR_FORM',@window,'')
+      
+      if len(dateChosen) then
+      SetProperty_ReturnValue = Set_Property("INV_ENTRY.PAID_DATE","TEXT",dateChosen)
+      end
+      
+      ReturnResult = 0 ; return
+
+

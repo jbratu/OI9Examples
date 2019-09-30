@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "\r\nDeclare Function Dialog_Box\r\n\r\nthisWindow = CtrlEntID[1,'.']\r\n\t\t\t\r\nselPos = Get_Property(@wINDOW:'.INVOICES',\"SELPOS\")\r\nselCol = selPos<1>\r\nselRow = selPos<2>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\r\nallInvoices = Get_Property(@WINDOW:\".INVOICES\",\"ARRAY\")\r\nthisInvoice = allInvoices<1,selRow>\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\nif len(thisInvoice) then\r\n\tretVal = Dialog_Box('INV_ENTRY',thisWindow,thisInvoice)\r\nend\r\n\t\t\t\t\t\t\t\t\t\t\t\r\nreturn 0\r\n"
+    }
+}

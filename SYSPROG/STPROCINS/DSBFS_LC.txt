@@ -1,0 +1,3 @@
+Compile Insert DSBFS_LC
+
+Common /DSBFS_LC/readlist_flag@, selected_ids@,selected_bys@,installed@,identity@@,ex6,ex7,ex9,ex10

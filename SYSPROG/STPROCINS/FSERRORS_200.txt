@@ -1,0 +1,67 @@
+* compile insert FSERRORS_200
+* Had to rem out the above line to prevent compile errors, RLP 6-7-94.
+*----------------------------------------------------------------------------
+* Block 200 - 299
+*
+* Advanced Revelation System GENERIC and MFS error codes
+*
+*                                    STATUS   DESCRIPTION ; MSG PARAMETERS
+*----------------------------------------------------------------------------
+EQUATE FS_FILE_OPEN_ERR$     TO 200  ;* 1  Generic R/BASIC OPEN fail in MFS, or BFS or support module ; FILE NAME
+EQUATE FS_ITEM_READ_ERR$     TO 201  ;* 1  Generic read fail of non-relational data item (control record etc.) ; FILE_NAME, RECORD ID
+EQUATE FS_NO_ERROR_CODE$     TO 202  ;*    No error code returned in @file.error; PARAMLINE1, PARAMLINE2                                     ;*
+EQUATE FS_INDEX_OPEN_ERR$    TO 210  ;* 1  Cannot open !file (index file) associated with data file. ; Data File Name
+EQUATE FS_INDEX_CORRUPT_ERR$ TO 211  ;* 2  Index is corrupted ; Filename, Indexname
+EQUATE FS_INDEX_COMPILE_ERR$ TO 212  ;* 1  Index transaction code compilation error ; DATA FILE NAME
+EQUATE FS_BTREE_READ_ERR$    TO 213  ;* 2  trouble reading leaf node from btree %1% handle, %2% leaf node name.
+EQUATE FS_RELATIONAL_CORRUPT_ERR$ TO 214 ;* 2 !file corrupted - reinstall relationals ; Filename
+EQUATE FS_QUICK_RHTDEX_CORR_ERR$  TO 215 ;* 0 %RECORDS% corrupted, will ask to do select/readnext to re-create it. %1% filename.
+EQUATE FS_TRANS_ATTACH_ERR$  TO 216  ;* 0  BFS cannot be attached during a transaction
+EQUATE FS_TRANS_DETACH_ERR$  TO 217  ;* 0  BFS cannot be detach during a transaction
+EQUATE FS_INDEX_SELECT_ERR$  TO 218  ;* 1  Invalid index select - field not indexed or not capable.
+EQUATE FS_INDEX_NOT_CREATED_ERR$  TO 219  ;* index not created, field, file name
+EQUATE FS_REL_NEED_REBUILD_ERR$   TO 220  ;* relational index needs rebuilt; field_name.
+EQUATE FS_INVALID_REL_SORT_METHOD$  TO 221 ;* 0 not BOT, TOP, AL .... method in relational index; field, sort method.
+
+EQUATE FS_LOW_MEM_ERR$       TO 250  ;* 0  memory shortage to compile ; Req. mem size, available mem size
+EQUATE FS_META_COMPILE_ERR$  TO 251  ;* 1  Problems compiling meta code ; Source code name, Code location
+EQUATE FS_BASIC_COMPILE_ERR$ TO 252  ;* 1  Problems compiling R/BASIC code ; Source Code, Code Location
+EQUATE FS_CALCULATEX_ERR$    TO 253  ;* 1  Failed to evaluate dictionary field ; Dictionary field
+EQUATE FS_FILENAME_ERR$      TO 254  ;* 1  Error formulating the filename given the handle ; File handle
+EQUATE FS_CREATE_FILE_ERR$   TO 255  ;* 1  Problems trying to create a file; Filename
+EQUATE FS_RENAME_TRANS_ERR$  TO 256  ;* 0  Renaming a file isn't allowed when transaction control is ON. ;
+EQUATE FS_CREATE_TRANS_LOG_ERR$ TO 257;*   Creation of transaction log file failed; FILENAME
+EQUATE FS_RENAME_INDEX_ERR$  TO 258  ;* 0  Rename only DATA portion of an indexed file; FILE.NAME.
+EQUATE FS_RENAME_REL_ERR$    TO 259  ;* 0 Rename indexed failed bec related file is not attached for updating FILE.NAME:@vm:RELATED.FILE.
+
+EQUATE FS_LOCK_LIMIT_ERR$    TO 260  ;* 2  Lock limit exceeded ; Lock limit
+EQUATE FS_LOCK_SYNC_ERR$     TO 261  ;* 2  LOCK_INFO@ variable out of synch with SYS.LOCKS variable ; Lock filename, Lock record (if record lock)
+EQUATE FS_LOCK_TIMEOUT_ERR$  TO 262  ;* 2  Timer ran out while waiting for a lock ; Lock Timer (in seconds)
+EQUATE FS_LOCK_INT_ERR$      TO 263  ;* 2  User interrupted wait for lock; Lock filename, Lock record (if record lock)
+EQUATE FS_DEADLOCK_ERR$      TO 264  ;* 2  General deadlock error ; Operation or procedure
+EQUATE FS_VICTIM_ERR$        TO 265  ;* 2  Selected as a victim ;
+EQUATE FS_RENAME_REL_ACCT_ERR$ TO 266 ;* 0 rename index file to different acct with relational index on it, FILE.NAME.
+EQUATE FS_FIL_CPY_NO_D$      TO 267  ;* 0 file has rel index but doing copy without D opt; FILENAME
+EQUATE FS_DELAY_UNLOCK$      TO 268  ;* 0  Delay UNLOCK. Used only w/PROTECT.MFS & RTP37 modules
+
+EQUATE FS_FLD_DNE_ERR$           TO 270 ;* 0 The field specified Does Not Exist - SELECT.INDEX ; FIELD.NAME
+EQUATE FS_FLD_NOT_INDEXED_ERR$   TO 271 ;* 0 The field specified is not indexed - SELECT.INDEX ; FIELD.NAME
+
+EQUATE FS_INVALID_FILENAME_ERR$  TO 272  ;* 0 The filename %1% specified is invalid in the foreign env.
+EQUATE FS_INVALID_FIELDNAME_ERR$ TO 273  ;* 0 The fieldname %1% specified is invalid in the foreign env.
+EQUATE FS_FOREIGN_SYNC_ERROR$    TO 274  ;* 1 Unable to open %1% - dictionary is out of sync with %2
+EQUATE FS_REC_WRITE_PROTECT_ERR$ TO 275  ;* 0 Can't be modified, FILENAME:@VM:FIELDNAME
+EQUATE FS_BAD_MFS_LIST$          TO 276  ;* 2 BFS list is not complete, code:@FM:bfs.
+EQUATE FS_INVALID_RN_DIRECTION$  TO 277  ;* 1 %1 is an invalid direction code in SI.MFS readnext call
+EQUATE FS_INVALID_RN_POINTER$    TO 278  ;* 1 no arg - readnext pointer is invalid.
+EQUATE FS_REC_DELETE_PROTECT_ERR$ TO 279 ;* 0 Can't be deleted, FILENAME:@VM:FIELDNAME
+
+EQUATE FS_C_DATA_SEG_READ_ERR$   TO 280  ;* 'C' subroutine Data segment not found in file %1%, record %2%.
+EQUATE FS_C_ENVIRONMENT_ERR$     TO 281  ;* Undefined 'C' environment error. Possibly not enough memory
+
+EQUATE FS_LANG_MISMATCH$        TO 290  ;* %1% lang used, %2% curr system setup; for quick/rightdex lang mismatch
+EQUATE FS_LIST_OVERFLOW_ERR$    TO 291  ;* list over 64K in btree.sub. operations or RELATER routines
+EQUATE FS_INVALID_BFS_TYPE_ERR$ TO 292  ;* wrong type for lhverify; bfs type
+EQUATE FS_WRONG_PRODUCT$        TO 293  ;* Can't compile %1% in current product.
+EQUATE FS_ERROR_LENGTH_ERR$		TO 294	;* Error detail approaching 64k, process aborted.
+* Source Date: 15:13:50  07 JUN 1994  Build ID: OI*3.0.11  Level: 3.0

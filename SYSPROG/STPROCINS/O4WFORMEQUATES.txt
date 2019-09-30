@@ -1,0 +1,261 @@
+compile insert O4WFORMEQUATES
+* O4FormEquates
+*
+Equ CURRENT_FORM_VERSION$ To "O4WINQUIRY"
+*
+Equ desktopOptionValue$ To 1
+Equ mobileOptionValue$ To 2
+*
+Equ FormVersion$ To 1
+Equ LastUpdated$ To 2
+Equ TableName$ To 3
+Equ BGColor$ To 4
+Equ BGImage$ To 5
+
+Equ TextColor$ To 6
+Equ LinkColor$ To 7
+Equ VisitedColor$ To 8
+Equ Title$ To 9
+Equ Banner$ To 10
+
+Equ Footer$ To 11
+Equ KeyType$ To 12 
+
+   Equ KeyType_Pick$ To "P"
+	Equ KeyType_Enter$ To "E"
+	Equ KeyType_Search$ To "S"
+	Equ KeyType_None$ To "A"
+	Equ KeyType_OI$ To "O"
+
+Equ KeyEntryPrompt$ To 13
+*   subvalue 1: !<literalvalue>, !<storedprocname>, <prompttext>
+*   subvalue 2: dict to use for this key part	
+
+	Equ FIRST_SEARCH_FIELD$ To 14
+	
+Equ KeySearchPrompt$ To 14
+   
+	
+Equ SearchFields$ To 15
+Equ SearchType$ To 16
+* SearchType$, each.field,1 = type
+* SearchType$, each.field,2 = comparison operator
+* SearchType$, each.field,3 = skip if null
+* SearchType$, each.field,4 = multiple select
+* SearchType$, each.field,5 = maximum number of listbox items to display (if indexed field) (default ("") is all; negative number means do not show ANY if this number is exceeded)
+* SearchType$, each.field,6 = sort direction (1=reverse) (if indexed field)
+
+   Equ LAST_SEARCH_FIELD$ To 16
+	
+Equ SearchSub$ To 17
+Equ LinesPerPage$ To 18
+
+   Equ FIRST_SELECT_FIELD$ To 19
+	
+Equ SearchDisplayFields$ To 19
+Equ SearchDisplayLabels$ To 20
+	* subvalue 1: label text
+	* subvalue 2: label (column) width
+
+Equ SearchDisplayLabelsBG$ To 21
+Equ SearchDisplayLabelsFG$ To 22
+
+   Equ LAST_SELECT_FIELD$ To 22
+	
+Equ AddOK$ To 23
+
+   Equ AddOK_User$ To "U"
+	Equ AddOK_Date$ To "Y"
+	Equ AddOK_DateTime$ To "D"
+	Equ AddOK_Sub$ To "S"
+	Equ AddOK_Counter$ To "C"
+	Equ AddOK_None$ To "N"
+	
+Equ NewKeySub$ To 24
+Equ CounterKeyDetails$ To 25
+
+Equ UpdateDisplayFlag$ To 26
+
+   Equ UpdateDisplayFlag_Update$ To "U"
+	Equ UpdateDisplayFlag_Display$ To "D"
+
+Equ HandleEvents$ To 27
+Equ CommuterModuleName$ To 28
+Equ FormEventFlags$ To 29
+	Equ PREREAD_EVENT$ To 1
+	Equ POSTREAD_EVENT$ To 2
+	Equ PREWRITE_EVENT$ To 3
+	Equ POSTWRITE_EVENT$ To 4
+	Equ PREDELETE_EVENT$ To 5
+	Equ POSTDELETE_EVENT$ To 6
+	Equ SELECT_EVENT$ To 7
+	Equ TAB_EVENT$ To 8
+	Equ POPUP_EVENT$ To 9
+	Equ POSTDRAW_EVENT$ To 10
+	Equ FORM_CREATE_EVENT$ To 11
+	Equ FORM_READY_EVENT$ To 12
+	Equ BUILDCOMMUTER_TEMP$ To 20 ;* value 20=build commuter module shell (TEMPORARY)
+Equ DeleteOK$ To 30
+
+Equ URL$ To 31
+Equ URLDesc$ To 32
+Equ FormDesc$ To 33
+Equ FrmPermissions$ To 34
+Equ Align$ To 35
+
+Equ MenuName$ To 36
+Equ TemplateMain$ To 37
+Equ TableBorder$ To 38
+Equ TransferToForm$ To 39
+Equ TopButtons$ To 40
+Equ AllowRetry$ To 41
+Equ SkipAddButton$ To 42
+Equ KeyParts$ To 43
+Equ SkipSaveOK$ To 44
+	* value 1: flag to skip save message
+	* value 2: url to redirect to after save
+	*			: <<back>>, <<close>> explicit values allowed
+	* value 3: target for URL
+	*			: <<none>> allowed
+
+   Equ FIRST_DISPLAY_FIELD$ To 45
+	
+Equ Attr$ To 45
+Equ LabelName$ To 46
+Equ LabelColor$ To 47
+Equ LabelBGColor$ To 48
+Equ ValueMV$ To 49
+Equ ValueEditable$ To 50
+
+Equ ValueOConv$ To 51
+Equ ValueIConv$ To 52
+* subvalue 1: conversion code (or "-" for use dict)
+* subvalue 2: validation code
+* subvalue 3: required flag
+* subvalue 4: validation param 1
+* subvalue 5: validation param 2
+* subvalue 6: special conversion (U=uppercase, L=lowercase)
+Equ ValueBold$ To 53
+Equ ValueItalic$ To 54
+Equ ValueInputType$ To 55
+  
+  Equ ValueInputType_TABox$ To "A"
+  Equ ValueInputType_Button$ To "B"
+  Equ ValueInputType_Check$ To "C"
+  Equ ValueInputType_DatePicker$ To "D"
+  Equ ValueInputType_Upload$ To "E"
+  Equ ValueInputType_Hidden$ To "H"
+  Equ ValueInputType_Timepicker$ To "I"
+  Equ ValueInputType_Textarea$ To "M"
+  Equ ValueInputType_DDCombo$ To "N"
+  Equ ValueInputType_ColorPicker$ To "O"
+  Equ ValueInputType_Password$ To "P"
+  Equ ValueInputType_Radio$ To "R"
+  Equ ValueInputType_Combo$ To "S"
+  Equ ValueInputType_Textbox$ To "T"
+
+  Equ NonTextInputTypes$ To "ACNRS"
+  
+Equ ValueAssoc$ To 56
+Equ ValueTab$ To 57
+Equ ValueInputDetails$ To 58
+
+  Equ ValueInputDetails_CodeFile$ To "1"
+  Equ ValueInputDetails_CodeRec$ To "2"
+  Equ ValueInputDetails_Prog$ To "3"
+  * Values 4+ are 'standard codes', derived from O4WCONFIG STANDARD_CODES record
+  *Equ ValueInputDetails_MF$ To "4"
+  *Equ ValueInputDetails_TF$ To "5"
+  *Equ ValueInputDetails_States$ To "6"
+  *Equ ValueInputDetails_YN$ To "7"
+  
+Equ ValueInputMod$ To 59
+Equ ValueTranslateTo$ To 60
+
+Equ ValueTranslateFld$ To 61
+Equ LabelAlign$ To 62
+Equ ValueLabelPos$ To 63
+
+  Equ ValueLabelPos_SideBySide$ To "0"
+  Equ ValueLabelPos_LabelOverValue$ To "1"
+  
+Equ ValueColor$ To 64
+Equ ValueBGColor$ To 65
+
+Equ ValueAlign$ To 66
+Equ ValueInputSize$ To 67
+Equ LabelFont$ To 68
+Equ ValueFont$ To 69
+Equ ValueAddl$ To 70
+
+Equ ValueDefault$ To 71
+Equ ValueEventFlag$ To 72
+	* subvalue 1:getfocus
+	* subvalue 2:lostfocus
+	* subvalue 3:changed
+	Equ ActionList$ To "call,read,read-forward,write,write-forward,delete,delete-forward,clear,new"
+
+Equ ValuePopupType$ To 73
+Equ ValuePopupSrc$ To 74
+Equ ValuePopupArgs$ To 75
+
+Equ ValuePopupTitle$ To 76
+Equ ValuePopupSize$ To 77
+Equ ValuePopupImage$ To 78
+	* subvalue 1:width
+	* subvalue 2:height
+
+   Equ FIRST_LINK_FIELD$ To 79
+	
+Equ ValueLinkTo$ To 79
+Equ ValueLinkType$ To 80
+
+Equ ValuePicURL$ To 81
+
+   Equ LAST_LINK_FIELD$ To 81
+Equ ValueIsKey$ To 82
+Equ ValueKeyPart$ To 83
+   Equ LAST_DISPLAY_FIELD$ To 83
+
+Equ TabButtons$ To 84
+Equ TabNames$ To 85
+
+Equ DEFAULT_ASSOC_NAME$ To "o4wdefault"
+
+Equ AssocNames$ To 86
+Equ ValueGridChangeFlag$ To 87
+
+  Equ ValueGridChange_AddAtTop$ To 1
+  Equ ValueGridChange_AddAtBottom$ To 2
+  Equ ValueGridChange_DelAtTop$ To 3
+  Equ ValueGridChange_DelAtBottom$ To 4
+  Equ ValueGridChange_Ins$ To 5
+  Equ ValueGridChange_Del$ To 6
+  Equ ValueGridChange_Move$ To 7
+
+Equ AssocTableSize$ To 88
+Equ AssocTableBorder$ To 89
+Equ AssocTableZebra$ To 90
+
+Equ AssocTableTitle$ To 91
+Equ AssocTableDesc$ To 92
+Equ AssocTableModifiers$ To 93
+
+Equ UserFields$ To 94
+
+Equ LocationID$ To 95
+Equ LocationInfo$ To 96
+Equ FormMargins$ To 97
+Equ ExtraPlugins$ To 98
+Equ ModuleList$ To 99
+	* value 1: modules using this form (and obj code of commuter module, if present)
+	* value 2: modules using the src code of commuter module
+	* value 3: modules using the debug record of commuter module
+
+Equ SystemFlag$ To 100
+Equ RSSLists$ To 101
+	* value 1: rss feeds to update on new records
+	* value 2: rss feeds to update on record delete
+	* value 3: rss feeds to update on record change
+
+Equ LAST_FIELD$ To 101

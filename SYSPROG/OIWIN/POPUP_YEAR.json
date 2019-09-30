@@ -1,0 +1,4350 @@
+{
+    "style-sheet-id": "",
+    "name": "POPUP_YEAR",
+    "icon-name": "CALENDAR",
+    "title": "",
+    "size": {
+        "x": 4,
+        "y": 72,
+        "y-ext": null,
+        "width": 594,
+        "height": 412
+    },
+    "style": [
+        "WS_POPUP",
+        "WS_CLIPCHILDREN"
+    ],
+    "style-ex": [],
+    "ps-style": [
+        "PSS_WIN_HASMENU"
+    ],
+    "background": "#00FFFFFF",
+    "script-events": [],
+    "quick-events": [
+        {
+            "name": "CREATE",
+            "type": "Route",
+            "message": "EXECUTE",
+            "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+            "parameters": [
+                "",
+                "1",
+                "@PARAM1"
+            ],
+            "return-id": "",
+            "return-property": ""
+        }
+    ],
+    "tables": [],
+    "io-options": {
+        "optimistic-locking": false,
+        "locking-behavior": "Exclusive",
+        "coordinate-with-file-locks": false,
+        "ignore-self-locks": false,
+        "ignore-subrow-locks": false,
+        "no-clear-on-write": false,
+        "commit-after-data-set": null,
+        "rollback-if-commit-fails": null,
+        "auto-rollback-on-clear": null,
+        "enforce-required-fields-before-save": null
+    },
+    "joined-tables": {
+        "primary": null,
+        "joined": null
+    },
+    "form-designer-flags": [
+        "0x7FFFE",
+        "0xF001E988"
+    ],
+    "background-image": "",
+    "icon": "SYSPROG*IMAGE*ICO*CALENDAR",
+    "page-count": 1,
+    "controls": [
+        {
+            "name": "LB_YEAR",
+            "icon-literal": "",
+            "type": "COMBOBOX",
+            "parent": "POPUP_YEAR",
+            "size": {
+                "x": 530,
+                "y": 3,
+                "y-ext": null,
+                "width": 54,
+                "height": 101
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_VSCROLL",
+                "CBS_SIMPLE",
+                "CBS_DROPDOWN",
+                "CBS_DROPDOWNLIST"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_INITIALFOCUS"
+            ],
+            "tab-stop": 1,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CHANGED",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "3"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016188"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "EB_MONTH_1",
+            "icon-literal": "",
+            "type": "EDITFIELD",
+            "parent": "POPUP_YEAR",
+            "size": {
+                "x": 4,
+                "y": 31,
+                "y-ext": null,
+                "width": 142,
+                "height": 21
+            },
+            "text": "January",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_DISABLED",
+                "WS_BORDER",
+                "ES_AUTOHSCROLL"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 2,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0012908"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "ET_DAY_1",
+            "icon-literal": "",
+            "type": "EDITTABLE",
+            "parent": "POPUP_YEAR",
+            "size": {
+                "x": 4,
+                "y": 52,
+                "y-ext": null,
+                "width": 142,
+                "height": 100
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_BORDER",
+                "DTS_HGRID",
+                "DTS_VGRID"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 3,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "DBLCLK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "4"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                },
+                {
+                    "name": "GOTFOCUS",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "5",
+                        "@SELF"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                },
+                {
+                    "name": "POSCHANGED",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "6",
+                        "@SELF"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "",
+            "o-conv": "",
+            "default": "",
+            "form-designer-flags": [
+                "0x7e27e",
+                "0xc0016208"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": 40,
+            "columns": [
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "S",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "M",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "T",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "W",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "T",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "F",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "S",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 1,
+                    "width": 20,
+                    "label": "?",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_HIDDEN",
+                        "DTCS_CENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                }
+            ],
+            "image-count": null,
+            "row-limit": 0,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "EB_MONTH_2",
+            "icon-literal": "",
+            "type": "EDITFIELD",
+            "parent": "POPUP_YEAR",
+            "size": {
+                "x": 150,
+                "y": 31,
+                "y-ext": null,
+                "width": 142,
+                "height": 21
+            },
+            "text": "February",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_DISABLED",
+                "WS_BORDER",
+                "ES_AUTOHSCROLL"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 4,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0012908"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "ET_DAY_2",
+            "icon-literal": "",
+            "type": "EDITTABLE",
+            "parent": "POPUP_YEAR",
+            "size": {
+                "x": 150,
+                "y": 52,
+                "y-ext": null,
+                "width": 142,
+                "height": 100
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_BORDER",
+                "DTS_HGRID",
+                "DTS_VGRID"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 5,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "DBLCLK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "4"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                },
+                {
+                    "name": "GOTFOCUS",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "5",
+                        "@SELF"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                },
+                {
+                    "name": "POSCHANGED",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "6",
+                        "@SELF"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "",
+            "o-conv": "",
+            "default": "",
+            "form-designer-flags": [
+                "0x7e27e",
+                "0xc0016208"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": 40,
+            "columns": [
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "S",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "M",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "T",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "W",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "T",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "F",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "S",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 1,
+                    "width": 20,
+                    "label": "?",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_HIDDEN",
+                        "DTCS_CENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                }
+            ],
+            "image-count": null,
+            "row-limit": 0,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "EB_MONTH_3",
+            "icon-literal": "",
+            "type": "EDITFIELD",
+            "parent": "POPUP_YEAR",
+            "size": {
+                "x": 296,
+                "y": 31,
+                "y-ext": null,
+                "width": 142,
+                "height": 21
+            },
+            "text": "March",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_DISABLED",
+                "WS_BORDER",
+                "ES_AUTOHSCROLL"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 6,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0012908"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "ET_DAY_3",
+            "icon-literal": "",
+            "type": "EDITTABLE",
+            "parent": "POPUP_YEAR",
+            "size": {
+                "x": 296,
+                "y": 52,
+                "y-ext": null,
+                "width": 142,
+                "height": 100
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_BORDER",
+                "DTS_HGRID",
+                "DTS_VGRID"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 7,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "DBLCLK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "4"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                },
+                {
+                    "name": "GOTFOCUS",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "5",
+                        "@SELF"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                },
+                {
+                    "name": "POSCHANGED",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "6",
+                        "@SELF"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "",
+            "o-conv": "",
+            "default": "",
+            "form-designer-flags": [
+                "0x7e27e",
+                "0xc0016208"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": 40,
+            "columns": [
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "S",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "M",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "T",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "W",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "T",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "F",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "S",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 1,
+                    "width": 20,
+                    "label": "?",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_HIDDEN",
+                        "DTCS_CENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                }
+            ],
+            "image-count": null,
+            "row-limit": 0,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "EB_MONTH_4",
+            "icon-literal": "",
+            "type": "EDITFIELD",
+            "parent": "POPUP_YEAR",
+            "size": {
+                "x": 442,
+                "y": 31,
+                "y-ext": null,
+                "width": 142,
+                "height": 21
+            },
+            "text": "April",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_DISABLED",
+                "WS_BORDER",
+                "ES_AUTOHSCROLL"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 8,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0012908"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "ET_DAY_4",
+            "icon-literal": "",
+            "type": "EDITTABLE",
+            "parent": "POPUP_YEAR",
+            "size": {
+                "x": 442,
+                "y": 52,
+                "y-ext": null,
+                "width": 142,
+                "height": 100
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_BORDER",
+                "DTS_HGRID",
+                "DTS_VGRID"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 9,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "DBLCLK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "4"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                },
+                {
+                    "name": "GOTFOCUS",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "5",
+                        "@SELF"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                },
+                {
+                    "name": "POSCHANGED",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "6",
+                        "@SELF"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "",
+            "o-conv": "",
+            "default": "",
+            "form-designer-flags": [
+                "0x7e27e",
+                "0xc0016208"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": 40,
+            "columns": [
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "S",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "M",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "T",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "W",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "T",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "F",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "S",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 1,
+                    "width": 20,
+                    "label": "?",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_HIDDEN",
+                        "DTCS_CENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                }
+            ],
+            "image-count": null,
+            "row-limit": 0,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "EB_MONTH_5",
+            "icon-literal": "",
+            "type": "EDITFIELD",
+            "parent": "POPUP_YEAR",
+            "size": {
+                "x": 4,
+                "y": 156,
+                "y-ext": null,
+                "width": 142,
+                "height": 21
+            },
+            "text": "May",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_DISABLED",
+                "WS_BORDER",
+                "ES_AUTOHSCROLL"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 10,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0012908"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "ET_DAY_5",
+            "icon-literal": "",
+            "type": "EDITTABLE",
+            "parent": "POPUP_YEAR",
+            "size": {
+                "x": 4,
+                "y": 177,
+                "y-ext": null,
+                "width": 142,
+                "height": 100
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_BORDER",
+                "DTS_HGRID",
+                "DTS_VGRID"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 11,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "DBLCLK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "4"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                },
+                {
+                    "name": "GOTFOCUS",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "5",
+                        "@SELF"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                },
+                {
+                    "name": "POSCHANGED",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "6",
+                        "@SELF"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "",
+            "o-conv": "",
+            "default": "",
+            "form-designer-flags": [
+                "0x7e27e",
+                "0xc0016208"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": 40,
+            "columns": [
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "S",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "M",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "T",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "W",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "T",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "F",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "S",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 1,
+                    "width": 20,
+                    "label": "?",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_HIDDEN",
+                        "DTCS_CENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                }
+            ],
+            "image-count": null,
+            "row-limit": 0,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "EB_MONTH_6",
+            "icon-literal": "",
+            "type": "EDITFIELD",
+            "parent": "POPUP_YEAR",
+            "size": {
+                "x": 150,
+                "y": 156,
+                "y-ext": null,
+                "width": 142,
+                "height": 21
+            },
+            "text": "June",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_DISABLED",
+                "WS_BORDER",
+                "ES_AUTOHSCROLL"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 12,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0012908"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "ET_DAY_6",
+            "icon-literal": "",
+            "type": "EDITTABLE",
+            "parent": "POPUP_YEAR",
+            "size": {
+                "x": 150,
+                "y": 177,
+                "y-ext": null,
+                "width": 142,
+                "height": 100
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_BORDER",
+                "DTS_HGRID",
+                "DTS_VGRID"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 13,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "DBLCLK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "4"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                },
+                {
+                    "name": "GOTFOCUS",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "5",
+                        "@SELF"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                },
+                {
+                    "name": "POSCHANGED",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "6",
+                        "@SELF"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "",
+            "o-conv": "",
+            "default": "",
+            "form-designer-flags": [
+                "0x7e27e",
+                "0xc0016208"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": 40,
+            "columns": [
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "S",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "M",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "T",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "W",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "T",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "F",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "S",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 1,
+                    "width": 20,
+                    "label": "?",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_HIDDEN",
+                        "DTCS_CENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                }
+            ],
+            "image-count": null,
+            "row-limit": 0,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "EB_MONTH_7",
+            "icon-literal": "",
+            "type": "EDITFIELD",
+            "parent": "POPUP_YEAR",
+            "size": {
+                "x": 296,
+                "y": 156,
+                "y-ext": null,
+                "width": 142,
+                "height": 21
+            },
+            "text": "July",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_DISABLED",
+                "WS_BORDER",
+                "ES_AUTOHSCROLL"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 14,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0012908"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "ET_DAY_7",
+            "icon-literal": "",
+            "type": "EDITTABLE",
+            "parent": "POPUP_YEAR",
+            "size": {
+                "x": 296,
+                "y": 177,
+                "y-ext": null,
+                "width": 142,
+                "height": 100
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_BORDER",
+                "DTS_HGRID",
+                "DTS_VGRID"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 15,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "DBLCLK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "4"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                },
+                {
+                    "name": "GOTFOCUS",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "5",
+                        "@SELF"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                },
+                {
+                    "name": "POSCHANGED",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "6",
+                        "@SELF"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "",
+            "o-conv": "",
+            "default": "",
+            "form-designer-flags": [
+                "0x7e27e",
+                "0xc0016208"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": 40,
+            "columns": [
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "S",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "M",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "T",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "W",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "T",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "F",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "S",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 1,
+                    "width": 20,
+                    "label": "?",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_HIDDEN",
+                        "DTCS_CENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                }
+            ],
+            "image-count": null,
+            "row-limit": 0,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "EB_MONTH_8",
+            "icon-literal": "",
+            "type": "EDITFIELD",
+            "parent": "POPUP_YEAR",
+            "size": {
+                "x": 442,
+                "y": 156,
+                "y-ext": null,
+                "width": 142,
+                "height": 21
+            },
+            "text": "August",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_DISABLED",
+                "WS_BORDER",
+                "ES_AUTOHSCROLL"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 16,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0012908"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "ET_DAY_8",
+            "icon-literal": "",
+            "type": "EDITTABLE",
+            "parent": "POPUP_YEAR",
+            "size": {
+                "x": 442,
+                "y": 177,
+                "y-ext": null,
+                "width": 142,
+                "height": 100
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_BORDER",
+                "DTS_HGRID",
+                "DTS_VGRID"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 17,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "DBLCLK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "4"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                },
+                {
+                    "name": "GOTFOCUS",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "5",
+                        "@SELF"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                },
+                {
+                    "name": "POSCHANGED",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "6",
+                        "@SELF"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "",
+            "o-conv": "",
+            "default": "",
+            "form-designer-flags": [
+                "0x7e27e",
+                "0xc0016208"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": 40,
+            "columns": [
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "S",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "M",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "T",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "W",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "T",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "F",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "S",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 1,
+                    "width": 20,
+                    "label": "?",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_HIDDEN",
+                        "DTCS_CENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                }
+            ],
+            "image-count": null,
+            "row-limit": 0,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "EB_MONTH_9",
+            "icon-literal": "",
+            "type": "EDITFIELD",
+            "parent": "POPUP_YEAR",
+            "size": {
+                "x": 4,
+                "y": 281,
+                "y-ext": null,
+                "width": 142,
+                "height": 21
+            },
+            "text": "September",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_DISABLED",
+                "WS_BORDER",
+                "ES_AUTOHSCROLL"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 18,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0012908"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "ET_DAY_9",
+            "icon-literal": "",
+            "type": "EDITTABLE",
+            "parent": "POPUP_YEAR",
+            "size": {
+                "x": 4,
+                "y": 302,
+                "y-ext": null,
+                "width": 142,
+                "height": 100
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_BORDER",
+                "DTS_HGRID",
+                "DTS_VGRID"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 19,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "DBLCLK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "4"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                },
+                {
+                    "name": "GOTFOCUS",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "5",
+                        "@SELF"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                },
+                {
+                    "name": "POSCHANGED",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "6",
+                        "@SELF"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "",
+            "o-conv": "",
+            "default": "",
+            "form-designer-flags": [
+                "0x7e27e",
+                "0xc0016208"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": 40,
+            "columns": [
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "S",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "M",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "T",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "W",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "T",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "F",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "S",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 1,
+                    "width": 20,
+                    "label": "?",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_HIDDEN",
+                        "DTCS_CENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                }
+            ],
+            "image-count": null,
+            "row-limit": 0,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "EB_MONTH_10",
+            "icon-literal": "",
+            "type": "EDITFIELD",
+            "parent": "POPUP_YEAR",
+            "size": {
+                "x": 150,
+                "y": 281,
+                "y-ext": null,
+                "width": 142,
+                "height": 21
+            },
+            "text": "October",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_DISABLED",
+                "WS_BORDER",
+                "ES_AUTOHSCROLL"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 20,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0012908"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "ET_DAY_10",
+            "icon-literal": "",
+            "type": "EDITTABLE",
+            "parent": "POPUP_YEAR",
+            "size": {
+                "x": 150,
+                "y": 302,
+                "y-ext": null,
+                "width": 142,
+                "height": 100
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_BORDER",
+                "DTS_HGRID",
+                "DTS_VGRID"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 21,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "DBLCLK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "4"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                },
+                {
+                    "name": "GOTFOCUS",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "5",
+                        "@SELF"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                },
+                {
+                    "name": "POSCHANGED",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "6",
+                        "@SELF"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "",
+            "o-conv": "",
+            "default": "",
+            "form-designer-flags": [
+                "0x7e27e",
+                "0xc0016208"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": 40,
+            "columns": [
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "S",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "M",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "T",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "W",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "T",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "F",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "S",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 1,
+                    "width": 20,
+                    "label": "?",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_HIDDEN",
+                        "DTCS_CENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                }
+            ],
+            "image-count": null,
+            "row-limit": 0,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "EB_MONTH_11",
+            "icon-literal": "",
+            "type": "EDITFIELD",
+            "parent": "POPUP_YEAR",
+            "size": {
+                "x": 296,
+                "y": 281,
+                "y-ext": null,
+                "width": 142,
+                "height": 21
+            },
+            "text": "November",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_DISABLED",
+                "WS_BORDER",
+                "ES_AUTOHSCROLL"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 22,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0012908"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "ET_DAY_11",
+            "icon-literal": "",
+            "type": "EDITTABLE",
+            "parent": "POPUP_YEAR",
+            "size": {
+                "x": 296,
+                "y": 302,
+                "y-ext": null,
+                "width": 142,
+                "height": 100
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_BORDER",
+                "DTS_HGRID",
+                "DTS_VGRID"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 23,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "DBLCLK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "4"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                },
+                {
+                    "name": "GOTFOCUS",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "5",
+                        "@SELF"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                },
+                {
+                    "name": "POSCHANGED",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "6",
+                        "@SELF"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "",
+            "o-conv": "",
+            "default": "",
+            "form-designer-flags": [
+                "0x7e27e",
+                "0xc0016208"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": 40,
+            "columns": [
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "S",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "M",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "T",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "W",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "T",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "F",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "S",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 1,
+                    "width": 20,
+                    "label": "?",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_HIDDEN",
+                        "DTCS_CENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                }
+            ],
+            "image-count": null,
+            "row-limit": 0,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "EB_MONTH_12",
+            "icon-literal": "",
+            "type": "EDITFIELD",
+            "parent": "POPUP_YEAR",
+            "size": {
+                "x": 442,
+                "y": 281,
+                "y-ext": null,
+                "width": 142,
+                "height": 21
+            },
+            "text": "December",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_DISABLED",
+                "WS_BORDER",
+                "ES_AUTOHSCROLL"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 24,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0012908"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "ET_DAY_12",
+            "icon-literal": "",
+            "type": "EDITTABLE",
+            "parent": "POPUP_YEAR",
+            "size": {
+                "x": 442,
+                "y": 302,
+                "y-ext": null,
+                "width": 142,
+                "height": 100
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_BORDER",
+                "DTS_HGRID",
+                "DTS_VGRID"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 25,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "DBLCLK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "4"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                },
+                {
+                    "name": "GOTFOCUS",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "5",
+                        "@SELF"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                },
+                {
+                    "name": "POSCHANGED",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "6",
+                        "@SELF"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "",
+            "o-conv": "",
+            "default": "",
+            "form-designer-flags": [
+                "0x7e27e",
+                "0xc0016208"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                ""
+            ],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": 40,
+            "columns": [
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "S",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "M",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "T",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "W",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "T",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "F",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 5,
+                    "width": 20,
+                    "label": "S",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_FIXED",
+                        "DTCS_UPPERCASE",
+                        "DTCS_RIGHT",
+                        "DTCS_HEADCENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                },
+                {
+                    "data-width": 1,
+                    "width": 20,
+                    "label": "?",
+                    "databound-table": "",
+                    "databound-column": "",
+                    "i-conv": "<<None>>",
+                    "o-conv": "<<None>>",
+                    "default-value": "<<None>>",
+                    "style": [
+                        "DTCS_HIDDEN",
+                        "DTCS_CENTER",
+                        "DTCS_HEADRIGHT"
+                    ]
+                }
+            ],
+            "image-count": null,
+            "row-limit": 0,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "CB_OK",
+            "icon-literal": "",
+            "type": "PUSHBUTTON",
+            "parent": "POPUP_YEAR",
+            "size": {
+                "x": 595,
+                "y": 6,
+                "y-ext": null,
+                "width": 67,
+                "height": 24
+            },
+            "text": "OK",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "WS_DISABLED",
+                "BS_PUSHBUTTON"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_DEFAULTBUTTON",
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 26,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "7"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016008"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "CB_CANCEL",
+            "icon-literal": "",
+            "type": "PUSHBUTTON",
+            "parent": "POPUP_YEAR",
+            "size": {
+                "x": 595,
+                "y": 37,
+                "y-ext": null,
+                "width": 67,
+                "height": 25
+            },
+            "text": "Cancel",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "BS_PUSHBUTTON"
+            ],
+            "style-ex": [],
+            "ps-style": [
+                "PSS_CANCELBUTTON",
+                "PSS_CLIPONLY"
+            ],
+            "tab-stop": 27,
+            "background": "",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 400,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [
+                {
+                    "name": "CLICK",
+                    "type": "Route",
+                    "message": "EXECUTE",
+                    "entity-id": "SYSPROG*STPROCEXE**POPUP_YEAR",
+                    "parameters": [
+                        "",
+                        "8"
+                    ],
+                    "return-id": "",
+                    "return-property": ""
+                }
+            ],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0016508"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": 1,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        },
+        {
+            "name": "ST_TITLE",
+            "icon-literal": "",
+            "type": "STATIC",
+            "parent": "POPUP_YEAR",
+            "size": {
+                "x": 3,
+                "y": 3,
+                "y-ext": null,
+                "width": 522,
+                "height": 20
+            },
+            "text": "",
+            "style": [
+                "WS_CHILD",
+                "WS_VISIBLE",
+                "SS_LEFT"
+            ],
+            "style-ex": [],
+            "ps-style": [],
+            "tab-stop": 0,
+            "background": "#00808000",
+            "foreground": "#00000000",
+            "font": {
+                "face-name": "MS Sans Serif",
+                "height": -11,
+                "weight": 700,
+                "italic": false,
+                "underline": false,
+                "width": 0,
+                "character-set": 0,
+                "pitch-and-family": 34,
+                "strike-out": false,
+                "out-precision": 1,
+                "clip-precision": 2,
+                "quality": 1,
+                "ascent": 0,
+                "internal-leading": 0,
+                "external-leading": 0,
+                "max-character-width": 0
+            },
+            "script-events": [],
+            "quick-events": [],
+            "data-bound-table": "",
+            "data-bound-column": "",
+            "i-conv": "<<None>>",
+            "o-conv": "<<None>>",
+            "default": "<<None>>",
+            "form-designer-flags": [
+                "0x7fffe",
+                "0xf0014c08"
+            ],
+            "bitmap-id": "",
+            "icon-id": "",
+            "values": [],
+            "radio-buttons": null,
+            "default-check": null,
+            "default-radio": null,
+            "ole-setup": null,
+            "scroll-info": null,
+            "column-header-width": null,
+            "columns": null,
+            "image-count": null,
+            "row-limit": null,
+            "uppercase-combo-box": null,
+            "tabs": null,
+            "dde-link-type": "",
+            "dde-item-id": "",
+            "dde-topic-id": "",
+            "dde-service-id": ""
+        }
+    ],
+    "menu": null,
+    "menu-script-events": [],
+    "menu-quick-events": []
+}

@@ -1,0 +1,6 @@
+Compile Insert SRPHASHTABLE
+
+Declare function SRP_HashTable, SRP_HashTable_Create, SRP_HashTable_Get, SRP_HashTable_Contains, SRP_HashTable_Count
+Declare function SRP_HashTable_GetKeys, SRP_HashTable_GetValues, SRP_HashTable_GetKeyValuePairs
+Declare subroutine SRP_HashTable, SRP_HashTable_Release, SRP_HashTable_Set, SRP_HashTable_Remove
+

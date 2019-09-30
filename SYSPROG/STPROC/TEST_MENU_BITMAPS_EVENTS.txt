@@ -1,0 +1,154 @@
+Function TEST_MENU_BITMAPS_EVENTS(CtrlEntID,Event,Param1,Param2,Param3,Param4,Param5,Param6)
+*
+* Subroutine Name :TEST_MENU_BITMAPS_EVENTS
+*
+* Description : Commuter Module for TEST_MENU_BITMAPS
+*
+* Date : 03/30/2009
+*
+* Author : SYSPROG
+*
+* OI Version : 9.0.1
+*
+* Comments :
+*
+*** RTI Generated Commuter Module ***
+*
+********************************************************
+*
+*
+Declare Subroutine MSG
+
+Declare Function MSG,GET_PROPERTY,SET_STATUS,GET_STATUS,SET_PROPERTY
+Declare Function POPUP,REPOSITORY,SEND_MESSAGE,SEND_EVENT,UNASSIGNED
+
+$INSERT MSG_EQUATES
+$INSERT POPUP_EQUATES
+$INSERT OIWIN_EQUATES
+$INSERT PS_EQUATES
+
+If Unassigned(CtrlEntID) Then CtrlEntID = ''
+If Unassigned(Event) Then Event = ''
+If Unassigned(Param1) Then Param1 = ''
+If Unassigned(Param2) Then Param2 = ''
+If Unassigned(Param3) Then Param3 = ''
+If Unassigned(Param4) Then Param4 = ''
+If Unassigned(Param5) Then Param5 = ''
+If Unassigned(Param6) Then Param6 = ''
+*
+*
+If index(CtrlEntID,".",1) then
+	WinName = Field(CtrlEntID,'.',1)
+	Control = Field(CtrlEntID,'.',2)
+End else
+	WinName = CtrlEntID
+	Control = WinName
+End
+*
+Parent = @window
+Frame = Get_Property(Parent,'MDIFRAME')
+If len(Frame) then Parent = Frame
+*
+Retval = 1
+*
+Begin Case
+	Case Control = "TEST_MENU_BITMAPS"
+		Begin Case
+			Case Event = "CREATE"
+				CreateParam = Param1
+				
+				
+				srcWinID = "TEST_MENU"
+				
+				winObj = xlate( "SYSREPOSWINEXES", "SYSPROG**" : srcWinID, "", "X" )
+				winStruct = winObj[1,@rm]
+				menuStruct = ""
+				
+				xCount = count( winStruct, @fm ) + ( winStruct # "" )
+				for x = 1 to xCount
+					if ( winStruct<x,PSPOS_TYPE$> = "MENU" ) then
+						menuStruct = winStruct<x>
+						x = xCount
+					end
+				next
+				
+				if len( menuStruct ) else
+					return 0
+				end
+				
+				menuStruct<0,1> = @window : ".MENU"
+				menuStruct<0,4> = @window
+				
+				xCount = count( menuStruct, @vm ) + 1
+				for x = 5 to xCount
+					
+					menuID = menuStruct<0,x,3>
+					swap srcWinID : "." with @window : "." in menuID
+					menuStruct<0,x,3> = menuID
+					
+					menuID = field( menuID, ".", 3, 9999 )
+					menuBmp = ""
+					
+					begin case
+						case ( menuID = "FILE.NEW" )
+							menuBmp = ".\menubmp\fileNew.bmp"
+						case ( menuID = "FILE.OPEN" )
+							menuBmp = ".\menubmp\fileOpen.bmp"
+						case ( menuID = "FILE.SAVE" )
+							menuBmp = ".\menubmp\fileSave.bmp"
+						case ( menuID = "FILE.PRINT" )
+							menuBmp = ".\menubmp\filePrint.bmp"
+						case ( menuID = "EDIT.UNDO" )
+							menuBmp = ".\menubmp\editUndo.bmp"
+						case ( menuID = "EDIT.CUT" )
+							menuBmp = ".\menubmp\editCut.bmp"
+						case ( menuID = "EDIT.COPY" )
+							menuBmp = ".\menubmp\editCopy.bmp"
+						case ( menuID = "EDIT.PASTE" )
+							menuBmp = ".\menubmp\editPaste.bmp"
+					end case
+					
+					if index( menuID, "BITMAP_CHECK", 1 ) then
+						menuBmp = ".\menubmp\fileNew.bmp"
+					end
+					
+					if index( menuID, "BITMAP_WIBBLE", 1 ) then
+						menuBmp = ".\menubmp\fileNew.bmp"
+					end
+					
+					if len( menuBmp ) then
+						if len( menuStruct<0,x,12> ) else
+							menuStruct<0,x,12> = menuBmp
+						end
+					end
+					
+					if index( menuID, "SEP101", 1 ) then
+						menuStruct<0,x,4> = "Test Textual Separator"
+					end
+					
+					if index( menuID, "SEP100", 1 ) then
+						menuStruct<0,x,4> = "The Wibble Menu"
+					end
+					
+					
+					
+				next
+				
+				call utility( "CREATE", menuStruct )
+				
+				STATX@=SET_PROPERTY(@WINDOW,"VISIBLE", 1 )
+				
+				Retval = 0
+		End Case
+	Case Control = "BUTTON_1"
+		Begin Case
+			Case Event = "CLICK"
+				
+				x = get_Property( @window : ".MENU.FILE.SAVE", "TEXT" )
+				call set_Property( @window : ".MENU.FILE.SAVE", "TEXT", "&Write":\09\:"Ctrl+W" )
+				
+				Retval = 0
+		End Case
+End Case
+*
+return retval

@@ -1,0 +1,11 @@
+FUNCTION O4W_HELLO_WORLD(CtrlEntId, Event, Request)
+
+$Insert O4WEquates
+$Insert O4WFormEquates
+$Insert O4W_COMMUTER_COMMON
+
+RetVal = 1
+
+
+
+Return RetVal

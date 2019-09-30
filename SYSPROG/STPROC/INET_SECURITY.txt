@@ -1,0 +1,40 @@
+function INET_Security(Request, FnName)
+
+***************************************************************************
+* Project    : OpenInsight for Internet
+*
+* Name       : INET_Security
+* Description: Security check point for a request
+*
+* Parameters:
+*              Request    [in/out] -- HTTP request (see INET_EQUATES)
+*              FnName     [in/out] -- name of a function that is
+*                                     about to be executed (starts with INET_)
+*              returns    [out]    -- emty string to allow request or
+*                                     message in html format to stop the request
+*                                     and pass it back to a client
+*
+* Note:
+*              Parameters "Request" and "Function" are passed by reference
+*              which makes it possible to change the function name and/or
+*              request parameters on a fly by intelligent security procedure
+*
+***************************************************************************
+
+$insert Logical
+$insert Inet_Equates
+
+declare subroutine Send_Event
+
+	HtmlMessage = '' ;* assume success
+
+	* put your authorization check code here
+	*               ...
+	*
+
+    * if authorization failed -- log the failure
+	if len(HtmlMessage) then
+		Send_Event(GS_MONITOR$, 'OMNIEVENT', 'OUTCOMING', 'Authorization failed')
+	end
+
+	return HtmlMessage

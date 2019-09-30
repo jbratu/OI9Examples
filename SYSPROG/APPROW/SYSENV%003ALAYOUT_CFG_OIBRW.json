@@ -1,0 +1,14 @@
+{
+    "record1": {
+        "<1>": "Banded Report Writer connection details",
+        "<2>": "Specify how the Banded Report Writer should connect to the OpenInsight system during report definition and generation",
+        "<3>": "URL of Engine Server, or path to REVCAP32{BREAK}(for direct connection){DEFAULT .}",
+        "<4>": "Port number of Engine Server",
+        "<5>": "Optional engine name{BREAK}(In direct connection, use * to share current engine) {DEFAULT *}",
+        "<6>": "Optional Startup flags{BREAK}(In direct connection, use 0 to share current engine) {DEFAULT 0}",
+        "<7>": "Optional Shutdown flags{BREAK}(In direct connection, use 0 to share current engine) {DEFAULT 0}",
+        "<8>": "Name of user-customizable handler routine{BREAK}for retrieving table and field names {DEFAULT RTI_BRW_FILTER}",
+        "<9>": "{LITERAL}",
+        "<10>": "Optional UTF8 Override Flag {OPTIONS Do not override/|Always use UTF8/1|Always use ANSI/0}"
+    }
+}

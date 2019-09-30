@@ -1,0 +1,77 @@
+Compile Insert U2_DictEquates
+
+/* Layout of dictionary records in a Universe or PI/Open system */
+
+EQU VM_DICT_TYPE$       TO 1         ;* "D" for data type fields ("F" types)
+                                      * "I" for symbolics ("S" types)
+
+EQU VM_DICT_COLUMN_NO$  TO 2         ;* The position of the data in the record
+
+EQU VM_DICT_PATTERN$    TO 3         ;* Input validation/conversion for this
+                                      *  field
+
+EQU VM_DICT_DISPLAY$    TO 4         ;* The Column Heading used by RLIST and
+                                      *  other tools
+
+EQU VM_LENGTH_JUST$     TO 5         ;* Length and justification for display
+
+EQU VM_DICT_SM$         TO 6         ;* Single or Multivalue flag "S"ingle
+                                      *  "M"ulti
+
+EQU VM_INVALID_CONVS$   TO 'CRU'     ;* String of conversions for which we
+                                      *  must build OI symbolics
+
+EQU RTI_INVALID_CONVS$  TO 'B'       ;* String of conversions not supported
+                                      *  by U2 systems
+
+EQU VM_INCONVERSION$    TO  7        ;* Input Conversion or Correlative
+EQU VM_OUTCONVERSION$   TO  8        ;* Input Conversion or Correlative
+
+
+* A, S Type Entries
+EQU VM_PICK_DISPLAY$    TO   3       ;* Display for Pick Style (type A or S ) Entries
+EQU VM_PICK_ASSOC$      TO   4       ;* Link MultiValue Groups
+EQU VM_PICK_CONV$       TO   7       ;* Conv
+EQU VM_PICK_CORREL$     TO   8       ;* Correlative
+EQU VM_PICK_JUST$       TO   9       ;* Justification
+EQU VM_PICK_LENGTH$     TO  10       ;* Length
+
+
+
+
+* MAP FOR D-Type fIELDS
+
+
+EQU U2_D_TYPE$     to 1  ; * CODE D [ description ] Type code and an optional description of
+                           ; * the field.
+                     
+EQU U2_D_LOC$      to 2  ; * LOC field number The location of the field in the data file.
+
+EQU U2_D_CONV$     to 3  ; * [ conversion code ] A formula for converting data stored in
+                         ; * internal format into external format.
+                          
+EQU U2_D_NAME$     to 4  ; * [ column heading ] A descriptive name used as a column
+                         ; * heading. If not specified, the record ID of
+                         ; * the D-descriptor is used.
+                       
+EQU U2_D_FORMAT$   TO 5  ; * width and justification
+                         ; *(L, R, T, or U)
+                         ; * The width and justification of the column
+                         ; * used when listed in a RetrieVe report.
+                           
+EQU U2_D_SM$       TO 6  ; * ( S or M )
+                         ; * Singlevalued field (default).
+                         ; * Multivalued field.
+                        
+EQU U2_D_ASSOC$    TO 7  ; *  [ phrase name ] The name of a phrase (defined by another
+                         ; *  entry in the dictionary) that links multivalued                        
+                         ; *  fields in an association.
+                        
+EQU U2_D_DATATYPE$ TO 8  ; * [ data type ] The SQL data type of this field, used
+
+
+
+equ U2_I_EXP$ to 2       ; * EXP I-type expression The expression that, when evaluated,
+                         ; * produces the values referenced by this
+                         ; * field.
+                         

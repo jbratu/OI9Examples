@@ -1,0 +1,61 @@
+Function TEST_SELECT_INTO_EVENTS(CtrlEntID,Event,Param1,Param2,Param3,Param4,Param5,Param6)
+*
+* Subroutine Name :TEST_SELECT_INTO_EVENTS
+* Description : Commuter Module for TEST_SELECT_INTO
+* Date : 03/02/2009
+* Author : Sean FitzSimons
+* OI Version : 9.0.1
+* Comments :
+*** RTI Generated Commuter Module ***
+*
+* VALID_FORMATS = CSV TEXT TAB HTML EDT
+
+Declare Function Rlist_Delimited, Get_Property, Set_Property, Unassigned
+
+If Unassigned(CtrlEntID) Then CtrlEntID = ''
+If Unassigned(Event) Then Event = ''
+If Unassigned(Param1) Then Param1 = ''
+If Unassigned(Param2) Then Param2 = ''
+If Unassigned(Param3) Then Param3 = ''
+If Unassigned(Param4) Then Param4 = ''
+If Unassigned(Param5) Then Param5 = ''
+If Unassigned(Param6) Then Param6 = ''
+*
+thisWindow = CtrlEntId[1,"."]
+btn_go = thisWindow : ".BTN_GO"
+edt_stmt = thisWindow : ".EDT_STMT"
+et_results = thisWindow : ".EDT_RESULTS"
+eb_results = thisWindow : ".EB_RESULTS"
+rdo_format = thisWindow : ".RDO_FORMAT"
+*
+Parent = thisWindow
+Frame = Get_Property(Parent,'MDIFRAME')
+If len(Frame) then Parent = Frame
+*
+Retval = 1
+*
+Begin Case
+	Case CtrlEntId _eqc thisWindow
+		Begin Case
+			Case Event = "CLOSE"
+				*** Insert code for the CLOSE event here ***
+			Case Event = "CREATE"
+				*** Insert code for the CREATE event here ***
+		End Case
+	Case CtrlEntId _eqc BTN_GO
+		Begin Case
+			Case Event = "CLICK"
+				ClearSelect
+				thisStmt = Get_Property(edt_stmt, "DEFPROP")
+				format = Get_Property(rdo_format, "VALUE")
+				results = RList_Delimited(thisStmt, format)
+				Begin Case
+					Case format _eqc "EDT"
+						varTemp = Set_Property(et_results, "LIST", results)
+					Case format _eqc "CSV" Or format _eqc "TEXT" Or format _eqc "TAB" Or format _eqc "HTML"
+						varTemp = Set_Property(eb_results, "TEXT", results)
+				End Case
+		End Case
+End Case
+*
+return retval

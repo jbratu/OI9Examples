@@ -1,0 +1,19 @@
+COMPILE INSERT WEBOI_OIPop_Definition
+
+* Copyright 2006-2007 Freedomsoft/The Future Is Freedom Pty Ltd. All rights reserved.
+* WEBOI 8.1
+* 20060729
+
+      DECLARE FUNCTION UNASSIGNED
+      EQU OIPop_Name TO 1
+      EQU OIPop_Table TO 2
+      *EQU OIPop_SortBy TO 3
+	  EQU OIPop_Selection TO 3;* 03/10/08
+      EQU OIPop_Font TO 4
+      EQU OIPop_DatabaseClass TO 5
+      EQU OIPop_Attribute TO 6
+      EQU OIPop_Column TO 7
+      EQU OIPop_AttributeAlignment TO 8
+      EQU OIPop_Heading TO 9
+      EQU OIPop_HeadingAlignment TO 10
+

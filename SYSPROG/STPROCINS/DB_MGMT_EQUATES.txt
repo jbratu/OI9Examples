@@ -1,0 +1,57 @@
+Compile Insert DB_Mgmt_Equates
+
+/*--------------------------------------------------------------------------
+* EQUATES USED BY DATABASE MANAGEMENT SSPs
+  MM-DD-YY     initials        Modification
+  09-25-91     Pat             first created
+  06-03-93     Pat             fix lh_verify group file name...
+*---------------------------------------------------------------------------*/
+
+
+EQU ATTACH_EXIST_VOL$           TO 0
+equ auto_gen_not_auto_attach$   TO 3
+equ NO_ATTACH_ALREADY_EXIST$    to 2
+
+EQU GLOBAL_dbid$                TO "GLOBAL"
+equ global$                     TO "GLOBAL"
+equ SYSPROG$                    TO "SYSPROG"
+equ account$                    TO "ACCOUNT"
+EQU REVMEDIA_TABLE$             TO "REVMEDIA"
+EQU REVBOOT_VOL$                TO "REVBOOT"
+equ volume_script$              to "VOLUME"
+
+EQU DICT_PREFIX$                TO "DICT."
+EQU DATA_PREFIX$                TO "DATA."
+EQU SI_INDEX_PREFIX$            TO "!"
+
+equ SI_MFS$                     TO "SI.MFS"
+EQU DICT_MFS$                   TO "DICT.MFS"
+EQU PROTECT_MFS$                TO "PROTECT.MFS"
+EQU ENV_PREFIX$                 TO "ENV_"
+equ LH_BFS$                     TO "RTP57"
+
+EQU SYS_LHV_TAB$                to "SYSLHVERIFY"
+EQU SYS_LHV_GRP$                to "SYSLHGROUP"
+
+EQU USER_SEPARATOR$             TO "@"
+EQU VOLUME_REC_FS$              TO 2
+EQU SYS_USER_TOKEN$             TO "SYS"
+
+
+** the following are used for FIX_LH
+equ COMPRESS_FILE$              TO  1
+equ FIX_TABLE$                  TO  2
+equ UPDATE_SIZELOCK$            TO  3
+equ UPDATE_THRESHOLD$           TO  4
+equ SET_SIZELOCK$               TO  5
+equ OV_SUFFIX$                  TO 'OV'
+equ LK_SUFFIX$                  TO 'LK'
+equ FIXTEMP_LK$                 TO 'FIXTEMP.LK'
+equ FIXTEMP_OV$                 TO 'FIXTEMP.OV'
+equ DUMP_FIX_TEMP_FILE$         TO 'DUMP_FIX_TEMP'
+equ DUMP_FIX_GARBAGE$           TO 'DUMP_FIX_GARBAGE'
+equ DUMP_FIX_SEMAPHORE$         TO 'FIXING'
+equ GROUP_NUMBER$               TO 'GROUP_NUMBER'
+equ GROUP$                      TO 'GROUP'
+
+

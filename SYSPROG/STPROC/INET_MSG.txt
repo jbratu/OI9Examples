@@ -1,0 +1,226 @@
+function Inet_Msg (Request, MsgRec, MsgId, argv)
+*********************************************************************
+*
+* This program is proprietary and is not to be used by or disclosed
+* to others, nor is it to be copied without written permission from
+* Revelation Technologies, Inc.
+*
+* Product    :  OI/WG
+* Project    :  OpenInsight for Internet
+* Release    :  3.5
+*
+* Name       :  Inet_Msg
+* Description:  Generates HTML formated messages MSG format (see MSG function)
+*
+* Parameters:
+*   Request  [in] -- HTTP request 
+*   MsgRec   [in] -- message definition over-rides (can be null if MsgKey set)
+*   MsgId    [in] -- name of the message to execute (can be null if over-rides set)
+*   argv     [in] -- @fm delimited list of substitutable parameters 
+*   ret     [out] -- HTML script with a message 
+*
+* History (Date, Initials, Notes)
+*   03/05/97  bb   Original programmer
+*   10/22/97  gg   added handling for substitutable parameter %s%,
+*                  added background color handling
+*********************************************************************
+
+/* Basic+ function declarations */
+declare function   repository
+declare subroutine set_status
+
+/* Inserts */
+$insert inet_equates
+$insert logical
+$insert msg_equates
+
+/* Equates */
+equ CRLF$  to \0D0A\
+equ TITLE$ to 'OpenInsight for Internet'
+
+/* Globals */
+msgBody = ""
+retBuff = ""
+errStat = ""
+
+if assigned(Request) else Request = ""
+if assigned(MsgRec)  else MsgRec  = ""
+if assigned(MsgId )  else MsgId   = ""
+if assigned(argv  )  else argv    = ""
+
+* check passed in parameters
+gosub CheckIns
+
+if len(errStat) else
+	* if message entity specified, try to read it 
+	gosub ReadMsgStruct
+end
+
+* return empty HTML page in case of error
+if len(errStat) then
+	return "<HTML>" :CRLF$: errStat :CRLF$: "</HTML>"
+end
+
+* allow to overwrite message structure
+gosub StructOverwrite
+
+* if there are any replacable parameters 
+* subsitute them in message body
+gosub ProcessArgs
+
+* finish building message
+gosub MakeMessage
+
+return retBuff
+
+/* ------------------------------------------------- */
+CheckIns:
+	if len(MsgRec) or len(MsgId) else
+		errStat = "Empty message"
+	end
+return
+
+/* ------------------------------------------------- */
+ReadMsgStruct:
+	if len(MsgId) then				
+		convert @lower_case to @upper_case in MsgId
+		
+		* if message entity is not fully qualified,
+		* build qualified entity id
+		
+		tmpMsgId = MsgId
+		convert "*" to "" in tmpMsgId
+		
+		if len(tmpMsgId) < len(MsgId) else
+			MsgId = @appid<1> : "*MSG**" : MsgId 
+		end
+		
+		msgBody = repository("ACCESS", MsgId)
+		if get_status(statCode) then
+			errStat = if len(statCode) then statCode else "Repository Error"
+			set_status(FALSE$) 
+		end	
+	end 
+return
+
+/* ------------------------------------------------- */
+MakeMessage:
+	msgText   = msgBody<MTEXT$>
+	msgTitle  = msgBody<MCAPTION$>
+	msgAlgnmt = "center" ;* make center a default
+
+	begin case
+		case msgBody<MJUST$> = "L"
+			msgAlgnmt = "left"
+		case msgBody<MJUST$> = "C"
+			msgAlgnmt = "center"
+		case msgBody<MJUST$> = "R"
+			msgAlgnmt = "right"	
+	end case
+
+	swap @tm with "<BR>" in msgText
+
+	msgBkColor = msgBody<MBKCOLOR$>
+	if len(msgBkColor) then
+		* Note: the color format is RRGGBB, so we have to assemble it backward
+		msgBkColor = msgBkColor<1,3> + (msgBkColor<1,2>*256) + (msgBkColor<1,1>*65536)
+		msgBkColor = oconv(msgBkColor, 'MX')
+		msgBkColor = fmt(msgBkColor, 'R(0)#6')
+	end
+
+	gosub AddHeader
+	
+	retBuff<-1> = '<H2 ALIGN="center">' : msgTitle : '</H2>'
+	retBuff<-1> = '<P ALIGN="' : msgAlgnmt :  '">' : msgText : '</P>'
+	
+	gosub AddFooter
+	
+	swap @fm with CRLF$ in retBuff
+return
+
+/* ------------------------------------------------- */
+AddHeader:
+	retBuff     = '<HTML>'
+	retBuff<-1> = '<HEAD>'
+	retBuff<-1> = '<TITLE>' : TITLE$ : '</TITLE>'
+	retBuff<-1> = '</HEAD>'
+
+	if len(msgBkColor) then
+		retBuff<-1> = '<BODY BGCOLOR="#' :msgBkColor: '">'
+	end else
+		retBuff<-1> = '<BODY>'
+	end
+return
+
+/* ------------------------------------------------- */
+AddFooter:
+	retBuff<-1> = '</BODY>'
+	retBuff<-1> = '</HTML>'
+return
+
+	
+/* ------------------------------------------------- */
+StructOverwrite:	
+	cntRec = count(msgRec, @fm) + (len(msgRec) # 0)
+	for iRec = 1 to cntRec
+		msgBody<iRec> = MsgRec<iRec>
+	next iRec	
+return
+
+/* ------------------------------------------------- */
+ProcessArgs:
+	cntArg = count(argv, @fm) + (len(argv) # 0)
+	for iArg = 1 to cntArg
+		swap '%': iArg :'%' with argv<iArg> in msgBody
+	next iArg
+
+	if indexc(msgBody, '%s%', 1) then
+		gosub GetStatusText
+		swap '%s%' with statText in msgBody
+	end
+return
+
+/*------------------------------------------*/
+* Parameters:
+* argv      [in] -- parameter assigned be the call to get_status(argv)
+*                   and is in fact an @fm-delimited structure:
+*                   <code> :@vm: <arg1> :@vm: <arg2> ...
+* statText [out] -- status text
+*
+
+GetStatusText:
+
+	statText = ''
+
+	if len(argv) then
+		statCode = argv
+
+		osread errList from 'REVERROR.DAT' then
+			convert CRLF$ to @fm in errList
+		end else
+			errList = ''
+		end
+
+		statCnt = count(statCode, @fm) + 1
+		for sN = 1 to statCnt
+			errStat = statCode<sN>
+			errText = errStat<1, 1>
+			if len(errText) then
+				errPos = index(@fm:errList, @fm:errText, 1)
+				if errPos then
+					errText = errList[errPos, @fm]
+				end
+
+				paramCnt = count(errStat, @vm)
+				for pN = 1 to paramCnt
+					swap '%': pN :'%' with errStat<1, 1+pN> in errText
+				next pN
+
+				statText<-1> = errText
+			end
+		next sN
+	end
+
+	swap @fm with CRLF$ in statText
+	return
+

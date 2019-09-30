@@ -1,0 +1,68 @@
+compile insert Inet_Equates
+
+
+* CGI enviromental variables (see source\oinsight\c\oicgi\request.h)
+equ QUERY_STRING$        to 1
+equ PATH_INFO$           to 2
+equ CONTENT_TYPE$        to 3
+equ CONTENT_LENGTH$      to 4
+equ GATEWAY_INTERFACE$   to 5
+equ HTTPS$               to 6
+equ HTTP_ACCEPT$         to 7
+equ HTTP_COOKIE$         to 8
+equ HTTP_FROM$           to 9
+equ HTTP_REFERER$        to 10
+equ HTTP_USER_AGENT$     to 11
+equ PATH_TRANSLATED$     to 12
+equ REMOTE_ADDR$         to 13
+equ REMOTE_HOST$         to 14
+equ REMOTE_IDENT$        to 15
+equ REMOTE_USER$         to 16
+equ REQUEST_METHOD$      to 17
+equ SCRIPT_NAME$         to 18
+equ SERVER_NAME$         to 19
+equ SERVER_PORT$         to 20
+equ SERVER_PROTOCOL$     to 21
+equ SERVER_SOFTWARE$     to 22
+equ SERVER_URL$          to 23
+equ NOURLDECODE$         to 24 ; * // Mr C, Added 7th November 2003
+equ RESPONSE_IS_BINARY$  to 25 ; * // Mr C, Added 15th March 2006
+Equ REGISTRY_SETTINGS$   To 26 ;* bzs 031706
+
+* BZS 031813 Added for OECGI4+
+Equ OECGI_VERSION$		 To 27
+Equ GET_STRING$			 To 28
+Equ POST_STRING$		 To 29
+
+
+* Gateway Services Monitor window name
+equ GS_MONITOR$          to 'INET_GATEWAY'
+
+* OMNIEVENT calls
+equ INCOMING$	         to 'INCOMING'   ;* Param1 = request
+equ OUTCOMING$           to 'OUTCOMING'  ;* Param1 = response
+equ INPROGRESS$          to 'INPROGRESS' ;* Param1 = time left before timeout (in secs)
+
+
+* persistent configuration information
+equ CFG_TABLE$           to "SYSENV"
+equ CFG_KEY$             to "CFG_INET"
+
+* fields in CFG_INET
+equ CFG_CALLBACK$        	to 1
+equ CFG_ERRTEXT$         	to 2
+Equ CFG_DEFAULTS$		 	To 3 ;* bzs 061209
+Equ CFG_QUERYPARAM_FLAG$	To 4 ;* BZS 060311
+Equ CFG_INET_WHITELIST$		To 5 ;* bzs 061711
+
+* values in CFG_INET<CFG_CALLBACK$>
+equ CFG_FN_SECURITY$     to 1       ;* a la INET_SECURITY
+equ CFG_FN_FINALIZE$     to 2       ;* a la INET_FINALIZE
+equ CFG_FN_ABORTED$      to 3       ;* errtext=() - called when an inet procedure has crashed and the gateway recovers
+
+* values in CFG_INET<CFG_ERRTEXT$> (multiple lines @tm-delim'd)
+equ CFG_ERR_NORESULT$    to 1
+
+* bzs 061209 values in CFG_INET<CFG_DEFAULTS$>
+Equ CFG_DEF_CGI$		 To 1		; * a la ".CGI"
+Equ CFG_DEF_PAGE$		 To 2		; * a la "/login"

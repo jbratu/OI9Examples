@@ -1,0 +1,27 @@
+      SUBROUTINE MENU_HTM_PRE(Command,User,DatabaseClassList,KeyList,InstanceList,ErrorMessageList,SequenceList,NoUpdateFlagList,iSearchFlag,Response,Error,iMetaErrorFlag)
+
+* Copyright 2008 Revelation Software. All rights reserved.
+* WEBOI 8.1
+* 20080201
+
+	TemplateToRun = @APPID<1>:"_MENU_HTM"
+
+/*
+      Begin CASE
+         Case @AppID<1> = 'DUNHILL'
+            TemplateToRun = 'DUNHILL_MENU_HTM'
+         Case @AppID<1> = 'DEMO'
+            TemplateToRun = 'DEMO_MENU_HTM'
+         Case @AppID<1> = 'EXAMPLES'
+            TemplateToRun = 'EXAMPLES_MENU_HTM'
+         Case 1
+            TemplateToRun = ''
+      End CASE
+*/
+
+      If TemplateToRun NE '' THEN
+         CALL @TemplateToRun(Command,User,DatabaseClassList,KeyList,InstanceList,ErrorMessageList,SequenceList,NoUpdateFlagList,iSearchFlag,Response,Error,iMetaErrorFlag)
+         Response := 'RETURN'
+      End
+
+      RETURN

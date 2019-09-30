@@ -1,0 +1,42 @@
+compile insert XOLogin_Equates
+
+*****************************************************************************
+*
+* Name       :  XOLogin_Equates
+* Description:  Constants and declarations for the XOLogin() function
+*
+* History (Date, Initials, Notes)
+*   07/07/95  cp   Original programmer
+*   06/16/97  cp   Updated for 3.5.
+*
+*****************************************************************************
+
+declare function XOLogin        ;* Choices = XOLogin(XOL_GETINFO$, Parm)
+                                ;* return value is @vm delimited (see below)
+
+* instructions
+equ XOL_GETINFO$       to 1     ;*
+equ XOL_CREATE$        to 2     ;* create event of dialog (internal use only)
+equ XOL_CLICKADVANCED$ to 3     ;* "Advanced >>" button (internal use only)
+equ XOL_CLICKOK$       to 4     ;* "OK" button (internal use only)
+
+* parm structure for XOL_GETINFO$
+* field positions
+equ XOL_DEFAULT$       to 1     ;* default value
+equ XOL_LIST$          to 2     ;* list of items for user to choose from
+equ XOL_PROTECT$       to 3     ;* TRUE$ means don't allow user to change
+equ XOL_NOADVANCED$    to 4     ;* TRUE$ means disabled "Advanced >>" button
+equ XOL_TITLE$         to 5     ;* title over-ride string
+
+* value positions (for fields XOL_DEFAULT$, XOL_LIST$, and XOL_PROTECT$
+* and for the return value)
+equ XOL_DATASOURCE$    to 1
+equ XOL_SOURCETYPE$    to 2
+equ XOL_LOGINID$       to 3
+equ XOL_PASSWORD$      to 4
+equ XOL_TRANSACT$      to 5
+equ XOL_TIMEOUT$       to 6
+
+* literals
+equ XOL_DIALOG$        to "XO_LOGIN"
+

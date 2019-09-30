@@ -1,0 +1,122 @@
+*----------------------------------------------------------------------------
+* Block 0 - 99
+*
+* Advanced Revelation System Logical Error codes
+*
+* June 2, 1989
+
+* ALL ERRORS IN THIS EQUATE ARE LOGICAL LEVEL (STATUS = 0)
+*                                  ;* Description / Parameters
+*----------------------------------------------------------------------------
+EQUATE FS_DATA_DOMAIN_ERR$     TO 10
+* Domain validation error of data / KEY
+* FSDETAIL$ structure -
+* allows for SQL - multiple tables
+* <error-detail> := <table-error-detail> { @vm <table-error-detail> }
+* <table-error-detail> := [ <table-number> ] @svm <record-id> @svm
+*     <record-error-detail>
+*
+* <record-error-detail>:= <column-error-detail> { @svm <column-error-detail> }
+* <column-error-detail> := [ <column-name> ] @stm [ <column-number> ] @tm
+*     <error-code> { @tm <error-code> }
+*
+* General Rules:
+* 1. Either column name or column number or both must be
+*    present in <column-error-detail>.  Column name is preferred.
+* 2. If the error report is for a single table then <table-number> may be
+*    Null.
+* 3. For special case detail code 30 (too many fields), column name is null
+*
+* Notes:
+* For a single table error report:
+*     CODE<1, 1, 1> = ""   ;* NO TABLE NUMBER REQUIRED (VALUE OF 1 ACCEPTABLE)
+*     CODE<1, 1, 2> = RECID
+*     ERRS = FIELD(CODE, @SVM, 3, 32768)
+*     * where each err is the field name and/or number and a list of errcodes
+*     * delimited by text marks.
+*
+* Error codes for column (field) error detail.
+EQUATE FSDOMAIN_NULL$          TO 1    ;* attempt to write null to non-null column
+EQUATE FSDOMAIN_INPAT_DATA$    TO 2    ;* data doesn't conform to input pattern
+EQUATE FSDOMAIN_INPAT_PATRN$   TO 3    ;* invalid input pattern
+EQUATE FSDOMAIN_INPAT_PATRN2$  TO 4    ;* more invalid input patterns
+EQUATE FSDOMAIN_ICONV_DATA$    TO 5    ;* invalid data for iconv pattern.
+EQUATE FSDOMAIN_ICONV_PATRN$   TO 6    ;* invalid iconv pattern
+EQUATE FSDOMAIN_OCONV_DATA$    TO 7    ;* invalid data for oconv pattern
+EQUATE FSDOMAIN_OCONV_PATRN$   TO 8    ;* invalid oconv pattern
+EQUATE FSDOMAIN_OCONV_PATRN2$  TO 9
+EQUATE FSDOMAIN_UNIQUE$        TO 10   ;* attempt to write duplicate data into unique non-key column
+EQUATE FSDOMAIN_TEST_NAME$     TO 11   ;* system error -
+
+EQUATE FSDOMAIN_CHAR_TRUNC$    TO 20   ;* character string too long for fixed length field - data truncated.
+EQUATE FSDOMAIN_TRAIL_BLANK_LOSS$  TO 21   ;* trailing blanks would be lost.
+EQUATE FSDOMAIN_ILLEGAL_CHARS$ TO 22   ;* illegal characters cannot be stored in this field.
+EQUATE FSDOMAIN_NUM_TOO_LARGE$ TO 23   ;* number is too large to be stored
+EQUATE FSDOMAIN_NUM_TOO_SMALL$ TO 24   ;* number is too small (negative) to be stored
+EQUATE FSDOMAIN_NUM_TOO_PRECISE$ TO 25 ;* number is too precise (decimal part) to be stored.
+
+EQUATE FSDOMAIN_TOOMANY_FLDS$  TO 30   ;* too many fields in record written
+
+*............................................................................
+
+EQUATE FS_BAD_CONVERSION_NAME$ TO 11 ; * Protect.mfs (Column name in valid or does not require conversion / Label
+EQUATE FS_REDUCTION_FAIL$      TO 12 ; * Protect.mfs (Record did not pass Reduction criteria) / KEY
+EQUATE FS_IMPLICIT_LOCK_FAIL$  TO 13 ; * Protect.mfs could not aquire lock. / KEY
+EQUATE FS_ACCESS_DENIED$       TO 14 ; * Logical access denied (usually due to lock activity)
+*----------------------------------------------------------------------------
+* Meta-data logical I/O errors:
+*
+EQUATE FS_DICT_REDEFINE_ERR$   TO 50
+* The dictionary may not be modified (master fields) - Write (update or
+* insert) or Delete operations are not valid while a file is not in
+* DEFINING state.  This is intended for bonds which have rigid file structures
+* Parameters: Dictionary record KEY.
+*
+EQUATE FS_DICT_DOMAIN_ERR$     TO 51
+* Used for errors encounterd in explicit or implicit writes to dictionary.
+* FSMSG parameter Dict record key.
+* FSDETAIL structure:
+* <errlist> = <erritem> { svm <erritem> }
+* <erritem> = <errcode> [ tm <errdetail> ]
+
+EQUATE FSDICT_MULTIKEY_ERR$    TO 1    ;* detail: none
+* multi-part key not allowed
+
+EQUATE FSDICT_KEYTYPE_ERR$     TO 2    ;* detail: foreign type
+* data type not legal for key field
+
+EQUATE FSDICT_MULTIVALUES_ERR$ TO 3    ;* detail: none
+* multi-valued fields not supported.
+
+EQUATE FSDICT_DATA_TYPE_ERR$   TO 4    ;* detail: data type
+* illegal data type for this field in foreign environment
+
+EQUATE FSDICT_FOREIGN_NAME_ERR$ TO 5   ;* detail: foreign name
+* Specified foreign field name not legal in foreign environment
+
+EQUATE FSDICT_ATTRIBUTE_ERR$   TO 6    ;* detail: attribute value
+* The specified attribute value is illegal in the foreign environment
+*
+*----------------------------------------------------------------------------
+* These errors may be returned on attempt to create data file or
+* on OPEN when synchronizing dict with foreign file structure
+
+EQUATE FS_FOREIGN_FILENAME_ERR$ TO 52
+* Invalid Foreign File name        fsmsg:  file name, foreign name
+
+EQUATE FS_TOOMANY_FIELDS_ERR$   TO 53
+* max field count exceeded         fsmsg:  max supported, requested
+
+EQUATE FS_COL_CONTINUITY_ERR$   TO 54
+* field positions not contiguous (gaps) fsmsg: missing field position(s)
+
+EQUATE FS_NO_MASTERFIELDS_ERR$  TO 55
+* no Master fields defined
+
+EQUATE FS_NO_DICTFILE_ERR$      TO 56
+* Dictionary file does not exist
+
+EQUATE FS_DUP_COLNAME_ERR$      TO 57
+* Duplicate foreign field name detected   fsmsg: colname, foreign name
+
+* Source Date: 16:41:44  12 JAN 1993  Build ID: OI*1.0.10  Level: 2.0

@@ -1,0 +1,6 @@
+{
+    "record1": {
+        "<1>": "../plugins/timeentry/jquery.timeentry.css",
+        "<2>": "../plugins/timeentry/jquery.timeentry.pack.js"
+    }
+}

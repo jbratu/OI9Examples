@@ -1,0 +1,180 @@
+      function PROD_PIC_ENTRY(CtrlEntId,Event,Param1,Param2,Param3,Param4,Param5,Param6,Param7,Param8)
+
+* 20071024
+
+$INSERT MSG_EQUATES
+      DECLARE FUNCTION SET_PROPERTY,GET_PROPERTY,UNASSIGNED,MSG,REPOSITORY,INDEXLOOKUP,UTILITY
+
+      if unassigned(Param1) then Param1 = ""
+      if unassigned(Param2) then Param2 = ""
+      if unassigned(Param3) then Param3 = ""
+      if unassigned(Param4) then Param4 = ""
+      if unassigned(Param5) then Param5 = ""
+      if unassigned(Param6) then Param6 = ""
+      if unassigned(Param7) then Param7 = ""
+      if unassigned(Param8) then Param8 = ""
+
+      ReturnResult = ""
+      Window = CtrlEntId[1,"F."]
+      Ctrl = CtrlEntId[-1,"B."]
+
+      begin case
+         case Ctrl = "BUTTON_2"
+            gosub BUTTON_2
+         case Ctrl = "BUTTON_3"
+            gosub BUTTON_3
+         case Ctrl = "OK_BUTTON_1"
+            gosub OK_BUTTON_1
+         case Ctrl = "PIC_FILENAME"
+            gosub PIC_FILENAME
+         case 1
+            call msg(@window,Window:".":Ctrl:" was not recognised.")
+      end case
+
+      return ReturnResult
+
+BUTTON_2:
+
+      begin case
+         case Event = "CLICK"
+            * Quick/Post Event
+            gosub BUTTON_2.CLICK
+         case 1
+            call msg(@window,Window:".":Ctrl:".":Event:" was not recognised.")
+      end case
+
+      return
+
+
+BUTTON_2.CLICK:
+
+* Quick/Post Event
+
+      CtrlClassId = "PUSHBUTTON"
+
+      
+      
+      
+      CFOpt = ""
+      CFOpt<1> = 0		;* open mode
+      CFOpt<2> = "Bitmaps (*.BMP)/*.BMP/Jpegs (*.JPG)/*.jpg/All Files (*.*)/*.*/"
+      CFOpt<3> = 1		;* default type is the first one (bitmaps)
+      CFOpt<6> = 'bmps'
+      
+      File = Utility("CHOOSEFILE", @window, CFOpt)
+      
+      if file then
+      SetProperty_ReturnValue = Set_Property("PROD_PIC_ENTRY.PIC_FILENAME","TEXT",file)
+      end
+      
+      ReturnResult = 0 ; return
+
+BUTTON_3:
+
+      begin case
+         case Event = "CLICK"
+            * Quick/Post Event
+            gosub BUTTON_3.CLICK
+         case 1
+            call msg(@window,Window:".":Ctrl:".":Event:" was not recognised.")
+      end case
+
+      return
+
+
+BUTTON_3.CLICK:
+
+* Quick/Post Event
+
+      CtrlClassId = "PUSHBUTTON"
+
+      
+      *---
+      * we'll display a message with two buttons,
+      * one saying Keyword, and one saying Listing
+      *---
+      mess = ''
+      mess<MTEXT$> 	= 'Search by keyword, or entier product Listing?'
+      mess<MTYPE$> 	= 'BKeyword,Listing'
+      mess<MCAPTION$> = 'Search Options'
+      mess<MICON$>	= '?'
+      resp = msg(@window, mess)
+      
+      	if resp = 2 then
+      		repos_key = @appid<1>:'*POPUP**PRODUCT_POPUP_SINGLE'
+      		keys = Repository('EXECUTE', repos_key, @WINdow)
+      		if keys then
+      SetProperty_ReturnValue = Set_Property("PROD_PIC_ENTRY.ID","TEXT",keys)
+      			Call Send_Event(@window, 'READ')
+      		End
+      	end else
+      		OwnerWindow = @Window
+      		table = 'PRODUCTS'
+      		IndexedFields = 'DESCRIPTION_XREF'
+      		DISPLAYedfIELDS = 'ID':@VM:'DESCRIPTION'
+      		mode = 'SINGLE'
+      		popupname = ''
+      		keys = IndexLookup(ownerwindow, table, indexedfields, displayedfields, mode, popupname)
+      		if len(keys) then
+      SetProperty_ReturnValue = Set_Property("PROD_PIC_ENTRY.ID","TEXT",keys)
+      			Call Send_Event(@window, 'READ')
+      		End
+      	end
+      	
+      ReturnResult = 0 ; return
+
+OK_BUTTON_1:
+
+      begin case
+         case Event = "CLICK"
+            * Quick/Post Event
+            gosub OK_BUTTON_1.CLICK
+         case 1
+            call msg(@window,Window:".":Ctrl:".":Event:" was not recognised.")
+      end case
+
+      return
+
+
+OK_BUTTON_1.CLICK:
+
+* Quick/Post Event
+
+      CtrlClassId = "PUSHBUTTON"
+
+      
+      call Send_Event(@window,'WRITE')
+      
+      filename = '.\BMPS\NOIMAGE.BMP'
+      SetProperty_ReturnValue = Set_Property("PROD_PIC_ENTRY.IMAGE","BITMAP",filename)
+      
+      ReturnResult = 0 ; return
+
+PIC_FILENAME:
+
+      begin case
+         case Event = "CHANGED"
+            * Quick/Post Event
+            gosub PIC_FILENAME.CHANGED
+         case 1
+            call msg(@window,Window:".":Ctrl:".":Event:" was not recognised.")
+      end case
+
+      return
+
+
+
+PIC_FILENAME.CHANGED:
+
+* Quick/Post Event
+
+      CtrlClassId = "EDITFIELD"
+      NewData = Param1
+
+      
+      filename = Get_Property("PROD_PIC_ENTRY.PIC_FILENAME","TEXT")
+      SetProperty_ReturnValue = Set_Property("PROD_PIC_ENTRY.IMAGE","BITMAP",filename)
+      
+      ReturnResult = 0 ; return
+
+

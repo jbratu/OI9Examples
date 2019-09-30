@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "\r\n$insert rev_bp, rdk_designer_equates\r\n\r\nFlag = RDKRepViewEdit( RDKRVE_CLOSE$, CancelFlag )\r\n\r\nReturn Flag"
+    }
+}

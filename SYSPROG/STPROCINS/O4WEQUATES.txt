@@ -1,0 +1,200 @@
+compile insert O4WEQUATES
+* named common elements useful to users of O4W
+
+COMMON /O4WUCOMMON/ O4WSessionId%, O4WSessionInfo%, |
+       O4WTempFile%, O4WCacheFile%, |
+       O4WTempFileName%,  O4WCacheFileName%, O4WRequest%
+
+COMMON /o4wmobilecheck/ O4WIsMobile%
+
+* Subroutine, function declarations for O4W
+
+* Style definition functions/subroutines
+Declare Function O4WColorStyle, O4WTextStyle, O4WTableStyle, O4WLinkStyle, O4WSizeStyle, O4WAttributeStyle, O4WDataStyle
+Declare Function O4WRawStyle, O4WPositionStyle, O4WHelpStyle, O4WAlignStyle
+Declare Subroutine O4WColorStyle, O4WTextStyle, O4WTableStyle, O4WLinkStyle, O4WSizeStyle, O4WAttributeStyle, O4WDataStyle
+Declare Subroutine O4WRawStyle, O4WPositionStyle, O4WHelpStyle, O4WAlignStyle
+
+* Options functions
+Declare Function O4WMarkedOptions, O4WResponseOptions, O4WValidateOptions, O4WTableAdvancedOptions, O4WTablePagerOptions, O4WMobileOptions, O4WMobileButtonOptions, O4WMobileTableOptions
+Declare Function O4WTableCellOptions, O4WInputOptions, O4WListboxOptions, O4WHtmlOptions, O4WTableCellStyle, O4WInputboxOptions, O4WTextOptions, O4WMobilePageOptions, O4WFieldsetOptions, O4WGPSCoordinatesOptions
+
+* Deprecated style functions/subroutines
+Declare Function O4WMarkedStyle, O4WResponseStyle, O4WValidateStyle, O4WColors, O4WCellStyle, O4WInputStyle, O4WListboxStyle, O4WI_Escape
+Declare Subroutine O4WMarkedStyle, O4WResponseStyle, O4WValidateStyle, O4WColors, O4WCellStyle, O4WInputStyle, O4WListboxStyle
+
+* Utility functions/subroutines
+Declare Function O4WCheckSecurity, O4WCache, O4WGenerateID, O4WCookie, O4WGetValue, O4WEscape, O4WI_FORMATMSG, O4WI_LockHandler, O4WI_ENCRYPT, O4WGetMobile, O4WGetPostValue, O4WIsMobileBrowser
+Declare Subroutine O4WBreadCrumbs, O4WSetBreadCrumb, O4WPopup, O4WPopupReturn, O4WI_FORMATMSG, O4WI_DebugRecord, O4WSetHistory, O4WMsg, O4WSetMobile, O4WI_SetPostValue
+Declare Subroutine O4WError, O4WCookie, O4WDownload, O4WRedirect, O4WGotoTab, O4WFocus, O4WMenu, O4WSpecialForm, O4WI_LoadPluginData, O4WI_DOLOGIN, O4WMeta
+
+* Form subroutines
+Declare Subroutine O4WForm
+
+* Response subroutines
+Declare Subroutine O4WResponse, O4WChange, O4WUpdate
+
+* Element/Control subroutines
+Declare Subroutine O4WTitle, O4WHeader, O4WFooter, O4WLink, O4WText, O4WFixedText, O4WDivider
+Declare Subroutine O4WBreak, O4WSpace, O4WRaw, O4WRawStyle, O4WImage, O4WTabs
+Declare Function O4WLink, O4WImage, O4WText, O4WSpace
+** Table subroutines
+Declare Subroutine O4WTableStart, O4WTableEnd, O4WSetCell, O4WTableHeader, O4WTableModify
+Declare Subroutine O4WTableAddRow, O4WTableAddCol, O4WTableDelRow, O4WTableDelCol
+** Section subroutines
+Declare Subroutine O4WSectionStart, O4WSectionEnd
+Declare Function O4WSectionEnd
+** List subroutines
+Declare Subroutine O4WListStart, O4WListEnd, O4WListItem
+** Input control subroutines
+Declare Subroutine O4WTextBox, O4WTextArea, O4WButton, O4WImageButton, O4WIconButton, O4WStore, O4WPwdBox, O4WDatePicker, O4WTimePicker, O4WColorPicker
+Declare Subroutine O4WCheckBox, O4WRadioButton, O4WListBox, O4WTimer, O4WUploadBox, O4WTABox, O4WNumberBox
+Declare Subroutine O4WListboxStart, O4WListboxEnd
+
+* Plugin/script/stylesheet subroutines
+Declare Subroutine O4WQualifyEvent, O4WStyleSheet, O4WScript, O4WPlugin, O4WDialog, O4WPaypal, O4WFacebook, O4WLinkedIn, O4WAddThis, O4WRSSPublish, O4WRSSData, O4WMetaTag
+Declare Function O4WPaypal, O4WQualifyEvent
+
+* Graphics subroutines
+Declare Subroutine O4WGraphStart, O4WGraphData, O4WGraphEnd
+
+Equ LF$ To char(10)
+Equ CR$ To char(13)
+Equ HTMLDELIM$ To CR$:LF$
+Equ O4W_DEFAULT_FORM_NAME$ To "O4WformBody"
+Equ O4W_NULL$ To "<<NULL>>"
+Equ O4W_DEFAULT_DIV$ To "O4WdivDefault"
+Equ jqueryTheme$ to "ui-widget ui-widget-content ui-corner-all"
+
+Equ O4WMARKER_CORE_SCRIPT_START$ To @FM:"<!--O4W CORE SCRIPTS-->":@FM
+Equ O4WMARKER_CORE_SCRIPT_END$ To @FM:"<!--O4W CORE SCRIPTS END-->":@FM
+Equ O4WMARKER_STANDARD_SCRIPT_START$ To @FM:"<!--O4W STANDARD SCRIPTS-->":@FM
+Equ O4WMARKER_STANDARD_SCRIPT_END$ To @FM:"<!--O4W STANDARD SCRIPTS END-->":@FM
+Equ O4WMARKER_SCRIPT_START$ To @FM:"<!--O4W LOCAL SCRIPTS-->":@FM
+Equ O4WMARKER_SCRIPT_END$ To @FM:"<!--O4W LOCAL SCRIPTS END-->":@FM
+Equ O4WMARKER_LOADED_SCRIPT_START$ To @FM:"<!--O4W LOADED SCRIPTS-->":@FM
+Equ O4WMARKER_LOADED_SCRIPT_END$ To @FM:"<!--O4W LOADED SCRIPTS END-->":@FM
+Equ O4WMARKER_LOADED_SCRIPT_SRC_START$ To @FM:"<!--O4W LOADED SCRIPTS SRC--":@FM
+Equ O4WMARKER_LOADED_SCRIPT_SRC_END$ To @FM:"--O4W LOADED SCRIPTS SRC END-->":@FM
+Equ O4WMARKER_PLUGIN_START$ To @FM:"<!--O4W PLUGINS-->":@FM
+Equ O4WMARKER_PLUGIN_END$ To @FM:"<!--O4W PLUGINS END-->":@FM
+Equ O4WMARKER_STYLESHEET_START$ To @FM:"<!--O4W STYLESHEETS-->":@FM
+Equ O4WMARKER_STYLESHEET_END$ To @FM:"<!--O4W STYLESHEETS END-->":@FM
+Equ O4WMARKER_INLINE_STYLE_START$ To @FM:"<!--O4W STYLES-->":@FM
+Equ O4WMARKER_INLINE_STYLE_END$ To @FM:"<!--O4W STYLES END-->":@FM
+
+Equ O4W_LINKTYPE_NORMAL$ To "0"
+Equ O4W_LINKTYPE_WEBOI$ To "1"
+Equ O4W_LINKTYPE_PROGRAM$ To "2"
+Equ O4W_LINKTYPE_FORM$ To "3"
+Equ O4W_LINKTYPE_EMAIL$ To "4"
+Equ O4W_LINKTYPE_FORM_SEARCH$ To "5"
+Equ O4W_LINKTYPE_EMBED$ To "6"
+Equ O4W_LINKTYPE_REPORT$ To "7"
+Equ O4W_LINKTYPE_LOCAL$ To "8"
+Equ O4W_LINKTYPE_OI$ To "9"
+Equ O4W_LINKTYPE_POPUP$ To "10"
+Equ O4W_LINKTYPE_INDEXLOOKUP$ To "11"
+Equ O4W_LINKTYPE_GRAPH$ To "12"
+Equ O4W_LINKTYPE_CLICK$ To "13"
+Equ O4W_LINKTYPE_LINKEDIN_PROFILE$ To "14"
+Equ O4W_LINKTYPE_LINKEDIN_PROFILE_INLINE$ To "15"
+Equ O4W_LINKTYPE_LINKEDIN_SHARE$ To "16"
+Equ O4W_LINKTYPE_ADHOC$ TO 17
+Equ O4W_LINKTYPE_XLATE$ To 99
+
+Equ O4W_VALIDATE_DATE$ To "D"
+Equ O4W_VALIDATE_TIME$ To "T"
+Equ O4W_VALIDATE_CC$ To "C"
+Equ O4W_VALIDATE_ZIP$ To "Z"
+Equ O4W_VALIDATE_PHONE$ To "P"
+Equ O4W_VALIDATE_STATE$ To "ST"
+Equ O4W_VALIDATE_SS$ To "S"
+Equ O4W_VALIDATE_NUM$ To "N"
+Equ O4W_VALIDATE_ALPHA$ To "A"
+Equ O4W_VALIDATE_ALPHANUM$ To "AN"
+Equ O4W_VALIDATE_RANGE$ To "R"
+Equ O4W_VALIDATE_LENGTH$ To "L"
+Equ O4W_VALIDATE_DATERANGE$ To "DR"
+Equ O4W_VALIDATE_REQUIRED$ To "RQ"
+Equ O4W_VALIDATE_EMAIL$ To "E"
+Equ O4W_VALIDATE_URl$ To "U"
+Equ O4W_VALIDATE_VERIFILE$ To "F"
+Equ O4W_VALIDATE_USER$ To "SU"
+Equ O4W_VALIDATE_PATTERN$ To "PA"
+
+* common graphs
+Equ O4W_GRAPH_LINE$ To "lines"
+Equ O4W_GRAPH_POINT$ To "points"
+Equ O4W_GRAPH_BAR$ To "bars"
+Equ O4W_GRAPH_PIE$ To "pie"
+Equ O4W_GRAPH_STACKED_LINE$ To "stacked_lines"
+Equ O4W_GRAPH_STACKED_BAR$ To "stacked_bars"
+Equ O4W_GRAPH_HORIZONTAL_BAR$ To "horizontal_bars"
+Equ O4W_GRAPH_STACKED_HORIZONTAL_BAR$ To "stacked_horizontal_bars"
+* google visualization ONLY
+Equ O4W_GRAPH_PIE_3D$ To "PieChart_3D"
+Equ O4W_GRAPH_GAUGE$ To "Gauge"
+Equ O4W_GRAPH_MAP$ To "GeoMap"
+Equ O4W_GRAPH_INTENSITY_MAP$ To "IntensityMap"
+Equ O4W_GRAPH_TABLE$ To "Table"
+Equ O4W_GRAPH_AREA$ To "AreaChart"
+Equ O4W_GRAPH_SPARKLINE$ To "ImageSparkLine"
+
+* used for google visualization of common graphs
+Equ O4W_GV_GRAPH_LINE$ To "LineChart"
+Equ O4W_GV_GRAPH_POINT$ To "ScatterChart"
+Equ O4W_GV_GRAPH_BAR$ To "ColumnChart"
+Equ O4W_GV_GRAPH_PIE$ To "PieChart"
+Equ O4W_GV_GRAPH_STACKED_LINE$ To "LineChart_stacked"
+Equ O4W_GV_GRAPH_STACKED_BAR$ To "ColumnChart_stacked"
+Equ O4W_GV_GRAPH_HORIZONTAL_BAR$ To "BarChart"
+Equ O4W_GV_GRAPH_STACKED_HORIZONTAL_BAR$ To "BarChart_stacked"
+Equ O4W_GV_GRAPH_GAUGE$ To "Gauge"
+Equ O4W_GV_GRAPH_MAP$ To "GeoMap"
+Equ O4W_GV_GRAPH_INTENSITY_MAP$ To "IntensityMap"
+Equ O4W_GV_GRAPH_TABLE$ To "Table"
+Equ O4W_GV_GRAPH_AREA$ To "AreaChart"
+Equ O4W_GV_GRAPH_SPARKLINE$ To "ImageSparkLine"
+
+
+Equ O4W_ESCAPE_HTML$ To "0"
+Equ O4W_ESCAPE_URL$ To "1"
+Equ O4W_ESCAPE_URL_COMPONENT$ To "3"
+Equ O4W_ESCAPE_ID$ To "4"
+Equ O4W_ESCAPE_JS$ To ""
+
+* html5/jquery mobile data role descriptions
+Equ O4W_ROLE_PAGE$				To "page"
+Equ O4W_ROLE_HEADER$			To "header"
+Equ O4W_ROLE_NAVBAR$			To "navbar"
+Equ O4W_ROLE_CONTENT$			To "content"
+Equ O4W_ROLE_CONTAINER$			To "fieldcontain"
+Equ O4W_ROLE_FOOTER$			To "footer"
+
+* O4W Mobile enhancements
+Equ O4W_ROLE_SLIDER$			To "slider"
+Equ O4W_ROLE_BUTTON$			To "button"
+Equ O4W_ROLE_LISTVIEW$			To "listview"
+Equ O4W_ROLE_LIST_DIVIDER$		To "list-divider"
+
+* O4W Mobile transitions
+Equ O4WMOBILE_TRANSITION_SLIDE$		To "slide"
+Equ O4WMOBILE_TRANSITION_SLIDEUP$	To "slideup"
+Equ O4WMOBILE_TRANSITION_SLIDEDOWN$ To "slidedown"
+Equ O4WMOBILE_TRANSITION_POP$		To "pop"
+Equ O4WMOBILE_TRANSITION_FADE$		To "fade"
+Equ O4WMOBILE_TRANSITION_FLIP$		To "flip"
+
+* Markers for O4W Mobile orientation
+Equ O4WMOBILE_STYLE_PORTRAIT$		To "$mp$"
+Equ O4WMOBILE_STYLE_LANDSCAPE$		To "$ml$"
+
+* Alignment options
+Equ O4W_ALIGN_LEFT$					To "0"
+Equ O4W_ALIGN_CENTER$				To "1"
+Equ O4W_ALIGN_RIGHT$				To "2"
+
+$Insert O4WMESSAGEEQUATES
+
+$Insert O4WLOCKEQUATES

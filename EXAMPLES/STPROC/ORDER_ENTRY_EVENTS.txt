@@ -1,0 +1,64 @@
+Subroutine ORDER_ENTRY_EVENTS (CtrlEntId,EVENT,P1,P2,P3,P4,P5,P6)
+Declare Function Get_Property
+Declare Function Set_Property
+Declare Function Msg
+Declare Function Popup
+Declare Function Indexlookup
+Declare Function Unassigned
+Declare Function Dcount
+*
+If Unassigned(CtrlEntId) Then CtrlEntId=''
+If Unassigned(EVENT) Then EVENT=''
+If Unassigned(P1) Then P1=''
+If Unassigned(P2) Then P2=''
+If Unassigned(P3) Then P3=''
+If Unassigned(P4) Then P4=''
+If Unassigned(P5) Then P5=''
+If Unassigned(P6) Then P6=''
+*
+Open "CUSTOMERS" to F_CUSTOMERS Else
+	call FSMsg()
+	Return
+End
+Open "PRODUCTS" To F_PRODUCTS Else
+	call FSMsg()
+	Return
+End
+*
+Begin Case
+	Case CtrlEntId = 'ORDER_ENTRY'
+		If EVENT='WRITE' Then
+			CUST_NO = Get_Property(CtrlEntId:'.CUST_NO','TEXT')
+			SUB_TOTAL = Get_Property(CtrlEntId:'.SUB_TOTAL','TEXT')
+			SUB_TOTAL = ICONV(SUB_TOTAL,'MD2')
+			ORDER_INFO = Get_Property(CtrlEntId:'.ORDER_INFO','ARRAY')
+			Read CUSTOMER_REC From F_CUSTOMERS,CUST_NO Else
+				Return
+			End
+			If CUSTOMER_REC<16>='' Then CUSTOMER_REC<16>='0'
+			CUSTOMER_REC<16>=CUSTOMER_REC<16>+SUB_TOTAL
+			Write CUSTOMER_REC On F_CUSTOMERS,CUST_NO ELSE
+				call FSMsg()
+				Return
+			End
+			LINES = DCOUNT(ORDER_INFO<1>,@VM)
+			For I=1 To LINES
+				ITEM=ORDER_INFO<1,I>
+				EXTENSION=ORDER_INFO<5,I>
+				EXTENSION=ICONV(EXTENSION,'MD2')
+				If ITEM='' Then Goto LBL_100
+				Read PRODUCT_REC From F_PRODUCTS,ITEM ELSE
+					CALL FSMsg()
+					RETURN
+				End
+				If PRODUCT_REC<5>='' Then PRODUCT_REC<5>='0'
+				PRODUCT_REC<5>=PRODUCT_REC<5>+EXTENSION
+				Write PRODUCT_REC On F_PRODUCTS,ITEM ELSE
+					CALL FSMsg()
+					Return
+				End
+LBL_100:   Next I
+				
+			End
+	End Case
+	

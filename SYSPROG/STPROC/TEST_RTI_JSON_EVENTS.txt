@@ -1,0 +1,141 @@
+Function test_rti_json_events(CtrlEntID, Method, Param1, Param2, Param3, Param4, Param5, Param6)
+/*
+** Commuter Module
+* 03-10-2009  rjc  Created
+* 08-19-2010  rjc  Integrate RTI_JSON_CHANGES
+*/
+
+*#!Precompile
+Declare Function Get_Property, Set_Property, RTI_JSON
+Declare Subroutine Set_Property
+
+
+$Insert Logical
+$Insert msg_Equates
+
+retval = ''
+Begin Case
+   Case method _eqc 'CREATE'        ; Gosub Create
+   Case method _eqc 'LOAD_LISTS'    ; Gosub Load_Lists
+   Case method _eqc 'LISTS_TO_JSON' ; Gosub Lists_to_Json
+   Case method _eqc 'ROUNDTRIP'     ; Gosub RoundTrip
+   Case method _eqc 'RSS'           ; Gosub RSS
+End Case
+
+
+
+Return retval
+
+
+create:
+
+Gosub Load_Lists
+
+
+Return
+
+Load_Lists:
+
+* Build sample data
+
+* Grid
+list = ''
+for i = 1 to 10
+  for j = 1 to 2
+      list<i,j> = i:'_':j
+  next
+next
+Set_Property(@window:'.GRID', 'LIST',  list )
+
+* Array
+list= ''
+for i = 1 to 10
+   list<i> = i
+next
+Set_Property(@window:'.ARRAY', 'LIST',  list)
+return
+
+Lists_To_JSON:
+
+
+*
+* Make the grid into an array of objects
+* Make the array into a simple array
+* Make a container object which holds the grid and array
+* Serialize (stringify) the object
+*
+* Note how we can exploit Javascript, have it do all the work to nest object, the pop out string at the end
+
+
+Declare Function rti_json
+If Get_Property(@Window:'.CK_DEBUG', 'CHECK') Then debug
+myGrid = rti_json('','New', 'ARRAY')
+list = Get_Property(@window:'.GRID', 'LIST')
+cnt = count(list, @fm) + ( list # '' )
+k = 0
+for i = 1 to cnt  
+  item = list<i,1>
+  val = list<i,2>
+  if item # '' then
+     obj = rti_json('','New', 'STRING', val)   
+     x = rti_json(myGrid, 'SetObject', '[':k:']', obj, 1)
+     k+=1
+  end   
+next  
+
+
+If Get_Property(@Window:'.CK_DEBUG', 'CHECK') Then debug
+myArray = rti_json('','New', 'ARRAY')
+list = Get_Property(@window:'.ARRAY', 'LIST')
+i = 0
+col = ''
+loop
+remove item from list at col setting mark
+if item # '' then
+   x = rti_json(myArray,'SetObject', '[':i:']', item)
+   i+=1
+end
+while mark
+repeat
+
+
+myobj = rti_json('','New', 'OBJECT')
+x = rti_json(myobj,'SetObject', 'myGrid', myGrid, 1)
+x = rti_json(myobj,'SetObject', 'myArray', myArray, 1)
+
+JString = rti_json(myobj, "Stringify")
+x = Set_Property(@window:'.JSON1', 'TEXT', Jstring)
+
+Return
+
+
+RoundTrip:
+
+Declare Function rti_json
+If Get_Property(@Window:'.CK_DEBUG', 'CHECK') Then debug
+
+JString = Get_Property(@window:'.JSON1', 'TEXT')
+
+jObject = rti_json(JString, 'parse')
+
+JString2 = rti_json(jObject, 'STRINGIFY')
+x = Set_Property(@window:'.JSON2', 'TEXT', Jstring2)
+
+Return
+
+RSS:
+
+If Get_Property(@Window:'.CK_DEBUG', 'CHECK') Then debug
+
+Declare function rti_json, rti_rss
+rslt = rti_rss()
+jstring= rslt<1>
+parsed = rslt<2>
+
+x = Set_Property(@window:'.RSS_JSON', 'TEXT', jstring)
+x = Set_Property(@window:'.RSS_PARSED', 'TEXT', parsed)
+
+
+return
+
+

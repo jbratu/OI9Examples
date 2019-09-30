@@ -1,0 +1,7 @@
+
+*
+*================================ BLOCK -600 =================================
+* Revelation SELECT processor errors
+EQUATE SQL_REV_SELECT_ERR$         TO -600  ;* Corresponds to R/BASIC SELECT error - STATUS() value ; FSCODE - FILE.ERROR in SUBCODE$
+EQUATE SQL_REV_SORT_SELECT_ERR$    TO -650  ;* Same as above except reported from sql.order.group ; FSCODE - FILE.ERROR in SUBCODE$
+* Source Date: 16:42:26  12 JAN 1993  Build ID: OI*1.0.10  Level: 2.0

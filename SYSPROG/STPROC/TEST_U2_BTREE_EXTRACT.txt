@@ -1,0 +1,164 @@
+Function test_u2_btree_extract(CtrlEntId, Method, Param1, Param2, Param3, Param4, Param5, Param6)
+/*
+
+Commuter module
+
+
+07-25-05     rjc        Created
+
+*/
+
+declare function FieldCount, Rowexists, Get_Status, Get_Property, Get_Current_Event, RetStack, Standard_Window_events
+declare function u2_profile
+declare subroutine Set_Property, Set_status
+DECLARE SUBROUTINE reduce, reduce_rjc, set_fserror
+
+Equ NEW_EXIST$ To 0     ;* Reduce mode 0
+Equ NEXT_CUR$  To 1
+Equ ADD_EXIST$ To 2
+
+
+
+$Insert Logical
+$Insert Msg_Equates
+$Insert Popup_Equates
+
+
+Main:
+
+
+if assigned(CtrlEntID) else CtrlEntId = ''
+if assigned(method) else method = ''
+if assigned(Param1) then p1 = Param1 else p1 = ''
+if assigned(Param2) then p2 = Param2 else p2 = ''
+if assigned(Param3) then p3 = Param3 else p3 = ''
+if assigned(Param4) then p4 = Param4 else p4 = ''
+if assigned(Param5) then p5 = Param5 else p5 = ''
+if assigned(Param6) then p6 = Param6 else p6 = ''
+
+AtWindow = CtrlEntId[1,'.']
+CtrlName = CtrlEntId[Col2()+1,len(CtrlEntId)]
+AtSelf =RetStack()<1>
+
+err = ''
+retval = 0
+
+
+begin case
+		
+	case method _eqc 'TEST'
+		GoSub test
+		
+	case otherwise$
+		retval = Standard_Window_Events(CtrlEntId, Method, Param1, Param2, Param3, Param4, Param5, Param6)
+End case
+
+
+return retval
+*****
+
+
+Test:
+
+*Unidata
+*table = 'BOOKS_CPY_9'
+*volume = 'UD_INFO'
+
+*Universe
+table = 'JUNK'
+volume = 'RJC_020808'
+
+
+Set_Status(0)
+open table To f_test else
+	Call attach_Table(volume, table, '')
+	If Get_Status(err) then
+		Msg(@Window, err)
+		return
+	end
+end
+
+open 'DICT.':table To dictvar else dictvar = ''
+started = time()
+expecteds = ''
+filters = ''
+natives = ''
+
+filters<-1> = 'AUTHOR,William Shakespeare'
+natives<-1> = 'WITH AUTHOR EQ "William Shakespeare"'
+Expecteds<-1> = 85
+
+
+filters<-1> = 'AUTHOR,William Shakespeare;TITLE,The Tempest'
+natives<-1> = 'WITH AUTHOR EQ "William Shakespeare" AND WITH TITLE EQ "The Tempest"'
+Expecteds<-1> = 2
+
+
+filters<-1> = 'AUTHOR,W];TITLE,[T]'
+natives<-1> = 'WITH AUTHOR LIKE W... AND WITH TITLE LIKE ...T...'
+Expecteds<-1> = 93
+
+set_Property(AtWindow:'.RESULT', 'TEXT', '')
+set_Property('SYSTEM', 'RECEIVER', AtWindow:'.RESULT')
+
+Set_Property(AtWindow:'.COUNTS', 'LIST','')
+declare function getTickCount
+
+fcnt = count(filters, @fm) + ( filters # '' )
+for i = 1 to fcnt
+	started = GetTickCount()
+	filter = filters<i>:@fm
+	nExpected = expecteds<i>
+	*Gosub Get_Expected
+	
+	
+	convert ',;' to @vm:@fm in filter
+	hits = ''
+	opts = ''
+	stat = ''
+	
+	call U2_Btree_Extract(filter, table, dictvar, Hits, Opts, Stat)
+	nSel =    count(hits, @vm) + ( hits # '')
+	
+	elapsed = GetTickcount() - started
+	line = filters<i>
+	line:= @vm: ''
+	line:= @vm:nExpected
+	line:= @vm:nSel
+	line:= @vm:''
+	line:= @vm:elapsed
+	
+	Call Send_Message(AtWindow:'.COUNTS', 'INSERT', -1, line)
+next
+
+
+set_Property('SYSTEM', 'RECEIVER', AtWindow:'')
+
+
+Return
+
+
+Get_Expected:
+equ crlf$ To \0D0A\
+
+declare function U2_ExecProc
+volumeID = 'RJC_020808'
+native_filter = natives<i>
+u2_command = 'SELECT ' : table : " " : native_filter
+outbuf = space(512)
+replies = ''
+interactive = true$
+
+u2_stat = U2_ExecProc( VolumeID, u2_Command, OutBuf, Replies, Interactive  )
+
+Convert crlf$ To @fm In OutBuf
+Convert ' ' To @fm In OutBuf
+nExpected = OutBuf<2>
+
+u2_command = 'CLEARSELECT'
+u2_stat = U2_ExecProc( VolumeID, u2_Command, OutBuf, Replies, Interactive  )
+
+
+
+
+return

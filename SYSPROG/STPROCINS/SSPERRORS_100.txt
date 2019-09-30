@@ -1,0 +1,22 @@
+/*-------------------------------------------------------------------------
+  This is the sperrors for GENERIC ACCESS SPs
+
+    DATE       IMPLEMENTOR     FUNCTION
+  --------     -----------     --------
+  MM-DD-YY     initials        Modification
+  09-17-91     Pat             First created
+---------------------------------------------------------------------------*/
+
+equ ssp_table_list_null_err$      to "SSP100" ;* pass in table name is null value
+equ ssp_dbrec_missing_err$        to "SSP101" ;* database record missing %1% database name
+equ ssp_param_with_sys_delim_err$ to "SSP102" ;* passed in param contain system delimiter ( i.e. @FM, @VM,....
+equ ssp_user_abort_err$           to "SYS103" ;* user hit abort for this req
+
+EQU SSP_USER_ADMIN_ERR$           TO "SSP110" ;* User must have admin priveleges for this operation
+EQU SSP_SEND_ERR$                 TO "SSP111" ;* Some error sending data (code)
+EQU SSP_INVALID_IDENTIFIER$       TO "SSP112" ;* Invalid system identifier (identifier)
+EQU SSP_INVALID_BOND_DATA_TYPE$   TO "SSP113" ;* Invalid dict data type specified
+EQU SSP_AUTHOR_PROTECTED_ERR$     TO "SSP114" ;* the SysAdmin level can not be modified for the author...
+EQU SSP_USER_SYS_ADMIN_ERR$       TO "SSP115" ;* User must have system admin priveleges for this operation
+EQU SSP_USER_LOWER_LEVEL_ERR$     TO "SSP116" ;* lower level user cannot update higher level user attribute
+* Source Date: 16:30:24  06 JAN 1994  Build ID: OI*2.01.19  Level: 2.01

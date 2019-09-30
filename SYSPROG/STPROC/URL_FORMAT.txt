@@ -1,0 +1,140 @@
+compile SUBROUTINE URL_FORMAT( charstr CONV, charstr ANS, charstr BRANCH, charstr RETURN_DATA)
+*
+*   URL_FORMAT is an example of a developer's custom prompt formatting
+*   routine using the square brackets call.
+*
+*   It should be placed in square brackets, like this:
+*
+*                   [URL_FORMAT]
+*
+*   
+*   OCONV will convert a urlencoded string into plain text
+*   ICONV will convert a plain string into encoded text appropriate for placing in a url
+*   see RFC. 1738
+*
+*
+* mr C    07 Nov 2003   Created
+* mr C_ME 08 Nov 2003   Moved to UDC from Inet_Queryparam
+
+
+!
+begin condition
+pre:
+post:
+end condition
+
+*  Subroutine declarations
+
+
+$Insert Logical
+
+*  Local Equates
+*  The STATUS() variable is used to indicated the error condition of the
+*  pattern. They are:
+EQU VALID$         TO 0    ;* Successful
+EQU INVALID_MSG$   TO 1    ;* Bad Data       -   Print error message window
+EQU INVALID_CONV$  TO 2    ;* Bad Conversion -          "         "
+EQU INVALID_NOMSG$ TO 3    ;* Bad but do not print the error message window
+
+equ URLENCODE_EXEMPT_CHARS$ to "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789*@-_+./"
+
+*  Begin Conversion
+*
+  RETURN_DATA = ""
+  IF ANS NE "" THEN
+     value = ANS
+     ANS = ""
+     STATUS() = VALID$
+     
+     if conv= 'OCONV' then        
+        transfer value to encodedvalue
+        decodedvalue = ''
+        GoSub UrlDecodeValue
+        transfer decodedvalue to return_data 
+     
+     end else
+   	    transfer value to decodedvalue
+        encodedvalue = ''
+        GoSub UrlEncodeValue     
+        transfer encodedvalue to return_data
+     end
+  end   
+     
+  
+    RETURN
+*}
+
+urlEncodeValue:
+
+   * //  This routine escapes a string as per JavaScript and
+   * //  URL encoding - see RFC. 1738
+   * //
+   * //  decodedValue  ->  string to encode
+   * //  encodedValue  <-  encoded string
+   
+   encodedValue = ""
+
+   pos   =  1
+   loop
+      thisChar = decodedValue[pos,1]
+   until ( thisChar = "" )
+      pos += 1
+      if index( URLENCODE_EXEMPT_CHARS$, thisChar, 1 ) then
+         encodedValue := thisChar
+      end else
+         encodedValue := "%" : oconv( seq( thisChar ), "MX" )
+      end
+   repeat
+
+return
+
+urlDecodeValue:
+
+   * //  This routine unescapes a string as per JavaScript and
+   * //  URL encoding - see RFC. 1738
+   * //
+   * //  encodedValue  ->  string to decode
+   * //  decodedValue  <-  decoded string
+   decodedValue = ""
+
+   pos = 1
+   loop
+      thisChar = encodedValue[pos,1]
+   until ( thisChar = "" )
+
+       begin case
+
+          case ( thisChar = "%" )
+
+             thisHex = encodedValue[pos+1,2]
+             if ( len( thisHex ) = 2 ) then
+
+                thisHex = iconv( thisHex, "MX" )
+                if len( thisHex ) then
+                   decodedValue := char( thisHex )
+                   pos   +=  3
+                end else
+                   decodedValue := thisChar
+                   pos    += 1
+                end
+
+            end else
+               decodedValue := thisChar
+               pos    += 1
+
+            end
+
+         case ( thisChar = "+" )
+            decodedValue := " "
+            pos    += 1
+            
+         case OTHERWISE$
+            decodedValue := thisChar
+            pos    += 1
+
+      end case
+
+   repeat
+
+return
+

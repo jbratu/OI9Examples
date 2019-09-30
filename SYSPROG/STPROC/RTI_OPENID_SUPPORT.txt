@@ -1,0 +1,85 @@
+Function RTI_OPENID_SUPPORT(Action, PARAM1, PARAM2, PARAM3)
+
+Declare Function Repository, ucase
+
+If Assigned(ACTION) Else ACTION = ""
+If Assigned(PARAM1) Else PARAM1 = ""
+If Assigned(PARAM2) Else PARAM2 = ""
+If Assigned(PARAM3) Else PARAM3 = ""
+
+RSLT = ""
+Begin Case
+	Case ACTION = "LOOKUP"
+		permInfo = ""
+		key = ucase(PARAM2)
+		Begin Case
+			Case PARAM1 _EQC "O4W"
+				* Find entries with this key
+				Call Set_Status(0)
+				permInfo = Repository("ACCESS", @APPID<1>:"*UINFO*O4W*":key)
+			Case PARAM1 _EQC "OPENID"
+				* Find entries with this "alias"				
+				CMD = 'SELECT O4WPERMS WITH OPENIDS = "':key:'"'
+				Call Rlist(CMD, 5, "", "")
+				DONE = 0
+				IDS = ""
+				Loop
+					Readnext ID Else DONE = 1
+				Until DONE Do
+					IDS<-1> = ID
+				Repeat
+				num.IDS = DCOUNT(IDS, @FM)
+				For each.id = 1 To num.ids Until permInfo <> ""
+					this.id = ids<each.id>
+					If Count(this.id,"*") Then
+						* STRIP OFF APPLICATION NAME
+						this.id = Field(this.id, "*", 2)
+					END
+					Call Set_Status(0)
+					permInfo = Repository("ACCESS", @APPID<1>:"*UINFO*O4W*":this.id)
+					Locate key In permInfo<5> Using @VM Setting dummy Then
+						* update PARAM2 with the O4W matched name
+						PARAM2 = THIS.ID
+					End Else permInfo = ""
+				Next each.id
+		End Case
+		Call Set_Status(0)
+		If permInfo<2> = "" And permInfo<1> <> "" Then
+			permInfo<2> = "<<none>>"
+		End
+		rslt = permInfo<2>
+		
+	Case ACTION = "MATCH"
+		existingO4WUName = param1
+		newOpenIDName = param2<1>
+		defaultPermLevel = param2<2>
+		If existingO4WUName = newOpenIDName Then
+			* same value passed in for both => creating new entry
+			existingO4WUName = ""
+		End
+		newOpenIDName = ucase(newOpenIDName)
+		If existingO4WUname <> "" Then
+			* just updating the 'aliases' in this user entry
+			entid = @APPID<1>:"*UINFO*O4W*":existingO4WUName
+			Call Set_Status(0)
+			permInfo = Repository("ACCESS", entid)		
+			Call Set_Status(0)
+		End Else
+			* creating new user entry here
+			entID = @APPID<1>:"*UINFO*O4W*":newOpenIDName
+			permInfo = ""
+			permInfo<1> = newOpenIDName ;* just dummy password - since it's not encoded, it'll never be successfully used
+			permInfo<2> = defaultPermLevel
+			permInfo<3> = DATE() ;* creation date
+			permInfo<4> = "OPENID" ;* creation process
+		End
+		Locate newOpenIDName In permInfo<5> Using @VM Setting dummy Else
+			permInfo<5, -1> = newOpenIDName
+		End
+		Call Repository("NEW", entid, "", 1, 1, "", "", "", "", "", "UINFO", perminfo)
+		Call Set_Status(0)
+		Call Repository("WRITE", entid, "", 1, 1, "", "", "", "", "", "UINFO", perminfo)
+		
+End Case
+
+Return RSLT

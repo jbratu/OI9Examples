@@ -1,0 +1,194 @@
+      function PROD_ENTRY(CtrlEntId,Event,Param1,Param2,Param3,Param4,Param5,Param6,Param7,Param8)
+
+* 20071024
+
+$INSERT MSG_EQUATES
+      DECLARE FUNCTION SET_PROPERTY,GET_PROPERTY,UNASSIGNED,MSG,REPOSITORY,INDEXLOOKUP,DIALOG_BOX
+
+      if unassigned(Param1) then Param1 = ""
+      if unassigned(Param2) then Param2 = ""
+      if unassigned(Param3) then Param3 = ""
+      if unassigned(Param4) then Param4 = ""
+      if unassigned(Param5) then Param5 = ""
+      if unassigned(Param6) then Param6 = ""
+      if unassigned(Param7) then Param7 = ""
+      if unassigned(Param8) then Param8 = ""
+
+      ReturnResult = ""
+      Window = CtrlEntId[1,"F."]
+      Ctrl = CtrlEntId[-1,"B."]
+
+      begin case
+         case Ctrl = "BTN_IMAGE"
+            gosub BTN_IMAGE
+         case Ctrl = "BUTTON_3"
+            gosub BUTTON_3
+         case Ctrl = "IMAGE_FILENAME"
+            gosub IMAGE_FILENAME
+         case Ctrl = "PROD_ENTRY"
+            gosub PROD_ENTRY
+         case 1
+            call msg(@window,Window:".":Ctrl:" was not recognised.")
+      end case
+
+      return ReturnResult
+
+BTN_IMAGE:
+
+      begin case
+         case Event = "CLICK"
+            * Quick/Post Event
+            gosub BTN_IMAGE.CLICK
+         case 1
+            call msg(@window,Window:".":Ctrl:".":Event:" was not recognised.")
+      end case
+
+      return
+
+
+BTN_IMAGE.CLICK:
+
+* Quick/Post Event
+
+      CtrlClassId = "PUSHBUTTON"
+
+      
+      
+      id=Get_Property("PROD_ENTRY.ID","TEXT")
+      desc = Get_Property("PROD_ENTRY.DESCRIPTION","TEXT")
+      bmp = Get_Property("PROD_ENTRY.IMAGE_FILENAME","TEXT")
+      
+      title = 'Image for product ':id:', ':desc
+      
+      x = dialog_Box('IMAGE_WINDOW', @window, bmp:@fm:title)
+      
+      ReturnResult = 0 ; return
+
+BUTTON_3:
+
+      begin case
+         case Event = "CLICK"
+            * Quick/Post Event
+            gosub BUTTON_3.CLICK
+         case 1
+            call msg(@window,Window:".":Ctrl:".":Event:" was not recognised.")
+      end case
+
+      return
+
+
+BUTTON_3.CLICK:
+
+* Quick/Post Event
+
+      CtrlClassId = "PUSHBUTTON"
+
+      
+      
+      
+      *---
+      * we'll display a message with two buttons,
+      * one saying Keyword, and one saying Listing
+      *---
+      mess = ''
+      mess<MTEXT$> 	= 'Search by keyword, or entier product Listing?'
+      mess<MTYPE$> 	= 'BKeyword,Listing'
+      mess<MCAPTION$> = 'Search Options'
+      mess<MICON$>	= '?'
+      resp = msg(@window, mess)
+      
+      if resp = 2 then
+      	repos_key = @appid<1>:'*POPUP**PRODUCT_POPUP_SINGLE'
+      	keys = Repository('EXECUTE', repos_key, @WINdow)
+      	if keys then
+      SetProperty_ReturnValue = Set_Property("PROD_ENTRY.ID","TEXT",keys)
+      		Call Send_Event(@window, 'READ')
+      	End
+      end else
+      	OwnerWindow = @Window
+      	table = 'PRODUCTS'
+      	IndexedFields = 'DESCRIPTION_XREF'
+      	DISPLAYedfIELDS = 'ID':@VM:'DESCRIPTION'
+      	mode = 'SINGLE'
+      	popupname = ''
+      	keys = IndexLookup(ownerwindow, table, indexedfields, displayedfields, mode, popupname)
+      	if len(keys) then
+      SetProperty_ReturnValue = Set_Property("PROD_ENTRY.ID","TEXT",keys)
+      		Call Send_Event(@window, 'READ')
+      	End
+      end
+      	
+      ReturnResult = 0 ; return
+
+IMAGE_FILENAME:
+
+      begin case
+         case Event = "CHANGED"
+            * Quick/Post Event
+            gosub IMAGE_FILENAME.CHANGED
+         case 1
+            call msg(@window,Window:".":Ctrl:".":Event:" was not recognised.")
+      end case
+
+      return
+
+
+IMAGE_FILENAME.CHANGED:
+
+* Quick/Post Event
+
+      CtrlClassId = "EDITFIELD"
+      NewData = Param1
+
+      
+      filename = Get_Property("PROD_ENTRY.IMAGE_FILENAME","TEXT")
+      
+      if filename then
+      SetProperty_ReturnValue = Set_Property("PROD_ENTRY.BTN_IMAGE","ENABLED",1)
+      SetProperty_ReturnValue = Set_Property("PROD_ENTRY.BTN_IMAGE","TEXT",'Click to View Image')
+      end else
+      SetProperty_ReturnValue = Set_Property("PROD_ENTRY.BTN_IMAGE","ENABLED",0)
+      SetProperty_ReturnValue = Set_Property("PROD_ENTRY.BTN_IMAGE","TEXT",'No Image Available')
+      end
+      
+      
+      
+      ReturnResult = 0 ; return
+
+PROD_ENTRY:
+
+      begin case
+         case Event = "CREATE"
+            * Quick/Post Event
+            gosub PROD_ENTRY.CREATE
+         case 1
+            call msg(@window,Window:".":Ctrl:".":Event:" was not recognised.")
+      end case
+
+      return
+
+
+
+PROD_ENTRY.CREATE:
+
+* Quick/Post Event
+
+      CtrlClassId = "WINDOW"
+      CreateParam = Param1
+
+      
+      *---
+      * some fields are required, but we'll let the user tab by them and just check for
+      * required fields on the Write Event.
+      * the IOOPTIONS property handles that for us.
+      *---
+      
+      options = Get_Property("PROD_ENTRY.WINDOW","IOOPTIONS")
+      
+      options<10> = 1
+      
+      SetProperty_ReturnValue = Set_Property("PROD_ENTRY.WINDOW","IOOPTIONS",options)
+      
+      ReturnResult = 0 ; return
+
+

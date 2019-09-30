@@ -1,0 +1,115 @@
+Compile Insert RTI_EDITOR_CFG_EQUATES
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+//  Copyright (c) 2010 Revelation Software - All Rights Reserved
+//
+//  Author   -  Erik Smith
+//  Date     -  September 2010
+//  Purpose  -  Insert Record For The System Editor ++
+//  Notes    -  Released With OI 9.2.1
+//
+//
+//  Version  -  1.2
+//
+//  Amended        Date                                           Reason
+//  =======      ========       ============================================================================
+//  ems          03/04/11       Now To Version 1.1. Added Email Configuartion Options.
+//  ems          05/26/11       Now to Version 1.2. Added Indent Guides
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// IDE ----------------------------------------------------------------------------------------------------------------------------------------------------------
+Equ SYSED_MAXIMIZE_CHILD$            To 1    ; // Boolean - To Maximize Children On Open
+Equ SYSED_SHOW_TOOLBAR$              To 2    ; // Boolean - Show The Top Toolbar Buttons
+Equ SYSED_SHOW_LINENUMS$             To 3    ; // Boolean - Show Line Numbers
+Equ SYSED_SHOW_STATUS$               To 4    ; // Boolean - Show The Bottom Status Section
+Equ SYSED_USETABS$                   To 5    ; // Boolean - Used Tabs For MDI Children
+Equ SYSED_SAVECHILDONEXIT$           To 6    ; // Boolean - Save The List Of Children On Exit
+Equ SYSED_SAVECHILDLIST$             To 7    ; // MV      - @Vm List Of Saved Children Denoted By TYPE~RECORD
+Equ SYSED_MDIMAXIMIZED$              To 8    ; // Boolean - Is The MDI Window Maximized
+Equ SYSED_XPOSITION$                 To 9    ; // Integer - X Position of the MDI Window
+Equ SYSED_YPOSITION$                 To 10   ; // Integer - Y Position of the MDI Window
+Equ SYSED_WIDTH$                     To 11   ; // Integer - Width of the MDI Window
+Equ SYSED_HEIGHT$                    To 12   ; // Integer - Height of the MDI Window
+Equ SYSED_CHILDXPOSITION$            To 13   ; // Integer - X Postiion of the Last Closed Child Window - UNUSED AS OF 9.2.1
+Equ SYSED_CHILDYPOSITION$            To 14   ; // Integer - Y Postiion of the Last Closed Child Window - UNUSED AS OF 9.2.1
+Equ SYSED_CHILDWIDTH$                To 15   ; // Integer - Width of the Last Closed Child Window
+Equ SYSED_CHILDHEIGHT$               To 16   ; // Integer - Height of the Last Closed Child Window
+
+// Text UI -----------------------------------------------------------------------------------------------------------------------------------------------------
+Equ SYSED_INDENTGUIDE$               To 17   ; // Boolean - Use Indent Guides
+Equ SYSED_INDENTGUIDECOLOR$          To 18   ; // Integer - The Indent Guide Color For The System Editor
+Equ SYSED_TABSTOPS$                  To 19   ; // Integer - Number of Spaces For TabStops
+Equ SYSED_FONT$                      To 20   ; // Integer - The Font For the System Editor
+Equ SYSED_CALLTIPS$                  To 21   ; // Boolean - Use Call Tips
+Equ SYSED_SELECTIONCOLOR$            To 22   ; // Integer - The Text Selection Color For The System Editor
+Equ SYSED_CONVERTKEYWORDS$           To 23   ; // Boolean - Convert RBASIC Keywords
+Equ SYSED_INDENTTYPE$                To 24   ; // Boolean - When Indenting, True Creates Indents Out of Tabs And Spaces, False Indents On Purely Spaces
+Equ SYSED_DBLCLKOPENS$               To 25   ; // Boolean - Double Clicking In Edit Area Opens The Current Entity ( If Avail ) 
+Equ SYSED_AUTOCLOSEBRACES$           To 26   ; // Boolean - Use Auto Completion
+Equ SYSED_COLORKEYWORDS$             To 27   ; // Boolean - Color Keywords
+Equ SYSED_COLORCOMMENTS$             To 28   ; // Boolean - Color Comments
+Equ SYSED_COLORNUMBERS$              To 29   ; // Boolean - Color Numbers
+Equ SYSED_COLORQUOTES$               To 30   ; // Boolean - Color Quotes
+Equ SYSED_COLOROPERATORS$            To 31   ; // Boolean - Color Operators
+Equ SYSED_COLORIDENTIFIERS$          To 32   ; // Boolean - Color Identifiers
+Equ SYSED_COLORPREPROCESSOR$         To 33   ; // Boolean - Color Preprocessor Commands
+Equ SYSED_COLORLABELS$               To 34   ; // Boolean - Color Labels
+
+// Favorites ----------------------------------------------------------------------------------------------------------------------------------------------------
+Equ SYSED_FAVORITESNAME$             To 35   ; // MV      - @vm List Of Names For The Favorites
+Equ SYSED_FAVORITESTYPE$             To 36   ; // MV      - @vm List Of Types For The Favorites
+
+// Open Stored Procedure Dialog ----------------------------------------------------------------------------------------------------------------------------------
+Equ SYSED_STPROCSHOWINHERITED$       To 38   ; // Boolean - Remember Show Inherited Flag When Using The Open Store Procedure Dialog
+Equ SYSED_STPROCMULTISELECT$         To 39   ; // Boolean - Remember Whether The User Wants To Use Multiple Selection When Using The Open Store Procedure Dialog
+
+// Open Insert Dialog -------------------------------------------------------------------------------------------------------------------------------------------
+Equ SYSED_INSERTSHOWINHERITED$       To 41   ; // Boolean - Remember Show Inherited Flag When Using The Open Insert Dialog
+Equ SYSED_INSERTMULTISELECT$         To 42   ; // Boolean - Remember Whether The User Wants To Use Multiple Selection When Using The Open Insert Dialog
+
+// Open OS ------------------------------------------------------------------------------------------------------------------------------------------------------
+Equ SYSED_OSDEFAULTDIR$              To 44   ; // Char    - Default Folder For Opening An OS File
+Equ SYSED_OSDEFAULTEXTN$             To 45   ; // Char    - Default File Extension For Opening And OS File
+
+// Open Event ---------------------------------------------------------------------------------------------------------------------------------------------------
+Equ SYSED_EVSHOWCTRLWEVENTS$         To 47   ; // Boolean - Show Controls With Events In The Open Events Dialog
+
+// Find ---------------------------------------------------------------------------------------------------------------------------------------------------------
+Equ SYSED_FINDLIST$                  To 48   ; // MV      - @vm List Of 50 Most Recent Search Items When Using The Find Tab
+Equ SYSED_FINDCASESENS$              To 49   ; // Boolean - Remember Case Sensitive Flag When Using The Find Dialog / Find Tab 
+Equ SYSED_FINDWHOLEWORD$             To 50   ; // Boolean - Remember Whole Word Flag When Using The Find Dialog / Find Tab
+
+// Find / Replace -----------------------------------------------------------------------------------------------------------------------------------------------
+Equ SYSED_REPLACEFINDLIST$           To 52   ; // MV      - @Vm List Of 50 Most Recent Find Items
+Equ SYSED_REPLACEREPLIST$            To 53   ; // MV      - @Vm List Of 50 Most Recent Replace Items
+Equ SYSED_REPLACECASESENS$           To 54   ; // Boolean - Remember Case Sensitive Flag When Using The Global Find/Replace Dialog
+Equ SYSED_REPLACEWHOLEWORD$          To 55   ; // Boolean - Remember Whole Word Flag When Using The Global Find/Replace Dialog
+
+// Global Find / Replace ----------------------------------------------------------------------------------------------------------------------------------------
+Equ SYSED_GLOBREPSHOWINHERITED$      To 56   ; // Boolean - Remember Show Inherited Flag When Using The Global Find Replace Dialog
+Equ SYSED_GLOBREPWHOLEWORD$          To 57   ; // Boolean - Remember Whole Word Flag When Using The Global Find Replace Dialog
+Equ SYSED_GLOBREPCASESENS$           To 58   ; // Boolean - Remember Case Sensitive Flag When Using The Global Find Replace Dialog
+Equ SYSED_GLOBREPRECOMPILE$          To 59   ; // Boolean - Remember Recompile All Flag When Using The Global Find Replace Dialog
+
+// Open Record Dialog -------------------------------------------------------------------------------------------------------------------------------------------
+Equ SYSED_RECORDSHOWBANG$            To 61   ; // Boolean - False Ignores Bang Files
+Equ SYSED_RECORDSHOWDICT$            To 62   ; // Boolean - False Ignores DICT Files
+
+// Editor Email Config --------------------------------------------------------------------------------------------------------------------------------------------
+Equ SYSED_EMAILRECIPIENTLIST$        To 64   ; // MV      - @Vm List Of Recipients Sent To
+Equ SYSED_EMAILSERVER$               To 65   ; // Char    - Name Of The Mail Server
+Equ SYSED_EMAILSENDER$               To 66   ; // Char    - Name Of The Sending Address
+Equ SYSED_EMAILUSERNAME$             To 67   ; // Char    - Username Of The Sending Address
+Equ SYSED_EMAILPASSWORD$             To 68   ; // Char    - Password Of The Sending Address
+Equ SYSED_EMAILUSESSL$               To 69   ; // Boolean - Use SSL When Sending Emails
+
+// RList History-----------------------------------------------------------------------------------------------------------------------------
+Equ SYSED_RLISTHISTORY$              To 70   ; // MV      - AVm List of 50 Most Recent Select statements for RList
+
+// Editor Printing Config -----------------------------------------------------------------------------------------------------------------------------------------
+Equ SYSED_PRINTORIENTATION$          To 72   ; // Char    - 'P' For Portrait, 'L' for Landscape
+Equ SYSED_PRINTPREVIEW$              To 73   ; // Boolean - Show Print Preview Dialog When Printing
+Equ SYSED_PRINTLINENUM$              To 74   ; // Boolean - Print Line Numbers
+Equ SYSED_PRINTHEADER$               To 75   ; // Boolean - Print Program Header
+Equ SYSED_PRINTDOUBLESPACE$          To 76   ; // Boolean - Print Double Spaces
+Equ SYSED_PRINTWRAPTEXT$             To 77   ; // Boolean - Wrap Text When Exceeding Margins

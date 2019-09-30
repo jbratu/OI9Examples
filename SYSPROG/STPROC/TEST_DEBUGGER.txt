@@ -1,0 +1,48 @@
+Subroutine TEST_DEBUGGER( VOID )
+
+******************************************************************************
+*
+* This program is proprietary and is not to be used by or disclosed
+* to others, nor is it to be copied without written permission from
+* Revelation Technologies, Inc.
+*
+* Name       :  Test_Debugger
+* Description:  This procedure implements shows an example of a way 
+*               to intercept the debugger, yet still report on errors.
+* See Also   :  RTI_Debug_Common   
+*
+* History    :  (date, initials, notes)
+* 3-22-05  MTR  Rolled In 7.1.1
+*
+******************************************************************************
+
+
+$Insert RTI_Debug_Common
+
+Declare Function msg
+
+SPStatus@     = ''
+SPStatCode@   = ''
+Curr_Program@ = ''
+CallDepth@    = ''
+LineNo@       = ''
+CallStack@    = ''
+
+
+*---
+* in the following line will trigger the debugger, because B and C are not defined
+* If the environment setting for debugger (as found in the database manager) is set to intercept, the debugger will not appear but the
+* message will appear.
+*---
+
+A = B + C
+
+/*
+If spstatus@ then
+	text = 'An error has occurred in program ':Curr_Program@
+	text:= '|The error occurred on line ':LineNo@
+	x = Msg(@Window, text)
+end
+*/
+
+RETURN 

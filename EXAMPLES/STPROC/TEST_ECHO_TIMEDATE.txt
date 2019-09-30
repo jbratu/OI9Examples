@@ -1,0 +1,9 @@
+Function TEST_ECHO_TIMEDATE(Str)
+If Unassigned(Str) Then Str = ''
+Declare Function TimeDate
+
+If Str EQ '' Then
+	Return TimeDate()
+End Else
+	Return TimeDate() : Str
+End

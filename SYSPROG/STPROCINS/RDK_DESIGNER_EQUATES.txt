@@ -1,0 +1,64 @@
+compile insert rdk_designer_equates
+
+*****************************************************************************
+*
+* Product    :  OI/WG
+* Poject     :  OI/RDK
+* Release    :  3.0
+*
+* Name       :  rdk_designer_equates
+* Description:  Instructions and return values for all the RDK functions
+*
+* History (Date, Initials, Notes)
+*   11/01/95  vg   Original programmer
+*
+*****************************************************************************
+
+* Function Declares
+declare function RDKRepViewEdit      ;* Flag = RDKRepViewEdit(Instruction, Arg )
+declare function RDKDeployDef        ;* Flag = RDKDeployDef(Instruction,   Arg )
+declare function RDKMain             ;* Flag = RDKMain(Instruction,        Arg )
+
+* Instruction values:
+
+* rdkmain instructions
+EQU RDKM_CREATE$            TO 5
+EQU RDKM_NEW$               TO 6
+EQU RDKM_OPEN$              TO 7
+EQU RDKM_CLOSE$             TO 8
+EQU RDKM_SAVE$              TO 9
+EQU RDKM_SAVEAS$            TO 10
+EQU RDKM_HELP$              TO 11
+EQU RDKM_HOWTOUSEHELP$      TO 12
+EQU RDKM_ABOUT$             TO 13
+
+* rdkrepviewedit instructions
+EQU RDKRVE_ACTIVATED$       TO 5
+EQU RDKRVE_CREATE$          TO 6
+EQU RDKRVE_PAGE$            TO 7
+EQU RDKRVE_CLOSE$           TO 8
+EQU RDKRVE_SAVE$            TO 9
+EQU RDKRVE_SAVEAS$          TO 10
+EQU RDKRVE_HELP$            TO 11
+EQU RDKRVE_GETVIEWIDS$      TO 12
+EQU RDKRVE_ADDITEM$         TO 13
+EQU RDKRVE_ADDALLITEM$      TO 14
+EQU RDKRVE_REMOVEITEM$      TO 15
+EQU RDKRVE_REMOVEALLITEM$   TO 16
+
+* rdkdeploydef instructions
+EQU RDKDD_ACTIVATED$        TO 5
+EQU RDKDD_CREATE$           TO 6
+EQU RDKDD_PAGE$             TO 7
+EQU RDKDD_CLOSE$            TO 8
+EQU RDKDD_SAVE$             TO 9
+EQU RDKDD_SAVEAS$           TO 10
+EQU RDKDD_HELP$             TO 11
+EQU RDKDD_BROWSE$           TO 12
+EQU RDKDD_TABLEOPTIONS$     TO 13
+EQU RDKDD_GETRELEASEIDS$    TO 14
+EQU RDKDD_SHOWOPTIONS$      TO 15	
+EQU RDKDD_EXTRACT$          TO 16	;* user presses extract button              (page 2)
+EQU RDKDD_BUILDINFODETAIL$  TO 17	;* user double clicks on buildinfo editable (page 4)
+EQU RDKDD_DEPLOYTYPE$       TO 18	;* user clicks on release type radio button (page 2)
+EQU RDKDD_LOADVIEWS$        TO 19   ;* dropdown on view list combobox

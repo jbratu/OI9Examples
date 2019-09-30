@@ -1,0 +1,98 @@
+Subroutine test_rti_hashtable2(void)
+/*
+** Sample beancount report using hashtable
+** Assumes a named BOOKS, with a single valued column named AUTHOR
+** Gives the count of books per author
+** Uses rti_hashtable 2
+
+
+*  rjc  03-14-12  PI Day!  Created
+*/
+
+Declare Function RTI_HASHTABLE2, Get_Status
+declare subroutine Rti_hashtable2, set_Status
+Call Set_Status(0)
+
+Call Attach_table('DATAVOL', 'BOOKS', '')
+Open 'DICT.BOOKS' To @dict Else @dict = ''
+Open 'BOOKS' To f_BOOKS Else f_BOOKS = ''
+
+* let's build a table to count books by author
+
+* Create a new hashtable
+* you can pass in a name, or pass in an empty variable, get a random name
+* usually you pass in a name.
+* This name persists for the duration of the OI session unless you close the table
+* So you can create the table in one program, use it other programs
+* However, for my beancount I use an anonymous table, release it at the end of the program
+* The system will assign a unique name, so I can use as many of these anonymous tables without worrying about it
+* Every hashtable, even anonymous, will persist until I close it or close OI, so I can pass the hname variable between programs, have multiple programs
+* update the hashtable like it is a variable named common ( it is really a dot net object )
+* 
+*
+
+* For this example, keep track of expected to show that hashtable is correct
+arr_Authors = ''
+arr_cnts = ''
+author_cnt = 0
+hname = ''
+rti_hashtable2( hname, 'NEW') ; *
+Select f_books
+done = 0 ; cnt = 0
+Loop
+	Readnext @id Else done = 1
+Until done
+	Read @record From f_BOOKS, @id Then
+		cnt +=1
+		author = {AUTHOR}
+		* hashtable will not store blank keys
+		If author eq '' Then author = '<NONE>'		
+		Locate author In arr_authors Using @fm Setting pos Then
+			arr_cnts<pos> = arr_cnts<pos> + 1
+		End Else
+			author_cnt += 1
+			arr_cnts<author_cnt> = 1
+			arr_Authors<author_cnt> = author
+		end
+		this_beancount = rti_hashtable2(hname, 'GET', author)
+		this_beancount += 1
+		rti_hashtable2(hname, 'SET', author, this_beancount)
+	end
+Repeat
+expected_total = cnt
+
+authors = rti_hashtable2(hname, 'KEYS') : @rm
+Convert @vm To @rm In authors
+Call v119('S', '', 'A', 'L', authors, flag)
+authors[-1,1] = ''
+
+*
+* Report to screen
+*
+col = 0
+i = 0
+actual = 0
+Call send_dyn( fmt("", "R#4") : " " : fmt("Author", "L(.)#40" ) : " " : fmt( "Count", "R#5" ): " " : fmt( "Expected", "R#5" )  )
+Loop
+	Remove name From authors At col Setting mark
+	If name # '' Then
+		
+		Locate name In arr_authors Using @fm Setting pos Then
+			expected = arr_cnts<pos>
+		End Else
+			expected = '#ERR#'
+		end
+		i+=1
+		this_beancount = rti_hashtable2(hname, 'GET', name)		
+		actual += this_beancount
+		Call send_dyn( fmt(i, 'R#4') : ' ' : fmt(name, 'L#40') : ' ' : fmt(this_beancount, 'R#4' ) : ' ' : fmt(expected, 'R#4' )  )
+	end
+While mark
+Repeat
+
+Call send_dyn( str('-',45) : ' ' : str('-',4))
+Call send_dyn( fmt('Expected', 'L#45') : ' ' : fmt(expected_total, 'R#4'))
+Call send_dyn( fmt('Actual', 'L#45') : ' ' : fmt(Actual, 'R#4'))
+
+* Close the cache
+x = rti_hashtable2( hname, 'CLOSE')

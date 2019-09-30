@@ -1,0 +1,39 @@
+
+* Compile Insert XODefaults_Equates
+
+*****************************************************************************
+*
+* This program is proprietary and is not to be used by or disclosed
+* to others, nor is it to be copied without written permission from
+* Revelation Technologies, Inc.
+*
+* Product    :  OI/WG
+* Poject     :  OI/CS
+* Release    :  2.7
+*
+* Name       :  XODefaults_Equates Insert
+* Description:  Constants and declarations for accessing and setting the
+*               Connection Object defaults
+*
+* History (Date, Initials, Notes)
+*   07/17/95  cp   Original programmer
+*
+*****************************************************************************
+
+* Basic+ functions
+declare function XODefaults         ;* Flag=(Instruction, Arg1, Arg2, Arg3)
+
+* Instructions
+equ XOD_GET$       to 1             ;* Returns defaults - Flag=(XOD_GET$, Type, Defaults, bPersistant)
+equ XOD_SET$       to 2             ;* Stores defaults  - Flag=(XOD_SET$, Type, Defaults, bPersistant)
+equ XOD_DIALOG$    to 3             ;* Calls dialog     - Flag=(XOD_DIALOG$)
+equ XOD_CREATE$    to 4             ;* Reserved
+equ XOD_ACCEPT$    to 5             ;* Reserved
+equ XOD_SESSION$   to 6             ;* Reserved
+
+* Constants
+equ XOD_DIALOGID$  to "XO_DEFAULTS" ;* name of dialog window
+equ XOD_DFT_TYPE$  to "ODBC"        ;* default Data Source Type
+equ XOD_DFT_OPTS$  to 0             ;* default Connection options
+
+* Source Date: 08:57:36  21 AUG 1995  Build ID: OINOTES*2.7.9  Level: 2.7

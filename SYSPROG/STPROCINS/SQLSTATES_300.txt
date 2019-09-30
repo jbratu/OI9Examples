@@ -1,0 +1,43 @@
+
+*
+*================================ BLOCK -300 =================================
+* I/O Error Codes
+EQU SQL_LOGICAL_FETCH_ERR$      TO -300  ;* Logical (Security/Domain) error while fetching row
+EQU SQL_PHYSICAL_FETCH_ERR$     TO -301  ;* Physical level (OS; Language; File structure) error ; Record key
+EQU SQL_TABLE_MISSING_ERR$      TO -302  ;* General File Open fail error.
+EQU SQL_ROW_EXISTS_ERR$         TO -303  ;* Row already exists on an SQL INSERT
+EQU SQL_LOGICAL_INSERT_ERR$     TO -304  ;* Logical (Security/Domain) error while inserting row
+EQU SQL_PHYSICAL_INSERT_ERR$    TO -305  ;* Physical level (OS; Language; File Structure) error while inserting row.
+EQU SQL_LOGICAL_INSERT_READ_ERR$ TO -306 ;* Logical error reading record for multi-row insert
+EQU SQL_PHYSICAL_INSERT_READ_ERR$ TO -307 ;* Physical error reading record for multi-row insert
+EQU SQL_UPDATE_KEY_ERR$         TO -308  ;* Attempt to update key fields of record - Should Delete then Insert.
+EQU SQL_LOGICAL_UPDATE_READ_ERR$ TO -309 ;* Logical (Security/Domain) reading record for UPDATE operation.
+EQU SQL_PHYSICAL_UPDATE_READ_ERR$ TO -310 ;* Physical level (OS; Language; File structure) error reading record for UPDATE
+EQU SQL_LOGICAL_UPDATE_ERR$     TO -311  ;* Logical error writing update ; Record key
+EQU SQL_PHYSICAL_UPDATE_ERR$    TO -312  ;* Physical error writing update ; Record key
+EQU SQL_LOGICAL_DELETE_ERR$     TO -313  ;* Logical error deleting row ; Record key
+EQU SQL_PHYSICAL_DELETE_ERR$    TO -314  ;* Physical error deleting row ; Record key
+EQU SQL_LOGICAL_SUBQ_READ_ERR$  TO -315  ;* Logical error reading for subquery ; Record key
+EQU SQL_PHYSICAL_SUBQ_READ_ERR$ TO -316  ;* Physical error reading for subquery ; Record key
+EQU SQL_INSERT_INVALID_COLTYPE_ERR$ TO -317 ;* Column type not updateable (not a real field - symbolic or group)
+EQU SQL_USER_ABORT_ERR$         TO -318  ;* User aborted I/O operation.
+EQU SQL_LOGICAL_JOIN_READ_ERR$  TO -319  ;* Logical error while reading for join ; Table name, key name
+EQU SQL_PHYSICAL_JOIN_READ_ERR$ TO -320  ;* Physical error while reading for join ; Table name, key name
+EQU SQL_JOIN_IO_ERR$            TO -321  ;* reading or writing key data during join.
+EQU SQL_CURSOR_SEEK_ERR$        TO -322  ;* Error while seeking in cursor during join ; Table name
+EQU SQL_NULL_JOIN_PARAM_ERR$    TO -323  ;* Errors in SQL.JOIN input parameters.
+*
+EQU SQL_TEMP_TABLE_MISSING_ERR$ TO -324  ;* Failure in open of temporary table. ; Filename
+EQU SQL_TEMP_TABLE_CREATE_ERR$  TO -325  ;* Failed to create temporary table ; Volume, Filename
+EQU SQL_TEMP_WRITE_ERR$         TO -326  ;* Failure writing record to temp table ; Filename, record
+
+EQU SQL_NORM_COMPLEX_ERR$       TO -330  ;* Cannot normalize a complex cursor. (involving a join)
+EQU SQL_NORM_EXTERN_ERR$        TO -331  ;* Cannot normalize an external select list.
+EQU SQL_NORM_IO_ERR$            TO -332  ;* I/O error writing key lists during normalization.
+EQU SQL_INSERT_CONSISTENCY_ERR$ TO -333  ;* Insert into repeating table - non-repeating columns are not consistent. ; Column name list (1st displayed)
+EQU SQL_UNION_PLAN_ERR$         TO -334  ;* Query union plan error.
+EQU SQL_INSERT_VIEW_TABLE_ERR$  TO -335  ;* Insert to view table not supported.
+EQU SQL_FCT_INVALID_DATA_TYPE$  TO -336  ;* SUM or AVG functions tried on non-integers
+
+EQU SQL_COMPILE_IO_ERR$         TO -350  ;* I/O error writing object/source records during compile
+* Source Date: 16:42:25  12 JAN 1993  Build ID: OI*1.0.10  Level: 2.0

@@ -1,0 +1,19 @@
+Subroutine Test_U2_Debug(void)
+*
+* Client program To test U2 Debugger
+* Note that we simply execute the program we ant to debug
+*
+
+VolumeId = 'UV_INFO' ; * The Volume I created with Database Manager
+command = 'TEST_RJC' ; * The procedure I want to Execute
+ServerResponse = ""  ; * Upon completion contains the output of the program
+ClientReplies = ""   ; * Like DATA statement, you can pre-answer prompts
+InterActive = ""     ; * true to allow prompting false to disallow, defaults to true
+                     ; * Must allow interaction for this debugging to work
+                     
+Call U2_ExecProc(VolumeID, Command, ServerResponse, ClientReplies, Interactive)
+
+* See the Result
+call Msg(@Window, ServerResponse )
+
+return ''

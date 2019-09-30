@@ -1,0 +1,62 @@
+Compile Insert U2_MediaEquates
+
+/*
+   Equate record for the foreign attributes field of a U2 bonded
+    file under OI.
+*/
+
+/* These equates are positions (@VM delimited) of the values in the field */
+EQU VM_LAST_SYNC$           TO 1 ;* Datetime stamp for last update of the
+                                  *  media map record
+EQU VM_PI_OR_UNI$           TO 2 ;* PI/open or UniVerse file
+EQU VM_FILE_INFO$           TO 3 ;* Selected file data (see below)
+EQU VM_PICK_TYPE$           TO 4 ;* Is/has PICK or SMA dictionary (See below)
+
+/* Equates for VM_PI_OR_UNI$ */
+EQU VM_PIOPEN_FILE$         TO 0
+EQU VM_UNIVERSE_FILE$       TO 1
+
+/* Equates for VM_FILE_INFO$ */
+EQU VM_FI_TYPE$             TO 2 ;* SVM loc of type of file
+EQU VM_FI_HASHALG$          TO 3 ;* For PI/open, contains hashing algorithm type
+EQU VM_FI_CUR_MOD$			TO 4 ;* Current modulus
+EQU VM_FI_MIN_MOD$			TO 5 ;* Minimum modulus for the file
+
+/* Equates for VM_FI_TYPE$ */
+EQU UV_UNIX_DIR$            TO 1
+EQU UV_NUM_LASTEIGHT$       TO 2
+EQU UV_MOSTNUM_LASTEIGHT$   TO 3
+EQU UV_ALPHA_LASTFIVE$      TO 4
+EQU UV_ASCII_LASTFOUR$      TO 5
+EQU UV_NUM_FIRSTEIGHT$      TO 6
+EQU UV_MOSTNUM_FIRSTEIGHT$  TO 7
+EQU UV_ALPHA_FIRSTFIVE$     TO 8
+EQU UV_ASCII_FIRSTFOUR$     TO 9
+EQU UV_NUM_LASTTWENTY$      TO 10
+EQU UV_MOSTNUM_LASTTWENTY$  TO 11
+EQU UV_ALPHA_LASTSIXTEEN$   TO 12
+EQU UV_ASCII_LASTSIXTEEN$   TO 13
+EQU UV_NUM_ALL$             TO 14
+EQU UV_MOSTNUM_ALL$         TO 15
+EQU UV_ALPHA_ALL$           TO 16
+EQU UV_ASCII_ALL$           TO 17
+EQU UV_ARBITRARY_ALL$       TO 18
+EQU UV_LIMITED_UNIX_DIR$    TO 19
+EQU UV_BTREE$               TO 25
+EQU UV_DISTRIBUTED$         TO 27
+EQU UV_DYNAMIC$             TO 30
+
+EQU PI_DYNAMIC$             TO 3
+EQU PI_UNIX_DIR$            TO 4
+EQU PI_SEQUENTIAL$          TO 5
+EQU PI_MULTIVOLUME$         TO 6
+EQU PI_DISTRIBUTED$         TO 7 
+
+/* Equates for hashing algorithm under PI/open */
+EQU PI_GENERAL$             TO 2
+EQU PI_SEQUENTIAL_NUM$      TO 3
+
+/* Equates for PICK compatible files */
+EQU VM_STANDARD$            TO 0
+EQU VM_PICKFILE$            TO 1
+* Source Date: 14:32:32  22 FEB 1994  Build ID: U2*1.0.7  Level: 1.0

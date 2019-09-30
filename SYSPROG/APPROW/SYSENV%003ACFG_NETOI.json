@@ -1,0 +1,14 @@
+{
+    "record1": {
+        "<1>": "0",
+        "<2>": "",
+        "<3>": "",
+        "<4>": "",
+        "<5>": "",
+        "<6>": "",
+        "<7>": "",
+        "<8>": "",
+        "<9>": "",
+        "<10>": "* Field 1: 0 (process all OCONVs on host) / 1 (process available OCONVs in .NET assembly if possible) / -1 (process available OCONVs in .NET)"
+    }
+}

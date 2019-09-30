@@ -1,0 +1,138 @@
+function oi_dataconv_kml_example(param)
+/*	----------------------------------------------------------------------------
+	Author	: David Goddard
+	Date	: 27 Nov 2007
+	Version	: 1.0
+	Purpose : Example procedure demonstrating how to generate a Google Earth
+			  kml file from OpenInsight data, and then displaying the result
+			  in google Earth.
+			  
+			  requires that Google Earth be installed on your computer.
+			  You can download a copy of google earth from here:
+			  
+			  http://earth.google.com/
+	
+	Modification Info: 
+	----------------------------------------------------------------------------
+	Date		Who		Notes
+	----------------------------------------------------------------------------
+	
+	Parameters:
+	----------------------------------------------------------------------------
+	param	- not used
+	
+	Returns:
+	----------------------------------------------------------------------------
+	result - nothing
+	--------------------------------------------------------------------------*/
+
+declare function oi_dataconv, shellExecute, getTempPath, get_property
+
+$insert logical
+
+equ null$		to ""
+equ crlf$		to \0D0A\
+
+/* table - the name of the OpenInsight table to process */
+table = "CUSTOMERS"
+
+/* fields - a multivalued or comma delimited list of fields to process. If fields
+			is null then all fields (incuding symbolics) will be processed. */
+fields = "COMPANY,CUSTOMER_NAME,ADDRESS1,ADDRESS2,CITY,STATE,ZIP,COUNTRY,PHONE,FAX,EMAIL"
+
+/* data - the raw data to process. Pass data in the following format.
+		  rows are record mark delimited @rm
+		  fields are field mark delimited @fm
+		  values are value mark delimited @vm
+		  
+		  if you pass data the ids, and savelist are ignored.
+		  
+		  if data is null, then the raw data created by oi_dataconv is passed back
+		  at the end of processing so that you can perform any post processing */
+		  
+data = null$
+
+/* ids - a multivalued or comma delimted list of row ids to process, or a valid
+		 RLIST select statement */
+ids = "SELECT 100 CUSTOMERS BY COMPANY"
+
+/* savelist	- the name of a savelist to retrive. If supplied, then ids is ignored. */
+savelist = null$
+
+/* attributes - this parameter is passed to the formating routine, in this case
+				oi_dataconv_kml. The layout of attributes is sepcific to each
+				output routine.
+				
+				for oi_dataconv_kml attributes is a field mark delimited array.
+				attributes<1> = the tag position to start processing the row data
+							   This allows you to great tags above the row processing
+							   
+							   In the example below we start processing rows at
+							   tag level 2 - Folder
+							  
+				attributes<2>... = the tagNodes and their properties
+								 kml is a special form of XML. Tags can have attributes
+								 and values and can contain child nodes.
+								 see http://code.google.com/apis/kml/documentation/
+								 for more information on kml.			   
+				
+								In this example we create a Folder for each customer
+								and then a PlaceMark for the actual address.
+								
+								Because we don't have a Latitude and Longitude for each customer
+								we are relying on Google Earth performing an Address Search.
+								
+								if we did have the latitude and longitude, we would
+								add an extract node level called Point. 
+		
+				pass kml tags and values in @vm/@svm format or ~| format
+				EG tagName1|tagValue1~tagNode1|tagNodeValue1~tagNode2|TagValue2
+				
+				The first value is the treeNode, all subsequent values are Node values that don't have any children.
+				
+				So attributes field 2 is the nodeTree parent, with all NodeValues that don't have children
+				
+				attribute field 3 is a child node of attribue field 2, and the it's list of Nodevalues etc
+				
+				tagNames are case sensitive and without the angle brackets.
+				
+				You can insert OI data by entering {fieldname} in the nodeValue sub value
+				Multivalues will be broken into multiple tagNodes/TagValues, one for each multi value.
+				
+				You can also insert raw tag data by passing the tagName starting with the angle bracket.
+				styles in the Document node is an example of doing this.	
+
+*/
+												
+styles = xlate("SYSPROCS","GOOGLE_KML_STYLES*EXAMPLES","","X")
+styles = delete(styles,1,0,0)
+swap @fm with crlf$ in styles
+
+attributes = ""
+attributes<1> = 2
+attributes<2> = "Document~name|Example Customers~description|Generated on ":oconv(date(),"D4/E"):" at ":oconv(time(),"MTH"):" by ":@username:"~open|1":"~":styles
+attributes<3> = "Folder~name|{COMPANY} - {CUSTOMER_NAME}~description|{ADDRESS1} {ADDRESS2} {CITY} {STATE} {ZIP} {COUNTRY}"
+attributes<4> = "Placemark~name|{CITY}~description|<b>Phone :</b> {PHONE}<br/><b>Fax : </b>{FAX}<br/><b>EMail : </b>{EMAIL}~address|{ADDRESS1} {ADDRESS2} {CITY} {STATE} {ZIP} {COUNTRY}~<styleUrl>#exampleStyleMap</styleUrl>"
+
+** We don't have longitude or latitude values in the Customers table, so we don't include the Point Node
+*attributes<5> = "Point~coordinates|{LONGITUDE},{LATITUDE}"			
+
+kml = oi_dataconv("KML",table,fields,data,ids,savelist,attributes)
+
+if kml then
+	//write this to the users temp directory and then open with google earth
+	TempDir = str(' ',255)			;* Initialise the TempDir variable ready to send to GetTempPath Windows function
+	val = GetTempPath(255,TempDir)	;* Determine the users temp directory
+	TempDir = TempDir[1,Val]
+tempdir = 'c:\'		;* Removed Null terminator
+	osFile = tempDir:"\":@username:".kml"
+	oswrite kml on osFile
+	
+	hwnd = get_property(@window,"HANDLE")
+	parms = null$
+	showCmd = 3
+	void = ShellExecute(hwnd, 'open':\00\, osFile:\00\, parms:\00\, drive():\00\, showCmd)
+end
+
+return result
+end

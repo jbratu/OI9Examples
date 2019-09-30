@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "CALL ORDER_ENTRY_EVENTS(CtrlEntId,'WRITE')\r\nRETURN 1"
+    }
+}

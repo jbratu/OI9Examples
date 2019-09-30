@@ -1,0 +1,85 @@
+compile insert POPUP_EQUATES
+
+declare function Popup
+
+common /%POPUP%/ Popup_Struct@, Popup_ColCount@, Popup_hFile@, Popup_KeyList@, Popup_OpenDocIDs@, Popup_ConInfo@, Popup_hWndET@, Popup_ClickPos@, Popup_Type@, Popup_Field@, Popup_Oconvs@, Popup_Fields@, Popup_RetVal@, Popup_Cancelled@, Popup_Unused_1@
+* ClickPos <1>=area <2>=row# <3>=state <4>=select counter
+* hFile    <1>=data <2>=dict
+* ConInfo  <1>=ds   <2>=xo   <n,1>=name <n,2>=handle <n,3>=owned (created by Popup)
+
+* Popup Record structure EQUATEs
+EQU PCOL$         to 1    ;* Window X position
+EQU PROW$         to 2    ;* Window Y position
+EQU PWIDTH$       to 3    ;* Popup window width
+EQU PHEIGHT$      to 4    ;* Popup window heigth
+EQU PBKCOLOR$     to 5    ;* EditTable backcolor
+EQU PFONT$        to 6    ;* EditTable font 
+EQU PFILE$        to 7    ;* for DataSet, DataSet Name: @vm: hDS (hDS can be supplied by the caller)
+EQU PDISPLAY$     to 8    ;* for DataSet, argument list
+EQU PFORMAT$      to 9    ;* column format information (@vm delim'd by column, @svm by attribute) field, width, just, heading just, oconv, heading
+Equ PMODE$        to 10   ;* N=Notes Documents, D=DataSet, T=Table, K=Table Keys,
+                          ;* C=Cursor of Table Keys, L=Literal Data (@vm/@svm),
+                          ;* R=Columns (values) from a row, F=Column from a row (subvalues from a value)
+EQU PSELECT$      to 11   ;* 0=none, 1=single, 2=multiple, 3=ordered multiple
+EQU PTITLE$       to 12   ;* Popup window title
+EQU PFIELD$       to 13   ;* Fields or columns to return
+EQU PTYPE$        to 14   ;* Return value: K{ey}/DocID, R{ead only}, Row P{ositions}, Popup F{ield} (ie. Column), Table C{olumn} (ie. Field), E{ntire} Row
+EQU PCOLHDR$      to 15   ;* bool:  show column headings
+EQU PROWNUM$      to 16   ;* bool:  show row numbers
+EQU PROWBTN$      to 17   ;* bool:  show row buttons
+EQU PHGRID$       to 18   ;* bool:  show horizontal grid
+EQU PVGRID$       to 19   ;* bool:  show vertical grid
+EQU PRESIZE$      to 20   ;* bool:  allow column resizing
+EQU PBORDER$      to 21   ;* bool:  show border
+EQU PBTNSBELOW$   to 22   ;* bool:  buttons on bottom instead of right
+EQU PSEARCH$      to 23   ;* bool:  allow search (FIND button)
+EQU PSORT$        to 24   ;* bool:  allow column sorting
+EQU PLOCK$        to 25   ;* count:  number of columns to "scroll lock"
+EQU PUSERDEF$     to 26   ;* this column is reserved as user-defineable
+EQU PSUBFILE$     to 27   ;* for DataSet, Connection Name: @vm: hXO ( hXO can be supplied by caller )
+EQU PINITSELECT$  to 28   ;* @vm list of positions to select initially
+equ PShowMissing$ to 29	  ;* boolean; if true show the phrase 'Record Missing' in columns * mtr 8-21-03
+equ PPrintable$   to 30	  ;* boolean; if true show the print button * mtr 9-2-03
+equ PShowGauge$   to 31	  ;* boolean; if true show the gasgauge when populating the popup * mtr 4-14-05
+equ PCaptureEsc$  to 32	  ;* boolean; if true return char(27) when user presses escape * mtr 4-14-05
+equ PGreenBar$    to 33	  ;* boolean; if true turn On rowshade property of popup edittable * mtr 11-29-05, flying To Orlando To demo the new CTO
+equ POddRowCOlor$ to 34	  ;* Color, If rowshade is enabled * mtr 11-29-05, flying To Orlando To demo the new CTO
+equ PEvenRowCOlor$ to 35  ;* Color, If rowshade is enabled * mtr 11-29-05, flying To Orlando To demo the new CTO
+*
+EQU PNUMFIELDS$   to 35   ;* set to the number of fields in the Popup structure
+
+
+* Popup() function calls
+*
+* function PopUp(OwnerWindow, Rec, Name, Instruction)
+*
+* where Instruction is:
+*
+equ PCMDEXEC$     to 1    ;* OwnerWindow should be supplied, Rec contains override information, Name is Popup name
+                           * if Name is supplied, Popup record will be read and Rec will be used as an override
+equ PCMDSELECT$   to 2    ;* OwnerWindow is required, Rec<1> is title for dialog, Rec<2> is either "OPEN" or "SAVE"
+                           * Popup name is returned, first Get_Status error code will be REP_ENT_NOEXISTS_ERR$ if new Popup
+equ PCMDLOCK$     to 3    ;* Name is Popup name, TRUE$ returned on success, first Get_Status will be either
+                           * REP_ENT_SHORTLOCK_ERR$ or REP_ENT_OWNLOCK_ERR$ if the Popup is in use elsewhere, otherwise
+                           * it will be REP_ENT_LONGLOCK_ERR$ if the Popup is checked out
+equ PCMDREAD$     to 4    ;* Name is Popup name, Rec is set to Popup record, TRUE$ returned on success, Get_Status is
+                           * available for error handling
+equ PCMDWRITE$    to 5    ;* Name is Popup name, Rec is Popup record, TRUE$ returned on success, Get_Status is
+                           * available for error handling
+equ PCMDUNLOCK$   to 6    ;* Name is Popup name, TRUE$ returned on success, Get_Status is available for error handling
+equ PEVENTOK$     to 7    ;* reserved by Popup window
+equ PEVENTCANCEL$ to 8    ;* reserved by Popup window
+equ PEVENTCLEAR$  to 9    ;* reserved by Popup window
+equ PEVENTALL$    to 10   ;* reserved by Popup window
+equ PEVENTFIND$   to 11   ;* reserved by Popup window
+equ PEVENTCLICK$  to 12   ;* reserved by Popup window
+equ PEVENTDBLCLK$ to 13   ;* reserved by Popup window
+equ PCMDDEFAULT$  to 14   ;* Rec is set to default Popup record, TRUE$ returned on success
+equ PCMDCLOSE$    to 15   ;* reserved by Popup window
+equ PCMDRETRIEVE$ to 16   ;* reserved by Popup window
+
+* Popup entity ID
+equ POPUPTYPE$    to "POPUP"
+equ POPUPCLASS$   to ""
+
+* Source Date: 09:40:08  16 JAN 1996  Build ID: OI*3.1.24  Level: 3.1

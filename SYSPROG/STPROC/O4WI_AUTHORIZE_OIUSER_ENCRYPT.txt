@@ -1,0 +1,78 @@
+Function O4WI_AUTHORIZE_OIUSER_ENCRYPT(uname, pwd, ptime)
+*#!Precompile
+/*
+*  This program is proprietary and is not to be used by or disclosed to others, nor is it to be copied without
+*  written permission from Revelation Technologies, Inc.
+!
+*
+*  VERSION    : 1.0
+*
+*
+*  AUTHOR     : Bryan Shumsky
+*
+*  CREATED    : March 17, 2012
+*
+*  Check if username/password matches EITHER an entry in the O4WPERMS table, or a valid OI user for the current application
+!
+*
+*  REVISION HISTORY           (Most CURRENT first) :
+*
+*    DATE       IMPLEMENTOR     FUNCTION
+*  --------     -----------     --------
+*	03/17/12	bzs		derived from O4WI_AUTHORIZE
+*
+*/
+*
+*
+*
+$Insert O4WCommon
+$Insert O4WEquates
+*
+Declare Function Repository, CheckLegalO4WUser
+*
+If Assigned(uname) Else uname = ""
+If Assigned(pwd) Else pwd = ""
+If Assigned(ptime) Else ptime = ""
+*
+rslt = ""
+
+If uname <> "" And pwd <> "" then
+	* Check against permissions file
+	permRecord = Repository("ACCESS", @APPID<1>:"*UINFO*O4W*":uname)
+    CALL SET_STATUS(0) ;* OK IF THIS DOESN'T EXIST
+	If permRecord <> "" Then
+		* there's an O4W record for this user - use it
+		If ptime = "" then
+			If permRecord<1> = pwd Then
+				rslt = permRecord<2>
+				If rslt = "" Then rslt = "<<none>>" ;* bzs 041511
+			end
+		End else
+			HVAL = O4WI_ENCRYPT(permRecord<1>, ptime)
+			If hval = pwd Then
+				rslt = permRecord<2>
+				If rslt = "" Then rslt = "<<none>>" ;* bzs 041511
+			end
+		End
+	End Else
+		* no O4W record - check against normal OI users
+		salt = Xlate("DICT.O4WPERMS", "SALT", 2, "X")
+		stat = CheckLegalO4WUser(uname, pwd, salt, ptime)
+		Begin Case
+			Case stat = 0
+				* normal user
+				rslt = 20
+			Case stat = 1
+				* privileged user
+				rslt = 10
+			Case stat = 2
+				* super user
+				rslt = 1
+		End Case
+	end
+End
+
+*
+
+Return rslt
+

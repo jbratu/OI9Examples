@@ -1,0 +1,13 @@
+compile insert REVDOTNETEQUATES
+Equ REVDOTNET_INFO_CLASSES To 1
+Equ REVDOTNET_INFO_METHODS To 2
+Equ REVDOTNET_INFO_PROPERTIES To 3
+Equ REVDOTNET_INFO_EVENTS To 4
+Equ REVDOTNET_INFO_FIELDS To 5
+Equ REVDOTNET_INFO_INTERFACES To 6
+Equ REVDOTNET_INFO_TYPE_VALUES To 7
+
+Declare Subroutine events.net, free_class.net
+Declare Function GET_INFO.NET, CREATE_CLASS.NET, StartDotNet, ParseDotNet, Create_Params.net
+Declare function set_property.net, send_message.net, get_property.net, CheckDotNet, Array_Utility.net
+

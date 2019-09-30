@@ -1,0 +1,79 @@
+Function CS_PS_WRAPPER(FuncName,Arg1,Arg2,Arg3,Arg4,Arg5,Arg6,Arg7,Arg8,Arg9,Arg10)
+
+Declare Function Function
+
+
+
+ArgCount = 0 ;* Assume no arguments
+
+If Unassigned(Arg4) Then 
+	ArgCount = 3
+End Else
+	If ArgCount EQ 0 Then ArgCount = 4
+	Swap '|@FM' With @FM In Arg4
+	Swap '|@VM' With @VM In Arg4
+	Swap '|@SVM' With @SVM In Arg4
+	Swap '|@TM' With @TM In Arg4
+	Swap '|@STM' With @STM In Arg4
+End
+
+
+If Unassigned(Arg3) Then 
+	ArgCount = 2
+End Else
+	If ArgCount EQ 0 Then ArgCount = 3
+	Swap '|@FM' With @FM In Arg3
+	Swap '|@VM' With @VM In Arg3
+	Swap '|@SVM' With @SVM In Arg3
+	Swap '|@TM' With @TM In Arg3
+	Swap '|@STM' With @STM In Arg3
+End
+
+If Unassigned(Arg2) Then 
+	ArgCount = 1
+End Else
+	If ArgCount EQ 0 Then ArgCount = 2
+	Swap '|@FM' With @FM In Arg2
+	Swap '|@VM' With @VM In Arg2
+	Swap '|@SVM' With @SVM In Arg2
+	Swap '|@TM' With @TM In Arg2
+	Swap '|@STM' With @STM In Arg2
+End
+
+If Unassigned(Arg1) Then 
+	ArgCount = 0
+End Else
+	If ArgCount EQ 0 Then ArgCount = 1
+	Swap '|@FM' With @FM In Arg1
+	Swap '|@VM' With @VM In Arg1
+	Swap '|@SVM' With @SVM In Arg1
+	Swap '|@TM' With @TM In Arg1
+	Swap '|@STM' With @STM In Arg1
+End
+
+RetVal = ''
+
+If Unassigned(FuncName) Then Return ''
+
+Begin Case
+
+	Case ArgCount = 0
+		*RetVal = @FuncName()
+	Case ArgCount = 1
+		RetVal = Function(@FuncName(Arg1))
+	Case ArgCount = 2
+		RetVal = Function(@FuncName(Arg1, Arg2))
+	Case ArgCount = 3
+		RetVal = Function(@FuncName(Arg1, Arg2, Arg3))
+	Case ArgCount = 4
+		RetVal = Function(@FuncName(Arg1, Arg2, Arg3, Arg4))
+		
+End Case
+
+Return RetVal
+
+
+
+
+
+

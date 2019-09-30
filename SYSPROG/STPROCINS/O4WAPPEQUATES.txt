@@ -1,0 +1,38 @@
+compile insert O4WAPPEQUATES
+* O4W App Equates
+Equ AdminFlag$ To 1
+Equ Permissions$ To 2
+Equ ProcedureType$ To 3
+Equ Description$ To 4
+Equ Menu$ To 5
+Equ Template$ To 6
+Equ Command$ To 7
+Equ PromptFor$ To 8
+Equ PromptText$ To 9
+Equ PromptConv$ To 10
+Equ ResultFrom$ To 11
+Equ HTMLWrap$ To 12
+Equ Paginate$ To 13
+Equ Modules$ To 14
+* value 1: modules for procedure definition (including object code)
+* value 2: modules for source code
+* value 3: modules for debug record
+Equ ResponseType$ To 15
+Equ TransientFlag$ To 20
+
+Equ PROCEDURETYPE_O4W$ To ""
+Equ PROCEDURETYPE_CTO$ To "1"
+Equ PROCEDURETYPE_PROC$ To "2"
+Equ PROCEDURETYPE_FUNC$ To "3"
+
+Equ RESULTFROM_CAPTURE$ To "-1"
+Equ RESULTFROM_FUNC$ To "0"
+
+Equ PARAMTYPE_PROC$ To "1"
+Equ PARAMTYPE_DATA$ To "2"
+Equ PARAMTYPE_CMD$ To "3"
+
+Equ RESPONSETYPE_HTML$ To "0"
+Equ RESPONSETYPE_XML$ To "1"
+Equ RESPONSETYPE_TEXT$ To "2"
+

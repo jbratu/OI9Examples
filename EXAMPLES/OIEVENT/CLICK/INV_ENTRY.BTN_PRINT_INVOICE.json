@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "declare subroutine Print_Invoice\r\n\r\nwinName = CtrlEntID[1,'.']\r\ninvoice = Get_Property(winName:'.ID','DEFPROP')\r\nPrint_Invoice(winName,invoice)\r\n\r\nRETURN 0"
+    }
+}

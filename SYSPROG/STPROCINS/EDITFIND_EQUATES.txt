@@ -1,0 +1,35 @@
+compile insert EditFind_Equates
+
+******************************************************************************
+*
+* Product    :  OpenInsight Works
+*
+* Name       :  EditFind_Equates
+* Description:  Instructions and constants for the EditFind function
+*
+* History    :
+*   02/23/96  cp   Original programmer
+*   10/15/97  cp   Updated for 3.5
+*
+******************************************************************************
+
+* instructions
+equ EFCMD_FIND$           to 1
+equ EFCMD_CLOSEFIND$      to 2
+equ EFCMD_FINDNEXT$       to 3
+equ EFCMD_FINDPREV$       to 4
+equ EFCMD_REPLACE$        to 5     ;* reserved
+equ EFCMD_CLOSEREPLACE$   to 6     ;* reserved
+equ EFCMD_ISFINDABLE$     to 7
+equ EFCMD_ISFINDNEXTABLE$ to 8
+equ EFCMD_ISREPLACEABLE$  to 9     ;* reserved
+equ EFCMD_FINDCREATE$     to 10    ;* reserved
+equ EFCMD_TEXTCHANGED$    to 11    ;* reserved
+equ EFCMD_NEXTCLICKED$    to 12    ;* reserved
+equ EFCMD_MARKALLCLICKED$ to 13    ;* reserved
+equ EFCMD_FINDCLOSE$      to 14    ;* reserved
+
+* options structure
+equ EFP_OPT_MATCHCASE$    to 1
+equ EFP_OPT_WHOLEWORD$    to 2
+equ EFP_OPT_FORWARD$      to 3

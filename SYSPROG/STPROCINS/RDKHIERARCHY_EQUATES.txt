@@ -1,0 +1,7 @@
+/* Equates for hierachical listbox control */
+
+EQU RDKTYPE_PREFIX$		TO "1-1:"
+EQU RDKCLASS_PREFIX$	TO "2-2:"
+EQU RDKENTITY_PREFIX$	TO "3-3:"
+
+EQU RDKPREFIX_LEN$		TO 4		/* Adjust if the prefixes change length */

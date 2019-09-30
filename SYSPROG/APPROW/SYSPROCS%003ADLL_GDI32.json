@@ -1,0 +1,6 @@
+{
+    "record1": {
+        "<1>": "GDI32",
+        "<2>": "INT STDCALL GetDeviceCaps(HANDLE,INT)"
+    }
+}

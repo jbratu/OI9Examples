@@ -1,0 +1,120 @@
+Compile Insert PS_Style_Equates
+
+// -----------------------------------------------------------------
+// PSStyle values
+
+// specific for OT_WINDOW objects 
+Equ PSS_WIN_CENTERBMP         To    0x0001 // also used by mdiclient
+Equ PSS_WIN_HASBUTTONBAR      To    0x0010
+Equ PSS_WIN_TILEBMP           To    0x0020 // also used by mdiclient
+Equ PSS_WIN_TABONSCREEN       To    0x0040
+Equ PSS_WIN_NOHELPTEXT        To    0x0080
+Equ PSS_WIN_HASMENU           To    0x0100 // used for client area calculation only
+Equ PSS_WIN_AUTOICONARRANGE   To    0x0200
+Equ PSS_WIN_INDEPENDENT       To    0x0400
+Equ PSS_WIN_IGNOREACCELCHAR   To    0x0800
+Equ PSS_DIALOGBOX             To    0x1000
+Equ PSS_WIN_AUTOSCROLL        To    0x2000
+Equ PSS_WIN_MULTIINSTANCE     To    0x4000
+Equ PSS_WIN_BACKGROUNDCOLOR   To    0x8000
+
+// generic for not OT_WINDOWs
+Equ PSS_DEFAULTBUTTON         To    0x0001
+Equ PSS_CANCELBUTTON          To    0x0002
+Equ PSS_INITIALFOCUS          To    0x0004
+Equ PSS_TRANSPARENT_BMP       To    0x0008
+
+Equ PSS_NOECHO                To    0x0010
+Equ PSS_TABOUTEXCEEDED        To    0x0020
+Equ PSS_DUMMYOBJECT           To    0x0040
+Equ PSS_BM_AUTOTAB            To    0x0080
+Equ PSS_AUTOSIZE_X            To    0x1000
+Equ PSS_AUTOSIZE_Y            To    0x2000
+Equ PSS_AUTOSIZE_W            To    0x4000
+Equ PSS_AUTOSIZE_H            To    0x8000
+Equ PSS_AUTOSIZE              To    PSS_AUTOSIZE_X + PSS_AUTOSIZE_Y + PSS_AUTOSIZE_W + PSS_AUTOSIZE_H 
+
+// specific for not OT_WINDOWs
+Equ PSS_EB_DISPLAYPOSITION    To    0x0100
+Equ PSS_EB_AUTOINDENT         To    0x0200
+
+Equ PSS_BM_CLIPONLY           To    0x0100
+Equ PSS_BM_SOLIDBMP           To    0x0200
+Equ PSS_BM_DRAWTEXT           To    0x0400
+Equ PSS_BM_SCALEIMAGE         To    0x0800
+
+Equ PSS_SB_MANUALMOVE         To    0x0010 // Don't auto move splitbar components when in ghostbar mode
+Equ PSS_SB_GHOSTBAR           To    0x0020 // SplitBars - Draw ghost line
+Equ PSS_SB_FIXEDPOSITION      To    0x0800 // SplitBars - fixed bars, but we share some PSS_BM bits
+
+Equ PSS_LB_NOSELBMP           To    0x0080
+Equ PSS_LB_HIERARCHY          To    0x0100
+Equ PSS_LB_SOLIDBMP           To    0x0200 // == PSS_BM_SOLIDBMP
+Equ PSS_LB_OVERLAPTABS        To    0x0400 // LotusNotes View alike tabs processing
+Equ PSS_LB_VIEWBOX            To    PSS_LB_HIERARCHY + PSS_LB_OVERLAPTABS
+
+Equ PSS_GB_NOAFFECTSIBLINGS   To    0x0100 // to preserve old (OI 2.0) behaviour
+
+Equ PSS_SB_NOTIFYALL          To    0x0100 // SCROLLs -- generate events for all messages
+
+Equ PSS_OLE_IGNOREACCELTRANS  To    0x0800 // Don't call OLE TranslateAccelerator()
+
+// -----------------------------------------------------------------
+// PSStyleEx values
+
+// generic for not OT_WINDOWs
+Equ PSSX_DONTPAGE             To    0x0001
+Equ PSSX_DUMMYCAPTION         To    0x0002
+Equ PSSX_REJECTFOCUS          To    0x0004 // Never implemented
+Equ PSSX_DESIGNMODE           To    0x0008 // DESIGNMODE property
+Equ PSSX_DOUBLEBUFFER         To    0x0010 // DOUBLEBUFFER property
+
+// generic for all (or some)
+Equ PSSX_WIN_NOOWNERDRAWMENU  To    0x0004 // OT_WINDOW only
+Equ PSSX_NOREDRAW             To    0x0080 // Windows doesn't maintain it
+Equ PSSX_CREATE_COMPLETE      To    0x8000 // Window creation complete
+
+// specific for not OT_WINDOWs
+Equ PSSX_LB_ENABLEDROPEXPAND  To    0x0040 // ENABLEDROPEXPAND property
+Equ PSSX_LB_ENTERASDBLCLK     To    0x0100
+Equ PSSX_LB_DRAWTREE          To    0x0200 // Not implemented
+Equ PSSX_LB_INITCOLLAPSED     To    0x0400
+Equ PSSX_LB_VCENTER           To    0x0800
+
+Equ PSSX_CB_ENABLELISTDRAG    To    0x0020 // ENABLEDRAGLIST property
+Equ PSSX_CB_ENABLELISTDROP    To    0x0040 // ENABLEDROPLIST property
+
+Equ PSSX_DT_ENABLECOLDRAG     To    0x0020 // ALLOWDRAGCOL property
+Equ PSSX_DT_ENABLEROWDRAG     To    0x0040 // ALLOWDRAGROWS property
+
+Equ PSSX_BM_ENABLEFILEDRAG    To    0x0040 // ALLOWDRAGBMPFILE property 
+
+Equ PSSX_ENABLEDRAG           To    0x1000 // ALLOWDRAG property
+Equ PSSX_ENABLEDROP           To    0x2000 // ALLOWDROP property
+Equ PSSX_ENABLEDROPSCROLL     To    0x4000 // ALLOWDROPSCROLL property
+
+
+// -----------------------------------------------------------------
+// Menu Style values
+Equ PSMS_FLOATING             To    0x1
+Equ PSMS_HIDDEN               To    0x2
+
+// -----------------------------------------------------------------
+// Menu Item Style Values - see also CtlClass.h in formdes
+Equ PSIS_AUTOCHECK            To    0x0001
+Equ PSIS_GROUPBEGIN           To    0x0002
+Equ PSIS_GROUPEND             To    0x0004
+Equ PSIS_SKIPMENUEVENT        To    0x0010
+Equ PSIS_GENERATELOSTFOCUS    To    0x0020
+Equ PSIS_PASSEVENTTOFRAME     To    0x0040
+Equ PSIS_COPYSTATE            To    0x0080
+
+Equ PSIS_TOPLEVELITEM         To    0x0100
+Equ PSIS_SEPARATOR            To    0x0200
+Equ PSIS_DROPPED              To    0x0400
+Equ PSIS_TEXTSEPARATOR        To    0x0800
+Equ PSIS_MDIWINDOWITEM        To    0x1000 // Item is auto maintained - it's part of the MDI "Window" menu
+Equ PSIS_HIDDENPOPUP          To    0x2000
+Equ PSIS_MDIWINDOWPOPUP       To    0x4000
+Equ PSIS_POPUP                To    0x8000
+

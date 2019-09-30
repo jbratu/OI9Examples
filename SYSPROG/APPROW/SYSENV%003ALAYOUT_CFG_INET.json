@@ -1,0 +1,15 @@
+{
+    "record1": {
+        "<1>": "Configure defaults, handlers, and allowed routines for RUN_OECGI_REQUEST",
+        "<2>": "When using RUN_OECGI_REQUEST as the \"listener\" routine for handling web requests, you can configure various routines to check security, handle errors, and do any post-processing.  In addition, you can specify which INET routines should be processed.",
+        "<3>": {
+            "<3,1>": "Name of security routine to run {DEFAULT INET_SECURITY}",
+            "<3,2>": "Name of post-processing routine to run {DEFAULT INET_FINALIZE}",
+            "<3,3>": "Name of error handler routine to run {DEFAULT INET_ABORTED}"
+        },
+        "<4>": "Error message to return {TEXTAREA 5}{DEFAULT Cannot process query:%query%}{WIDTH 40}",
+        "<5>": "Default CGI extension {DEFAULT exe}",
+        "<6>": "Error page to return",
+        "<7>": "{MV 1}List of INET routines to allow"
+    }
+}

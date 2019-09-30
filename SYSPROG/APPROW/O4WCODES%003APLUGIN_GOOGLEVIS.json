@@ -1,0 +1,7 @@
+{
+    "record1": {
+        "<1>": "",
+        "<2>": "https://www.google.com/jsapi",
+        "<3>": "google.load(\"visualization\", \"1\", {packages: [\"corechart\",\"gauge\",\"table\",\"geomap\",\"intensitymap\",\"imagesparkline\"]});"
+    }
+}

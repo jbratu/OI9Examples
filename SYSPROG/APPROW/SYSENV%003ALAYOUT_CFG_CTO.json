@@ -1,0 +1,19 @@
+{
+    "record1": {
+        "<1>": "CTO and AREV32 connection details",
+        "<2>": "Specify how CTO and AREV32 clients should connect to the OpenInsight system",
+        "<3>": "URL of Engine Server, or path to REVCAP32{BREAK}(for direct connection)",
+        "<4>": {
+            "<4,1>": "Port Number of Engine Server",
+            "<4,2>": "Optional Engine Name",
+            "<4,3>": "Optional Startup Flags",
+            "<4,4>": "Optional Shutdown Flags"
+        },
+        "<5>": "Optional foreground color",
+        "<6>": "Optional background color",
+        "<7>": "Optional window title {WIDTH 40}",
+        "<8>": "Optional name of program to run when connected {WIDTH 40}",
+        "<9>": "Optional font name",
+        "<10>": "Optional macro record name"
+    }
+}

@@ -1,0 +1,158 @@
+Function TEST_DIFF_EVENTS(CtrlEntID, Method, Param1, Param2, Param3, Param4, Param5, Param6)
+/*
+** Commuter Module
+
+*/
+
+Declare Function Get_Property, Set_Property, Send_Message, Set_FsError, Repository, Get_Repos_Entities
+Declare function rti_combo_scroll, Utility,  Get_Env, rti_sourcediff_processor
+Declare subroutine Set_Property, Send_Event,Set_FsError, Send_message, FsMsg
+
+$insert logical
+$insert Msg_Equates
+$Insert popup_Equates
+* bzs note: DOES THIS NEED TO BE DYNAMICALLY DETERMINED?
+* This _should_ be the 'twips per pixel' on this form
+EQU TPPX TO 15
+EQU TPPY TO 15
+Equ crlf$ To \0D0A\
+
+if assigned(CtrlEntId) else CtrlEntId = ''
+if assigned(Method)  else Method = ''
+p1 = if assigned(Param1) then Param1 else ''
+p2 = if assigned(Param2) then Param2 else ''
+p3 = if assigned(Param3) then Param3 else ''
+p4 = if assigned(Param4) then Param4 else ''
+p5 = if assigned(Param5) then Param5 else ''
+p6 = if assigned(Param6) then Param6 else ''
+
+AtWindow = CtrlEntId[1,'.']
+CtrlName = CtrlEntId[col2()+1, @rm]
+err = ''
+errs = ''
+nothing = ''
+retval = 0
+
+begin case
+	Case Method _eqc 'CHANGED'           ; Gosub Changed
+	case Method _eqc 'CREATE'            ; GoSub Create
+	case Method _eqc 'COMPARE'            ; GoSub Compare
+	case Method _eqc 'WINDIFF'            ; GoSub WinDiff
+	case otherwise$
+		retval = 1
+end case
+
+return retval
+
+create:
+
+entlist = Get_Repos_Entities(@appid<1>, 'STPROC', '')
+list = space(len(entlist))
+epos = 1
+lpos = 1
+loop
+	this_ent = entlist[epos,@fm]; done=entlist[col2(),1] # @fm; epos = col2()+1
+	if this_Ent then
+		name = field(this_Ent, '*', 4)
+		nlen = len(name)+1
+		list[lpos,nlen] = name:@fm
+		lpos += nlen
+	end
+until done
+repeat
+if lpos > 1 then
+	list = list[1,lpos-2]
+end else
+	list = ''
+end
+
+Set_Property(@window:'.CBO_LEFT', 'LIST', list)
+Set_Property(@window:'.CBO_RIGHT', 'LIST', list)
+
+
+phWnd = GET_PROPERTY(@window, "HANDLE")
+Ctrls = 'LEFT':@fm:'RIGHT'
+for i = 1 to 2
+	ctrl = @window:'.':ctrls<i>
+	RSLT = Send_Message(Ctrl,'InitScintilla', phWnd)
+	* SET INITIAL SIZE
+	mSize = Get_Property(Ctrl, "SIZE")
+	CALL Send_Message(Ctrl, 'MoveSCI', mSize<1>, mSize<2>, mSize<3>*TPPX, mSize<4>*TPPY)
+	* Set initial properties
+	call SEND_MESSAGE(Ctrl, "SetEOL", "1") ;* set to use CR for EOL
+	Call Set_Property(Ctrl, 'MaintainIndentation', 1)
+	Call Set_Property(Ctrl, 'useTabs', 1)
+	Call Set_Property(Ctrl, 'HighlightBraces', 1)
+	Call Set_Property(Ctrl, 'Folding', 1)
+	Call Set_Property(Ctrl, 'FoldMarker', 1) ;* can use values 0->3
+	
+	
+	* determine if we're in UTF8 mode and therefore change what our delimters are
+	if char(255) = @RM then
+		* no, not in utf8 mode
+		call set_property(Ctrl, "MinDelimValue", 250)
+	end else
+		CALL Set_Property(Ctrl, "codePageInt", "65001") ;* set to proper utf8 codepage
+		* in utf8 mode - go down another couple
+		call set_property(Ctrl, "MinDelimValue", 248)
+	end
+next
+
+return
+
+Changed:
+
+id = Get_Property(CtrlEntId, 'TEXT')
+entid = @appid<1>:'*STPROC**':id
+t_prog = Repository('ACCESS', entId)
+
+if CtrlName = 'CBO_LEFT' then
+	target = @window:'.LEFT'
+end else
+	target = @window:'.RIGHT'
+end
+
+swap @fm with \0D\ in t_prog
+prop =  "Text" ;* BZS NOTE: all properties are Case Sensitive
+Set_Property(target, prop, t_prog)
+Set_property(target, 'LineNumbers', true$)
+
+return
+
+Compare:
+
+left = Get_PRoperty(@window:'.LEFT', 'Text')
+right = Get_PRoperty(@window:'.RIGHT', 'Text')
+swap crlf$ with @fm in left
+swap crlf$ with @fm in right
+result = rti_sourcediff_processor(left, right)
+leftcodes = result<1>
+rightcodes = result<2>
+
+for i = 1 to 2
+	Ctrl  = if ( i=1 ) then @window:'.LEFT' else @Window:'.RIGHT'
+	codes = result<i>
+	
+	Call Send_Message(ctrl, 'MarkerDeleteALL', -1)
+	
+	cnt = count(codes, @vm) + ( codes # '' )
+    col = ''
+	for i = 1 to cnt
+		remove code from codes at col setting mark
+		begin case
+			case code = ''  ; this_marker = ''
+			case code = 's' ; this_marker = ''
+			case code = 'i' ; this_marker = '14'
+			case code = 'd' ; this_marker = '15'
+		end case
+		if this_marker then
+			Call Send_Message(Ctrl, "ToggleMarkerAtLine", i-1, this_marker) ;* NOTE: whichLine is 0-based, even though line numbers are 1-based
+		end
+	next
+next
+return
+
+WinDiff:
+return
+
+

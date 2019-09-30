@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "\r\nproperty = .Property->Text\r\nvalue = .Value->Text\r\n// Specify OLE. in fornt of property to avoid with PS property of same name\r\nwas = Set_Property(@Window:'.HTML', 'OLE.':property, value)\r\n.Was->Text = was\r\n\r\n\r\nRETURN 0"
+    }
+}

@@ -1,0 +1,97 @@
+Function Inet_invoice_rpt(request)
+/* --------------------------------------------------------------------------
+
+  This  program  is  proprietary and is not  to be used  by or  disclosed to others, nor is it to be copied
+  without written permission from Revelation Technologies, Inc.
+
+ VERSION    : OI 4.0.1
+
+ PURPOSE    : Sample Invoice reporting across the web 
+
+ AUTHOR     : Revelation Software
+
+ CREATED    : January, 2002
+
+ PROCEDURES : This module may be called either as a stored procedure
+              or as an internal subroutine.
+
+ WARNINGS   : Must run in event context. 
+
+ THEORY OF OPERATION :
+			
+			Called from the Web
+			Confirms data exists, uses Btree Indexes to find orders
+			Uses inet_Rlist to create report
+    
+     
+ COMMENTS :
+
+ REVISION HISTORY           (Most CURRENT first) :
+
+    DATE       IMPLEMENTOR     FUNCTION
+  --------     -----------     --------
+  MM-DD-YY     initials        Modification
+
+---------------------------------------------------------------------------*/
+
+declare function Inet_msg, inet_queryparam
+declare subroutine btree.extract
+declare function inet_rlist
+
+****************************************
+* Get the Company Name from the screen *
+****************************************
+
+customer_name = Inet_queryparam(request,'CUSTOMER_NAME')
+	if customer_name else
+		varhtml = inet_msg(request,'Please enter a customer name.')
+		return varhtml
+	end	
+convert @lower_case to @upper_case in customer_name
+		
+
+***
+* Open the Orders table and verify the customer name
+***
+		
+open "ORDERS" to f_orders else
+	varhtml = inet_msg(request,'Unable to open the Orders table.')
+	return varhtml
+end
+			
+open "DICT.ORDERS" to d_dict.orders else
+	varhtml = inet_msg(request,'Unable to open the Orders Dictionary.')
+	return varhtml
+end
+
+
+* Find Orders
+flag=''
+search_string = 'CUSTOMER_NAME':@vm:customer_name:@FM
+file= 'ORDERS'
+dict = d_dict.orders
+keys = ''
+option = 'S'
+flag = ''
+btree.extract(search_string, file, d_dict.orders, keys, option, flag)
+if len(keys) else
+  	varhtml = inet_msg(request,'Your company name may have been mistyped. Please try entering it again.')
+  	Return varHtml
+end
+
+* Turn keys into quoted list of ids that Rlist can use
+swap @vm with '" "' in keys
+
+cust_no = keys
+myheading = "HEADING " : Quote("Orders for ":customer_name)
+COMMAND = "LIST ORDERS WITH CUST_NO ":QUOTE(CUST_NO):" ID ORDER_DATE SUB_TOTAL BY-DSND ORDER_DATE ID-SUPP ": myheading
+
+varhtml= inet_rlist(request, COMMAND)
+
+bgcolor="#d7cfa8"
+swap '<BODY' with '<body bgcolor=':quote(bgcolor) in varhtml
+swap '<body' with '<body bgcolor=':quote(bgcolor) in varhtml
+swap '&nbsp' with '&nbsp;' in varhtml
+			
+return varhtml
+		

@@ -1,0 +1,74 @@
+compile function get_next_id(table)
+/* --------------------------------------------------------------------------
+
+  This  program  is  proprietary and is not  to be used  by or  disclosed to others, nor is it to be copied
+  without written permission from Revelation Technologies, Inc.
+
+ VERSION    : OI 4.0.1
+
+ PURPOSE    : This is used to get the next key for any file with a Sequential Key counter 
+
+ AUTHOR     : Revelation Software
+
+ CREATED    : January, 2002
+
+ PROCEDURES : This module may be called either as a stored procedure
+              or as an internal subroutine.
+
+ WARNINGS   : Must run in event context. 
+
+ THEORY OF OPERATION :
+			
+			Pass in the name of a table. 
+			This routine locks the record, increments the counter, returns the id
+    
+     
+ COMMENTS :
+
+ REVISION HISTORY           (Most CURRENT first) :
+
+    DATE       IMPLEMENTOR     FUNCTION
+  --------     -----------     --------
+  MM-DD-YY     initials        Modification
+
+---------------------------------------------------------------------------*/
+
+$INSERT Logical
+Declare Function Msg
+
+status = ''
+
+Open 'DICT.':table to tablevar then
+	locked = FALSE$
+	tries = 1
+	Loop
+			Lock tablevar,'%SK%' then
+				locked = TRUE$
+			end else
+				for ctr = 1 to 1000
+				next ctr
+				tries += 1
+				call yield
+			end
+		until locked or tries = 1000 
+	repeat
+		
+	read counter from tablevar,'%SK%' then
+		counter += 1
+		write counter to tablevar,'%SK%' else 
+			x = msg('','Unable to update record %SK% in table Dict.':table)
+		end
+	end else
+		counter = 1
+		write 1 to tablevar,'%SK%' else 
+			x = msg('','Unable to update record %SK% in table Dict.':table)
+		end
+	end
+	UnLock tablevar,'%SK%' else
+		status = set_fserror()
+	end
+end else
+	status = set_fserror()
+end
+		
+return counter

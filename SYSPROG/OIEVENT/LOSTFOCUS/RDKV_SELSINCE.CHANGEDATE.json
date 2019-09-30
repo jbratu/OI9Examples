@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "\r\ndateText = @CtrlEntId->Text\r\nintDate = IConv(dateText, 'DT')\r\nif status() then\r\n\t/* be relaxed about accepting no time */\r\n\tintDate = IConv(dateText, 'D')\r\n\tif status() then\r\n\t\t.Ok->Enabled = 0\r\n\t\tnotUsed = Set_Property(\"SYSTEM\", \"FOCUS\", CtrlEntId)\r\n\t\t@CtrlEntId->Selection = 1 : @FM : 65534\r\n\t\treturn 0\r\n\tend\r\nend\r\n\t\t\r\n@CtrlEntId->Text = OConv(intDate, 'DTD4/H')\r\n.Ok->Enabled = 1\t\r\nnotUsed = Set_Property(\"SYSTEM\", \"FOCUS\", @WINDOW : \".OK\")\r\n\t\t\t\r\nreturn 0"
+    }
+}

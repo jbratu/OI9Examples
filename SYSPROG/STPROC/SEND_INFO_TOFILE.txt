@@ -1,0 +1,9 @@
+Subroutine send_info_tofile(m,d1,d2)
+
+If Unassigned(m) Then m = ''
+
+m = TimeDate() : ' ' : m
+
+OSWrite m To 'c:\temp\si.txt'
+
+Return ''

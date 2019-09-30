@@ -1,0 +1,24 @@
+compile insert HTML_DESIGNER_EQUATES
+
+/* error codes */
+equ NOERROR$		to 1
+equ ERR_GENERAL$ 	to 0
+
+/* error descriptions */
+equ ERR_FILE_COPY$	to  "RWD100"	;* file doesn't exists.
+
+/* HTML control structure */
+equ TOP$			to	1
+equ LEFT$			to	2 
+equ HEIGHT$			to	3
+equ WIDTH$			to	4
+equ NAME$			to	5
+equ TYPE$			to	6
+equ TEXT$			to	7
+equ STYLE$			to  8
+equ EVENT_LIST$		to	9
+equ DATA$			to 10
+equ FONT$			to 11
+equ BKGCOLOR$		to 12
+equ FORECOLOR$		to 13
+equ VISIBLE$		to 14

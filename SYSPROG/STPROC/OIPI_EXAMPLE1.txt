@@ -1,0 +1,464 @@
+subroutine OIPI_Example1(dummy)
+
+/*
+
+  OIPI_Example1
+
+  
+
+  This is an example program on how to use the OpenInsight Printer Interface.
+
+  This example uses most of the features of the OpenInsight Printer Interface, and
+
+  is a good place to start learning how to create reports with the OIPI.
+
+*/
+
+declare function Set_Printer, Get_Printer, RGB,Set_Property
+
+declare function msg
+
+$insert OIPRINT_EQUATES
+$Insert Ps_oipi_common
+$Insert RTI_Postscript_Common  
+
+
+Equ Portrait$ To 0
+Equ Landscape$ To 1
+
+* print Setup Equate
+Equ Print_Style$ 			To 1
+Equ Print_Zoom$				To 2
+
+Equ Print_ToPrinter$		To 0
+Equ Display_PrintSetup$ 	To 1
+Equ Preview_Normal$ 		To 2
+Equ Print_Mazimized$		To 3
+
+Equ Display_AllButtons$		To 0
+Equ Hide_PrintButton$		To 1
+Equ Hide_PrintSetupButton$	To 2
+Equ Hide_AllButtons$		To 3
+
+* Create the fonts for the OIPI report
+
+* 18 point Arial font with left justified, bold and dark blue color
+Font1 = "Arial":@FM:18:@FM:"L":@FM:1:@FM:0:@FM:0:@FM:0:@FM:RGB(0, 0, 172)
+
+* 16 point Times New Roman with left justified bold, italics, underline, and dark magenta
+Font2 = "Times New Roman":@FM:16:@FM:"L":@FM:1:@FM:1:@FM:1:@FM:0:@FM:RGB(192, 0, 172)
+ 
+* 14 point Times New Roman with left justified
+Font3 = "Times New Roman":@FM:14
+
+* Start the OIPI report with the INIT message
+
+FileName = "OIPI_Example1"
+
+PrintTitle = "OIPI Printing..."
+PreviewTitle = "OIPI Print Preview"
+
+Margins = .5:@FM:1:@FM:.5:@FM:1	;* half inch margins On the sides, one inch margins On the top
+Orientation 	= Portrait$					
+PrintSetup = ""
+PrintSetup<Print_Style$, 1> = Preview_normal$	
+PrintSetup<Print_Style$, 2> = Display_AllButtons$
+PrintSetup<2>    = -1	;* Set initial zoom to PageWidth
+PrintSetup<3>    = 5	;* Set the Print Preview position at 5% from top and left
+PrintSetup<4>    = 5
+PrintSetup<5>    = 95
+PrintSetup<6>    = 95
+ 
+VAL = Set_Printer("INIT", FileName, PrintTitle:@FM:PreviewTitle, Margins, Orientation, PrintSetup)
+if  VAL < 0 then
+  * Always check the return value of the INIT message for error
+  ErrorMsg = "Fatal error with the INIT message:":VAL
+  goto fatalExit
+end
+
+* Set the font for all of the headers and footers
+if Set_Printer("FONTHEADFOOT", "Arial":@FM:14:@FM:"L":1) < 0 then
+  ErrorMsg = "Error with the FONTHEADFOOT message"
+  goto fatalExit
+end
+
+* Print the header with the file name centered on the first line and
+* the Long format of the date left justified and the page number right justified
+* on the second line.
+ 
+x = Set_Printer("HEADER", @VM:"'F'":@FM:"'DL'":@VM:@VM:"Page 'P'":@FM)
+*x = Set_Printer("HEADER", "The Header Text")
+If x < 0 then
+  ErrorMsg = "Error with the HEADER message"
+  goto fatalExit
+end
+ 
+if Set_Printer("FONT", Font1) < 0 then
+  ErrorMsg = "Error with the FONT message"
+  goto fatalExit
+End
+
+
+ 
+if Set_Printer("TEXT", "Welcome to the OpenInsight Printer Interface!!!") < 0 then
+  * I'm not going to check the remaining TEXT messages, because if the first one
+  * works then the remaining TEXT messages should also work.
+  ErrorMsg = "Error with the TEXT message"
+  goto fatalExit
+end
+
+Stat = Set_Printer('CALCTEXT',@Upper.Case)
+AA = Get_Printer('CALCTEXT')
+ 
+
+if Set_Printer("FONT", Font2) < 0 then
+
+  ErrorMsg = "Error with the FONT message"
+  goto fatalExit
+end
+x = Set_Printer("TEXT", @FM:"Introduction")
+
+if Set_Printer("FONT", Font3) < 0 then
+  ErrorMsg = "Error with the FONT message"
+  goto fatalExit
+end
+text = "This program will demonstrate the basic features of the OpenInsight Printer Interface.  There are several new features in the OIPI 3.x, so please check the online help file for the latest message formats."
+ 
+x = Set_Printer("TEXT", text)
+ 
+
+if Set_Printer("FONT", Font2) < 0 then
+
+  ErrorMsg = "Error with the FONT message"
+  goto fatalExit
+end
+x = Set_Printer("TEXT", @FM:"Get_Printer for VERSION and SERIAL")
+
+if Set_Printer("FONT", Font3) < 0 then
+  ErrorMsg = "Error with the FONT message"
+  goto fatalExit
+end
+ver = Get_Printer("VERSION")
+text = "You are currently using version '":ver<1>:"' of the OIPI, and the OIPI build number is '":ver<2>:"' and the VSVIEW control version is '":ver<3>:"'":@FM:"Your serial number is ":Get_Printer("SERIAL")
+
+x = Set_Printer("TEXT", text)
+
+if Set_Printer("FONT", Font2) < 0 then
+  ErrorMsg = "Error with the FONT message"
+  goto fatalExit
+end
+x = Set_Printer("TEXT", @FM:"BMP and TEXTXY")
+
+if Set_Printer("FONT", Font3) < 0 then
+  ErrorMsg = "Error with the FONT message"
+  goto fatalExit
+end
+text  = "This will demostrate the use of graphic files and the TEXTXY message.  The graphic file (BANNER.WMF) is printed first, "
+text := "then the text is printed over it with the TEXTXY message.  The text shadow is created by offsetting two separate TEXTXY messages."
+
+text := "The current Y position is used to determine where to print the graphics and text using the Get_Printer POS message."
+text := "You can strectch the graphics with the BMP message.":@FM
+x = Set_Printer("TEXT", text)
+
+ 
+* Print the banner.wmf and text inside
+pos = Get_Printer("POS")
+ 
+ 
+
+ 
+if Set_Printer("BMP", "BANNER.WMF", 0:@FM:pos<2>:@FM:3.5:@FM:1, 1, 0) < 0 then
+  ErrorMsg = "Error with the BMP message"
+  goto fatalExit
+end
+ 
+if Set_Printer("TEXTXY", "Banner Text", .77:@FM:pos<2>+0.48, "Arial":@FM:24:@FM:"L":@FM:1:@FM:0:@FM:0:@FM:0:@FM:RGB(192, 192, 192):@FM:100, 0) < 0 then
+
+  ErrorMsg = "Error with the TEXTXY message"
+  goto fatalExit
+end
+if Set_Printer("TEXTXY", "Banner Text", .80:@FM:pos<2>+0.45, "Arial":@FM:24:@FM:"L":@FM:1:@FM:0:@FM:0:@FM:0:@FM:RGB(128, 0, 128):@FM:100, 0) < 0 then
+  ErrorMsg = "Error with the TEXTXY message"
+  goto fatalExit
+end
+ 
+ 
+if Set_Printer("BMP", "PRINTER.BMP", 4.0:@FM:pos<2>:@FM:1.6:@FM:1, 0, 0) < 0 then
+  ErrorMsg = "Error with the BMP message"
+  goto fatalExit
+end
+ 
+* Reset the text position below the graphics by adding one inch to the last position
+
+x = Set_Printer("POS", 0:@FM:pos<2> + 1)
+ 
+if Set_Printer("FONT", Font2) < 0 then
+  ErrorMsg = "Error with the FONT message"
+  goto fatalExit
+end
+ 
+x = Set_Printer("TEXT", @FM:"RECT, CALC_TEXT, POLYGON, and Colors")
+ 
+if Set_Printer("FONT", Font3) < 0 then
+  ErrorMsg = "Error with the FONT message"
+  goto fatalExit
+end
+text = "The next section demonstrates how to use colors with the RECT message, and how to use the CALC_TEXT message to calculate the height and width of text and place a box around the text.  "
+
+text := "The POLYGON message is used to print the gray shading in the 3D button."
+x = Set_Printer("TEXT", text)
+ 
+* Print pyramid
+if Set_Printer("LINESTYLE", PS_NULL) < 0 then
+  ErrorMsg = "Error with the LINESTYLE message"
+  goto fatalExit
+end
+pos = Get_Printer("POS")
+y = pos<2>
+offset = 0
+ 
+for c = 0 to 128 step 12.8
+  if Set_Printer("FILLSTYLE", BS_SOLID:@FM:RGB(0, 0, 128 + c)) < 0 then
+    ErrorMsg = "Error with the FILLSTYLE message"
+    goto fatalExit
+  end
+R = 1+offset:@FM:y+offset:@FM:3-offset:@FM:y-offset+2
+  if Set_Printer("RECT", 1+offset:@FM:y+offset:@FM:3-offset:@FM:y-offset+2, 0) < 0 then
+    ErrorMsg = "Error with the RECT message"
+    goto fatalExit
+  end
+  offset = offset + 0.05
+next c
+for c = 0 to 128 step 12.8
+  if Set_Printer("FILLSTYLE", BS_SOLID:@FM:RGB(c, c, 255)) < 0 then
+    ErrorMsg = "Error with the FILLSTYLE message"
+    goto fatalExit
+  end
+  if Set_Printer("RECT", 1+offset:@FM:pos<2>+offset:@FM:3-offset:@FM:pos<2>+2-offset, 0) < 0 then
+    ErrorMsg = "Error with the RECT message"
+
+    goto fatalExit
+  end
+  offset = offset + 0.05
+next c
+if Set_Printer("LINESTYLE", PS_SOLID:@FM:1:@FM:RGB(0, 0, 0)) < 0 then
+  ErrorMsg = "Error with the LINESTYLE message"
+  goto fatalExit
+end
+if Set_Printer("FILLSTYLE", BS_HOLLOW) < 0 then
+  ErrorMsg = "Error with the FILLSTYLE message"
+  goto fatalExit
+end
+if Set_Printer("RECT", 1:@FM:pos<2>:@FM:3:@FM:pos<2>+2, 0) < 0 then
+  ErrorMsg = "Error with the RECT message"
+  goto fatalExit
+end
+ 
+if Set_Printer("LINE", 1:@FM:pos<2>:@FM:3:@FM:pos<2>+2, 0) < 0 then
+
+  ErrorMsg = "Error with the LINE message"
+  goto fatalExit
+end
+if Set_Printer("LINE", 3:@FM:pos<2>:@FM:1:@FM:pos<2>+2, 0) < 0 then
+  ErrorMsg = "Error with the LINE message"
+  goto fatalExit
+end
+
+* print 3D button
+text = "3D Button"
+if Set_Printer("FILLSTYLE", BS_SOLID:@FM:RGB(128, 128, 128)) < 0 then
+  ErrorMsg = "Error with the FILLSTYLE message"
+  goto fatalExit
+end
+if Set_Printer("FONT", "Arial":@FM:14) < 0 then
+  ErrorMsg = "Error with the FONT message"
+
+  goto fatalExit
+end
+ 
+if Set_Printer("CALCTEXT", text) < 0 then
+  ErrorMsg = "Error with the CALCTEXT message"
+  goto fatalExit
+end
+ 
+size = Get_Printer("CALCTEXT")
+ 
+width = size<1>
+height = size<2>
+poly = ""
+poly<1> = 3.5+width+.4:@VM:y
+poly<2> = 3.5+width+.4:@VM:y+height+.4
+poly<3> = 3.5:@VM:y+height+.4
+poly<4> = 3.5+.1:@VM:y+height+.3
+poly<5> = 3.5+width+.3:@VM:y+height+.3
+poly<6> = 3.5+width+.3:@VM:y+.1
+if Set_Printer("POLYGON", poly, 0) < 0 then
+  goto fatalExit
+
+end
+ 
+ xxx = get_printer("font")
+if Set_Printer("FILLSTYLE", BS_HOLLOW) < 0 then
+  ErrorMsg = "Error with the FILLSTYLE message"
+  goto fatalExit
+end
+ 
+ xxx = get_printer("font")
+if Set_Printer("RECT", 3.5:@FM:y:@FM:3.5+width+.4:@FM:y+height+.4, 0) < 0 then
+  ErrorMsg = "Error with the RECT message"
+  goto fatalExit
+end
+ 
+ xxx = get_printer("font")
+if Set_Printer("FILLSTYLE", BS_SOLID:@FM:RGB(192, 192, 192)) < 0 then
+  ErrorMsg = "Error with the FILLSTYLE message"
+  goto fatalExit
+end
+if Set_Printer("RECT", 3.5+.1:@FM:y+.1:@FM:3.5+width+.3:@FM:y+height+.3, 0) < 0 then
+
+  ErrorMsg = "Error with the RECT message"
+  goto fatalExit
+end
+ 
+ xxx = get_printer("font")
+if Set_Printer("TEXTXY", text, 3.7:@FM:y+.2, "", 0) < 0 then
+  ErrorMsg = "Error with the TEXTXY message"
+  goto fatalExit
+end
+if Set_Printer("FONT", "Times New Roman":@FM:12) < 0 then
+  ErrorMsg = "Error with the FONT message"
+  goto fatalExit
+end
+ 
+* Force a page break
+if Set_Printer("PAGEBREAK") < 0 then
+  ErrorMsg = "Error with the PAGEBREAK message"
+  goto fatalExit
+end
+ 
+ 
+if Set_Printer("FONT", Font2) < 0 then
+
+  ErrorMsg = "Error with the FONT message"
+  goto fatalExit
+end
+ 
+x = Set_Printer("TEXT", "POLYLINE, ADDTABLE, and TEXTXY")
+ 
+if Set_Printer("FONT", Font3) < 0 then
+  ErrorMsg = "Error with the FONT message"
+  goto fatalExit
+end
+text = "The POLYLINE message is used to create this Graph, and the ADDTABLE message is used to create the Table.  The TEXTXY message is used to print the labels."
+ 
+x = Set_Printer("TEXT", text)
+ 
+pos = Get_Printer("POS")
+y = pos<2>+.25
+if Set_Printer("FILLSTYLE", BS_SOLID:@FM:RGB(255, 255, 128)) < 0 then
+
+  ErrorMsg = "Error with the FILLSTYLE message"
+  goto fatalExit
+end
+ErrorMsg = "There was some problem with the Graph part of the example"
+  
+ 
+if Set_Printer("RECT", 3:@FM:y:@FM:6:@FM:y+2, 0) < 0 then goto fatalExit
+ 
+if Set_Printer("RECT", 1:@FM:y:@FM:2.5:@FM:y+0.5, 0) < 0 then goto fatalExit
+if Set_Printer("LINESTYLE", PS_DOT:@FM:0:@FM:RGB(0, 0, 0)) < 0 then goto fatalExit
+if Set_Printer("LINE", 3:@FM:y+.5:@FM:6:@FM:y+.5, 0) < 0 then goto fatalExit
+if Set_Printer("LINE", 3:@FM:y+1:@FM:6:@FM:y+1, 0) < 0 then goto fatalExit
+ 
+if Set_Printer("LINE", 3:@FM:y+1.5:@FM:6:@FM:y+1.5, 0) < 0 then goto fatalExit
+initrnd timedate()
+poly1 = ""
+for i = 0 to 12
+  sx = i/4
+  sy = y+1-rnd(100)/100
+  poly1<i+1,1> = sx + 3
+  poly1<i+1,2> = sy
+next i
+if Set_Printer("LINESTYLE", PS_SOLID:@FM:1:@FM:RGB(0, 128, 0)) < 0 then goto fatalExit
+if Set_Printer("POLYLINE", poly1, 0) < 0 then goto fatalExit
+ 
+if Set_Printer("LINE", 1.2:@FM:y+0.15:@FM:1.5:@FM:y+0.15, 0) < 0 then goto fatalExit
+poly2 = ""
+for i = 0 to 12
+
+  sx = i/4
+  sy = y+1-rnd(100)/100
+  poly2<i+1,1> = sx + 3
+  poly2<i+1,2> = sy
+next i
+if Set_Printer("LINESTYLE", PS_SOLID:@FM:1:@FM:RGB(128, 0, 0)) < 0 then goto fatalExit
+if Set_Printer("POLYLINE", poly2, 0) < 0 then goto fatalExit
+if Set_Printer("LINE", 1.2:@FM:y+0.35:@FM:1.5:@FM:y+0.35, 0) < 0 then goto fatalExit
+if Set_Printer("LINESTYLE", PS_SOLID:@FM:1:@FM:RGB(0, 0, 0)) < 0 then goto fatalExit
+if Set_Printer("FONT", "Arial":@FM:8) < 0 then goto fatalExit
+if Set_Printer("TEXTXY", "4.0", 2.8:@FM:y-.05, "", 0) < 0 then goto fatalExit
+
+if Set_Printer("TEXTXY", "3.0", 2.8:@FM:y+.45, "", 0) < 0 then goto fatalExit
+if Set_Printer("TEXTXY", "2.0", 2.8:@FM:y+.95, "", 0) < 0 then goto fatalExit
+if Set_Printer("TEXTXY", "1.0", 2.8:@FM:y+1.45, "", 0) < 0 then goto fatalExit
+if Set_Printer("TEXTXY", "0.0", 2.8:@FM:y+1.95, "", 0) < 0 then goto fatalExit
+if Set_Printer("TEXTXY", "Years", 4.4:@FM:y+2.05, "", 0) < 0 then goto fatalExit
+if Set_Printer("TEXTXY", "$Millions", 2.8:@FM:y-.2, "", 0) < 0 then goto fatalExit
+
+if Set_Printer("FONT", "Arial":@FM:10) < 0 then goto fatalExit
+if Set_Printer("TEXTXY", "XYZ Co.", 1.6:@FM:y+0.07, "", 0) < 0 then goto fatalExit
+if Set_Printer("TEXTXY", "ABC Co.", 1.6:@FM:y+0.27, "", 0) < 0 then goto fatalExit
+if Set_Printer("FILLSTYLE", BS_HOLLOW) < 0 then goto fatalExit
+if Set_Printer("RECT", 3:@FM:y:@FM:6:@FM:y+2, 0) < 0 then goto fatalExit
+
+ErrorMsg = "There was some problem with the ADDTABLE part of the example"
+if Set_Printer("POS", 0:@FM:y+1) < 0 then goto fatalExit
+
+header = "Year":@VM:"XYZ Co. Sales ($Mill)":@VM:"ABC Co. Sales ($Mill)":@FM
+table = ""
+for i = 0 to 12
+  table<i+1,1> = 1990+i
+  table<i+1,2> = 3.5+y-poly1<i+1,2>
+  table<i+1,3> = 3.5+y-poly2<i+1,2>
+next i
+if Set_Printer("FONT", "Arial":@FM:10:@FM:"L":@FM:1) < 0 then goto fatalExit
+ColumnFormat = "_^770":@VM:"_>1080":@VM:"_>1080":@FM
+if Set_Printer("ADDTABLE", ColumnFormat, header, table, RGB(0, 222, 0), "", "", TB_BOX_COLUMNS) < 0 then goto fatalExit
+ 
+if Set_Printer("CALCTABLE", ColumnFormat:header:table) < 0 then goto fatalExit
+
+size = Get_Printer("CALCTABLE")
+
+if Set_Printer("POS", 0:@FM:y+1+size<2>) < 0 then goto fatalExit
+
+if Set_Printer("FONT", Font2) < 0 then
+  ErrorMsg = "Error with the FONT message"
+  goto fatalExit
+end
+x = Set_Printer("TEXT", @FM:"Other New Features in the OIPI")
+
+if Set_Printer("FONT", Font3) < 0 then
+  ErrorMsg = "Error with the FONT message"
+  goto fatalExit
+end
+text  = "  *  The OIPI 3.5 uses the newest VSVIEW.OCX control for the print engine.":@FM
+text := "  *  The OIPI 3.2 was rewritten in Microsoft Visual Basic 4.0.":@FM
+
+text := "  *  The ADDTABLE message was added to improve the quality of tables.  This message should be used to replace all TABLE and TEXTCOL messages.":@FM
+text := "  *  The Print Preview window can be scrolled with the mouse and all pages are viewable as soon as they are printed.":@FM
+text := "  *  The IMIT message can be used to change the size of the paper without using the Printer Setup dialog box.":@FM
+text := "  *  The CALCBMP and CALCTABLE messages were added.":@FM
+
+text := "  *  The title of the Print Preview window can be customized.":@FM
+ 
+x = Set_Printer("TEXT", text)
+
+* End the report and tell the OIPI to completely shut down after the print preview is closed.
+x = Set_Printer("TERM", 1)
+return
+
+* jump here if any Set_Printer returns a value < 0
+fatalExit:
+  x = msg("", ErrorMsg)
+  x = Set_Printer("TERM", 1)
+return

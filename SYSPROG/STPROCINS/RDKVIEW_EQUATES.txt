@@ -1,0 +1,28 @@
+compile insert rdkview_equates
+
+/* SYSREPOSVIEWS column position equates */
+EQU VIEW_APPID$        	TO 1	/* Key part */
+EQU VIEW_VIEWID$    	TO 2	/* Key part */
+
+EQU VIEW_TITLE$        	TO 1
+EQU VIEW_DESC$        	TO 2
+EQU VIEW_CREATED$    	TO 3
+EQU VIEW_AUTHOR$    	TO 4
+EQU VIEW_ENTCOUNT$    	TO 5
+EQU VIEW_HISTDATE$    	TO 6
+EQU VIEW_HISTBY$    	TO 7
+EQU VIEW_HISTNOTE$    	TO 8
+EQU VIEW_RES1$        	TO 9
+EQU VIEW_RES2$        	TO 10
+EQU VIEW_ENTLIST$		TO 11
+
+EQU VIEW_HEADERSIZE$ 	TO 10
+
+/* Menu equate values (branches for RepViewEdit_Menu) */
+EQU VMENU_FILE_NEW$			TO 1
+EQU VMENU_FILE_OPEN$		TO 2
+EQU VMENU_FILE_SAVE$		TO 3
+EQU VMENU_FILE_SAVEAS$		TO 4
+EQU VMENU_GETWORKLIST$		TO 5
+
+

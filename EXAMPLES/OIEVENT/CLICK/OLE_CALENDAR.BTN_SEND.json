@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "\r\ndeclare function send_message, fieldcount\r\n\r\nmessage = .Method->Text\r\nif len(message) then\r\n\tresponse = Send_Message(@Window:'.HTML', message)\t\r\nend\t\r\n\r\n\r\nRETURN 0"
+    }
+}

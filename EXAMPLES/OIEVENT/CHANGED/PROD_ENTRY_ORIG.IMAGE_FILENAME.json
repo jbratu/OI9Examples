@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "\r\nfilename = @CtrlEntID->text\r\n\r\nif filename then\r\n\t.btn_image->enabled=1\r\n\t.btn_image->text='Click to View Image'\r\nend else\r\n\t.btn_image->enabled=0\r\n\t.btn_image->text='No Image Available'\r\nend\r\n\r\n\r\n\r\nRETURN 0"
+    }
+}

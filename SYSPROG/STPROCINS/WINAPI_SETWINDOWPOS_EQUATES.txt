@@ -1,0 +1,32 @@
+compile insert winAPI_SetWindowPos_Equates
+/*
+   Author    Captain C
+   Date      April 2002
+   Purpose   equates for the setWindowPos Windows API function.
+   
+             
+   Amended   Date            Reason
+   =======   ====            ======
+*/
+   declare function winAPI_SetWindowPos
+   
+   equ SWP_NOSIZE$         to 1
+   equ SWP_NOMOVE$         to 2
+   equ SWP_NOZORDER$       to 4
+   equ SWP_NOREDRAW$       to 8
+   equ SWP_NOACTIVATE$     to 0x10
+   equ SWP_FRAMECHANGED$   to 0x20                ; * // The frame changed: send WM_NCCALCSIZE
+   equ SWP_SHOWWINDOW$     to 0x40
+   equ SWP_HIDEWINDOW$     to 0x80
+   equ SWP_NOCOPYBITS$     to 0x100
+   equ SWP_NOOWNERZORDER$  to 0x200               ; * // Don't do owner Z ordering
+   equ SWP_NOSENDCHANGING$ to 0x400               ; * // Don't send WM_WINDOWPOSCHANGING
+   equ SWP_DRAWFRAME$      to SWP_FRAMECHANGED$
+   equ SWP_NOREPOSITION$   to SWP_NOOWNERZORDER$
+   equ SWP_DEFERERASE$     to 0x2000
+   equ SWP_ASYNCWINDOWPOS$ to 0x4000
+
+   equ HWND_TOP$           to 0
+   equ HWND_BOTTOM$        to 1
+   equ HWND_TOPMOST$       to -1
+   equ HWND_NOTOPMOST$     to -2   

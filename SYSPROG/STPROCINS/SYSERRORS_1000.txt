@@ -1,0 +1,76 @@
+compile insert SYSERRORS_1000
+/*
+   Amended  Date        Reason
+   =======  ====        ======
+   Mr C     10 Feb 10   Added SYS1107
+   Mr C     29 Sep 05   Added SYS1104, SYS1105, SYS1106
+   
+*/
+equ sys_load_err$              to "SYS1000"
+equ sys_null_load$             to "SYS1001"
+equ sys_invalid_object$        to "SYS1002"
+equ sys_load_overflow$         to "SYS1003"
+equ sys_dict_load_err$         to "SYS1004"
+equ sys_symbolic_insert_err$   to "SYS1005"  ;* cant do dict insert into symbolic (symname)
+EQU SYS_RUNTIME_RESTRICT_ERR$  TO "SYS1006"  /* module %1% terminated due to Runtime restriction */
+
+*-----------------------------------------------------------------------------
+* Form runtime errors
+
+EQU SYS_FORM_PRILOCK_ERR$		TO 'SYS1500' /* Primary row locked: Table %1%, key %2%  */
+EQU SYS_FORM_SUBLOCK_ERR$		TO 'SYS1501' /* Subsidiary row locked:  Table %1% key %2% */
+EQU SYS_FORM_SAVELOCK_ERR$		TO 'SYS1502' /* Lock not held at update time: Table %1%, key %2%, operation %3% */
+EQU SYS_FORM_OPEN_EXPLODE_ERR$	TO 'SYS1503' /* form fetch denormalization beyond 2 levels is not supported */
+EQU SYS_FORM_READLOCKED_STAT$	TO 'SYS1510' /* locked record is read into a form (warning, not an error) */
+
+*-----------------------------------------------------------------------------
+* compiler preprocessor errors
+equ sys_comp_compile_errors$   to "SYS1100"  ;* provides module name that failed the compilation
+equ sys_comp_preproc_err$      to "SYS1101"
+equ sys_comp_source_oversize$  to "SYS1102"
+equ sys_comp_invalid_insert$   to "SYS1103"  ;* Old Filename, recname format not supported.
+equ SYS_COMP_INVALID_USES$     to "SYS1104" ; * Compiler error: Module "%1%" Line "%2%" : Invalid $USES entity name[%3%]
+equ SYS_COMP_INSERT_ERROR$     to "SYS1105" ; * Compiler error: Module "%1%" Line "%2%" : $INSERT access error [%3%]
+equ SYS_COMP_INSERT_CIRCULAR_REF$ to "SYS1106"; * Compiler error: Module "%1%" Line "%2%" : $INSERT circular reference error [$INSERT %3%]
+equ SYS_COMP_UNMATCHED_IFDEF$  to "SYS1107" ; * Compiler error: Module "%1%" Line "%2%" : Unmatched compiler define condition
+
+*-----------------------------------------------------------------------------
+equ sys_comp_contr_err_base$   to '1110'
+equ sys_comp_contr_position$   to "SYS1111"   ;* Contract must be before executable code
+equ sys_comp_contr_no_begin$   to "SYS1112"
+equ sys_comp_contr_no_end$     to "SYS1113"
+equ sys_comp_contr_multi_pre$  to "SYS1114"
+equ sys_comp_contr_multi_post$ to "SYS1115"
+equ sys_comp_contr_no_pre$     to "SYS1116"
+equ sys_comp_contr_no_post$    to "SYS1117"
+
+*-----------------------------------------------------------------------------
+
+equ sys_proc_abort$         to "SYS1200"
+equ sys_unsupported$        to "SYS1201"
+
+equ sys_invalid_proctype$   to "SYS1210"
+equ sys_no_arg_lparen$      to "SYS1211"
+equ sys_no_arg_rparen$      to "SYS1212"
+equ sys_invalid_argtype$    to "SYS1213"
+equ sys_missing_argid$      to "SYS1214"
+equ sys_compile_fail$       to "SYS1215"
+equ sys_arg_overflow$       to "SYS1216"
+equ sys_missing_rowdef$     to "SYS1217"      ;* missing row_def in routine..
+
+equ sys_obj_missing$        to "SYS1220"
+equ sys_invalid_arg$        to "SYS1221"
+equ sys_putdata_fail$       to "SYS1222"
+equ sys_invalid_procname$   to "SYS1223"
+equ sys_protected_proc$     to "SYS1224"       ;* The procedure cannot be overwritten - no arguments.
+
+equ sys_sql_read_err$       to "SYS1230"
+
+equ sys_sysnodetach_err$     to "SYS1300"      ;* Cannot detach or redefine table
+equ sys_notab_invol_err$     to "SYS1301"      ;* Table was not found in volume rec table list
+equ sys_volrec_missing_err$  to "SYS1302"      ;* Volume record for attached table is missing
+equ sys_volrec_synch_err$    to "SYS1303"      ;* Table list in the volume record does not synch with the systables record
+
+equ sys_precondition_fail$   to "SYS1500"      ;* Contract precondition failure : Module name, condition failed
+equ sys_postcondition_fail$   to "SYS1501"      ;* Contract postcondition failure : Module name, condition failed
+* Source Date: 11:20:24  10 NOV 1994  Build ID: OI*3.0.34  Level: 2.5

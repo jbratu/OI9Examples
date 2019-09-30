@@ -1,0 +1,159 @@
+Subroutine TEST_DSBFS_EXEC_SQL( connection_name )
+/*
+**
+**  Sample program showing how to use the DSBFS_EXEC_SQL program to
+**  send a update statement
+**  Send a select, get results
+**  Send a parameterized select, get results
+**  Call a stored procedure
+**  Call a stored procedures, passing in paramters
+**  
+**  The example SQL statements were created using on MSSQL 2008 using the pubs database
+**  
+** 
+**  Notes about DSBFS_EXEC_SQL:
+**  You can send any SQL statement, including call stored procedures
+**  You can use straight SQL statements or parameterized statements
+**  You can call stored procedures with parameters, out params will be returned
+**  You can send scripts to create or alter tables or stored procedures (DDL)
+
+**  If the select statement returns multiple rows, the result will be a dynamic array
+**  The default delimiters are @vm columns, @fm rows, but you can get @rm/@fm or @vm/svm
+**  You can use this to create calculated fields which return mutilvalues
+*-------------------------------------------------------------------------------------------
+* 
+*-------------------------------------------------------------------------------------------
+dsbfs_exec_sql(connection, sql, demote_levels, result, param_names, param_vals, param_types)
+* Parameters
+* connection    (In)  - the name of the dsbfs connection.
+* sql           (In)  - a valid SQL DML statement e.g "Select Count(*) From authors" Or "SELECT * FROM TITLES"
+* demote_levels (In)  - Optional, defaults to 1
+* result        (out) - A delimited string containing the results.  Default is @rm For rows, @fm For columns
+* param_names   (In)  - Optional, defaults to "". List of parameter names, @rm delimited
+* param_vals    (In)  - Optional, defaults to "". List of parameter values, @rm delimited
+* param_types   (In)  - Optional, defaults to "". List of parameter values, @rm delimited
+
+
+*  03-01-12  rjc  Created
+*/
+
+$Insert msg_Equates
+$Insert logical
+$Insert vol_table_equates
+$Insert Microsoft_ado_equates
+Equ crlf$ To \0D0A\
+
+Declare Function Msg, DSBFS_exec_SQL, dsbfs_connection, dsbfs_recordsethelper, GET_STATUS
+
+call Set_Status(0)
+err_detail = ''
+
+* Edit the volume id and program name to suit your needs
+* The volume id is the connection name in the DSBFS_CONNECTION_DETAILS window
+* If not passed in, search for an existing connection
+If Assigned(connection_name) Else connection_name = ''
+If connection_name # '' Then
+	Call Attach_table(connection_name, '', '')
+End else
+	Locate 'DSBFS' In @volumes(vol_file_sys$) Using @fm Setting pos Then
+		connection_name = @volumes(vol_location$)<pos,1>
+	end
+	If connection_name = '' Then
+		Msg( @window, "Unable to determine the connection to use, terminating")
+		Return ''
+	end
+end
+
+/*
+* Update some records
+*/
+
+sql_statement = "update authors"
+sql_statement := " set state = 'TN'"
+sql_statement := " where state = 'UT'"
+result = ''         ; * result of any select
+demote_levels = ''  ; * result will come back as rm rows / fm cols, demote levels will change to fm/vm or vm/svm,
+                    ; * Pass 0 for rm/fm, 1 or null for fm/vm, 2 for vm/@svm                    
+param_names = ''    ; * Stored proc or param  query? this is an fm delimited array of parameter names
+param_vals = ''     ; *  associated array of parameter values
+param_types = ''    ; *  associated array of parameter data types
+result_code = dsbfs_exec_sql(connection_name, sql_statement, demote_levels, result, param_names, param_vals, param_types)
+If result_code eq -1 Then
+	Msg(@window, 'Unable to execute command ' : Quote(sql_statement) )
+	Return ''
+End
+
+/*
+**  Run a select.  If the select returns multiple rows they will become multvalues
+**  Look at result in the debugger
+*/
+sql_statement = "select"
+sql_statement := "    au_id, city, state"
+sql_statement := " from authors"
+sql_statement := " where state = 'TN'"
+result = ''
+Swap @fm With crlf$ In SQL_STATEMENT
+result_code = dsbfs_exec_sql(connection_name, sql_statement, demote_levels, result, param_names, param_vals, param_types)
+If result_code eq -1 Then
+	Msg(@window, 'Unable to execute command ' : Quote(sql_statement) )
+	Return ''
+End
+
+
+/*
+** Parameterized Query Example
+** Here we use a parameterized query which has ? in place of actual values
+** You can use this approach to pass values that would be difficult to embed in an sql statement
+** Especially for calling stored procedures.
+** See Microsoft_Ado_Equates for a list of data types
+*/
+
+au_id = '172-32-1176'
+sql_statement = "select"
+sql_statement := "    title_id"
+sql_statement := " from titleauthor"
+sql_statement := " where au_id = ?"
+
+param_names = ''
+param_vals = au_id
+param_types = adVarChar
+
+result = ''
+Swap @fm With crlf$ In SQL_STATEMENT
+result_code = dsbfs_exec_sql(connection_name, sql_statement, demote_levels, result, param_names, param_vals, param_types)
+If result_code eq -1 Then
+	Msg(@window, 'Unable to execute command ' : Quote(sql_statement) )
+	Return ''
+End
+
+
+* Call A stored procedure Using dsbfs_exec_sql, text sql statement rather than parameters
+ids = ''
+param_names = ''
+param_vals = ''
+param_types = adVarChar
+sql_statement = 'exec byroyalty @percentage = 100'
+result_code = dsbfs_exec_sql(connection_name, sql_statement, demote_levels, ids, param_names, param_vals, param_types)
+If result_code eq -1 Then
+	Msg(@window, 'Unable to execute command ' : Quote(sql_statement) )
+	Return ''
+End
+
+/*
+* Call A stored procedure Using dsbfs_exec_sql, using parameters
+* Note that in/out parameters will be returned 
+*/
+
+ids = ''
+param_names = '@percentage'  ; * @RM delimite list of parameter names
+param_vals = '100'           ; * Associated @RM delimited list of parameter values
+param_types = adInteger      ; * types are ignored, we use ADO params.Refresh() to get the parameters
+sql_statement = 'exec byroyalty'
+Swap @fm With crlf$ In SQL_STATEMENT
+result_code = dsbfs_exec_sql(connection_name, sql_statement, demote_levels, ids, param_names, param_vals, param_types)
+If result_code eq -1 Then
+	Msg(@window, 'Unable to execute command ' : Quote(sql_statement) )
+	Return ''
+End
+
+Return result

@@ -1,0 +1,425 @@
+function Orders_reports_wizard(Instruction, p1, p2, p3, p4, p5)
+/* --------------------------------------------------------------------------
+
+  This  program  is  proprietary and is not  to be used  by or  disclosed to others, nor is it to be copied
+  without written permission from Revelation Technologies, Inc.
+
+ VERSION    : OI 4.0.1
+
+ PURPOSE    : Orders Report Wizard
+
+ AUTHOR     : Revelation Software
+
+ CREATED    : January, 2002
+
+ PROCEDURES : This module may be called either as a stored procedure
+              or as an internal subroutine.
+
+ WARNINGS   : Must run in event context. 
+
+ THEORY OF OPERATION :
+			
+			A modified copy of the Wizard routine that gets created by the Wizard Wizard, 
+			as found in the Ui WOrkspace
+    
+     
+ COMMENTS :
+
+ REVISION HISTORY           (Most CURRENT first) :
+
+    DATE       IMPLEMENTOR     FUNCTION
+  --------     -----------     --------
+  MM-DD-YY     initials        Modification
+
+---------------------------------------------------------------------------*/
+
+declare function   Get_Property, Utility
+declare subroutine Set_Property, Send_Event
+
+$insert Logical
+$insert Msg_Equates
+$insert PS_Equates
+
+equ CAN_GET_FOCUS$ to "CHECKBMP,CHECKBOX,COMBOBOX,EDITBOX,EDITFIELD,EDITTABLE,HSCROLLBAR,LISTBOX,PUSHBMP,PUSHBUTTON,RADIOBMP,RADIOBUTTON,VSCROLLBAR"
+
+Ret = ""
+if assigned(Instruction) then
+  Pre = Instruction [1,2]
+  convert @lower.case to @upper.case in Pre
+  locate Pre in "IN,BA,NE,PA,FI,CA,SE,RE,BR" using "," setting Cmd then
+    on Cmd gosub Init, Back, Next, Page, Finish, Cancel, SelectText, Required, Browse
+  end else
+    Msg(@window, "Invalid instruction passed to Wizard")
+  end
+end else
+  Msg(@window, "Unassigned instruction passed to Wizard")
+end
+return Ret
+
+
+***********************
+* initialize the wizard
+***********************
+Init:
+ * build tab order information:  each page of the wizard has a
+ * circular tab order which includes the standard wizard controls
+
+ * get all controls and their definitions
+ * (assume CtrlMap represents tab order)
+  Ctrls  = "@,@"
+  Props  = "VPOSITION,CTRLMAP"
+  gosub GetProps
+  VPos   = field(Vals, @rm, 1)
+  List   = field(Vals, @rm, 2)
+  Ctrls  = List
+  cCtrls = count(Ctrls, @fm) + (Ctrls # "")
+  convert @fm to @rm in Ctrls
+  Props  = str(@rm: "ORIG_STRUCT", cCtrls) [2,99999]
+  Vals   = Get_Property(Ctrls, Props)
+  convert @rm to @fm in Vals
+
+ * build list of "reserved" controls
+  Ctrls = "@.PICTURE,@.LINE,@.BACK,@.NEXT,@.CANCEL,@.FINISH"
+  swap "@" with @window in Ctrls
+  convert "," to @fm in Ctrls
+
+ * radio group dicatates page of following radio buttons
+  PageOfPrevCtrl = 0
+
+ * build tab order for each page
+  Order = ""
+  for i = 1 to cCtrls
+    Ctrl = List<i>
+   * ignore all "reserved" controls -- they will be dealt with separately
+    locate Ctrl in Ctrls using @fm setting Pos else
+     * determine page by looking at Y position of the control
+      YPos = Vals<i,PSPOS_Y$>
+      Type = Vals<i,PSPOS_TYPE$>
+
+      begin case
+        case Type = PSCTL_RADIOBUTTON$
+         * radio buttons keep y-info relative to their radio group
+          Page = PageOfPrevCtrl
+        case index(YPos, ":", 1)
+         * a control on page 2 will be suffixed with ":1"
+          Page = field(YPos, ":", 2) + 1
+        case OTHERWISE$
+          Page = 1
+      end case
+
+     * add the control to the order for that page
+      Order<Page,1,-1> = Ctrl
+
+      locate Type in CAN_GET_FOCUS$ using "," setting Pos then
+       * is it the first control to get focus?
+        if len(Order<Page,2>) else
+          Order<Page,2> = Ctrl
+        end
+
+       * assume it is the last control to get focus
+        Order<Page,3> = Ctrl
+      end
+
+     * remember page that the control was on
+      PageOfPrevCtrl = Page
+    end
+  next i
+
+ * make sure a first and last control for each page is set to get focus
+  cPages = VPos<3>
+  for Page = 1 to cPages
+    if len(Order<Page,2>) then
+     * first focus-able control is not one of the "wizard" controls
+      Order<Page,4> = Order<Page,2>
+    end else
+     * first focus-able control on the page is the back button
+      Order<Page,4> = @window: ".BACK"
+
+     * control which gets focus when the page is displayed
+      if Page < cPages then
+       * put focus on next button
+        Order<Page,2> = @window: ".NEXT"
+      end else
+       * put focus on finish button
+        Order<Page,2> = @window: ".FINISH"
+      end
+    end
+
+   * control which gets focus when shift-tabbing from the Back button
+    if len(Order<Page,3>) else
+      Order<Page,3> = @window: ".CANCEL"
+    end
+  next i
+
+ * set the wizard controls to appear on each page
+  Ctrls = "@.PICTURE,@.LINE,@.BACK,@.NEXT,@.CANCEL,@.FINISH,"
+  Props = str("PAGELIST,", 6)
+  Vals  = str(-1: @rm, 6)
+
+  if cPages = 1 then
+   * change "Next" to "Finish"
+    Ctrls := "@.NEXT,@.FINISH,@"
+    Props := "VISIBLE,VISIBLE,DEFAULT"
+    Vals  := FALSE$: @rm: TRUE$: @rm: @window: ".FINISH"
+  end else
+   * hide finish button
+    Ctrls := "@.FINISH"
+    Props := "VISIBLE"
+    Vals  := FALSE$
+  end
+
+ * store the order, hide the scroll bar, show the window
+  Ctrls := ",@,@,@,@"
+  Props := ",@ORDER,VPOSITION,AUTOSCROLL,VISIBLE"
+  Vals  := @rm: Order: @rm: 1:@fm:1:@fm:1: @rm: FALSE$: @rm: TRUE$
+
+  gosub SetProps
+
+  Page = 1
+  Send_Event(@window, "PAGE", Page)
+return
+
+
+*********************
+* back button pressed
+*********************
+Back:
+  VPos  = Get_Property(@window, "VPOSITION")
+  Page  = VPos<1>
+  First = VPos<2>
+  Last  = VPos<3>
+
+ * make sure that both "Finish" and "Next" are enabled
+  Ctrls = "@.FINISH,@.NEXT"
+  Props = "ENABLED,ENABLED"
+  Vals  = TRUE$: @rm: TRUE$
+
+  if Page = Last then
+   * leaving last page, change "Finish" back to "Next"
+    Ctrls := ",@.FINISH,@.NEXT,@"
+    Props := ",VISIBLE,VISIBLE,DEFAULT"
+    Vals  := @rm: FALSE$: @rm: TRUE$: @rm: @window: ".NEXT"
+  end
+
+  If p1 = 3 Then
+     Page -= 2
+  end else
+     Page -= 1
+  end   
+
+  if Page = 1 then
+   * entering first page, turn off "Back"
+    Ctrls := ",@.BACK"
+    Props := ",ENABLED"
+    Vals  := @rm: FALSE$
+  end
+
+  gosub SetProps
+
+  Send_Event(@window, "PAGE", Page)
+return
+
+
+*********************
+* next button pressed
+*********************
+Next:
+  VPos  = Get_Property(@window, "VPOSITION")
+  Page  = VPos<1>
+  First = VPos<2>
+  Last  = VPos<3>
+
+  Ctrls = ""
+  Props = ""
+  Vals  = ""
+
+  if Page = 1 then
+   * leaving first page, turn on "Back"
+    Ctrls := ",@.BACK"
+    Props := ",ENABLED"
+    Vals  := @rm: TRUE$
+  end
+
+  If p1 = 3 Then
+     Page += 2
+  end else
+     Page += 1
+  end   
+
+  if Page = Last then
+   * entering last page, change "Next" to "Finish"
+    Ctrls := ",@.NEXT,@.FINISH,@"
+    Props := ",VISIBLE,VISIBLE,DEFAULT"
+    Vals  := @rm: FALSE$: @rm: TRUE$: @rm: @window: ".FINISH"
+  end
+
+  if len(Ctrls) then
+    Ctrls [1,1] = ""
+    Props [1,1] = ""
+    Vals  [1,1] = ""
+    gosub SetProps
+  end
+
+  Send_Event(@window, "PAGE", Page)
+return
+
+
+***************
+* set tab order
+***************
+Page:
+ * get the page and the stored order info
+  Ctrls  = @window    : @rm: @window
+  Props  = "VPOSITION": @rm: "@ORDER"
+  Vals   = Get_Property(Ctrls, Props)
+  Page   = field(Vals, @rm, 1)<1>
+  Order  = field(Vals, @rm, 2)
+
+ * build tab order for the page, including the wizard controls
+  List   = Order<Page,1>: @svm: "@.BACK,@.NEXT,@.FINISH,@.CANCEL"
+  swap "@" with @window in List
+  convert ",":@svm to @rm:@rm in List
+  Shift  = field(List, @rm, 2, 99999): @rm: field(List, @rm, 1)
+  cCtrls = count(List, @rm) + 1
+
+ * set the tab order for the page
+  Ctrls = List                    : @rm: Order<Page,4>     : @rm: @window: ".BACK": @rm: "SYSTEM"
+  Props = str("NEXT": @rm, cCtrls):      "PREVIOUS"        : @rm: "PREVIOUS"      : @rm: "FOCUS"
+  Vals  = Shift                   : @rm: @window: ".CANCEL": @rm: Order<Page,3>   : @rm: Order<Page,2>
+  Set_Property(Ctrls, Props, Vals)
+return
+
+
+***********************
+* finish button pressed
+***********************
+Finish:
+  Send_Event(@window, "CLOSE")
+return
+
+
+***********************
+* cancel button pressed
+***********************
+Cancel:
+  Send_Event(@window, "CLOSE")
+return
+
+
+*********************
+* edit line got focus
+*********************
+* p1  [in] - (optional) CtrlEntID
+* p2  [in] - (optional) TRUE$ to generate CHANGED event
+SelectText:
+  if len(p1) then
+    Focus = p1
+  end else
+    Focus = Get_Property(@window, "FOCUS")
+  end
+
+  Set_Property(Focus, "SELECTION", 1: @fm: 65535)
+
+  if p2 then
+    Send_Event(Focus, "CHANGED", Get_Property(Focus, "TEXT"))
+  end
+return
+
+
+********************************************
+* edit line changed -- disable Next if blank
+********************************************
+* p1  [in] - (optional) CtrlEntID
+Required:
+  if len(p1) then
+    Focus = p1
+  end else
+    Focus = Get_Property(@window, "FOCUS")
+  end
+
+  Ctrls = Focus: ",@"
+  Props = "TEXT,VPOSITION"
+  gosub GetProps
+
+  Text = field(Vals, @rm, 1)
+  VPos = field(Vals, @rm, 2)
+
+  if VPos<1> = VPos<3> then
+    Ctrl = "FINISH"
+  end else
+    Ctrl = "NEXT"
+  end
+
+  Set_Property(@window: ".": Ctrl, "ENABLED", (len(Text) > 0))
+return
+
+
+***********************
+* browse button pressed
+***********************
+* p1  [in] - CtrlEntID of edit line containing file name
+* p2  [in] - browse for "File" or "Dir" (defaults to "File")
+*            (see Utility CHOOSEFILE and CHOOSEDIR for more info)
+*            For "File"                                                   For "Dir"
+*            -----------------                                            -----------------
+* p3  [in] - Mode is "Open" or "Save" (or "0" or "1") (defaults to open)  Title
+* p4  [in] - Initial directory (defaults to none)                         Initial directory (defaults to none)
+* p5  [in] - Filter buffer (defaults to "All Files (*.*)/*.*/")           n/a
+Browse:
+  if Get_Property(p1, "HANDLE") else
+    p1 = @window: ".": p1
+  end
+
+  Default = Get_Property(p1, "TEXT")
+
+  if p2[1,1] _eqc "D" then
+   * choose dir
+    Ans = Utility("CHOOSEDIR", @window, p3: @fm: if len(Default) then Default else p4)
+  end else
+   * choose file
+    CFOpt = ""
+    CFOpt<1> = (p3 [1,1] _eqc "S" or p3 [1,1] = "1")
+    CFOpt<2> = if len(p5) then p5 else "All Files (*.*)/*.*/"
+    CFOpt<3> = 1
+    CFOpt<4> = Default
+    CFOpt<6> = p4
+    Ans = Utility("CHOOSEFILE", @window, CFOpt)
+  end
+
+  if len(Ans) and Ans # Default then
+    Set_Property(p1, "TEXT", Ans)
+  end
+  Set_Property("SYSTEM", "FOCUS", p1)
+return
+
+
+******************** internal subroutines ********************
+
+
+***********************
+* get properties (bulk)
+***********************
+* Ctrls   [in]  - comma and/or @rm-delim'd control ids
+* Props   [in]  - comma and/or @rm-delim'd property names
+* Vals    [out] - @rm-delim'd values
+GetProps:
+  swap "@" with @window in Ctrls
+  convert "," to @rm in Ctrls
+  convert "," to @rm in Props
+  Vals = Get_Property(Ctrls, Props)
+return
+
+
+***********************
+* set properties (bulk)
+***********************
+* Ctrls   [in] - comma and/or @rm-delim'd control ids
+* Props   [in] - comma and/or @rm-delim'd property names
+* Vals    [in] - @rm-delim'd values
+SetProps:
+  swap "@" with @window in Ctrls
+  convert "," to @rm in Ctrls
+  convert "," to @rm in Props
+  Set_Property(Ctrls, Props, Vals)
+return
+

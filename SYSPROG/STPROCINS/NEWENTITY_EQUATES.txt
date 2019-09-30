@@ -1,0 +1,38 @@
+compile insert NewEntity_Equates
+
+******************************************************************************
+*
+* This program is proprietary and is not to be used by or disclosed
+* to others, nor is it to be copied without written permission from
+* Revelation Technologies, Inc.
+*
+* Product    :  OpenInsight for Workgroups
+* Client     :  Revelation Software
+* Version    :  3.1
+*
+* History    :  (date, initials, notes)
+*   01/16/96  cp   Original programmer
+*
+******************************************************************************
+
+declare function   NewEntity
+declare subroutine NewEntity
+
+* Item = NewEntity(Mode, List, Default, Title)
+*
+* Parameters:
+*
+*   Mode       - must be NE_MODE_NEW$
+*
+*   List       - @fm-delim'd list of items to display
+*
+*   Default    - index into list (defaults to 1)
+*
+*   Title      - defaults to "New"
+*
+* Return value:
+*
+*   Item         - the item selected in the list or NULL if nothing selected
+
+equ NE_MODE_NEW$  to 1
+

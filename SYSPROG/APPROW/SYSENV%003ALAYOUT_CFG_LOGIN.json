@@ -1,0 +1,14 @@
+{
+    "record1": {
+        "<1>": "Configure \"single sign on\" functionality",
+        "<2>": {
+            "<2,1>": "If desired, OpenInsight can be configured to perform \"single sign on\", using network login credentials to log into OpenInsight",
+            "<2,2>": "This functionality can work in addition to, or instead of, the normal OpenInsight login process."
+        },
+        "<3>": "Login Mode{OPTIONS Use legacy (traditional) OpenInsight login processing/0|Use network user name to log in as defined OpenInsight user/1|Use network user name and permissions to log into OpenInsight/2}{DEFAULT 0}",
+        "<4>": "{MV 1}Group Names for Normal Users",
+        "<5>": "{MV 2}Group Names for Admin Users",
+        "<6>": "{MV 3}Group Names for Sysadmin Users",
+        "<7>": "Check Local Groups?{OPTIONS No, only network groups are checked/0|Network groups are checked first, and then local groups/1|ONLY local groups are checked (do not check network groups)/-1}{DEFAULT 0}"
+    }
+}

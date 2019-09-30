@@ -1,0 +1,60 @@
+*----------------------------------------------------------------------------
+* Advanced Revelation 2.0 Filing System Error reporting protocol
+* June 1, 1989
+* Begun: Brad Anderson
+*
+
+* 05/16/91 - JMC   Added special user abort mode ([Esc] press).  This
+*                   is a setting for the STATUS() variable, not a message number
+
+
+* Error conditions are to be returned by BFSs and MFSs in the @FILE.ERROR
+* variable.  Each error code has an associated severity level.
+* If an error condition is encountered, the filing system code should set
+* 1. @FILE.ERROR to the associated code and fill in the message and detail
+*    as appropriate
+* 2. Set STATUS() to the associated severity level
+* 3. Set the FLAG (7th argument) to FALSE$ to indicate an operational failure.
+*
+* If FLAG is set to false, then the operation is defined to have failed.
+* It is important for the application to know that a WRITE or DELETE was
+* in fact not performed.  Setting FLAG to FALSE is not an appropriate protocol
+* for communicating any non-failure (informational) condition from the
+* filing system.
+*
+* "Core" error codes are blocked in groups of 100 and are integer codes.
+* Block 0 - 99 is allocated for logical error reporting.
+* Block 100 - 199 is allocated for Revelation system BFS error codes.
+* Block 200 - 299 is allocated for Revelation system MFS error codes.
+* Block 300 - 399 is allocated for BOND.SUBS errors
+* Blcok 400 - 499 is allocated for System, RTP, and R/BASIC cursor errors
+*
+* Some codes are intrinsically specific to the function of a particular
+* BFS or MFS.  Others may be and should be generally applied to a variety
+* of filing systems.  For example, code 100 is the standard status return in
+* case of an attempt to read or delete a record which does not exist.
+*
+* Block BS - Bond-subs - is allocated for codes associated with the BOND.SUBS
+* routine.
+*
+* Every error code should have an associated message in the MESSAGES file.
+* The ID of the message should be error code preceeded by "FS".
+* For example, code 105 would have an associated message "FS105"
+* If any parameters are to be passed to this message they should appear in
+* the FSMSG field of @FILE.ERROR.  This field may be multivalued.
+
+*---- FILING SYSTEM SEVERITY LEVEL CODES --------
+* Value of STATUS() on return from Filing System.
+*
+Equate Fs_Informational$ To -2   ;* @File.Error contain FYI info.
+EQUATE FS_USER_ABORT$    TO -1   ;* The user pressed [Esc], SPECIAL!
+EQUATE FSLOGICAL$        TO 0    ;* Data does not meet logical constraints
+EQUATE FSPHYSICAL$       TO 1    ;* Structural or operational error (retryable)
+EQUATE FSFATAL$          TO 2    ;* Structural or operational error (fatal)
+
+*---- FILE.ERROR FIELD STRUCTURE -------
+EQUATE FSCODE$           TO 1    ; * error or status code identifier
+EQUATE FSMSG$            TO 2    ; * error message data
+EQUATE FSDETAIL$         TO 3    ; * file system dependent detail data
+EQUATE FS_PREFIX$        TO 'FS' ; * used by OE for set_status  Pat Oct/04/91
+* Source Date: 16:41:47  12 JAN 1993  Build ID: OI*1.0.10  Level: 2.0

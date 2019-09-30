@@ -1,0 +1,20 @@
+Function INET_RESPONSE_TEST(Request, Data)
+
+$insert logical
+$insert inet_equates
+
+Declare Function Inet_QueryParam
+Declare Subroutine Inet_QueryParam
+
+*
+* /oecgiapi/oecgi4.exe/inet_response_test?size=30240
+*
+
+*How many KB of result data should be returned?
+size = Inet_QueryParam(Request, 'size', '1')
+size = int(size)
+
+*Return X's up to number of KB requested
+Response = Str('X',Size * 1024)
+
+Return Response

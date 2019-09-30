@@ -1,0 +1,7 @@
+equ rev_charstr$   to 1
+equ rev_integer$   to 2
+equ rev_float$     to 3
+equ rev_binary$    to 4
+equ rev_text       to 5
+equ rev_lrgbinary$ to 6
+* Source Date: 16:42:21  12 JAN 1993  Build ID: OI*1.0.10  Level: 2.0

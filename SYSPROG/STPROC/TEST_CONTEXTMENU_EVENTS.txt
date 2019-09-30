@@ -1,0 +1,108 @@
+Function TEST_CONTEXTMENU_EVENTS(CtrlEntID,Event,Param1,Param2,Param3,Param4,Param5,Param6)
+*
+* Subroutine Name :TEST_CONTEXTMENU_EVENTS
+*
+* Description : Commuter Module for TEST_CONTEXTMENU
+*
+* Date : 04/03/2009
+*
+* Author : SYSPROG
+*
+* OI Version : 9.0.1
+*
+* Comments : mtr 4-3-09 for MP
+*
+*** RTI Generated Commuter Module ***
+*
+********************************************************
+*
+*
+Declare Subroutine MSG
+
+Declare Function MSG,GET_PROPERTY,SET_STATUS,GET_STATUS,SET_PROPERTY
+Declare Function POPUP,REPOSITORY,SEND_MESSAGE,SEND_EVENT,UNASSIGNED
+Declare Function UTILITY,CONTEXTMENU
+
+$INSERT MSG_EQUATES
+$INSERT POPUP_EQUATES
+
+If Unassigned(CtrlEntID) Then CtrlEntID = ''
+If Unassigned(Event) Then Event = ''
+If Unassigned(Param1) Then Param1 = ''
+If Unassigned(Param2) Then Param2 = ''
+If Unassigned(Param3) Then Param3 = ''
+If Unassigned(Param4) Then Param4 = ''
+If Unassigned(Param5) Then Param5 = ''
+If Unassigned(Param6) Then Param6 = ''
+*
+*
+If index(CtrlEntID,".",1) then
+	WinName = Field(CtrlEntID,'.',1)
+	Control = Field(CtrlEntID,'.',2)
+End else
+	WinName = CtrlEntID
+	Control = WinName
+End
+*
+Parent = @window
+Frame = Get_Property(Parent,'MDIFRAME')
+If len(Frame) then Parent = Frame
+*
+Retval = 1
+*
+Begin Case
+	Case Control = "TEST_CONTEXTMENU"
+		Begin Case
+			Case Event = "CREATE"
+				CreateParam = Param1
+				
+				* mtr
+				
+				CtrlList = Get_Property(@window,"CTRLMAP")
+				CtrlList = "WINDOW":@fm:CtrlList
+				cCtrls = count(CtrlList,@fm) + (CtrlList # '')
+				for iCtrl = 1 to cCtrls
+					Ctrl = CtrlList<iCtrl>
+					Val = ContextMenu(Ctrl,"CREATEMENU")
+				next iCtrl
+				
+				
+				Retval = 0
+			Case Event = "OMNIEVENT"
+				Message = Param1
+				Param1 = Param2
+				Param2 = Param3
+				Param3 = Param4
+				Param4 = Param5
+				
+				* mtr
+				
+				call ContextMenu(CtrlEntID,'OMNIEVENT')
+				
+				Retval = 0
+			Case Event = "WINMSG"
+				hWnd = Param1
+				Message = Param2
+				wParam = Param3
+				lParam = Param4
+				
+				* mtr
+				param1 = hwnd
+				param2 = ''
+				param3 = wParam
+				param4 = lParam
+				
+				call ContextMenu(CtrlEntID,'WINMSG',param1,param2,param3,param4)
+				
+				Retval = 0
+		End Case
+	Case Control = "BUTTON_1"
+		Begin Case
+			Case Event = "CLICK"
+				
+				val = Send_Event(@WINDOW,"CLOSE")
+				
+		End Case
+End Case
+*
+return retval

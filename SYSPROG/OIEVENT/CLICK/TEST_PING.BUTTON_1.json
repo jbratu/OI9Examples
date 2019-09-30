@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "\r\ndeclare function utility, Ping, Msg, Get_Status\r\n\r\n* mtr \r\n\r\n.results->text= ''\r\n\r\nx = Utility('BEEP')\r\n\r\nAddress = .address->defprop\r\nif len(address) else\r\n\tx = msg(@window, 'An address is required')\r\n\treturn ''\r\nend\r\n\r\nNum_iterations = .iterations->defprop\r\nif len(Num_iterations) else\r\n\tx = msg(@window, 'A number of iterations is required')\r\n\treturn ''\r\nend\r\n\r\nfor i = 1 to num_iterations\r\n\tretval = Ping(Address)\r\n\tx = get_Status(errs)\r\n\tif errs then\r\n\t\tCall Fsmsg(errs)\r\n\t\treturn ''\r\n\tend\r\n\r\n\tif retval then\r\n\t\tif index(retval, @fm, 1) then\r\n\t\t\tretval<1> = 'IP Address: ':retval<1>\r\n\t\t\tretval<2> = 'Milliseconds ':retval<2>\r\n\t\t\tswap @fm with ', ' in retval\r\n\t\tend\r\n\t\texisting_text = .results->text\r\n\t\tif existing_text then\r\n\t\t\t.results->text = existing_text:char(13):char(10):retval\r\n\t\tend else\r\n\t\t\t.results->text=retval\r\n\t\tend\r\n\tend\r\n\tCall delay(1)\r\nnext i\r\n\r\n\r\nRETURN 0"
+    }
+}

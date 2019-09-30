@@ -1,0 +1,29 @@
+*
+*================================ BLOCK -200 =================================
+* Transaction Errors
+*
+* File I/O specific
+EQU SQL_PRE_COM_ERR$          TO -200  ;* Pre-commit error ; Commit log name or smart filing system
+EQU SQL_COM_DEL_ERR$          TO -201  ;* Commit Log delete error ; Commit log name
+EQU SQL_COM_READ_ERR$         TO -202  ;* Commit Log read error ; Commit log name
+EQU SQL_STABLE_DB_ERR$        TO -203  ;* Stable Database File open error ; Data file name
+EQU SQL_TRANS_FILE_ERR$       TO -204  ;* Transaction File access error ; Transaction file name
+EQU SQL_STABLE_DB_DEL_ERR$    TO -205  ;* Stable Database File delete error ; Data file name
+EQU SQL_STABLE_DB_CLR_ERR$    TO -206  ;* Stable Database File clear error ; Data file name
+EQU SQL_TRANS_FILE_CLR_ERR$   TO -207  ;* Transaction File clear error ; Transaction file name
+EQU SQL_TRANS_FILE_READ_ERR$  TO -208  ;* Transaction File read error ; Transaction file name
+EQU SQL_COM_WRITE_ERR$        TO -209  ;* Commit Log write error ; Commit log name
+EQU SQL_STABLE_DB_WRITE_ERR$  TO -210  ;* Stable Database File write error ; Data file name
+EQU SQL_BTRANS_ERR$           TO -211  ;* Begin transaction error w/smart volume or COMMITLOG ; Smart FS or COMMITLOG name
+EQU SQL_COM_LOG_ERR$          TO -212  ;* Commit log open error ; Commit log name
+
+* Locking and other miscellaneous errors
+EQU SQL_SET_TRANS_ERR$        TO -220  ;* SET TRANSACTION statement requires that TRANS.CONTROL = ON (first statement in a transaction) ; None
+EQU SQL_VICTIM_ERR$           TO -221  ;* Selected as a victim in deadlock ; None
+EQU SQL_LOCK_ERR$             TO -222  ;* General implicit SQL lock failure ; Source code name, location (not displayed)  @FILE.ERROR in SUBCODE$
+EQU SQL_UNLOCK_ERR$           TO -223  ;* General implicit SQL unlock failure ; Source code name, location (not displayed), @FILE.ERROR in SUBCODE$
+EQU SQL_LOCK_INT_ERR$         TO -224  ;* Lock wait interrupted by user or timer ; None, @FILE.ERROR  in SUBCODE - see FSERRORS_200
+EQU SQL_REC_CL4_ERR$          TO -225  ;* Record level locking and cl of 4 not allowed
+EQU SQL_INVALID_CL_ERR$       TO -226  ;* Invalid consistency level entered.
+EQU SQL_LOCK_LIMIT_ERR$       TO -227  ;* Lock governor limit has been reached ; Lock governor value
+* Source Date: 16:42:25  12 JAN 1993  Build ID: OI*1.0.10  Level: 2.0

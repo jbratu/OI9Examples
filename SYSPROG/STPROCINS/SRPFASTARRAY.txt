@@ -1,0 +1,5 @@
+Compile Insert SRPFASTARRAY
+
+Declare function SRP_FastArray, SRP_FastArray_Create, SRP_FastArray_GetVariable, SRP_FastArray_Extract, SRP_FastArray_Count, SRP_FastArray_Reduce
+Declare subroutine SRP_FastArray, SRP_FastArray_Release, SRP_FastArray_Insert, SRP_FastArray_Replace, SRP_FastArray_Delete, SRP_FastArray_Match
+Declare subroutine SRP_FastArray_InsertFromList, SRP_FastArray_ReplaceWithList

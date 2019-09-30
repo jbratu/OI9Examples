@@ -1,0 +1,17 @@
+{
+    "record1": {
+        "<1>": "SRP Utilities",
+        "<2>": "This is an SRP Custom Utility; double-click to execute",
+        "<3>": {
+            "<3,1>": "EXECUTE",
+            "<3,2>": "DESIGN",
+            "<3,3>": "DESTROY",
+            "<3,4>": "NEW",
+            "<3,5>": "WRITE"
+        },
+        "<4>": "",
+        "<5>": "",
+        "<6>": "OI",
+        "<7>": "OIEXEC"
+    }
+}

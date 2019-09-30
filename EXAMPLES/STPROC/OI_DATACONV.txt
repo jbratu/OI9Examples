@@ -1,0 +1,224 @@
+function OI_dataConv(format,file,fields,data,idlist,savelist,attributes)
+/*	-------------------------------------------------------------------------------------------------------------------------
+	Author	: Rev Guy DownUnder
+	Date	: 18 May 2007
+	Version	: 0.1
+	Purpose : Converts OpenInsight Data to another format.
+	
+			  This main procedure will read the OI data from file and
+			  build it into a record/field/value delimited string. This
+			  string will then be passed to the appropriate procedure to
+			  convert it into the required format.
+
+	Modification Info: 
+	-------------------------------------------------------------------------------------------------------------------------
+	Date		Who		Notes
+	-------------------------------------------------------------------------------------------------------------------------
+	
+	Parameters:
+	-------------------------------------------------------------------------------------------------------------------------
+	format	- The format you wish the data converted to. T
+	
+
+	Returns:
+	-------------------------------------------------------------------------------------------------------------------------
+	Result - The result of the data conversion
+	
+	-------------------------------------------------------------------------------------------------------------------------*/
+	
+
+
+declare function unAssigned, repository
+declare subroutine make.list, activate_save_select, rlist
+
+$insert oi_dataConv_common
+$insert logical
+$insert dict_equates
+
+equ null$	to ""
+
+If unAssigned(format) then format = ""
+If unAssigned(file) then file = ""
+If unAssigned(fields) then fields = ""
+If unAssigned(data) then idlist = ""
+If unAssigned(idlist) then idlist = ""
+If unAssigned(savelist) then savelist = ""
+If unAssigned(attributes) then attributes = ""
+
+errCode = null$
+errtext = null$
+result	= null$
+
+*----------
+initialise:
+*----------
+// initialise this class.
+
+if errCode else gosub checkFormat
+if errCode else gosub getData
+if errCode else gosub convertData
+
+if errCode then gosub processError
+
+// Free the common area
+FreeCommon "OIDATA_CONV"
+
+return result
+************************************************************************
+* internal subroutines
+************************************************************************
+*
+*----------
+checkFormat:
+*----------
+	if format then
+		// check if format is available
+		convert @lower.case to @upper.case in format
+		formatFunction = "OI_DATACONV_":FORMAT
+		entId = @APPID<1>:"*STPROCEXE**":formatFunction
+		void = repository("ACCESS",entId)
+		If Get_Status(ErrCode) then
+		  // Done
+		end
+		format@ = format
+	end else
+		errCode = -1
+		errText = "Format Specified"
+	end
+return
+
+*----------
+getData:
+*----------
+
+	file@ = file
+	fields@ = fields
+	convert @lower.case to @upper.case in file@
+	
+	open file@ to filev@ then
+	 	open "DICT.":file@ to @dict then
+			// get the list of valid fields from %FIELDS%
+			read file.fields@ from @dict,"%FIELDS%" else
+				//no valid fields?
+			end
+			
+			// check that each field is valid
+			if fields@ = "" then
+				// no fields were passed, so give the user all the fields
+				fields@ = file.fields@<3>
+			end
+			
+			// make sure that the fields are @fm delimited and uppercase
+			convert ", ":@vm:@svm to @fm:@fm:@fm:@fm in fields@
+			convert @lower.case to @upper.case in fields@
+			
+			pos = 1
+			cnt = 0
+			fields.valid@ = null$
+	
+			loop
+				remove thisField from fields@ at pos setting flag
+				cnt += 1
+				locate thisField in file.fields@<3> using @vm setting fieldpos then
+					read fieldRec from @dict,thisField then
+						fields.valid@<cnt> = true$
+						fields.oconv@<cnt> = file.fields@<FIELDS_CONV$,fieldpos>		; * oconv
+						
+						// store the column heading and the input
+						// validation in the file.fields@ common
+						// variable for use later
+						colhead = fieldRec<DICT_DISPLAY$>
+						*swap @vm with "<br />" in colhead
+						swap @vm with " " in colhead
+						file.fields@<30,fieldpos> = fieldRec<DICT_PATTERN$,1>	; * iconv
+						file.fields@<31,fieldpos> = colhead						; * col heading
+						file.fields@<32,fieldpos> = fieldRec<DICT_GENERIC_TYPE$>; * datatype
+					end	
+				end else
+					fields.valid@<cnt> = 0
+					fields.oconv@<cnt> = ""
+				end
+			until flag = 0 do
+			repeat
+			
+			// add @id to the front of fields
+			fields@ = insert(fields@,1,0,0,"@ID")
+			fields.valid@ = insert(fields.valid@,1,0,0,true$)
+			fields.oconv@ = insert(fields.oconv@,1,0,0,"")
+									
+			// Has the data already been passed in
+			if data else
+				// load cursor 0 with the list of ids to process
+				begin case
+					case idList[1,6] _eqc "select"
+						// A select list has been passed.
+						rlist(idList,5,"","","")
+					case idList
+						// Make sure that we are dealing with an @FM delimited array
+						convert @vm:@svm to @fm in idList
+						// now turn this into an active select list
+						*** 070723 Fix for make.list nulling the second parameter
+						var = idList
+						make.list(0,var,filev@,@dict)
+					case saveList
+						// we have been passed a saved select list name.
+						// now turn this into an active select list
+						activate_save_select(saveList)
+					case 1
+						// a select list is already active.
+				end case
+				
+				// we should now have an active select list
+				data  = ""
+				eof = false$
+				loop
+					readnext @id else eof = true$
+				until eof = true$ do
+					read @record from filev@, @id then
+						// process each field
+						pos = 1
+						
+						for i  = 1 to dcount(fields@,@fm)
+							if fields.valid@<i> = 1 then
+								thisField = fields@<i>
+								thisFieldData = calculate(thisField)
+								// convert thisFieldData into output format
+								data := oconv(thisFieldData,fields.oconv@<i>):@fm
+							end else
+								data := "Invalid field :":fields@<i>:@fm
+							end
+						next i
+						// remove the training @fm
+						data[-1,1] = ""
+					end
+					// add the end of record marker
+					data := @rm
+				repeat
+				// remove the trailing record marker
+				data[-1,1] = ""
+			end
+		end	else
+			errCode = @file.error
+			result = "Dictionary ":file:" not found"
+		end	
+	end	else
+		errCode = @file.error
+		result = "file ":file:" not found"
+	end	
+return
+
+*----------
+convertData:
+*----------
+	attributes@ = attributes
+	convert "~" to @fm in attributes@
+	result = function(@formatFunction(file,fileFields,fields,data,attributes))
+Return
+
+*----------
+processError:
+*----------
+	// An error has occured, pass back the result
+	result = errCode
+return
+end

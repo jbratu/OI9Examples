@@ -1,0 +1,59 @@
+function Inet_FormLoad (Request)
+*********************************************************************
+*
+* This program is proprietary and is not to be used by or disclosed
+* to others, nor is it to be copied without written permission from
+* Revelation Technologies, Inc.
+*
+* Product    :  OI/WG
+* Project    :  OpenInsight for Internet
+* Release    :  3.5
+*
+* Name       :  Inet_FormLoad
+* Description:  HTML version of Start_Window
+*
+* Parameters:
+*   Request  [in] -- HTTP request with following parameters:
+*                    FORM_ID - form name
+*   ret     [out] -- HTML script with a message 
+*
+* History (Date, Initials, Notes)
+*   10/15/97  gg   Original programmer
+*********************************************************************
+
+$insert fserrors_100
+$insert syserrors_1000
+$insert logical
+$insert oiwin_equates
+
+equ FORM_ID$ to 'FORM_ID'
+equ CR$      to \0D\
+equ LF$      to \0A\
+
+declare function   Inet_QueryParam, Inet_Msg, Web_FormLoad, Get_Property
+declare subroutine Start_oiwin, End_Window, Set_Status
+
+	formId = Inet_QueryParam(Request, FORM_ID$)
+
+	if len(formId) else
+		return Inet_Msg(Request, '', 'INET_INVALIDPARAM', FORM_ID$)
+	end
+
+	convert @lower.case to @upper.case in formId
+	winId = formId :'*': Get_Property('SYSTEM', 'COUNTER')
+
+	Start_oiwin(winId)
+
+	if Get_Status(statCode) then
+		Set_Status(FALSE$)
+		return Inet_Msg(Request, '', 'INETFORM_NOTFOUND', formId)
+	end
+
+	$insert oiwin_comm_init
+
+	htmlDoc = Web_FormLoad(Request, winId, '', TRUE$)
+
+	End_Window(winId)
+
+	return htmlDoc
+

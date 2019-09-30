@@ -1,0 +1,149 @@
+subroutine OIPI_Example3(dummy)
+
+/*
+
+  OIPI_Example3
+
+  This is an example program on how to use the OpenInsight Printer Interface.
+  This example uses most of the features of the OpenInsight Printer Interface, and
+  is a good place to start learning how to create reports with the OIPI.
+  
+  This example will Read records From the Customers file found In the EXAMPLES application supplied 
+  With OpenInsight versiosn 4.1 And above
+
+*/
+
+declare function Set_Printer, Get_Printer, RGB
+
+declare function msg
+
+$insert OIPRINT_EQUATES
+
+Equ Portrait$ To 0
+Equ Landscape$ To 1
+
+* print Setup Equate
+Equ Print_Style$ 			To 1
+Equ Print_Zoom$				To 2
+
+Equ Print_ToPrinter$		To 0
+Equ Display_PrintSetup$ 	To 1
+Equ Preview_Normal$ 		To 2
+Equ Print_Mazimized$		To 3
+
+Equ Display_AllButtons$		To 0
+Equ Hide_PrintButton$		To 1
+Equ Hide_PrintSetupButton$	To 2
+Equ Hide_AllButtons$		To 3
+
+* Create the fonts for the OIPI report
+
+* Courier, 12, regular
+Font1 = "Courier New":@FM:12:@FM:"L":@FM:1:@FM:0:@FM:0:@FM:0:@FM 
+
+* Start the OIPI report with the INIT message
+FileName = "OIPI_Example3"
+
+PrintTitle = "OIPI Printing..."
+PreviewTitle = "OIPI Print Preview"
+
+Margins = .5:@FM:1:@FM:.5:@FM:1	;* half inch margins On the sides, one inch margins On the top
+Orientation 	= Portrait$					
+PrintSetup = ""
+PrintSetup<Print_Style$, 1> = Preview_normal$	
+PrintSetup<Print_Style$, 2> = Display_AllButtons$
+PrintSetup<2>    = -1	;* Set initial zoom to PageWidth
+PrintSetup<3>    = 5	;* Set the Print Preview position at 5% from top and left
+PrintSetup<4>    = 5
+PrintSetup<5>    = 95
+PrintSetup<6>    = 95
+ 
+VAL = Set_Printer("INIT", FileName, PrintTitle:@FM:PreviewTitle, Margins, Orientation, PrintSetup)
+if  VAL < 0 then
+  * Always check the return value of the INIT message for error
+  ErrorMsg = "Fatal error with the INIT message:":VAL
+  goto fatalExit
+end
+
+
+* Set the font for all of the headers and footers
+if Set_Printer("FONTHEADFOOT", "Arial":@FM:14:@FM:"L":1) < 0 then
+  ErrorMsg = "Error with the FONTHEADFOOT message"
+  goto fatalExit
+end
+
+* Print the header with the file name centered on the first line and
+* the Long format of the date left justified and the page number right justified
+* on the second line.
+
+x = Set_Printer("HEADER", "'DL' This is The Report Header, In arial font ")
+If x < 0 then
+  ErrorMsg = "Error with the HEADER message"
+  goto fatalExit
+end
+ 
+if Set_Printer("FONT", Font1) < 0 then
+  ErrorMsg = "Error with the FONT message"
+  goto fatalExit
+End
+x = Set_Printer("TEXT", ''); * Blank Line
+x = Set_Printer("TEXT", 'The font has been set To Courier New, 12 point')
+
+Open 'CUSTOMERS' To f_customers Else
+	x = Msg(@Window, 'Cannot open the Customers file')
+	Return ''
+End
+
+ClearSelect
+scr = Msg(@Window, 'Selecting records for the report...':@fm:'U')
+Call Rlist('SELECT CUSTOMERS BY CUSTOMER_NAME BY STATE', 5, '', '', '')
+X = Msg(@Window, scr)
+If @reccount < 1 Then
+	x = Msg(@Window, 'No records were selected for the report')
+	Return ''
+End
+
+
+x = Set_Printer("TEXT", ''); * Blank Line
+x = Set_Printer("TEXT", 'The following records are printed in an AddTable command in OIPI')
+x = Set_Printer("TEXT", ''); * Blank Line
+addtable_data = ''
+Done = ''
+Loop
+readnext id Else done = 1
+Until done
+	Read record From f_customers, id then
+		lname 	= record<1>
+		fname 	= record<2>
+		city	= record<5>
+		state	= record<6>
+		phone 	= record<9>
+		line  = lname:', ':fname :@vm: City :@vm: State :@vm: Oconv(phone, '[PHONE_FORMAT]')
+		addtable_data<-1> = line
+	
+	End else
+		x = Msg(@Window, 'Error reading customers record ':id)
+	end
+repeat
+
+AddTable_Header	= "Name" :@vm: 'City' :@vm: 'State': @vm: 'Phone'
+ColumnFormat = "_<2880":@VM:"_<2880":@VM:"_<1440":@vm:"_<2200":@FM
+if Set_Printer("ADDTABLE", ColumnFormat, AddTable_header, addtable_data, '', "", "", TB_ALL) < 0 then goto fatalExit
+
+pos = Get_Printer("POS")
+curr_xpos = pos<1>
+curr_ypos = pos<2>
+new_ypos  = curr_ypos + .5
+
+x = Set_Printer("TEXTXY", 'This text is printed using TEXTXY, and should appear .5 inches below the table', curr_xpos :@fm: new_ypos)
+
+
+* End the report and tell the OIPI to completely shut down after the print preview is closed.
+x = Set_Printer("TERM", 1)
+return
+
+* jump here if any Set_Printer returns a value < 0
+fatalExit:
+  x = msg("", ErrorMsg)
+  x = Set_Printer("TERM", 1)
+return

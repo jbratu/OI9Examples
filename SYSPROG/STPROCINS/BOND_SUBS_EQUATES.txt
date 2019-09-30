@@ -1,0 +1,120 @@
+Compile Insert Bond_Subs_Equates
+*
+* BOND.SUBS.EQUATES - equates for the central bonding kit dispatcher
+*
+DECLARE SUBROUTINE BOND.SUBS
+
+* BOND.SUBS COMMAND CODES
+
+* The first argument to BOND.SUBS is a code which specifies the
+* function to be performed:
+EQU     BS.TYPE.PARSE$      TO        1  ;* Parse parameterized type.
+EQU     BS.TYPE.EXPAND$     TO        2  ;* Parse and expand parameterized
+*                                         * type.
+EQU     BS.TYPE.POPUP$      TO        3  ;* Formatted popup of global data
+*                                         * types.
+EQU     BS.TYPE.WPOPUP$     TO        4  ;* Like TYPE.POPUP, only no args.
+EQU     BS.MACRO.EXPAND$    TO        5  ;* Apply parsed macro (parameterized
+*                                         * type) to template.
+*
+EQU     BS.ERROR$           TO        6  ;* Error handler.
+EQU     BS.GET.TYPE.REC$    TO        7  ;* Get record from type table.
+EQU     BS.GET.MAP.REC$     TO        8  ;* Get record from type maps table.
+
+EQU     BS.GET.FLAG.ALL$    TO  1  ;* Get all map records
+EQU     BS.GET.FLAG.CREATE$ TO  2  ;* Get default creation mapping
+EQU     BS.GET.FLAG.ATTACH$ TO  3  ;* Get default attach mapping
+
+EQU     BS.GET.TYPE$        TO        9  ;* Collect valid type from user.
+EQU     BS.REQUOTE$         TO        10 ;* requote a string.
+EQU     BS.FIELD.ATTR$      TO        11 ;* display field attr collector.
+EQU     BS.FILE.ATTR$       TO        12 ;* display file attr collector.
+EQU     BS.MAP.FILENAME$    TO        13 ;* Map filename into foreign env.
+EQU     BS.MAP.FIELDNAME$   TO        14 ;* Map fieldname into foreign env.
+EQU     BS.GET.FILE.ATTR$   TO        15 ;* Get default file attributes.
+EQU     BS.VOL.ATTR$        TO        16 ;* display volume attr collector.
+EQU     BS.TYPE.CREATE$     TO        17 ;* Type expansion when creating a
+                                         ;* dictionary field.
+EQU     BS.TYPE.ATTACH$     TO        18 ;* Type expansion when attaching
+                                         ;* to an existing dictionary field.
+EQU     BS.GET.WINFO$       TO        19 ;* For internal use only.
+EQU     BS.DEBUG$           TO        20 ;* Turn debugging on/off.
+EQU     BS.TYPE.WINDOW$     TO        21 ;* Call this for F2 for data type fields
+EQU     BS.GET.WINFO.MAP$   TO        22 ;* Internal use only.
+
+EQU     BS.LAST.FUNC.CODE$  TO        22 ;* Sentinel for internal use
+
+
+
+!
+!
+* BOND.SUBS FILE DEFINITIONS
+
+*
+EQU     BSTM.FILE.NAME$        TO 'SYSTYPEMAPS'     ;* Type mappings for each bond
+
+
+EQU BSTM.BOND.NAME$        TO 1     ;* Key part 1.  Name of bond.
+EQU BSTM.FILE.TYPE$        TO 2     ;* Key part 2.  File type ("." = default).
+EQU BSTM.GENERIC.TYPE$     TO 3     ;* Key part 3.  Name of corresponding
+                                    ;* record in generic data type table.
+EQU BSTM.MAPPING.NAME$     TO 4     ;* The mapping name is the name selected
+                                    ;* by the bond developer which uniquely
+                                    ;* identifies a particular transformation
+                                    ;* of data between arev and the foreign
+                                    ;* environment.
+
+EQU BSTM.GEN.PARM.NAME$    TO 1     ;* A multi-valued list of the names of
+                                    ;* the parameters of the generic data
+                                    ;* type.  The type mapping definition
+                                    ;* window initializes these to be the
+                                    ;* generic data type parameter names.  The
+                                    ;* intent is that the mapping may append
+                                    ;* additional arguments, but that is not
+                                    ;* implemented in 2.0
+EQU BSTM.PARM.PROMPT$      TO 2     ;* A multi-valued list of scaled-down
+                                    ;* prompt window templates, each of which
+                                    ;* will be used in constructing the
+                                    ;* dynamic window for data type params.
+EQU BSTM.DICT.TEMPLATE$    TO 3     ;* A dictionary template which contains
+                                    ;* replaceable parameters that will be
+                                    ;* used in expanding a data type into
+                                    ;* a dictionary record.
+EQU BSTM.CALL.EDIT.ROUTINE$ TO 4    ;* Y/N.  Should FOREIGN.SUBS be called
+                                    ;* at the end of a type expansion in order
+                                    ;* to perform additional editing?
+EQU BSTM.DYNAMIC.FLAG$     TO 5     ;* 0 or 1.  1 means that the bond will
+                                    ;* have an opportunity to select the type
+                                    ;* mapping dynamically.
+
+EQU BSTM.NATURAL.FLAG$    TO 6      ;* 0 or 1.  1 means that this is a
+                                    ;* natural mapping.  0 means that if this
+                                    ;* data type is being created interactively,
+                                    ;* the user must be informed that the
+                                    ;* data type is being mapped to a less-than
+                                    ;* natural type in the foreign environment.
+equ BSTM.DESCRIPTION$       TO 7    ;* one-line description of mapping for popup
+
+
+
+EQU     BSTY.FILE.NAME$          TO    "SYSTYPES" ;* The name of the file
+                                                    ;* containing the generic
+                                                    ;* data type records.
+
+EQU     BSTY.TYPE.NAME$          TO    0    ;* The name of the generic data
+                                            ;* (this is the key to the file).
+EQU     BSTY.TYPE.DESCRIPTION$   TO    1    ;* One-liner description that will
+                                            ;* appear in the types popup.
+EQU     BSTY.SYNONYM.FOR$        TO    2    ;* Name of generic type that this
+                                            ;* type is just a synonym for.
+EQU     BSTY.DERIVED.FROM$       TO    3    ;* Name of generic type that this
+                                            ;* type is derived from.
+EQU     BSTY.PARM.NAME$          TO    4    ;* Multi-valued list of type
+                                            ;* parameters.
+EQU     BSTY.PARM.PROMPT$        TO    5    ;* Prompt template that will be
+                                            ;* used with this parameter.
+EQU     BSTY.DICT.TEMPLATE$      TO    6    ;* Dictionary template.
+EQU     BSTY.CALL.EDIT.ROUTINE$  TO    7    ;* 0 or 1.  Specifies whether
+                                            ;* edit routine must be called.
+
+* Source Date: 10:58:08  27 FEB 1991  Build ID: AREV*2.1  Level: 2.1

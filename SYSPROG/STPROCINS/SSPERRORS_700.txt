@@ -1,0 +1,25 @@
+/*-------------------------------------------------------------------------
+  This is the sperrors for INDEX MANAGEMENT ACCESS SPs
+
+    DATE       IMPLEMENTOR     FUNCTION
+  --------     -----------     --------
+  MM-DD-YY     initials        Modification
+  09-17-91     Pat             First created
+    06-10-10     mtr             Added 711
+---------------------------------------------------------------------------*/
+
+
+equ ssp_invalid_index_type_err$      to "SSP700"  ;* passed in incorrect index_type, %1% passed in type.
+equ ssp_remove_wrong_index_type_err$ to "SSP701"   ;* specified indexed type not exist %1% index name, %2% index type
+equ ssp_relational_sort_mode_err$    to "SSP702"   ;* invalid sort mode %1% pass in sort mode.
+equ ssp_index_already_exist_err$     to "SSP703"   ;* index alredy exist index_name:@FM:index_type.
+equ ssp_invalid_case_mode_err$       to "SSP704"   ;* invalid case mode %1% wrong case_mode.
+equ ssp_invalid_create_mode_err$     to "SSP705"   ;* invalid create mode %1% wrong creating mode.
+equ ssp_invalid_stop_mode_err$       to "SSP706"   ;* invalid stop mode %1% wrong stop mode.
+equ ssp_related_table_non_exist_err$ to "SSP707"   ;* related table nonexist %1% non-exist tablename.
+equ ssp_rel_sort_mode_inconsist_err$ to "SSP708"   ;* many to 1 rel index have diff sorting mode %1% previous sort mode %2 current sort mode.
+EQU ssp_index_different_account_err$ to "SSP709"   ;* try to create index on table with different account %1
+EQU ssp_add_index_under_diff_acct$   to "SSP710"   ;* Table % is under different account %2. Index cannot be added.
+EQU ssp_add_index_dict_quickdex$     to "SSP711"   ;* Cannot create index for table "%1%" when it has a Quickdex/Rightdex on its dictionary.
+  
+* Source Date: 11:00:17  24 MAR 1994  Build ID: OI*2.01.54  Level: 2.01

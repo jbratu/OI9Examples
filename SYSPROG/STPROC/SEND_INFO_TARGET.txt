@@ -1,0 +1,46 @@
+Subroutine SEND_INFO_TARGET(File)
+* Controls the output of SEND_INFO_TO subroutine.
+
+Declare Function RTI_OS_DIRECTORY
+Declare Subroutine SEND_INFO,SET_STATUS
+
+$Insert Logical
+
+Common /SEND_INFO_TO/ sitFile@
+
+If Unassigned(sitFile@) Then sitFile@ = ''
+If Unassigned(File) Then File = ''
+
+If File EQ '' Then
+	* Disable the redirection, no file specified.
+	sitFile@ = ''
+	Return ''
+End
+
+*Verify the path and file, create if needed.
+FileName = File[-1,'B\']
+Path = File[1,Len(File) - Len(FileName)]
+
+If RTI_OS_DIRECTORY('EXISTS', Path) EQ -1 Then
+
+	Result = RTI_OS_DIRECTORY('CREATE', Path, True$)
+	
+	If Result = False$ Then
+		m = 'Unable to redirect SEND_INFO. Could not create ' : File
+		SEND_INFO(m)
+		Set_Status(-1,1,m)
+		Return '' 
+	End
+
+End
+
+*Activate the redirection
+sitFile@ = File
+
+*Touch the file so we know it's working.
+OSWrite "SEND_INFO now directed to this file." To sitFile@
+
+*Reload this SYSOBJ code so in memory version matches the SYSOBJ version.
+Call RTP27("SEND_INFO")
+
+Return ''

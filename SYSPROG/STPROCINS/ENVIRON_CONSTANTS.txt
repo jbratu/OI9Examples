@@ -1,0 +1,208 @@
+compile insert environ_constants
+/*
+  Amended  Date         Reason
+  =======  ====         ======
+  Mr C     24th Jan 06  Added ENV_UNIQUE_STATION_ID$
+  mtr      05-25-06     Added ENV_DFLT_RPT_SHADOW_TYPE$
+  bzs	   06-02-06	    Added ENV_ODBC_CAT_ALL_TABLES$
+  WER      07/06/06     Added ENV_EXCLUDE_FROM_REPORTS$
+  spf	   10/19/06		Added Equ ENV_DM_SORT_BY_DBID$ - Sort tables within the Database Manager Add by Database ID
+  RO	   11/16/06		Added Equ EQU ENV_RELATIONAL_UPD_0$ - Update Zero Records when relational indexes are updated
+  bzs      02/07/07     Added ENV_SAVE_CONVERTED$ and ENV_CREATE_AREVUSER$
+  bzs      07/23/08     Added ENV_DATE_FORMAT$
+  mtr      08/25/08     Added ENV_B_DFLT_WIN_BACKCOLOR$
+                        Added ENV_WIN_BACKCOLOR_VALUES$
+  Mr C     10/20/08     Added ENV_DEBUGGER_INTERCEPT_PROC$
+  bzs	   10/22/08	    Changed ENV_DATE_FORMAT$ To ENV_LOCALE$ 
+  bzs      02/24/09     Added ENV_OSWRITE$ 
+  rjc      05/06/09     Added env_BTREE_FLUSH_ON$
+*/
+
+*** Pointers into the environment constants variable for OpenEngine
+
+EQU ENVIRON_PREFIX$          TO "ENV_" ;* Prefix in sysenv for environment records
+
+EQU E.DEFAULT.DATA.VOL       TO 1  ;* Default data volume where files are
+                                    * created and some TCL commands such as LISTDICT are used
+EQU ENV_DEFAULT_DATA_VOL$    TO 1
+
+EQU E.DOS.SORT.VOL           TO 2  ;* The DOS volume where the temporary sort
+                                    * files will be built. If not specified then
+                                    * it uses the default drive.
+EQU ENV_DOS_SORT_VOL$        TO 2
+
+EQU E.TRANS.VOL              TO 3  ;* Transaction volume name.  Where the
+                                    * trans files and other lock files are
+                                    * stored.
+EQU ENV_TRANS_VOL$           TO 3
+
+EQU E.DEFAULT.STOPS          TO 4  ;* MV list of words thrown out when indexing and
+                                    * Cross-reference
+EQU ENV_DEFAULT_STOPS$       TO 4
+
+EQU E.INDEX.TIME             TO 5  ;* Seconds before call to background indexing
+                                    * process. A zero or null will not call
+                                    * processor. A one will tell the
+                                    * background process that the station is
+                                    * dedicated to index processing.
+EQU ENV_INDEX_TIME$          TO 5
+
+EQU E.SELECT.FLUSH.ON        TO 6   ;* 1 = Flush Index Transactions BEFORE select.
+EQU ENV_SELECT_FLUSH_ON$     TO 6
+
+EQU E.UNLOCK.ALL.COMMIT      TO 7  ;* 1 = true - then UNLOCK ALL imposed at
+                                    * commit time.  0 = false - only logged
+                                    * locks are unlocked at commit time.
+EQU ENV_UNLOCK_ALL_COMMIT$   TO 7
+
+EQU E.DEADLOCK.CHECK         TO 8  ;* Interval (in seconds) for checking
+                                    * deadlock after deadlock process has
+                                    * been started.
+EQU ENV_DEADLOCK_CHECK$      TO 8
+
+EQU E.LOCK.TIMEOUT           TO 9  ;* Number of seconds before transaction
+                                    * times out in a wait situation
+EQU ENV_LOCK_TIMEOUT$        TO 9
+
+EQU E.CONSISTENCY.LEVEL      TO 10 ;* Number (0-4) for locking consistency
+
+EQU ENV_CONSISTENCY_LEVEL$   TO 10
+
+EQU E.LOCKING.GOV            TO 11 ;* Number of allowable locks from this
+                                    * workstation.
+EQU ENV_LOCKING_GOV$         TO 11
+
+EQU E.AUTOTRANS              TO 12 ;* Auto transaction start mode.
+                                    * (ON = 1 or OFF = 0)  for a lock.
+EQU ENV_AUTOTRANS$           TO 12
+
+EQU E.DEADLOCK.POSTING       TO 13 ;* Number of seconds before deadlock
+                                    * checking is begun and locks are posted.
+EQU ENV_DEADLOCK_POSTING$    TO 13
+
+EQU E.NETCACHE.OPTION        TO 14 ;* For network cache option
+EQU ENV_NETCACHE_OPTION$     TO 14
+
+EQU E.LND.DEFAULT            TO 15 ;* Active language set default name
+EQU ENV_LND_DEFAULT$         TO 15
+
+EQU E.LND.LOAD               TO 16 ;* List of language sets to load into memory
+EQU ENV_LND_LOAD$            TO 16
+
+EQU E.QUERY.CASE             TO 17 ;* query case sensitivity (true=case insensitive)
+EQU ENV_QUERY_CASE$          TO 17
+
+EQU E.TIMEDATE.FMT           TO 18 ;* TIMEDATE() override output format for
+                                   ;* system processes and for TIMEDATE( ) function.
+EQU ENV_TIMEDATE_FMT$        TO 18
+
+EQU E.SUPPRESS.NONNUMERIC    TO 19 ;* Suppress nonnumeric error messages
+EQU ENV_SUPPRESS_NONNUMERIC$ TO 19
+
+EQU E.LPTRHIGH               TO 20 ;* Height of PRINTER
+EQU ENV_LPTRHIGH$            TO 20
+
+EQU E.LPTRWIDE               TO 21 ;* Width of PRINTER
+EQU ENV_LPTRWIDE$            TO 21
+
+EQU E.NULL.DISPLAY.STRING    TO 22 ;* String to represent NULL values in SQL
+                                    * report (display only).
+EQU ENV_NULL_DISPLAY_STRING$ TO 22
+
+EQU ENV_DEBUGGER_ENABLED$    TO 23 ;* 1 - Debugger Enabled 0 - Debugger Disabled, 2- Debugger Intercepted To Debugger_Replacement
+
+EQU ENV_DEFAULT_FOLDER$      TO 24 ;* Default folder for stored procedures.
+
+EQU ENV_DEFAULT_IOCONV$      TO 25 ;* 0 - No conversion 1 - do convert and validate - with protect.mfs
+
+EQU ENV_COMMIT_VOL$          TO 26 ;* Commit volume
+
+EQU ENV_COMMIT_PROTECT$      TO 27 ;* 1 - Commit protected  0 - commit unprotected.
+
+EQU ENV_VICTIM_SELECT$       TO 28 ;* (NUMERIC) deadlock resolution victim selection mode.
+
+EQU ENV_IMPLICIT_LOCK_TYPE$  TO 29 ;* 0 - Table lock, 1 - Record lock
+
+EQU ENV_COORDINATED_LOCK$    TO 30 ;* 1 - Table/record locks coordinated.
+
+EQU ENV_ENTITY_LOG_CNT$      TO 31 ;* no. of logs each entity keeps
+
+EQU ENV_STARTUP_PROC$        	TO 32 ;* Startup procedure called by INITIALIZE when starting
+                                   ;* an application (boot or change application time)
+                                   ;* Prototype:
+                                   ;*     subroutine ...(FirstInitFlag, StationId)
+                                   ;* where
+                                   ;*     FirstInitFlag -- TRUE$ for initial engine startup
+                                   ;*     StationId     -- set this parameter to modify @station
+
+EQU ENV_SHUTDOWN_PROC$       	TO 33 ;* Shutdown procedure... see above.
+
+EQU ENV_CONCURRENCY_SCHEME$  	TO 34 ;* used for SQL bond optimization
+
+EQU ENV_FILTER_TABLES_PROC$  	TO 35 ;* custom security filter (primarily for ReportDesigner):
+                                   ;* Prototype: function ... (AllTableList)
+                                   ;* Returns: @fm delimited list of allowed tables
+EQU ENV_FILTER_COLUMNS_PROC$ 	TO 36 ;* custom security filter (primarily for ReportDesigner):
+                                   ;* Prototype: function ... (TableName, AllColumnList)
+                                   ;* Returns: @fm delimited list of allowed columns
+
+EQU ENV_DATASOURCE_TYPE$     	TO 37 ;* DataSource type (primarily used by XOInstance, DSInstance)
+
+EQU ENV_XO_DEFAULTS$         	TO 38 ;* DataSet/Connection Object defaults
+
+EQU ENV_AREV_COMPAT_RTP9$    	TO 39 ;* 1=Arev compatibility mode for RTP9 (Warning!  Breaks Rev_SQL)
+                                   ;* 0=OpenInsight compatibility mode for RTP9 (default)
+                                   
+EQU ENV_UNIQUE_STATION_ID$   	TO 40 ;* 1=Append ProcessID to 'normal' @station 
+
+EQU ENV_DFLT_RPT_SHADOW_TYPE$ 	TO 41 ;* Html Or rtf
+
+EQU ENV_ODBC_CAT_ALL_TABLES$  	TO 42 ;* Override flag - display _all_ attached tables regardless of SQLTables qualifier
+
+EQU ENV_EXCLUDE_FROM_REPORTS$ 	To 43 ;* Exclude these tables from list of available tables for Report Builder reports
+
+EQU ENV_DFLT_OIPI_UOM$ 			TO 44 ;* Standard Or Metric
+
+Equ ENV_DM_SORT_BY_DBID$  		To 45 ; * Sort tables within the Database Manager Add by Database ID
+
+EQU ENV_RELATIONAL_UPD_0$ 		To 46 ;* Update Zero Records when relational indexes are updated
+
+equ ENV_SAVE_CONVERTED$			TO 47 ;* 0 = Do not preserve precompiled source
+									  ;* 1 = Save converted precompiled source in SYSLISTS (DEFAULT)
+
+equ ENV_CREATE_AREVUSER$		TO 48 ;* 0 = Creation of OI user does not create AREV32 user (DEFAULT)
+									  ;* 1 = Creation of OI user creates AREV32 user
+equ ENV_OIPI_SAVE_PATH$		  	TO 49 ;* Default Path for OIPI files (PDF,RTF,Etc)
+equ ENV_EXCLUDE_FIELDS$		  	TO 50 ;* Fields to be excluded from reports in report builder
+* bzs 102208 Equ ENV_DATE_FORMAT$			To 51 ;* 0=US/1=European/-1=Determine from Locale
+Equ ENV_LOCALE$					To 51 ;* 0=None/1=LND/-1=Determine from Windows Locale ;* bzs 102208
+
+* mtr 8-25-08
+
+Equ ENV_B_DFLT_WIN_BACKCOLOR$	To 52 ;* Boolean: Yes means show a default background color for all windows
+Equ ENV_WIN_BACKCOLOR_VALUES$	to 53 ;* From color and to color, @Vm delimited
+
+equ ENV_DEBUGGER_INTERCEPT_PROC$ to 54 ; * // Name of an SSP to use for debugger intercepts.  
+                                       ; * // Defaults to "debugger_replacement"									   				
+									   
+Equ ENV_LANG_SET$ To 55	;* The language set used by the system. It should be one of the lnd_ records in the sysenv table.
+
+Equ ENV_OSWRITE$  To 56 ;* BZS 022409 Flag to use new style in oswrite (always convert value to string)
+
+* mtr 3-13-09 glad I'm not triskadeccaphobic
+Equ ENV_B_USE_FOCUSCELL$		To 57; * MTR Use the FocusCell settings
+Equ env_FOCUSCELL_FONT$			To 58; * mtr font and related data to use in the edittable cell that has focus
+Equ env_FOCUSCELL_FGCOLOR$		To 59; * foreground color for the edittable cell that has does not focus
+Equ env_FOCUSCELL_BGCOLOR$ 		To 60; * background color for the edittable cell that has does not focus
+Equ env_FOCUSCELL_SELECT_FGCOLOR$		To 61; * foreground color for the edittable cell that has focus
+Equ env_FOCUSCELL_SELECT_BGCOLOR$ 		To 62; * background color for the edittable cell that has focus
+Equ env_FOCUSCELL_RECTSTYLE$	To 63; * rectangle style for the edittable cell that has focus; 0=dotted, 1=solid
+Equ env_FOCUSCELL_RECTWEIGHT$	to 64; * rectangle weight for the edittable cell that has focus; 0=light, 1=medium, 2=thick
+Equ env_FOCUSCELL_RECTCOLOR$	To 65; * color of the rectangle 
+
+* rjc  5-06-09  Hexakosioihexekontahexaphobia is a Revelation problem
+Equ env_BTREE_FLUSH_ON$         To 66; * true if btree.extract should flush indexes before query
+
+* mtr 7-29-10
+Equ env_source_code_management$ To 67; * true means we will use the source code management routines
+

@@ -1,0 +1,204 @@
+Function REVSHOW3_COMMUTER_MODULE(ctrlentid,event,p1,p2,p3,p4,p5,p6)
+*
+$Insert REVDOTNETEQUATES
+*
+Declare Function Get_Property, Set_Property, CheckDotNet
+*
+COMMON /REVSHOW/ dotNetHandle, hndlList
+*
+Equ FORMNAME To CTRLENTID[1,"."]
+Equ DOTNETCTL To FORMNAME:'.DOTNET'
+Equ BUTTON_OK To FORMNAME:'.BUTTON_OK'
+Equ BUTTON_CHANGE To FORMNAME:'.BUTTON_CHANGE'
+*
+ERRS = ""
+RSLT = 0
+
+Begin Case
+	
+	Case EVENT _EQC "CREATE"
+
+		Free_class.net()
+		dotNetHandle = StartDotNet(DotNetCtl)
+		DotNetDir = CheckDotNet("2.0"):"\"
+		rslt = Set_Property.net(dotNetHandle, "AssemblyName", DotNetDir:"System.Windows.Forms.dll":@FM:DotNetDir:"System.Drawing.dll")
+		
+		* Create the control
+		ourClass = "System.Windows.Forms.ListView"
+		hndlList = create_class.net(DotNetHandle, ourClass)
+		If Get_Status(errs) Then
+			Gosub handleError
+		End
+
+		* Initialize the various properties
+		Gosub SizeMe
+		
+		rslt = set_property.net(hndlList, "View", "Details")
+		rslt = set_property.net(hndlList, "LabelEdit", "True")
+		rslt = set_property.net(hndlList, "AllowColumnReorder", "True")
+		rslt = set_property.net(hndlList, "CheckBoxes", "True")
+		rslt = set_property.net(hndlList, "FullRowSelect", "True")
+		rslt = set_property.net(hndlList, "GridLines", "True")
+		rslt = set_property.net(hndlList, "Sorting", "Ascending")
+		
+		* create the imageLists
+		hndlImageListSmall = create_class.net(dotNetHandle, "System.Windows.Forms.ImageList", "0")
+		hndlImageListLarge = create_class.net(dotNetHandle, "System.Windows.Forms.ImageList", "0")
+		
+		hndlImagesSmall = get_property.net(hndlImageListSmall, "Images", "1")
+		hndlImagesLarge = get_property.net(hndlImageListLarge, "Images", "1")
+
+		hndlBitmap = create_class.net(dotNetHandle, "System.Drawing.Bitmap", "0")
+		
+		* Create our columns
+		hndlColumns = Get_Property.net(hndlList, "Columns", "1")
+		rslt = send_message.net(hndlColumns, "Add", "Book ID":@FM:"-1", "System.String":@FM:"System.Int16")
+		rslt = send_message.net(hndlColumns, "Add", "Author":@FM:"-1", "System.String":@FM:"System.Int16")
+		rslt = send_message.net(hndlColumns, "Add", "Title":@FM:"-1", "System.String":@FM:"System.Int16")
+		rslt = send_message.net(hndlColumns, "Add", "Check-Out Date":@FM:"-1", "System.String":@FM:"System.Int16")
+		rslt = send_message.net(hndlColumns, "Add", "Reserved By":@FM:"-1", "System.String":@FM:"System.Int16")		
+
+		* create some ListViewItems
+		hndlItems = Get_property.net(hndlList, "Items", "1")
+
+		Open 'BOOKS' To BOOK.FL Then
+			iImageIndex = -1 ;* 0-offset for the ImageIndex counter
+			Call Rlist("SELECT 10 BOOKS", 5, "", "", "")
+			DONE = 0
+			Loop
+				Readnext ID Else DONE = 1
+			Until DONE DO
+				Read INFO From BOOK.FL, ID Then
+					* Add this into our array
+
+					* Get the image for this record - a large and a small one
+					* Ideally, you'd have a _real_ image to go with _each_ of these...
+					hndlImageLarge = send_message.net(hndlBitmap, "FromFile", "bmps\rticolor.bmp", "System.String", "1")
+					hndlImageSmall = send_message.net(hndlBitmap, "FromFile", "bmps\oi32.bmp", "System.String", "1")
+					* Put these images into the ImageList
+					rslt = Send_Message.net(hndlImagesSmall, "Add", hndlImageSmall)
+					rslt = send_message.net(hndlImagesLarge, "Add", hndlImageLarge)			
+					* Free these objects
+					free_class.net(hndlImageSmall)
+					free_class.net(hndlImageLarge)
+					* Record which image this record uses
+					iImageIndex = iImageIndex + 1
+					* create the item
+					hndlItem = create_class.net(DotNetHandle, "System.Windows.Forms.ListViewItem", 0, ID:@FM:iImageIndex, "System.String":@FM:"System.Int16")
+					If Get_Status(errs) Then
+						Gosub handleError
+					End Else
+						* created properly - set its "sub-items"
+						bChecked = "False"
+						If INFO<4> <> "" Then
+							* Have a "reserved by"
+							bChecked = "True"
+						end
+						rslt = set_property.net(hndlItem, "Checked", bChecked)
+						hndlSubItems = get_property.net(hndlItem, "SubItems", "1")
+						rslt = send_message.net(hndlSubItems, "Add", INFO<2>, "System.String")
+						rslt = send_message.net(hndlSubItems, "Add", INFO<1>, "System.String")
+						OUTDATE = INFO<3>
+						If INFO<3> <> "" Then OUTDATE = Oconv(OUTDATE, "D4/")
+						rslt = send_message.net(hndlSubItems, "Add", OUTDATE, "System.String")
+						rslt = send_message.net(hndlSubItems, "Add", INFO<4>, "System.String")
+					End
+					* add in our data
+					rslt = send_message.net(hndlItems, "Add", hndlItem)
+					* Clear out these objects for now
+					free_class.net(hndlItem)
+					free_class.net(hndlSubItems)					
+				End
+			REPEAT
+		End
+		
+		* attach our imageLists
+		rslt = set_property.net(hndlList, "LargeImageList", hndlImageListLarge)
+		rslt = set_property.net(hndlList, "SmallImageList", hndlImageListSmall)		
+				
+		* resize the columns - bug in the ListView column sizing :-(
+		num.cols = get_property.net(hndlColumns, "Count")
+		For each.col = 1 To num.cols
+			hndlCol = Get_property.net(hndlColumns, "Item[":each.col-1:"]", "1")
+			rslt = set_property.net(hndlCol, "Width", "-2")
+			free_class.net(hndlCol)
+		Next each.col
+				
+		call set_property(dotNetCtl, "VISIBLE", "1")
+		events.net(hndlList, "ColumnClick")
+		
+	Case event _eqc "SIZE"
+		* We've been resized - resize our control too
+		Gosub SizeMe
+		
+	Case event _eqc "OLE" And P1 _eqc "DotNetEvent"
+		caller = P2<1,1>
+		event = P2<1,2>
+		If event _eqc "OnColumnClick" Then
+			colNo = P2<1,4>
+			If colNo = 0 Then
+				currSort = get_property.net(hndlList, "Sorting")
+				newSort = "Ascending"
+				If currSort _eqc "Ascending" Then
+					newSort = "Descending"
+				end
+				rslt = set_property.net(hndlList, "Sorting", newSort)
+			end
+		end
+		Call Msg(@window, "Event ":event:" has happened!":@FM:"BOK")
+	
+	Case EVENT _EQC "CLICK"
+		Begin Case
+			Case CtrlEntId _eqc BUTTON_CHANGE
+				rslt = Get_property.net(hndlList, "View")
+				ViewChoices = "Details,LargeIcon,SmallIcon,List"
+				Locate rslt In ViewChoices Using "," Setting Posn Else Posn = 0
+				posn = posn+1
+				If posn > 4 Then posn = 1
+				newValue = Field(ViewChoices,",",posn)
+				newrslt = set_property.net(hndlList, "View", newValue)
+			
+			Case CtrlEntId _eqc BUTTON_OK
+				* See what, if anything, was selected
+				hndlItems = get_property.net(hndlList, "SelectedItems", "1")
+				* Now have to walk through the returned list
+				numItems = get_property.net(hndlItems, "Count")
+				ItemList = ""
+				For each.item = 1 To numItems
+					hndlThisItem = get_property.net(hndlItems, "Item[":each.item-1:"]", "1")
+					ItemName = get_property.net(hndlThisItem, "Text")
+					ItemList<1,-1> = ItemName
+				Next each.item
+				If ItemList = "" Then
+					Call Msg(@window, "No items selected":@FM:"BOK")
+				End else
+					Call Msg(@window, "Selected items: ":ItemList:@FM:"BOK")
+				end
+				Call Send_event(FormName, "CLOSE")
+		End Case
+	
+End Case
+
+Return RSLT
+
+
+HandleError:
+Convert @FM To @VM In ERRS
+Call Msg(@WINDOW, "ERROR: ":ERRS:@FM:"BOK")
+Return
+
+SizeMe:
+csize = Get_Property(DotNetCtl, "SIZE")
+width = csize<3> - 20
+height = csize<4> - 20
+rslt = set_property.net(hndlList, "Height", height)
+rslt = set_property.net(hndlList, "Width", width)
+pointHndl = create_class.net(DotNetHandle, "System.Drawing.Point", 0, "10":@FM:"10", "System.Int16":@FM:"System.Int16")
+sizeHndl = create_class.net(DotNetHandle, "System.Drawing.Size", 0, width:@FM:height, "System.Int16":@FM:"System.Int16")
+rectHndl = create_class.net(DotNetHandle, "System.Drawing.Rectangle", 0, pointHndl:@FM:sizeHndl, "RevDotNet":@FM:"RevDotNet")
+rslt = set_property.net(hndlList, "Bounds", rectHndl)
+* release our objects now that they're used
+free_class.net(pointHndl)
+free_class.net(sizeHndl)
+free_class.net(rectHndl)
+return

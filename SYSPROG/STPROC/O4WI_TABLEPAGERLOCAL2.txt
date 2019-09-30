@@ -1,0 +1,181 @@
+subroutine O4WI_TABLEPAGERLOCAL2(tableID, action, showPager, rowsperpage, sorttablecols, maxrows, doZebra, CurrPage, extraInfo, styleInfo)
+*#!Precompile
+/*
+*  This program is proprietary and is not to be used by or disclosed to others, nor is it to be copied without
+*  written permission from Revelation Technologies, Inc.
+!
+*
+*  VERSION    : 1.0
+*
+*
+*  AUTHOR     : Bryan Shumsky
+*
+*  CREATED    : July 21, 2010
+*
+*
+!
+*
+*  REVISION HISTORY           (Most CURRENT first) :
+*
+*    DATE       IMPLEMENTOR     FUNCTION
+*  --------     -----------     --------
+*  05 Feb 11	BZS				Created from O4WI_TABLEPAGERLOCAL
+*
+*/
+*
+$Insert O4WCommon
+$Insert O4WEquates
+*
+If Assigned(tableID) Else tableID = ""
+If tableID = "" Then Return 0
+
+If Assigned(action) Else action = ""
+If Assigned(showPager) Else showPager = ""
+If Assigned(rowsperpage) Else rowsperpage = ""
+If Assigned(sorttablecols) Else sorttablecols = ""
+If Assigned(maxrows) Else maxrows = ""
+If Assigned(doZebra) Else doZebra = ""
+If Assigned(currpage) Else currpage = ""
+If Assigned(extraInfo) Else extraInfo = ""
+If Assigned(styleInfo) Else styleInfo = ""
+*
+*floatStyle = O4WPositionStyle("","","","","right")
+*
+* dirText can contain text and URLs for images, too...
+*dirText = " (dsc)":@FM:" (asc)":@FM:" (---)"
+*dirText = "<img src='../images/last.png' alt='desc' align='right' />":@FM:"<img src='../images/first.png' alt='asc' align='right' />":@FM:"<img src='../images/updown2.gif' alt='none' align='right' />"
+dirText = "<span class='ui-icon ui-icon-carat-1-s'></span>":@FM:"<span class='ui-icon ui-icon-carat-1-n'></span>":@FM:"<span class='ui-icon ui-icon-carat-2-n-s'></span>"
+*
+If action = "0" Then
+	* add sorter, and possibly create pager plugin
+	O4WStyleSheet("../stylesheet/blueskinstyle.css")
+	If sortTableCols <> "" Then
+	   num.sort = dcount(sortTableCols, @TM)
+		For each.sort = 1 To num.sort
+			valueToCheck = each.sort-1
+			If Field(sortTableCols, @TM, each.sort)+0 = 1 Then
+				* activate 'sorting links' on these column headers
+				O4WQualifyEvent(tableID, "TABLE_SORT", each.sort, dirText, extraInfo)
+			End
+		Next each.sort
+	End
+	If showPager <> "0" then
+		* build the pager control now
+		Gosub AddPagerSection
+	end
+	* Tell O4W to request all the first rows in this table
+	O4WQualifyEvent("$", "TABLE_BUILD_PAGE", tableID, "init", extraInfo)
+End Else
+	* update the current page number, available page numbers, and rows/page
+	If currPage <> "" Then
+		maxpage = 0
+		If Num(rowsperpage) And rowsperpage <> "" And Num(maxrows) And maxrows <> "" Then
+			rpg = rowsperpage + 0
+			mrows = maxrows + 0
+			If rpg+mrows then
+				* calculate max # of pages too
+				maxpage = mrows/rpg
+				If maxpage <> int(maxpage) Then maxpage = int(maxpage)+1
+			end
+		End
+		If maxPage then
+			* make a 'window' of x pages before and x pages after, if possible
+			windowWidth = 8
+			halfWidth = int(windowWidth/2)
+			numBefore = halfWidth
+			If currPage < halfWidth+1 Then
+				numBefore = currPage - 1
+			End
+			numAfter = windowWidth - numBefore
+			remains = maxpage - currPage
+			If numAfter > remains Then			
+				* shift the window back since it can't go forward any further...
+				numAfter = remains
+				diff = halfWidth - remains
+				avail = currPage - numBefore + 1
+				If diff > avail Then diff = avail
+				numBefore += diff
+			End
+			stpos = currPage - numBefore
+			If stpos < 1 Then stpos = 1
+			edpos = currPage + numAfter
+			O4WSectionStart(tableID:"_explicitPages", O4WResponseStyle())
+			For each.pos = stpos To edpos
+				dispText = each.pos
+				If each.pos = currPage Then
+					* display as a link, but remember to mark it as 'disabled'
+					O4WLink(dispText, O4W_LINKTYPE_LOCAL$, "#", "", tableID:"_pager_currpage", "tablepagercurrbutton")
+				End Else
+					* display as a link to the next page
+					O4WLink(dispText, O4W_LINKTYPE_LOCAL$, "#", "", tableID:"_pager_page":each.pos, "tablepagerbutton")
+					O4WQualifyEvent(tableID:"_pager_page":each.pos, "TABLE_BUILD_PAGE", tableID, each.pos, extraInfo)
+				End
+			Next each.pos
+			* turn the links into jquery theme buttons
+			O4WPlugin(".tablepagerbutton", "button")
+			O4WPlugin(".tablepagercurrbutton", "button", "{ disabled: true }")
+			O4WSectionEnd(tableID:"_explicitPages")
+		end
+	end
+	If rowsperpage <> "" then
+		O4WUpdate(tableID:'pagesize', rowsperpage, O4WResponseStyle('','1'))
+	End
+	* if this was a sort call for our table, update the image or text in the header
+	If O4WGetValue("O4WEvent") _eqc "TABLE_SORT" And O4WGetValue("O4WControl") _eqc tableID Then
+		* what column and direction are we talking about?
+		whichColumn = O4WGetValue("O4WSortCol")
+		whichDir = O4WGetValue("O4WSortDir")
+		If whichColumn <> "" Then
+			* build script to access and update this
+			whichDir += 0
+			* set our header to the special text, and reset all the other headers back to their normal text
+			O4WQualifyEvent(tableID, "TABLE_UPDATE_SORT", whichColumn, whichDir, dirText, extraInfo)
+		end
+	end
+end
+
+Return 0
+	
+AddPagerSection:	
+	floatStyle = O4WPositionStyle("","","","","right")
+	O4WTableStyle("noBorderPager", "0", "0") ;* override any border that may have been sent with styleInfo
+	O4WSectionStart(tableID:'pager', O4WMarkedStyle('','0'):styleInfo:@svm:tableID:'pager':@svm:'noBorderPager')
+	O4WTableStart(tableID:"_pagerTable", floatStyle)
+	*O4WSectionStart(tableID:"_pagerpart1", floatStyle)
+	O4WSetCell()
+	O4WImage('First Page','../images/first.png','','','',"BTN_FIRST_":tableID,'first')
+	*O4WSpace()
+	O4WSetCell()
+	O4WImage('Previous','../images/prev.png','','','',"BTN_BACK_":tableID,'prev')
+	*O4WSpace(3)
+	O4WSetCell()
+	*O4WSectionEnd(tableID:"_pagerpart1")
+	*O4WSectionStart(tableID:"_explicitPages", floatStyle)
+	O4WSectionStart(tableID:"_explicitPages")
+	O4WSectionEnd(tableID:"_explicitPages")
+	*O4WSectionStart(tableID:"_pagerpart3", floatStyle)
+	O4WSetCell()
+	O4WImage('Next','../images/next.png','','','',"BTN_NEXT_":tableID,'next')
+	*O4WSpace()
+	O4WSetCell()
+	O4WImage('Last Page','../images/last.png','','','',"BTN_LAST_":tableID,'last')
+	*O4WSpace(5)
+	O4WSetCell()
+	O4WText(O4WI_FORMATMSG(O4W_MESSAGE_ROWSPERPAGE$))
+	If rowsperpage+0 = 0 Then rowsperpage = 20 ;* don't just leave it empty...
+	O4WTextBox(rowsperpage, '3', '3', 'pagesize', tableID:"pagesize", "pagesize")
+	*O4WSectionEnd(tableID:"_pagerpart3")
+	*O4WBreak()
+	O4WTableEnd(tableID:"_pagerTable")
+	O4WBreak()
+	O4WSectionEnd(tableID:'pager')	
+	* notify us if the user presses one of the pagination buttons
+	O4WQualifyEvent("BTN_FIRST_":tableID, "TABLE_BUILD_PAGE", tableID, "first", extraInfo)
+	O4WQualifyEvent("BTN_BACK_":tableID, "TABLE_BUILD_PAGE", tableID, "prev", extraInfo)
+	O4WQualifyEvent("BTN_NEXT_":tableID, "TABLE_BUILD_PAGE", tableID, "next", extraInfo)
+	O4WQualifyEvent("BTN_LAST_":tableID, "TABLE_BUILD_PAGE", tableID, "last", extraInfo)
+	* also notify us if the user changes the rows per page
+	O4WQualifyEvent(tableID:"pagesize", "TABLE_CHANGE_ROWS", tableID, "first", extraInfo)
+return
+
+Return 0

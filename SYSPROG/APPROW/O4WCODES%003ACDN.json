@@ -1,0 +1,8 @@
+{
+    "record1": {
+        "<1>": "<script type=\"text/javascript\" src=\"//ajax.googleapis.com/ajax/libs/jquery/%SCRIPT%/jquery.min.js\"></script>",
+        "<2>": "<script type=\"text/javascript\" src=\"//ajax.googleapis.com/ajax/libs/jqueryui/%UI%/jquery-ui.min.js\"></script>",
+        "<3>": "<script type=\"text/javascript\" src=\"//ajax.googleapis.com/ajax/libs/jquery/%SCRIPT-MOBILE%/jquery.min.js\"></script>",
+        "<4>": ""
+    }
+}

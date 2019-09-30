@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "\r\nCall CUST_ENTRY_EVENTS(\"CUST_ENTRY.STATE\",\"OPTIONS\",\"@PARAM1\",\"@PARAM2\",\"@PARAM3\",\"@PARAM4\",\"@PARAM5\",\"@PARAM6\")\r\nReturn 1"
+    }
+}

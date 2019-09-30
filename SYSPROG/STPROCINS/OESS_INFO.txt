@@ -1,0 +1,11 @@
+compile Insert OESS_INFO
+
+// clientType:
+// null: OI or unknown
+// 1: EngineServer
+// 2: NetOI direct connect ANSI .NET 2.0
+// 3: NetOI direct connect UTF8 .NET 2.0
+// 4: NetOI direct connect ANSI .NET 4.0
+// 5: NetOI direct connect UTF8 .NET 4.0
+
+Common /OESS_INFO/ clientType, engineName

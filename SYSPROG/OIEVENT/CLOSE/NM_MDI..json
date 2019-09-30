@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "Declare Function Send_Event\r\nDeclare Subroutine End_Window, CloseAllNotes\r\n\r\n$Insert Notesman_Equates\r\n\r\nCancelFlag = FALSE$\r\nstatus = TRUE$\r\nLoop While @recur0 And Not(CancelFlag) And status\r\n\tstatus = Send_Event(.->mdiactive, 'CLOSE', CancelFlag)\r\nRepeat\t\r\n\r\nIf Not(CancelFlag) Then \r\n    CloseAllNotes()\r\n\tEnd_Window(@window)\r\nEnd\t\r\n\r\nRETURN 0"
+    }
+}

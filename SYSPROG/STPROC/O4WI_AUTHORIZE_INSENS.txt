@@ -1,0 +1,50 @@
+Function O4WI_AUTHORIZE_INSENS(uname, pwd)
+*#!Precompile
+/*
+*  This program is proprietary and is not to be used by or disclosed to others, nor is it to be copied without
+*  written permission from Revelation Technologies, Inc.
+!
+*
+*  VERSION    : 1.0
+*
+*
+*  AUTHOR     : Bryan Shumsky
+*
+*  CREATED    : September 23, 2009
+*
+*
+!
+*
+*  REVISION HISTORY           (Most CURRENT first) :
+*
+*    DATE       IMPLEMENTOR     FUNCTION
+*  --------     -----------     --------
+*
+*
+*/
+*
+$Insert O4WCommon
+$Insert O4WEquates
+*
+Declare Function Repository, ucase, lcase
+*
+If Assigned(uname) Else uname = ""
+If Assigned(pwd) Else pwd = ""
+*
+rslt = ""
+If uname <> "" And pwd <> "" then
+	* Check against permissions file
+	permRecord = Repository("ACCESS", @APPID<1>:"*UINFO*O4W*":uname)
+   CALL SET_STATUS(0) ;* OK IF THIS DOESN'T EXIST
+	If permRecord = "" Then
+		permRecord = Repository("ACCESS", @APPID<1>:"*UINFO*O4W*":ucase(uname))
+		CALL SET_STATUS(0) ;* OK IF THIS DOESN'T EXIST
+	end
+	If permRecord = "" Then
+		permRecord = Repository("ACCESS", @APPID<1>:"*UINFO*O4W*":lcase(uname))
+		CALL SET_STATUS(0) ;* OK IF THIS DOESN'T EXIST
+	end
+	If permRecord<1> _eqc pwd Then rslt = permRecord<2>
+End
+*
+Return rslt

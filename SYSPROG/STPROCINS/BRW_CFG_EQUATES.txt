@@ -1,0 +1,18 @@
+cOMPILE Insert BRW_Cfg_Equates
+
+* mtr 11-2-06
+* layout of the BRW_CFG record in the SYSENV file, used by the BRW
+
+Equ show_grid$ 		To 1
+Equ snap_grid$ 		To 2
+Equ grid_uom$ 		To 3
+Equ grid_spacing$		To 4
+
+Equ grid_hspace$	To 1
+Equ grid_vspace$	To 2
+
+Equ Font_List$		To 5
+Equ point_list$		To 6
+
+Equ current_font$		To 7
+Equ current_point$		To 8

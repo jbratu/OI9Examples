@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "declare function popup\r\n\r\n* Call the States popup and place the result in the STATE control\r\n\r\n\r\nstate = popup(@window,'','STATES_POPUP')\r\n\r\nif len(state) then\r\n\t.state->text = state\r\nend\r\n\r\nRETURN 0"
+    }
+}

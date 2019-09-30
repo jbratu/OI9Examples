@@ -1,0 +1,24 @@
+compile insert VOL_TABLE_EQUATES
+*---------------------------------------------------------------------------
+* sysvolumes array element equates
+* MTR added col_control
+
+equ vol_name$                to 0
+equ vol_label$               to 1
+equ vol_location$            to 2
+equ vol_file_list$           to 3
+equ vol_file_sys$            to 4
+equ vol_handle$              to 5
+equ vol_control$			 to 6
+
+*---------------------------------------------------------------------------
+* systables array element equates
+
+equ tab_name$                to 0
+equ tab_vol_name$            to 1
+equ tab_real_name$           to 2
+equ tab_account$             to 3
+equ tab_file_sys$            to 4
+equ tab_handle$              to 5
+
+* Source Date: 16:42:33  07 JUL 2002  Build ID: OI*4.1.1  Level: 2.0

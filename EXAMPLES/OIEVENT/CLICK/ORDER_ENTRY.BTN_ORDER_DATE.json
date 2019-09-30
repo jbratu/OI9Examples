@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "\r\n.order_date->focus=1\r\n\r\nCall Send_Event(@window:'.ORDER_DATE', 'OPTIONS')\r\n\r\nRETURN 0"
+    }
+}

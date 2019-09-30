@@ -1,0 +1,5 @@
+{
+    "record1": {
+        "<1>": "$insert RdkView_Equates\r\n\r\nCommon /SEARCHTYPES/ CurSel\r\n\r\nIf CurSel <> .Search_Types->SelPos then\r\n\t.Search_Types->SelPos = CurSel\r\nend\r\n\r\nFreeCommon \"SEARCHTYPES\"\r\n\r\nRETURN 0"
+    }
+}

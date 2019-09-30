@@ -1,0 +1,117 @@
+Compile Insert DS_Equates
+
+*****************************************************************************
+*
+* This program is proprietary and is not to be used by or disclosed
+* to others, nor is it to be copied without written permission from
+* Revelation Technologies, Inc.
+*
+* Product    :  OI/WG
+* Poject     :  OI/CS
+* Release    :  3.11
+*
+* Name       :  DS_Equates Insert
+* Description:  DataSet Basic+ API declarations and constants
+*
+* History (Date, Initials, Notes)
+*   07/11/95  cp   Original programmer
+*   11/05/95  cp   Added sort/filter/search methods and 2-phased DataSet
+*                  commit (using DS_UPDATE$ method)
+*   04/19/96  cp   Added DS_COPY$ and DS_FINDKEY$
+*   05/22/96  cp   Added DS_KEYLIST$ property and DS_LIMITVIEW$ method
+*****************************************************************************
+
+* Basic+ functions
+declare function DSGetProperty      ;* flag = (hDS, PropertyName, RetValue [, Qualifier])
+declare function DSSetProperty      ;* flag = (hDS, PropertyName, Value, [, Qaulifier])
+declare function DSInstance         ;* hDS  = (DSName, [hXO, [Options]])
+declare function DSMethod           ;* flag = (hDS, MethodName, Param1, ...)
+declare function DSGetCompDef       ;* struct = (DSName, [hXO])
+
+* by declaring the DataSet functions as subroutines, the return value can be ignored
+declare subroutine DSGetProperty, DSSetProperty, DSMethod
+
+* Repository constants (equates with _DEF suffix represent source definitions)
+equ DS_TABLE$            to "SYSREPOSDBCOMPONENTEXES"
+equ DS_TYPE$             to "DBCOMPONENTEXE"
+equ DS_CLASS$            to "DATASET"
+equ DS_TABLE_DEF$        to "SYSREPOSDBCOMPONENTS"
+equ DS_TYPE_DEF$         to "DBCOMPONENT"
+equ DS_CLASS_DEF$        to "DATASET"
+
+* Methods
+equ DS_DESTROY$          to 1       ;* destroy passed DS
+equ DS_TRANSLATEFLAG$    to 2       ;* Arg1 is a DS/XO API FLAG, returns TRUE$=success or FALSE$=failure
+equ DS_GETERROR$         to 3       ;* Retrieves pending errors for the DataSet Object
+equ DS_RESETSCRIPT$      to 4       ;* reset DataSet Script(s), Arg1 is 0 (all) or script ID(s)
+equ DS_RESETARG$         to 5       ;* reset DataSet Argument(s), Arg1 is 0 (all) or argument ID(s)
+equ DS_EXECUTE$          to 6       ;* execute DataSet select script, Arg1 is exec type and Arg2 is retrieve type
+equ DS_CLEAR$            to 7       ;*
+equ DS_APPEND$           to 8       ;*
+equ DS_INSERT$           to 9       ;*
+equ DS_DELETE$           to 10      ;*
+equ DS_EXTRACT_WORK$     to 11      ;*
+equ DS_DEFAULT_WORK$     to 12      ;*
+equ DS_APPEND_WORK$      to 13      ;*
+equ DS_INSERT_WORK$      to 14      ;*
+equ DS_UPDATE_WORK$      to 15      ;*
+equ DS_COMMIT$           to 16      ;*
+equ DS_ROLLBACK$         to 17      ;*
+equ DS_RESETDEFAULT$     to 18      ;* reset DataSet column default value(s), Arg1 is 0 (all) or column ID(s)
+equ DS_ADDREF$           to 19      ;* add reference to DataSet
+equ DS_FIND$             to 20      ;* Arg1 is expr, Arg2 is find direction (FD_..$ from DSXO_API)
+equ DS_FINDNEXT$         to 21      ;* Arg1 is find direction
+equ DS_FINDPREV$         to 22      ;* no args
+equ DS_FILTER$           to 23      ;* Arg1 is expr, Arg2 is TRUE to reset filter before applying new filter
+equ DS_RESETFILTER$      to 24      ;* no args
+equ DS_SORT$             to 25      ;* Arg1 is expr "colname [asc|desc] [,colname [asc|desc]] ..."
+equ DS_UPDATE$           to 26      ;* update database (phase 1 of 2-phase DS commit)
+equ DS_FINDKEY$          to 27      ;* find key matching the key in the work row; move to that row if successful
+equ DS_COPY$             to 28      ;* copy from another DataSet, Arg1 is DataSet handle to copy from, Arg2 is copy options (default to copy rows)
+equ DS_LIMITVIEW$        to 29      ;* limit rows appearing in the view, Arg1 is @fm-delimited list of rows
+
+equ DS_METHOD_MIN$       to DS_DESTROY$
+equ DS_METHOD_MAX$       to DS_LIMITVIEW$
+
+
+* Properties
+equ DS_VALID$            to 1       ;* returns TRUE$ if handle is valid
+equ DS_CONNECTION$       to 2       ;* connection handle for the DataSet
+equ DS_ROWCOUNT$         to 3       ;* number of rows in DataSet
+equ DS_COLCOUNT$         to 4       ;* number of columns in DataSet
+equ DS_COLDESCRIPT$      to 5       ;* column name, type, precision, scale, nullable, and OI type (Arg=iCol)
+equ DS_COLNAME$          to 6       ;* column name (Arg=iCol)
+equ DS_COLTYPE$          to 7       ;* column type (Arg=iCol)
+equ DS_COLPRECISION$     to 8       ;* column precision (Arg=iCol)
+equ DS_COLSCALE$         to 9       ;* column scale (Arg=iCol)
+equ DS_COLNULLABLE$      to 10      ;* column nullable (Arg=iCol)
+equ DS_COLOITYPE$        to 11      ;* column OpenInsight type (Arg=iCol)
+equ DS_COLISKEY$         to 12      ;* column is key (Arg=iCol)
+equ DS_COLID$            to 13      ;* column index (Arg=Column Name)
+equ DS_SCRIPT$           to 14      ;* Qualifier = nScriptID [= <SelectId>]
+equ DS_SELECT_SCRIPT$    to 15
+equ DS_INSERT_SCRIPT$    to 16
+equ DS_UPDATE_SCRIPT$    to 17
+equ DS_DELETE_SCRIPT$    to 18
+equ DS_ARGCOUNT$         to 19      ;* not settable
+equ DS_ARGID$            to 20      ;* not settable, Qualifier = ArgName
+equ DS_ARG$              to 21      ;* Qualifier = ArgID or ArgName
+equ DS_VIEW$             to 22
+equ DS_ROWID$            to 23
+equ DS_ISNULL$           to 24      ;* Qualifier = iCol :@fm: nRowType [= <Regular>]
+equ DS_DFT_ISNULL$       to 25      ;* Qualifier = iCol
+equ DS_WORK_ISNULL$      to 26      ;* Qualifier = iCol
+equ DS_VALUE$            to 27      ;* Qualifier = iCol :@fm: nConversion :@fm: nRowType [= <Regular>]
+equ DS_DFT_VALUE$        to 28      ;* Qualifier = iCol :@fm: nConversion
+equ DS_WORK_VALUE$       to 29      ;* Qualifier = iCol :@fm: nConversion
+equ DS_ROW$              to 30      ;* Qualifier = nConversion: @fm: nRowType [= <Regular>]
+equ DS_DFT_ROW$          to 31      ;* Qualifier = nConversion
+equ DS_WORK_ROW$         to 32      ;* Qualifier = nConversion
+equ DS_MODIFIED$         to 33      ;* not settable
+equ DS_QUERY$            to 34      ;* query handle used by DataSet, not settable, not created by QryInstance()
+equ DS_RECORD$           to 35      ;* extract set of rows in OI format, Qualifier = nFirstRow [=1] :@fm: nLastRow [=rowcount]
+equ DS_KEYLIST$          to 36      ;* extract set of keys in OI format, Qualifier = nFirstRow [=1] :@fm: nLastRow [=rowcount]
+
+equ DS_PROPERTY_MIN$     to DS_VALID$
+equ DS_PROPERTY_MAX$     to DS_KEYLIST$
+

@@ -1,0 +1,6 @@
+{
+    "record1": {
+        "<1>": "<div id=\"o4wWaitDiv\" style=\"position:fixed;top:50%;left:50%;display:none;z-index:500\"><img src=\"../images/ajax-loader.gif\" alt=\"Please wait...\" /></div>",
+        "<2>": "<div id=\"o4wWaitDiv\" style=\"position:fixed;top:50%;left:50%;display:none;z-index:500\"><img src=\"../images/ajax-loader.gif\" alt=\"Please wait...\" /></div>"
+    }
+}

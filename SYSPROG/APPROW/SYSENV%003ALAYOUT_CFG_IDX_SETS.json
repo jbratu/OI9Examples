@@ -1,0 +1,9 @@
+{
+    "record1": {
+        "<1>": "Select routine to use for sorting large numbers of records",
+        "<2>": "Specify IDX_SETS1 in field 2 to use the original IDX_SETS functionality, or IDX_SETS2 to use enhanced .NET functionality",
+        "<3>": "{LITERAL X}",
+        "<4>": "Choose sorting routine{OPTIONS New IDX_SETS2/IDX_SETS2|Original IDX_SETS/IDX_SETS1}{DEFAULT IDX_SETS2}",
+        "<5>": ""
+    }
+}

@@ -1,0 +1,291 @@
+function OI_dataConv_KML(file,filefields,fields,data,attributes)
+/*	----------------------------------------------------------------------------
+	Author	: David Goddard
+	Date	: 22 November 2007
+	Version	: 1.0 
+	Purpose : Builds a KML file that can be used with Google Earth to display
+			  points on a map.
+			  
+			  Assumes that either
+			  
+			  1. You have latitude and longitude coordinates in the data
+			  
+			  or
+			  
+			  2. A complete address that Google can use to create a point on the
+				 map.
+				 
+			  *** NOTE ***
+			  KML tag names are case sensitive. Enure they match the KML standard
+				 
+	
+	Modification Info: 
+	----------------------------------------------------------------------------
+	Date		Who		Notes
+	----------------------------------------------------------------------------
+	
+	Parameters:
+	----------------------------------------------------------------------------
+	
+	attributes - contains extra information used to build the kml file.
+	
+	attributes<1> = the tag position to start processing the row data
+							   This allows you to great tags above the row processing
+			  
+	attributes<2>... = the tagNodes and their properties
+					   kml is a special form of XML. Tags can have attributes
+					   and values and can contain child nodes.
+					   
+					   see http://code.google.com/apis/kml/documentation/ for more information on kml.			   
+		
+				pass kml tags and values in @vm/@svm format or ~| format
+				EG tagName1|tagValue1~tagNode1|tagNodeValue1~tagNode2|TagValue2
+				
+				The first value is the treeNode, all subsequent values are Node values that don't have any children.
+				
+				So attributes field 2 is the nodeTree parent, with all NodeValues that don't have children
+				
+				attribute field 3 is a child node of attribue field 2, and the it's list of Nodevalues etc
+				
+				tagNames are case sensitive and without the angle brackets.
+				
+				You can insert OI data by entering {fieldname} in the nodeValue sub value
+				Multivalues will be broken into multiple tagNodes/TagValues, one for each multi value.
+				
+				You can also insert raw tag data by passing the tagName starting with the angle bracket.
+ 					  
+	Returns:
+	----------------------------------------------------------------------------
+	result	- text in KML markup format.
+			  visit http://earth.google.com/intl/en/userguide/v4/ug_kml.html	
+	--------------------------------------------------------------------------*/
+	
+$insert logical
+$insert oi_dataconv_common
+$insert dict_equates
+
+equ null$ to ""
+equ crlf$ to \0D0A\
+equ tab$  to \09\	
+
+result		= null$		;* data returned from this procedure
+tagLevel	= 0			;* the level of indent for the current tag.
+tagLevelTagName =	null$	;* an fm array of the level tagName for each level
+
+tagName		= null$		;* the current tagname
+tagValue	= null$		;* the value for the current tag
+
+convert @upper.case to @lower.case in file
+
+// convert alternate delimiters in attributes
+convert "~|" to @vm:@svm in attributes
+
+levels = dcount(attributes,@fm)
+row = ""
+
+// build start of kml file
+result := '<?result version="1.0" encoding="UTF-8"?>':crlf$
+result := '<kml resultns="http://earth.google.com/kml/2.2">':crlf$
+
+// build the document nodes based on the attribute settings
+for i = 2 to (attributes<1>)
+	gosub addNodes
+next i
+
+// we have reached the row level, this is where we insert the row data
+for r = 1 to dcount(data,@rm)
+	row = field(data,@rm,r)
+		
+	for i = (attributes<1> + 1) to levels
+		gosub nodeEvaluate
+	next i
+	
+	// Close tags back to attributes<1> level
+	for i = (attributes<1> + 1) to (attributes<1> + 1) step - 1
+		j = 1
+		tagName = attributes<i,j,1>
+		tagValue = attributes<i,j,2>
+		gosub closeTag
+	next i	
+next r
+
+// now close all the open tags in reverse order
+for i = (attributes<1>) to 2 step -1
+	j = 1
+	tagName = attributes<i,1,1>
+	tagValue = attributes<i,1,2>
+	gosub closeTag
+next i
+
+// close the kml tag
+result := "</kml>"
+	
+return result
+
+********************************************************************************
+* internal subroutines
+********************************************************************************
+*
+*----------
+openTag:
+*----------
+	// adds the opening tag. Includes the tab indent to make the result more
+	// readable
+	indent = i -1
+	if j > 1 then indent += 1
+	
+	// check for complete tag and value passed in raw format.
+	if tagName[1,1] = "<" then
+		// raw tag and values passed.
+		result := str(tab$,indent):tagName
+	end else	
+		result := str(tab$,indent):"<":tagName:">"
+	end	
+return
+
+*----------
+closeTag:
+*----------
+	if j = 1 then
+		result := str(tab$,i-1)
+	end
+	
+	//check for raw tag name
+	if tagName[1,1] = "<" then
+		// rawtag passed, do not close tag
+	end else	
+		result := "</":tagName:">":crlf$
+	end	
+return
+
+*----------
+addNodes:
+*----------
+	// add a tree node and it's values
+	for j = 1 to dcount(attributes<i>,@vm)
+		tagName = attributes<i,j,1>
+		tagValue = attributes<i,j,2>
+	
+		if index(tagValue,"{",1) then gosub tagValueEvaluate
+		
+		for m = 1 to count(tagValue,@vm) + 1
+			gosub openTag
+			gosub addValue
+			if j > 1 then gosub closeTag
+		next m	
+	next j
+return
+
+*----------
+addValue:
+*----------
+	begin case
+		case tagValue<1,m> = null$		;* No value to process
+			tagValue<1,m> = crlf$
+		case 1						;* plain string value to process
+	end case
+	
+	gosub removeSpecialChars
+	
+	result := tagValue<1,m>
+return
+
+*----------
+nodeEvaluate:
+*----------
+	if i > (attributes<1> + 1) then
+		// pre process for multi-values after row level is attained.
+		// if the first tag value for this level contains multi values then
+		// we add this tagNode multiple times.
+				
+		tagValue = attributes<i,2,2>
+		if index(tagValue,"{",1) then gosub tagValueEvaluate
+		tagValueCnt = count(tagValue,@vm) + 1
+		noPoints = 0	
+		for m = 1 to tagValueCnt
+			for i = (attributes<1> + 2) to levels
+					for j = 1 to dcount(attributes<i>,@vm)
+						tagName = attributes<i,j,1>
+						tagValue = attributes<i,j,2>
+			
+						if index(tagValue,"{",1) then gosub tagValueEvaluate
+						if tagName _eqc "coordinates" and tagValue<1,m> = "," then
+							// skip
+							result[-1,"-9"] = ""
+							noPoints = 1
+						end else	
+							gosub openTag
+							gosub addValue
+							if j > 1 then gosub closeTag
+						end
+					next j
+				//end	
+			next i
+			
+			// now close all the open tags in reverse order
+			for i = levels to (attributes<1> + 2) step -1
+				j = 1
+				tagName = attributes<i,j,1>
+				tagValue = attributes<i,j,2>
+				if noPoints = 1 and tagName _eqc "point" then
+					noPoints = 0
+				end else	
+					gosub closeTag
+				end	
+			next i
+		next m
+		// we have finished the node tree, terminate the top leve i loop
+		i = levels
+	end else
+		gosub addNodes
+	end	
+Return
+
+*---------
+tagValueEvaluate:
+*---------
+	swapfields = null$
+	swapdata   = null$
+	swapdataMVCnt = null$
+	hiMvCnt	= 1
+	
+	for f = 1 to dcount(fields@,@fm)
+		if index(tagValue,"{":fields@<f>:"}",1) then
+			swapFields<-1> = fields@<f>
+			swapData<-1> = row<f>
+			if dCount(row<f>,@vm) > hiMVCnt then hiMVCnt = dCount(row<f>,@vm)
+		end
+	next f			
+
+	// loop through each mv
+	origTagValue = tagValue
+	for mv = 1 to hiMVCnt
+		newTagValue = origTagvalue
+		// loop through each field to replace
+		for f = 1 to dcount(swapFields,@fm)
+			// is the field multi-valued? if not then repeat the value for each
+			//multi value.
+			locate swapFields<f> in file.Fields@<FIELDS_NAME$> using @vm setting pos then
+				if file.Fields@<FIELDS_MVFLAG$,pos> = 1 then
+					// multi-value field
+					swap "{":swapFields<f>:"}" with swapData<f,mv> in newTagValue
+				end else
+					// single value field
+					swap "{":swapFields<f>:"}" with swapData<f> in newTagValue
+				end
+			end	
+		next i
+		tagValue<1,mv> = newTagValue
+	next mv	
+
+return
+
+*----------
+removeSpecialChars:
+*----------
+	Swap '&' With '&amp;' In tagValue
+	Swap '>' With '&gt;' In tagValue
+	Swap '"' With '&quot;' In tagValue
+	Swap "'" With '&apos;' In tagValue
+	Swap '<' With '&lt;' In tagValue
+return

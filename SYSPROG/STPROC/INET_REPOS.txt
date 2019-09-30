@@ -1,0 +1,48 @@
+function INET_Repos(Request)
+***************************************************************************
+*
+* This program is proprietary and is not to be used by or disclosed
+* to others, nor is it to be copied without written permission from
+* Revelation Technologies, Inc.
+*
+* Product    :  OI/WG
+* Project    :  OpenInsight for Internet
+* Release    :  3.5
+*
+* Name       : Inet_Repos
+* Description: Get a repository document in HTML format
+*
+* Parameters:
+*   Request  [in] -- HTTP request with following parameters:
+*                    DOC_ID   - document's repos name
+*                    DOC_TYPE - (optional) document's repos type
+*   return  [out] -- text/thml or text/plain document
+*
+* History (Date, Initials, Notes)
+*    03/05/97  gg   Original programmer
+***************************************************************************
+
+$insert inet_equates
+$insert msg_equates
+$insert logical
+
+declare function   Inet_QueryParam, Inet_Msg, Repository
+declare subroutine Set_Status
+
+	reposTypeClass = Inet_QueryParam(Request, 'DOC_TYPE', 'DOC*HTML')
+	reposName      = Inet_QueryParam(Request, 'DOC_ID')
+
+	entId = @appid<1> :'*': reposTypeClass :'*': reposName
+
+	htmlDoc = Repository('GETHTML', entId)
+
+	if Get_Status(statCode) then
+		Set_Status(FALSE$)
+		msg = ''
+		msg<MCAPTION$> = 'Repository Error'
+		msg<MTEXT$>    = '%s%'
+		htmlDoc = Inet_Msg(Request, msg, '', statCode)
+	end
+
+	return htmlDoc
+

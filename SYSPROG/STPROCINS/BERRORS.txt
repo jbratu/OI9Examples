@@ -1,0 +1,407 @@
+compile insert BErrors
+
+* mtr 9-11-2001
+* Provided per user request
+
+* B101" toSort mode selected is not correct.  Column %1% already has relational index with %2% mode.  Please apply this mode for creating c
+* B102" to %1% already has a relational index established   from table %2%.  The Relational index cannot be set again from table %3%.       
+* B103" to Compressing %1%...                                                           
+* B104      %1% has been selected, but cannot be found in %2%.                                                                               
+* B105      The dBASEIII file %1% already exists.  Do you want to overwrite it?                                                              
+* B106      The dBASEIII memo file %1% already exists.  Do you want to overwrite it?                                                         
+* B107      Cannot find the %1% command in the LIST.SUB subroutines.                                                                         
+* B108      Enter number.                                                                                                                    
+* B109      Enter text without quotes.                                                                              
+* B110      Port Call:                                                                                                                       
+* B111      An invalid option was used in the "PORT" command.                                                                                
+* B112      The code %2% is not valid in "%1%".                                                                                              
+* B113      The %1% option is not currently implemented.                                                                                     
+* B114      Not available.                                                                                                                   
+* B115      The column must not be a symbolic, group, or key column, or have a relational index on it.                                       
+* B116      You must first select a column.                                                                                                  
+* B117      Enter a table name followed by a slash (/) and a column name.                                                                    
+* B118       Warning!   All index information   will be deleted from %1%.    Do you want to continue?                                        
+* B119      Clearing indexing information in %1%...                                                                                          
+* B120      Deleting Cross Reference information from %1%...                                                                                 
+* B121      The character column %1% is longer than the 254 character limit. Use a memo field for this column.                               
+* B123      Finding indexed tables...                                                                                                        
+* B124      Collecting indexing information...                                                                                               
+* B125      Enter a new table name for the save list statement. Press [Esc] to cancel the process.                                           
+* B126      %1% is a new row.                                                                                                                
+* B127      %1% is an invalid row.                                                                                                           
+* B128      Hours cannot exceed 12.                                                                                                          
+* B129      Text cut into buffer %1%.                                                                                                        
+* B130      "%1%" was not found.                                                                                                             
+* B131      The default macro set %1% cannot be found.                                                                                       
+* B132       The header for group 1 has been corrupted.   No framesize or modulo information can be read.    Do you want to fix group 1?     
+* B133       Cannot determine the framesize of this table.   Please enter your best estimate for the framesize in bytes.                     
+* B134      Framesize must divide evenly into the filesize (%1%).                                                                            
+* B135      The FRAMESIZE must be between 256 and 10000.                                                                                     
+* B136      The FRAMESIZE parameter must be numeric.                                                                                         
+* B137      Enter a group or group range to fix. Formats are: x, x-y, ALL. Press [Esc] to cancel the process.                                
+* B138      Response = %1%                                                                                                                   
+* B139      Fixing groups %1% through %2%...                                                                                                 
+* B140      Rebuilding the primary % figure...                                                                                               
+* B141      Copying all good rows found from a temporary table back into re-initialized groups...                                            
+* B142      Another station is fixing. Please try again later.                                                                               
+* B143      The overflow freelist has been cleared. You can issue a compress to recover and re-order the overflow frames.                    
+* B144       Compress file.   There must be no other user of this file.   After compression, this file should be   re-attached at all other s
+* B145      An error occurred during the compress operation. The operation has been canceled.                                                
+* B146      The drive %1% does not contain Advanced Revelation files.                                                                        
+* B147      The program OCONV.RUN is not available in the SYSOBJ table.                                                                      
+* B148      Enter the names of the programs to display.                                                                                      
+* B149       The %1% table was not found.    Do you want to list all indexed tables?                                                         
+* B150       The %1% table is not indexed.    Do you want to list all indexed tables?                                                        
+* B151      You have defined an index. Do you want to turn it on?                                                                            
+* B152      *CAUTION* You have asked to delete rows from SYSCOLUMNS. These rows will also be deleted from your dictionaries. Do you want to c
+* B153       The %1% column   in the %2% table   is not available.    Do you want to list all indexed columns?                               
+* B154      Will "%1%" be a key prompt?                                                                                                      
+* B155      Finding the %1% column in the dictionary...                                                                                      
+* B156      %1% cannot be found. It must exist in %2%.                                                                                       
+* B157       %1% is currently a Data Column at position %3%    Do you want to convert it to a Symbolic column?                               
+* B158      No formula has been saved.                                                                                                       
+* B159      The formula was not changed.                                                                                                     
+* B160      Collector windows do not use dictionary formulas.                                                                                
+* B161      The object code for %2% cannot be found in the %1% table. %2% is also not cataloged. Please enter the name of the table containin
+* B162      The window %1% cannot be found.                                                                                                  
+* B163      Updating the dictionary...                                                                                                       
+* B164      %1% did not bind correctly.                                                                                                      
+* B165      No index values were found.                                                                                                      
+* B166      Cannot find the row %1% in the %2% table.                                                                                        
+* B167      Collecting information about indexes...                                                                                          
+* B168      Key capture functions have been disabled.                                                                                        
+* B169      This is an invalid key.                                                                                                                                                                                                    
+* B170      Macro execution has been disabled.                                                                                               
+* B171       Window %1% is about   to be deleted from %2%.    Do you want to continue?                                                       
+* B172      Deleting...                                                                                                                      
+* B173      No columns are indexed in %1%.                                                                                                   
+* B174      Sorting is not allowed within a protected group.                                                                                 
+* B175      Sorting is not allowed before row %1%.                                                                                           
+* B176      Enter the number of rows to select or leave this blank to select all rows.                                                       
+* B177      Enter heading text for this column.                                                                                              
+* B178      Enter an output format code.  (example: "D2/" for a date format of mm/dd/yy)                                                     
+* B179      Enter a heading.                                                                                                                 
+* B180      Enter a footing.                                                                                                                 
+* B181      QBEC1, HORMV.OUT sync error?                                                                                                     
+* B182      QBEC1, HORMV.SCB out of sync?                                                                                                    
+* B184      Building query...                                                                                                                
+* B185      Updating %1% in the %2% table...                                                                                                 
+* B186      No key prompt was specified. The default key prompt will be %1%.                                                                 
+* B187      You must create at least one prompt before you can save this window.  The save operation has been canceled.                      
+* B188      The window %1% was not locked. No changes will be saved.                                                                         
+* B189      Join prompt %1% cannot be found.                                                                                                 
+* B190       Do you want to execute the filter?                                                                                              
+* B191      %1%, needed for index transactions is not available. Indexes depending on this table will probably need rebuilding.              
+* B192       The Lotus file %1% already exists.    Do you want to overwrite it?                                                              
+* B193      Enter a variable name.                                                                                                           
+* B194      Editing must be complete to continue.                                                                                            
+* B195      There is nothing to pan.                                                                                                         
+* B196      This label is as large as you can make it in the current window.                                                                 
+* B197      You have reached the edge of window space. You may want to try resizing your window using [Ctrl-F7].                             
+* B198      The dictionary of %1% is in use. No changes will be saved.                                                                       
+* B199      The dictionary is in use elsewhere. The binding cannot be changed.                                                               
+* B200      You have maximized this prompt entry in the current window. You may want to try resizing your window using [Ctrl-F7].            
+* B201      Reading window...                                                                                                                
+* B202       %1% has %2% installed.    Do you want to remove %2%?                                                                            
+* B203      Removing the %1% modifying filing system from %2%...                                                                             
+* B204      Waiting until the source record %1% can be locked...                                                                             
+* B205      %1% is locked.                                                                                                                   
+* B206      No R/LIST program was generated. An invalid expression or column  has been detected in line %1%.                                 
+* B207      %1% is not a valid dBASEIII file.                                                                                                
+* B208       Do you want to perform the conversion?                                                                                          
+* B209      That is an invalid color name.                                                                                                   
+* B210      If no record delimiter is specified, a record length must be specified.                                                          
+* B211       The operating system file %1% already exists.    Do you want to overwrite it?                                                   
+* B212       The HELP file is not available.   No help message will be saved.    Do you want to continue?                                    
+* B213      Done.                                                                                                                            
+* B214      There are no columns defined in the dictionary of %1%.                                                                           
+* B215      You must add a table to the window before you can use Quick Paint.                                                               
+* B216      There are no tables in this window.                                                                                              
+* B217      Formatting...                                                                                                                    
+* B218      Printing...                                                                                                                      
+* B220      The mode %1% is invalid.                                                                                                         
+* B221      The selected objects have been copied to the Paint clipboard.                                                                    
+* B222      Function key? %1%                                                                                                                
+* B223      You must be in Roam mode to Insert or Delete rows.                                                                               
+* B224       The record already exists in the VOC.    Do you want to overwrite it?                                                           
+* B225      Resizing is not supported in Table mode.                                                                                         
+* B226      You may not pan while in Table mode.                                                                                             
+* B227      The Window is fully displayed.                                                                                                   
+* B228      There is no transaction file for this Batch Update.                                                                              
+* B229      This label is at maximum length for the current window. You may want to try resizing your window using [Ctrl-F7].                
+* B230      A starting byte and a length are required.                                                                                       
+* B231      Lock information has been updated in the templates in the %1% file.                                                              
+* B232      No related windows are available.                                                                                                
+* B233      Macro building has been disabled.                                                                                                
+* B234      Searching Indexes...  Press [Esc] to cancel the search.                                                                          
+* B234.OLD  Searching Cross References...  Press [Esc] to cancel the search.                                                                 
+* B235      Waiting for index %1% to be available...                                                                                         
+* B236      Error in compiling "%1%"                                                                                                         
+* B237      No [F2] Help for %1% type commands is available.                                                                                 
+* B238      Collector windows do not have dictionaries.                                                                                      
+* B239      Updating prompt %1%...                                                                                                           
+* B240      Updating the %1% field...                                                                                                        
+* B241      %1% is invalid.                                                                                                                  
+* B242      Enter the table name to move to.                                                                                                 
+* B243      Selecting referenced programs...                                                                                                 
+* B244      %1% is not a valid table type. Press [F2] for table type options.                                                                
+* B245      The %1% key is not active %2% Press [Ctrl-F9] for a list of the currently active keys.                                           
+* B246      The clipboard has been cleared.                                                                                                  
+* B247      Pasting is only allowed while Roaming.                                                                                           
+* B248      Reading dictionary...                                                                                                            
+* B249      The dictionary is not bound to %1%. Use the Prompt Window to verify the prompt.                                                  
+* B250       Table Information for %1%:   Volume      = %2%  OS Path     = %3%  File Type   = %4%  File Number = %5%                         
+* B251      The %1% table belongs to the %2% volume. You may only change indexing in tables under the same volume.                           
+* B252       Do you want to save?                                                                                                            
+* B253      Shifting...                                                                                                                      
+* B254      No block of text has been defined.                                                                                               
+* B255      The menu options key is disabled.                                                                                                
+* B256      An invalid attribute was passed to ATTR.TO.ESC. Attribute = "%1%" (hex).                                                         
+* B257      Cannot access color definitions correctly.                                                                                       
+* B258      The escape sequence "%1%" (hex) is invalid in ESC.TO.ATTR.                                                                       
+* B259      The %1% table belongs to the %2% application. You may only change indexing in tables in the same application.                    
+* B260      %1% is not a valid volume name or an existing subdirectory.                                                                      
+* B261         Table name  = %1%    OS name     = %8%    Volume      = %2%    Application = %3%    File Type   = %4%                  %5%    
+* B262      %1% is indexed and cannot be renamed.                                                                                            
+* B263      %1% in the %2% table is not a valid dictionary type for indexing. Only the dictionary types "F" and "S" may be indexed.          
+* B264      %1% already exists in the %3% application on the %2% volume.                                                                     
+* B265      The clipboard is empty.                                                                                                          
+* B266      %1% is not a Linear Hash table. You must convert your table before attempting to use it with PAINT.                              
+* B267      The maximum length of the Quickdex index (65,530 characters) has been reached -- no more records will be added to the Quickdex in
+* B268      The "BY" clause is invalid. You cannot sort by %1%.                                                                              
+* B269      The disk the drive is  NOT a valid LAN Pack disk.  Please insert a valid LAN Pack disk.                                          
+* B269A     Fatal Bump error. Improper Bump information.                                                                                     
+* B272      There is no disk in drive %1%. Insert a disk and then try agian.                                                                 
+* B273      To install a LAN Pack, you must log in as the "LANPACK" user.                                                                    
+* B274      This installation currently supports  %1% user(s).  Would you like to enable more users?                                         
+* B275      Insert a NEW Lanpack into Drive.  Choose drive (A or B) or Cancel                                                                
+* B276      If you change the location of your application without moving the DOS files, you will NOT be able to open the application.       
+* B279      Cannot find the %1% driver in the SYSNETWORKS table.                                                                             
+* B280      The REVBOOT file is too large.                                                                                                   
+* B282      The original REVBOOT file has been renamed REVBOOT.OLD.  The new network driver will be available the next time you log onto Adva
+* B284      Logging off.                                                                                                                     
+* B285      No rows found.                                                                                                                   
+* B286      %1% is not a valid index name.                                                                                                   
+* B287       Warning!   The index update process must not be interrupted   or indexes will be corrupted.    Do you still want to update ALL i
+* B288      There are invalid character(s) in the table name %1%.  Use only alphanumeric characters and the special characters underscore "_"
+* B289      The dictionary of %1% is not available.                                                                                          
+* B291      The key list has exceeded the maximum allowed length. The list will be truncated.                                                
+* B292       The list accumulated in %1%   has been truncated to the 64K bytes limit.    Please use the R/LIST command to   retrieve correct 
+* B293      The Btree index for the indexed column %1% in the table %2% has not been created.  Please initialize the index for this column an
+* B294      The list returned from BTREE.EXTRACT has been truncated to the 64K limit.  To retrieve more rows from the %1% table use the SELEC
+* B295      The list %1% cannot be found in the LISTS table.                                                                                 
+* B296       Do you want to cancel this process?                                                                                             
+* B297       The correct form for the TRANSACTION command is:      TRANSACTION operator (option)   where:      operator = COMMIT, ROLLBACK, S
+* B300     These table(s) are not found in this volume:                                                                                      
+* B301     Table(s) not available:                                                                                                           
+* B303      No candidate tables found.                                                                                                       
+* B304      Domain and validation controls have been added to %1% tables.                                                                    
+* B305      Control features have been removed from %1% tables.                                                                              
+* B306      Locating tables...                                                                                                               
+* B307      No tables were affected. The "S" option is not active if no volume is specified.                                                 
+* B308      The "%1%" volume is not available.                                                                                               
+* B311      The "%1%" table does not have control features active. Press [Esc] to cancel the process or press any other key to continue.     
+* B312      The "%1%" table already has Control features active.  Press [Esc] to cancel the process or press any other key to continue.      
+* B313      The "%2%" volume does not exist.                                                                                                 
+* B314      "%1%" is not a data table, and cannot have control features added.  Press [Esc] to cancel the process or press any other key to c
+* B315      The "%1%" table is not available. It must be attached before Control features can be added.  Press [Esc] to cancel the process or
+* B316      The "%1%" table does not exist on the "%2%" volume.  Press [Esc] to cancel the process or press any other key to continue.       
+* B317      An error has occurred while writing to the volume directory for the "%2%" volume.  Press [Esc] to cancel the process or press any
+* B318      The "%1%" table is not on the "%2%" volume.  Press [Esc] to cancel the process or press any other key to continue.               
+* B319      Unable to save "%1%" in the "%2%" table.                                                                                         
+* B320      Subroutine: %1%|Branch value must be numeric!                                                                                    
+* B321      Subroutine: %1%|Value of %2% exceeds highest ON...GOSUB branch.                                                                  
+* B322      The table: %1% is excluded from all EasyWriter and QBE|queries.  Therefore, you may not set up additional|dictionary level contro
+* B323       Link list in the table "%1%" is broken.   Transactions cannot be properly flushed.    To correct this problem,  please rebuild a
+* B324      The table: %1% has no dictionary attached or created.|Therefore, you may not set up additional|dictionary level control on the ta
+* B325      Dictionary tables cannot be further qualified for EasyWriter queries.                                                            
+* B326      Error writing to DOS file "%1%"                                                                                                  
+* B327      Default configuration record "%1%" is missing from the %2% table.                                                                
+* B328      Error opening or reading from .INI file "%1%"                                                                                    
+* B329      %1% is an invalid Advanced Revelation .INI file.                                                                                 
+* B330      The file or path "%1%" does not contain .INI files.                                                                              
+* B331      Other .INI files only accessable from the SYSPROG account.                                                                       
+* B332      No INI-file has been found. "%1%" has been created as the default INI-file.                                                      
+* B333      Finishing processing selections. Please wait.                                                                                    
+* B400      Initializing the index control information...                                                                                    
+* B401      Null I/O Error                                                                                                                   
+* B402      Error compiling %1%.   Use the dictionary window to correct the formula.                                                         
+* B403      Error while copying row "%1%" to the "%2%" table.                                                                                
+* B404      Building the "%1%" index for the "%2%" table...                                                                                  
+* B440       Another workstation is currently accessing table "%2%" and   has row "%1%" locked.   The index update you have requested will pr
+* B441       Records can not be updated because the table "%1%" is not   available or attached for reference to store index transactions.   P
+* B500      The "%1%" table has been dropped.                                                                                                
+* B501       The wait-for-lock process has been interrupted.   Lock information:      Lock Type: "%1%"     Table    : "%2%"     Row      : "%
+* B502      Transaction Control is OFF.                                                                                                      
+* B503      You must log in as the user "SYSPROG" to perform this function.                                                                  
+* B504       Do you want to remove the user   "%1%"   from the commit queue "%2%" ?                                                          
+* B505       Do you want to remove the user   "%1%"   from ALL commit queues?                                                                
+* B506       Do you want to clear the entire Commit Log?                                                                                     
+* B507      Warning! Invoking Auto-Transaction Start causes all changes to be held until they are explicitly committed.  Unless committed, ch
+* B508      A pending transaction exists for this station.  Do you want to Commit or Rollback before logoff?                                 
+* B509      A pending transaction exists for this station.  Do you want to Commit, Rollback, or Ignore the transaction?                      
+* B510      Invalid response. Entry must be  "C", "R", or "I".                                                                               
+* B511      Invalid response. The entry must be a "C" or "R".                                                                                
+* B512      This function can only be used when Commit Protection is "ON".  Commit protection causes commit queues to be maintained.  A lock 
+* B513      The "COMMITLOG" file has been locked. Transactions cannot be committed while this utility is being run.                          
+* B514      This volume does not contain any tables of the Revelation G type.                                                                
+* B515      Row "%1%" was found in the "VOC", but is not a valid volume name.                                                                
+* B516      "%1%" is mapped to drive "%2%".                                                                                                  
+* B517       "%1%" is not a volume.   This process assumes that it is a path name.    Is this correct?                                       
+* B518       The volume name that corresponds to the path   "%1%"   is   "%2%"    Is this correct?                                           
+* B519      The target must a be valid volume. Building "%TEMP.VOL.CONVERT%" using the path "%1%".                                           
+* B520      The volume directory on path "%1%" is not available.                                                                             
+* B521       Another workstation is currently updating indexes   on table "%2%" with control column "%1%" locked.   The index update you have
+* B522      "%1%" is not a valid column name.                                                                                                
+* B523      Help level can only be set from Level 1 of TCL.                                                                                  
+* B524      All other users should reattach this table in order for indexing to remain up-to-date.                                           
+* B525      Error %1% in VSPACE.                                                                                                             
+* B526      The View window cannot be displayed. The operating system file required for the window is not available or cannot be created.    
+* B527      Your DOS path for temporary files is invalid. Please check your environment setting.                                             
+* B528      I/O error during join process.                                                                                                   
+* B529      An error was encountered while joining columns. No changes will be saved.                                                        
+* B530      A Merge name is required.                                                                                                        
+* B531      The printer configuration for "%1%" cannot be found in "%2%".                                                                    
+* B532      The flag definition record "%1%" cannot be found.                                                                                
+* B533      Cannot find "%1%".                                                                                                               
+* B534      The "%C37%FIELDS%C37%" row in the the dictionary of "%1%" is not available.                                                      
+* B535      Reprocessing row "%1%" from the "%2%" table %3% ...                                                                              
+* B536      Cannot find "%1%" in "%2%".                                                                                                      
+* B537      Merging row "%1%" from the "%2%" table to the output table %3% ...                                                               
+* B538      The key list contains imbalanced single or double quote marks.                                                                   
+* B539      No output table was specified in the template.                                                                                   
+* B540      Widow/Orphan override.                                                                                                           
+* B541      MERGE.SUB was passed a dispatch value out of range %1%.                                                                          
+* B542      Collecting column information...                                                                                                 
+* B543      %1% Enter a value.                                                                                                               
+* B544       Do you want to delete "%1%"?                                                                                                    
+* B545      The Merge sample is active only while editing the Merge script.                                                                  
+* B546       Do you want to view the previous sample?                                                                                        
+* B547      The row "%1%" is not available in the "%2%" table to do a Merge sample.                                                          
+* B548       Do you want to abandon the sample?                                                                                              
+* B549      Selecting a random row.                                                                                                          
+* B550      Initializing...                                                                                                                  
+* B551      "%1%" error(s) detected.                                                                                                         
+* B552      No errors have been detected.                                                                                                    
+* B553      This field is protected.  Press [F2] to edit the Script.                                                                         
+* B554      Enter the name of the operating system text file to import.                                                                      
+* B555      The table can be accessed successfully.                                                                                          
+* B556      "%1%" is not a legal operating system filename.                                                                                  
+* B557      Access to this file has been denied by the operating system.                                                                     
+* B558      "%1%" does not exist.                                                                                                            
+* B559      "%1%" is not available or cannot be found.                                                                                       
+* B560       Convert high ASCII characters   (higher than character 127)?                                                                    
+* B561      The format flag template contains an invalid key flag (%1%-%2%).                                                                 
+* B562      The text file is too long. The file will be truncated to fit into the Merge template.                                            
+* B563       Wrap long lines?                                                                                                                
+* B564      The key flag "%1%" in the options list is a valid flag.                                                                          
+* B565      "%1%" is not a valid format code. Press [F2] for a list of valid formats.                                                        
+* B566      The format code %1% is invalid.                                                                                                  
+* B567       The "%1%" table does not exist.    Do you want to create it?                                                                    
+* B568      The Merge script is empty.                                                                                                       
+* B569      The Merge header has not been specified.                                                                                         
+* B570      The Merge footer has not been specified.                                                                                         
+* B571      Printer format specifications must be entered as up to 3 decimal numbers separated by spaces.  (example: 27 72 105)              
+* B572      Selecting rows...                                                                                                                
+* B573      Enter the name of the filter row.                                                                                                
+* B574      The "REPORTS" table is not available.  Press [Enter] to return to the Query window.                                              
+* B575      The filter "%1%" has been saved.                                                                                                 
+* B576       Do you want to save your   custom changes in a Filter?                                                                          
+* B577      The "%1%" prompt contains unbalanced quotation marks.                                                                            
+* B578      Converting the R/DESIGN row "%1%".                                                                                               
+* B579      "%1%" This row already exists in "%2%". The row was not converted.                                                               
+* B580      "%1%" This record was converted and saved in "%2%".                                                                              
+* B581      %1% Possible incompatibility. This prompt has a symbolic reference in %2%. The code has been placed in %3%.                      
+* B582      The symbolic uses RDESIGN.COMMON. This is incompatible with window templates.                                                    
+* B583      The symbolic defines COMMON variables. This may be incompatible with Window templates.                                           
+* B584      "%1%" This prompt has a subroutine reference in Description. The code has been placed in the Options prompt. This may be incompat
+* B585      The subroutine "%1%" uses RDESIGN.COMMON. This is incompatible with window templates.                                            
+* B586      The subroutine "%1%" defines common. This may be incompatible with Window templates.                                             
+* B587      The program "%1%" cannot not be found. The process is unable to check for incompatibility.                                       
+* B588      The program table is not available. Unable to check for incompatibility.                                                         
+* B589      "%1%" This row is not an "ENTRY" type. It cannot be converted by this program.                                                   
+* B590      The "VOC" entry was not a catalog pointer. The process is unable to check for incompatibility.                                   
+* B591      "%1%" The "VOC" entry is not available. Unable to check for incompatibility.                                                     
+* B592      "%1%" This row cannot be found in the "%2%" table.                                                                               
+* B593      "%1%" The cross reference login was not converted.                                                                               
+* B594      "%1%" The table accessed by this template is not available. The prompts for symbolic columns cannot be verified.                 
+* B595      The change prompt has a value in "PARAMETER 1". Linked screen conversion is not completed yet. PARAMETER 1 = "%1%"               
+* B596      Prompt number %1% (R/DESIGN window number %2%) is more than one column wide. It has been truncated to one column.                
+* B597      %1% This prompt has a non-numeric value in Parameter 1. No action has been taken.                                                
+* B598      "%1%" This prompt has a value in the "DESCRIPTION" field that cannot be converted.                                               
+* B599      Mode %1% is an invalid reduction mode.                                                                                           
+* B600      The first (meta) pass for "WITH" has failed.                                                                                     
+* B601      WITH meta compilation failed.                                                                                                    
+* B602      This option/process is not supported.                                                                                            
+* B603      The cursor value %1% is out of range.                                                                                            
+* B604      The cursor "%1%" is invalid.                                                                                                     
+* B605      The template has not been saved. There is no Table or Collector information.                                                     
+* B606      Position information must be numeric.                                                                                            
+* B607      The mode %1% is invalid for LIST.ACTIVE.                                                                                         
+* B608      Error during Readnext operation while seeking.                                                                                   
+* B609      Waiting for an index lock...  If you cancel this process, the table will not be deleted.                                         
+* B610      BFS name cannot be read for DICT %1%                                                                                             
+* B611      The [Alt-V] key is functional only when using R/LIST commands.                                                                   
+* B615       The active select list is unresolved.    Do you want to continue?                                                               
+* B616       The active select list is unresolved   with reduction pending.  Do you want to continue?                                        
+* B617       The active select list is unresolved.   The "%1%" table contains %2% rows.    Do you want to continue?                          
+* B618       The active SELECT list is unresolved.   The "%1%" table contains %2% rows.    Do you want to continue?                          
+* B619       Seek to the top of table has failed.    Do you want to continue the Savelist   from the current position?                       
+* B620      %B%No Cross Reference or Btree index has been established for the "%1%" table.                                                   
+* B621      "%1%" is not a valid key in the "%2%" table.                                                                                     
+* B622      Preparing "%1%" listing...                                                                                                       
+* B623      No rows have been selected.                                                                                                      
+* B624      The record "@CRT" in the dictionary of "%1%" contains an invalid column. "%2%" does not exist.                                   
+* B625      VSPACE status error %1%.                                                                                                         
+* B626      "%1%" is not available for the View window. Cancelling the process.                                                              
+* B627      STATUS() error = "%1%" "%2%"                                                                                                     
+* B628       Cannot move to the top of the table.    Do you want to continue the report   from the current position?                         
+* B629      Enter page number to display.                                                                                                    
+* B630       Do you want to print this report?                                                                                               
+* B631      The "REPORTS" table is not available.                                                                                            
+* B632      The row "%1%" cannot be found in the "REPORTS" table.                                                                            
+* B633      Moving "%1%" menus is not allowed.                                                                                               
+* B634      This menu is too large to display. The process has been cancelled.                                                               
+* B635      The [Alt-P] key is functional only when using R/LIST commands.                                                                   
+* B636      SELECT.INDEX failed during REDUCE operation.                                                                                     
+* B700      The ASCII %1% character is reserved for system use and cannot be used in prompts or labels.                                      
+* B701      The index search type specified for "%1%" is invalid.                                                                            
+* B702      The index "%1%" must be rebuilt.                                                                                                 
+* B703      Warning! The index "%1%" must be rebuilt. (The primary data and index control information has not been corrupted.)               
+* B704      Restricted access.                                                                                                               
+* B705      The correct form for the "BUILD.TABLE" command is:     BUILD.TABLE template.file.name template.name                              
+* B706      Working on template "%1%" in the "%2%" table...                                                                                  
+* B707      The "%1%" template is encrypted. Unable to build a table row.                                                                    
+* B708      No help is available for "%1%".                                                                                                  
+* B709      Row is locked.  Retrying...                                                                                                      
+* B710       Do you want to change the message?                                                                                              
+* B711      Waiting for "%1%" transaction lock in "%2%"...  Warning! If you cancel this process, you will have to rebuild this index.        
+* B712      The "%1%" option is not available in FILE.CVT.                                                                                   
+* B713      Working on "%1%"...                                                                                                              
+* B714      The popup has reached the maximum size allowed for your memory configuration.                                                    
+* B772                                                                                                                                       
+* B800      Waiting to lock the "%1%" table...  Press [Esc] to cancel the process.                                                           
+* B801      %1% row(s) have been selected. %2% logical error(s) were detected.                                                               
+* B802      %1% row(s) have been selected. %2% error(s) were detected.                                                                       
+* B805      This statement contains unbalanced quotes.                                                                                       
+* B810      "%1%" is an invalid active language set. The active language set must be in the list of loaded sets or must be "DEFAULT".        
+* B811      "%1%" is an invalid language set. Press [F2] for a list of valid choices.                                                        
+* B812      "%1%" already exists in the load list.                                                                                           
+* B813      "%1%" is an invalid output conversion pattern for the TIMEDATE() function. The pattern must be a valid "DT" (Date-Time) conversio
+* B815      Case sensitive character sort order in record "%1%" is invalid. It must be 256 bytes in length exactly.                          
+* B816      Case insensitive character sort order in record "%1%" is invalid. It must be 256 bytes in length exactly.                        
+* B817      The language set control row "%1%" is not in the load list and is not "DEFAULT".                                                 
+* B818      The language set control row "%1%" was not found in the SYSENV table.                                                            
+* B820      No fonts or styles defined for this printer.                                                                                     
+* B821      No printers have been defined in the environment.                                                                                
+* B822      Cannot initialize printer %1%                                                                                                    
+* B823      %1% is not a valid color.                                                                                                        
+* B824      %1% rows converted.                                                                                                              
+* B825      The spooling file %1% already exists.|Do you wish to overwrite the file?                                                         
+* B826      Operation cancelled.                                                                                                             
+* B827      WARNING! If you cancel the print job, the spool file will be erased, and you must rerun any reports that you want printed.  Do yo
+* B828      A print process is open for this station and a close process has been defined for this printer.  Do you wish to execute the Close
+* B829       You have selected the postcript printer driver and any  printed output will be spooled to a temporary file.   To send any pendin
+* B830      The value you have entered does not meet validation criteria.  You can enter strings of characters to send to the printer in any 
+* B834       There is no ROSMEDIA.MAP file on "%1%".                                                                                         
+* B835       "%1%" is in the "VOC"   but it is not a volume pointer.
